@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Geoff Geocoding OSM Nominatim Integration
+Bundle-SymbolicName: org.locationtech.geoff.geocoding.nominatim
+Bundle-Version: 0.8.0.qualifier
+Bundle-Vendor: Geoff Project (Eclipse LocationTech IWG)
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.locationtech.geoff.geocoding,
+ org.json;bundle-version="1.0.0"
+Bundle-ClassPath: .
+Export-Package: org.locationtech.geoff.geocoding.nominatim
+Bundle-Activator: org.locationtech.geoff.geocoding.nominatim.NominatimActivator
+Import-Package: org.osgi.framework;version="1.6.0"

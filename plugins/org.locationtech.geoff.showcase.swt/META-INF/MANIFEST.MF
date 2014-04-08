@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Geoff SWT Showcase Components
+Bundle-SymbolicName: org.locationtech.geoff.showcase.swt
+Bundle-Version: 0.8.0.qualifier
+Bundle-Vendor: Erdal Karaca
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.locationtech.geoff.showcase.swt.widgets
+Import-Package: org.eclipse.jface.viewers,
+ org.eclipse.swt,
+ org.eclipse.swt.custom,
+ org.eclipse.swt.layout,
+ org.eclipse.swt.widgets,
+ org.locationtech.geoff,
+ org.locationtech.geoff.showcase
+Bundle-ClassPath: .
+Require-Bundle: org.locationtech.geoff.ui.swt,
+ org.locationtech.geoff.core
+Bundle-ActivationPolicy: lazy

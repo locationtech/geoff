@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.equinox.http.registry.resources">
+      <resource
+            alias="/www-ol"
+            base-name="/www">
+      </resource>
+   </extension>
+   <extension
+         point="org.eclipse.equinox.http.registry.servlets">
+      <servlet
+            alias="/geoff-maps"
+            class="org.locationtech.geoff.ol.GeoffLoopbackServlet"
+            load-on-startup="true">
+      </servlet>
+   </extension>
+</plugin>

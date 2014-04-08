@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Geoff UI Component
+Bundle-SymbolicName: org.locationtech.geoff.ui
+Bundle-Version: 0.8.0.qualifier
+Bundle-Vendor: Erdal Karaca
+Bundle-ActivationPolicy: lazy
+Export-Package: org.locationtech.geoff.ui
+Bundle-ClassPath: .

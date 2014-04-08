@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Geoff Geocoding Base
+Bundle-SymbolicName: org.locationtech.geoff.geocoding
+Bundle-Version: 0.8.0.qualifier
+Bundle-Vendor: Geoff Project (Eclipse LocationTech IWG)
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.locationtech.geoff.geocoding
+Bundle-ClassPath: .
+Bundle-ActivationPolicy: lazy
+Import-Package: org.json,
+ org.osgi.framework;version="1.7.0"
