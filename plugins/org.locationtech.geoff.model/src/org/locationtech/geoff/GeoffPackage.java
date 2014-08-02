@@ -55,7 +55,7 @@ public interface GeoffPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.locationtech.org/geoff-v1.0.0"; //$NON-NLS-1$
+	String eNS_URI = "http://www.locationtech.org/geoff-v1"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.
@@ -213,13 +213,31 @@ public interface GeoffPackage extends EPackage {
 	int VIEW__ID = IDENTIFIABLE__ID;
 
 	/**
+	 * The feature id for the '<em><b>Center</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIEW__CENTER = IDENTIFIABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Zoom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIEW__ZOOM = IDENTIFIABLE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VIEW_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 0;
+	int VIEW_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>View</em>' class.
@@ -231,61 +249,6 @@ public interface GeoffPackage extends EPackage {
 	int VIEW_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.locationtech.geoff.impl.View2DImpl <em>View2 D</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.locationtech.geoff.impl.View2DImpl
-	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getView2D()
-	 * @generated
-	 */
-	int VIEW2_D = 3;
-
-	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VIEW2_D__ID = VIEW__ID;
-
-	/**
-	 * The feature id for the '<em><b>Center</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VIEW2_D__CENTER = VIEW_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Zoom</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VIEW2_D__ZOOM = VIEW_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>View2 D</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VIEW2_D_FEATURE_COUNT = VIEW_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of operations of the '<em>View2 D</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VIEW2_D_OPERATION_COUNT = VIEW_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.locationtech.geoff.impl.LocationImpl <em>Location</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -293,7 +256,7 @@ public interface GeoffPackage extends EPackage {
 	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getLocation()
 	 * @generated
 	 */
-	int LOCATION = 4;
+	int LOCATION = 3;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -305,13 +268,22 @@ public interface GeoffPackage extends EPackage {
 	int LOCATION__ID = IDENTIFIABLE__ID;
 
 	/**
+	 * The feature id for the '<em><b>Projection Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOCATION__PROJECTION_CODE = IDENTIFIABLE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Location</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LOCATION_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 0;
+	int LOCATION_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Location</em>' class.
@@ -330,7 +302,7 @@ public interface GeoffPackage extends EPackage {
 	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getXYZLocation()
 	 * @generated
 	 */
-	int XYZ_LOCATION = 5;
+	int XYZ_LOCATION = 4;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -340,6 +312,15 @@ public interface GeoffPackage extends EPackage {
 	 * @ordered
 	 */
 	int XYZ_LOCATION__ID = LOCATION__ID;
+
+	/**
+	 * The feature id for the '<em><b>Projection Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XYZ_LOCATION__PROJECTION_CODE = LOCATION__PROJECTION_CODE;
 
 	/**
 	 * The feature id for the '<em><b>X</b></em>' attribute.
@@ -387,14 +368,14 @@ public interface GeoffPackage extends EPackage {
 	int XYZ_LOCATION_OPERATION_COUNT = LOCATION_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.locationtech.geoff.impl.TransformationImpl <em>Transformation</em>}' class.
+	 * The meta object id for the '{@link org.locationtech.geoff.impl.FeatureImpl <em>Feature</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.locationtech.geoff.impl.TransformationImpl
-	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getTransformation()
+	 * @see org.locationtech.geoff.impl.FeatureImpl
+	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getFeature()
 	 * @generated
 	 */
-	int TRANSFORMATION = 6;
+	int FEATURE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -403,70 +384,43 @@ public interface GeoffPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSFORMATION__ID = XYZ_LOCATION__ID;
+	int FEATURE__ID = IDENTIFIABLE__ID;
 
 	/**
-	 * The feature id for the '<em><b>X</b></em>' attribute.
+	 * The feature id for the '<em><b>Geometry</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSFORMATION__X = XYZ_LOCATION__X;
+	int FEATURE__GEOMETRY = IDENTIFIABLE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Y</b></em>' attribute.
+	 * The feature id for the '<em><b>Styles</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSFORMATION__Y = XYZ_LOCATION__Y;
+	int FEATURE__STYLES = IDENTIFIABLE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Z</b></em>' attribute.
+	 * The number of structural features of the '<em>Feature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSFORMATION__Z = XYZ_LOCATION__Z;
+	int FEATURE_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Source Projection</b></em>' attribute.
+	 * The number of operations of the '<em>Feature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSFORMATION__SOURCE_PROJECTION = XYZ_LOCATION_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Target Projection</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRANSFORMATION__TARGET_PROJECTION = XYZ_LOCATION_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Transformation</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRANSFORMATION_FEATURE_COUNT = XYZ_LOCATION_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of operations of the '<em>Transformation</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRANSFORMATION_OPERATION_COUNT = XYZ_LOCATION_OPERATION_COUNT + 0;
+	int FEATURE_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.locationtech.geoff.RendererHint <em>Renderer Hint</em>}' enum.
@@ -476,7 +430,7 @@ public interface GeoffPackage extends EPackage {
 	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getRendererHint()
 	 * @generated
 	 */
-	int RENDERER_HINT = 7;
+	int RENDERER_HINT = 6;
 
 	/**
 	 * Returns the meta object for class '{@link org.locationtech.geoff.Identifiable <em>Identifiable</em>}'.
@@ -575,36 +529,26 @@ public interface GeoffPackage extends EPackage {
 	EClass getView();
 
 	/**
-	 * Returns the meta object for class '{@link org.locationtech.geoff.View2D <em>View2 D</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>View2 D</em>'.
-	 * @see org.locationtech.geoff.View2D
-	 * @generated
-	 */
-	EClass getView2D();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.locationtech.geoff.View2D#getCenter <em>Center</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.locationtech.geoff.View#getCenter <em>Center</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Center</em>'.
-	 * @see org.locationtech.geoff.View2D#getCenter()
-	 * @see #getView2D()
+	 * @see org.locationtech.geoff.View#getCenter()
+	 * @see #getView()
 	 * @generated
 	 */
-	EReference getView2D_Center();
+	EReference getView_Center();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.View2D#getZoom <em>Zoom</em>}'.
+	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.View#getZoom <em>Zoom</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Zoom</em>'.
-	 * @see org.locationtech.geoff.View2D#getZoom()
-	 * @see #getView2D()
+	 * @see org.locationtech.geoff.View#getZoom()
+	 * @see #getView()
 	 * @generated
 	 */
-	EAttribute getView2D_Zoom();
+	EAttribute getView_Zoom();
 
 	/**
 	 * Returns the meta object for class '{@link org.locationtech.geoff.Location <em>Location</em>}'.
@@ -615,6 +559,17 @@ public interface GeoffPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getLocation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.Location#getProjectionCode <em>Projection Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Projection Code</em>'.
+	 * @see org.locationtech.geoff.Location#getProjectionCode()
+	 * @see #getLocation()
+	 * @generated
+	 */
+	EAttribute getLocation_ProjectionCode();
 
 	/**
 	 * Returns the meta object for class '{@link org.locationtech.geoff.XYZLocation <em>XYZ Location</em>}'.
@@ -660,36 +615,36 @@ public interface GeoffPackage extends EPackage {
 	EAttribute getXYZLocation_Z();
 
 	/**
-	 * Returns the meta object for class '{@link org.locationtech.geoff.Transformation <em>Transformation</em>}'.
+	 * Returns the meta object for class '{@link org.locationtech.geoff.Feature <em>Feature</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Transformation</em>'.
-	 * @see org.locationtech.geoff.Transformation
+	 * @return the meta object for class '<em>Feature</em>'.
+	 * @see org.locationtech.geoff.Feature
 	 * @generated
 	 */
-	EClass getTransformation();
+	EClass getFeature();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.Transformation#getSourceProjection <em>Source Projection</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.locationtech.geoff.Feature#getGeometry <em>Geometry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Source Projection</em>'.
-	 * @see org.locationtech.geoff.Transformation#getSourceProjection()
-	 * @see #getTransformation()
+	 * @return the meta object for the containment reference '<em>Geometry</em>'.
+	 * @see org.locationtech.geoff.Feature#getGeometry()
+	 * @see #getFeature()
 	 * @generated
 	 */
-	EAttribute getTransformation_SourceProjection();
+	EReference getFeature_Geometry();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.Transformation#getTargetProjection <em>Target Projection</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.locationtech.geoff.Feature#getStyles <em>Styles</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Target Projection</em>'.
-	 * @see org.locationtech.geoff.Transformation#getTargetProjection()
-	 * @see #getTransformation()
+	 * @return the meta object for the containment reference list '<em>Styles</em>'.
+	 * @see org.locationtech.geoff.Feature#getStyles()
+	 * @see #getFeature()
 	 * @generated
 	 */
-	EAttribute getTransformation_TargetProjection();
+	EReference getFeature_Styles();
 
 	/**
 	 * Returns the meta object for enum '{@link org.locationtech.geoff.RendererHint <em>Renderer Hint</em>}'.
@@ -803,22 +758,12 @@ public interface GeoffPackage extends EPackage {
 		EClass VIEW = eINSTANCE.getView();
 
 		/**
-		 * The meta object literal for the '{@link org.locationtech.geoff.impl.View2DImpl <em>View2 D</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.locationtech.geoff.impl.View2DImpl
-		 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getView2D()
-		 * @generated
-		 */
-		EClass VIEW2_D = eINSTANCE.getView2D();
-
-		/**
 		 * The meta object literal for the '<em><b>Center</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference VIEW2_D__CENTER = eINSTANCE.getView2D_Center();
+		EReference VIEW__CENTER = eINSTANCE.getView_Center();
 
 		/**
 		 * The meta object literal for the '<em><b>Zoom</b></em>' attribute feature.
@@ -826,7 +771,7 @@ public interface GeoffPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute VIEW2_D__ZOOM = eINSTANCE.getView2D_Zoom();
+		EAttribute VIEW__ZOOM = eINSTANCE.getView_Zoom();
 
 		/**
 		 * The meta object literal for the '{@link org.locationtech.geoff.impl.LocationImpl <em>Location</em>}' class.
@@ -837,6 +782,15 @@ public interface GeoffPackage extends EPackage {
 		 * @generated
 		 */
 		EClass LOCATION = eINSTANCE.getLocation();
+
+		/**
+		 * The meta object literal for the '<em><b>Projection Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LOCATION__PROJECTION_CODE = eINSTANCE
+				.getLocation_ProjectionCode();
 
 		/**
 		 * The meta object literal for the '{@link org.locationtech.geoff.impl.XYZLocationImpl <em>XYZ Location</em>}' class.
@@ -873,32 +827,30 @@ public interface GeoffPackage extends EPackage {
 		EAttribute XYZ_LOCATION__Z = eINSTANCE.getXYZLocation_Z();
 
 		/**
-		 * The meta object literal for the '{@link org.locationtech.geoff.impl.TransformationImpl <em>Transformation</em>}' class.
+		 * The meta object literal for the '{@link org.locationtech.geoff.impl.FeatureImpl <em>Feature</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.locationtech.geoff.impl.TransformationImpl
-		 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getTransformation()
+		 * @see org.locationtech.geoff.impl.FeatureImpl
+		 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getFeature()
 		 * @generated
 		 */
-		EClass TRANSFORMATION = eINSTANCE.getTransformation();
+		EClass FEATURE = eINSTANCE.getFeature();
 
 		/**
-		 * The meta object literal for the '<em><b>Source Projection</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Geometry</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TRANSFORMATION__SOURCE_PROJECTION = eINSTANCE
-				.getTransformation_SourceProjection();
+		EReference FEATURE__GEOMETRY = eINSTANCE.getFeature_Geometry();
 
 		/**
-		 * The meta object literal for the '<em><b>Target Projection</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Styles</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TRANSFORMATION__TARGET_PROJECTION = eINSTANCE
-				.getTransformation_TargetProjection();
+		EReference FEATURE__STYLES = eINSTANCE.getFeature_Styles();
 
 		/**
 		 * The meta object literal for the '{@link org.locationtech.geoff.RendererHint <em>Renderer Hint</em>}' enum.

@@ -15,14 +15,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.locationtech.geoff.GeoMap;
-import org.locationtech.geoff.GeoffPackage;
-import org.locationtech.geoff.Identifiable;
-import org.locationtech.geoff.Location;
-import org.locationtech.geoff.Transformation;
-import org.locationtech.geoff.View;
-import org.locationtech.geoff.View2D;
-import org.locationtech.geoff.XYZLocation;
+import org.locationtech.geoff.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -102,11 +95,6 @@ public class GeoffAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseView2D(View2D object) {
-			return createView2DAdapter();
-		}
-
-		@Override
 		public Adapter caseLocation(Location object) {
 			return createLocationAdapter();
 		}
@@ -117,8 +105,8 @@ public class GeoffAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseTransformation(Transformation object) {
-			return createTransformationAdapter();
+		public Adapter caseFeature(Feature object) {
+			return createFeatureAdapter();
 		}
 
 		@Override
@@ -183,20 +171,6 @@ public class GeoffAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.View2D <em>View2 D</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.locationtech.geoff.View2D
-	 * @generated
-	 */
-	public Adapter createView2DAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.Location <em>Location</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -225,16 +199,16 @@ public class GeoffAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.Transformation <em>Transformation</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.Feature <em>Feature</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.locationtech.geoff.Transformation
+	 * @see org.locationtech.geoff.Feature
 	 * @generated
 	 */
-	public Adapter createTransformationAdapter() {
+	public Adapter createFeatureAdapter() {
 		return null;
 	}
 

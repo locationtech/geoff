@@ -12,8 +12,7 @@ package org.locationtech.geoff.showcase.examples;
 
 import static org.locationtech.geoff.core.Geoff.osmSource;
 import static org.locationtech.geoff.core.Geoff.tileLayer;
-import static org.locationtech.geoff.core.Geoff.trans;
-import static org.locationtech.geoff.core.Geoff.view2d;
+import static org.locationtech.geoff.core.Geoff.xyLocation;
 
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.core.Geoff;
@@ -23,8 +22,8 @@ public class OSMExample extends AbstractExampleGeoMap {
 	protected GeoMap doCreateMap() {
 		Geoff g = Geoff
 				.createMap("OpenStreetMap", "A simple OSM base layer example.")
-				.view(view2d(trans("EPSG:4326", "EPSG:3857", 8.2128d, 53.1403),
-						10)).addLayer(tileLayer(osmSource()));
+				.view(xyLocation(8.2128d, 53.1403, "EPSG:4326"), 10)
+				.addLayer(tileLayer(osmSource()));
 		return g.get();
 	}
 }

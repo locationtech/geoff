@@ -16,8 +16,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.locationtech.geoff.source.*;
 import org.locationtech.geoff.source.BingMaps;
-import org.locationtech.geoff.source.MapQuestOpenAerial;
+import org.locationtech.geoff.source.MapQuest;
 import org.locationtech.geoff.source.OSM;
 import org.locationtech.geoff.source.SourceFactory;
 import org.locationtech.geoff.source.SourcePackage;
@@ -78,10 +79,12 @@ public class SourceFactoryImpl extends EFactoryImpl implements SourceFactory {
 			return createXYZ();
 		case SourcePackage.OSM:
 			return createOSM();
-		case SourcePackage.MAP_QUEST_OPEN_AERIAL:
-			return createMapQuestOpenAerial();
+		case SourcePackage.MAP_QUEST:
+			return createMapQuest();
 		case SourcePackage.BING_MAPS:
 			return createBingMaps();
+		case SourcePackage.VECTOR:
+			return createVector();
 		default:
 			throw new IllegalArgumentException(
 					"The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -113,9 +116,9 @@ public class SourceFactoryImpl extends EFactoryImpl implements SourceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MapQuestOpenAerial createMapQuestOpenAerial() {
-		MapQuestOpenAerialImpl mapQuestOpenAerial = new MapQuestOpenAerialImpl();
-		return mapQuestOpenAerial;
+	public MapQuest createMapQuest() {
+		MapQuestImpl mapQuest = new MapQuestImpl();
+		return mapQuest;
 	}
 
 	/**
@@ -126,6 +129,16 @@ public class SourceFactoryImpl extends EFactoryImpl implements SourceFactory {
 	public BingMaps createBingMaps() {
 		BingMapsImpl bingMaps = new BingMapsImpl();
 		return bingMaps;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Vector createVector() {
+		VectorImpl vector = new VectorImpl();
+		return vector;
 	}
 
 	/**

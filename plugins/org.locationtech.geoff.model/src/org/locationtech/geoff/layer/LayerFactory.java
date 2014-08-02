@@ -48,6 +48,15 @@ public interface LayerFactory extends EFactory {
 	Tile createTile();
 
 	/**
+	 * Returns a new object of class '<em>Vector</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Vector</em>'.
+	 * @generated
+	 */
+	Vector createVector();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

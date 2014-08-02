@@ -26,6 +26,7 @@ import org.locationtech.geoff.Location;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.locationtech.geoff.impl.LocationImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.locationtech.geoff.impl.LocationImpl#getProjectionCode <em>Projection Code</em>}</li>
  * </ul>
  * </p>
  *
@@ -59,6 +60,26 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container
 	 * @ordered
 	 */
 	protected String id = ID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getProjectionCode() <em>Projection Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProjectionCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PROJECTION_CODE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getProjectionCode() <em>Projection Code</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProjectionCode()
+	 * @generated
+	 * @ordered
+	 */
+	protected String projectionCode = PROJECTION_CODE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -106,11 +127,36 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getProjectionCode() {
+		return projectionCode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setProjectionCode(String newProjectionCode) {
+		String oldProjectionCode = projectionCode;
+		projectionCode = newProjectionCode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					GeoffPackage.LOCATION__PROJECTION_CODE, oldProjectionCode,
+					projectionCode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GeoffPackage.LOCATION__ID:
 			return getId();
+		case GeoffPackage.LOCATION__PROJECTION_CODE:
+			return getProjectionCode();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -125,6 +171,9 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container
 		switch (featureID) {
 		case GeoffPackage.LOCATION__ID:
 			setId((String) newValue);
+			return;
+		case GeoffPackage.LOCATION__PROJECTION_CODE:
+			setProjectionCode((String) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -141,6 +190,9 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container
 		case GeoffPackage.LOCATION__ID:
 			setId(ID_EDEFAULT);
 			return;
+		case GeoffPackage.LOCATION__PROJECTION_CODE:
+			setProjectionCode(PROJECTION_CODE_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -155,6 +207,9 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container
 		switch (featureID) {
 		case GeoffPackage.LOCATION__ID:
 			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+		case GeoffPackage.LOCATION__PROJECTION_CODE:
+			return PROJECTION_CODE_EDEFAULT == null ? projectionCode != null
+					: !PROJECTION_CODE_EDEFAULT.equals(projectionCode);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -172,6 +227,8 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (id: "); //$NON-NLS-1$
 		result.append(id);
+		result.append(", projectionCode: "); //$NON-NLS-1$
+		result.append(projectionCode);
 		result.append(')');
 		return result.toString();
 	}

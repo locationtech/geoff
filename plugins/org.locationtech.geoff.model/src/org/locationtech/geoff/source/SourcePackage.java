@@ -14,6 +14,7 @@ package org.locationtech.geoff.source;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.locationtech.geoff.GeoffPackage;
 
 /**
@@ -54,7 +55,7 @@ public interface SourcePackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://www.locationtech.org/geoff-source-v1.0.0"; //$NON-NLS-1$
+	String eNS_URI = "http://www.locationtech.org/geoff-source-v1"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.
@@ -259,14 +260,14 @@ public interface SourcePackage extends EPackage {
 	int OSM_OPERATION_COUNT = XYZ_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.locationtech.geoff.source.impl.MapQuestOpenAerialImpl <em>Map Quest Open Aerial</em>}' class.
+	 * The meta object id for the '{@link org.locationtech.geoff.source.impl.MapQuestImpl <em>Map Quest</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.locationtech.geoff.source.impl.MapQuestOpenAerialImpl
-	 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getMapQuestOpenAerial()
+	 * @see org.locationtech.geoff.source.impl.MapQuestImpl
+	 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getMapQuest()
 	 * @generated
 	 */
-	int MAP_QUEST_OPEN_AERIAL = 5;
+	int MAP_QUEST = 5;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -275,25 +276,34 @@ public interface SourcePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MAP_QUEST_OPEN_AERIAL__ID = XYZ__ID;
+	int MAP_QUEST__ID = XYZ__ID;
 
 	/**
-	 * The number of structural features of the '<em>Map Quest Open Aerial</em>' class.
+	 * The feature id for the '<em><b>Layer</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAP_QUEST_OPEN_AERIAL_FEATURE_COUNT = XYZ_FEATURE_COUNT + 0;
+	int MAP_QUEST__LAYER = XYZ_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of operations of the '<em>Map Quest Open Aerial</em>' class.
+	 * The number of structural features of the '<em>Map Quest</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAP_QUEST_OPEN_AERIAL_OPERATION_COUNT = XYZ_OPERATION_COUNT + 0;
+	int MAP_QUEST_FEATURE_COUNT = XYZ_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Map Quest</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_QUEST_OPERATION_COUNT = XYZ_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.locationtech.geoff.source.impl.BingMapsImpl <em>Bing Maps</em>}' class.
@@ -351,6 +361,52 @@ public interface SourcePackage extends EPackage {
 	int BING_MAPS_OPERATION_COUNT = XYZ_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.locationtech.geoff.source.impl.VectorImpl <em>Vector</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.locationtech.geoff.source.impl.VectorImpl
+	 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getVector()
+	 * @generated
+	 */
+	int VECTOR = 7;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VECTOR__ID = SOURCE__ID;
+
+	/**
+	 * The feature id for the '<em><b>Features</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VECTOR__FEATURES = SOURCE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Vector</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VECTOR_FEATURE_COUNT = SOURCE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Vector</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VECTOR_OPERATION_COUNT = SOURCE_OPERATION_COUNT + 0;
+
+	/**
 	 * Returns the meta object for class '{@link org.locationtech.geoff.source.Source <em>Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -401,14 +457,25 @@ public interface SourcePackage extends EPackage {
 	EClass getOSM();
 
 	/**
-	 * Returns the meta object for class '{@link org.locationtech.geoff.source.MapQuestOpenAerial <em>Map Quest Open Aerial</em>}'.
+	 * Returns the meta object for class '{@link org.locationtech.geoff.source.MapQuest <em>Map Quest</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Map Quest Open Aerial</em>'.
-	 * @see org.locationtech.geoff.source.MapQuestOpenAerial
+	 * @return the meta object for class '<em>Map Quest</em>'.
+	 * @see org.locationtech.geoff.source.MapQuest
 	 * @generated
 	 */
-	EClass getMapQuestOpenAerial();
+	EClass getMapQuest();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.source.MapQuest#getLayer <em>Layer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Layer</em>'.
+	 * @see org.locationtech.geoff.source.MapQuest#getLayer()
+	 * @see #getMapQuest()
+	 * @generated
+	 */
+	EAttribute getMapQuest_Layer();
 
 	/**
 	 * Returns the meta object for class '{@link org.locationtech.geoff.source.BingMaps <em>Bing Maps</em>}'.
@@ -441,6 +508,27 @@ public interface SourcePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getBingMaps_ImagerySet();
+
+	/**
+	 * Returns the meta object for class '{@link org.locationtech.geoff.source.Vector <em>Vector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Vector</em>'.
+	 * @see org.locationtech.geoff.source.Vector
+	 * @generated
+	 */
+	EClass getVector();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.locationtech.geoff.source.Vector#getFeatures <em>Features</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Features</em>'.
+	 * @see org.locationtech.geoff.source.Vector#getFeatures()
+	 * @see #getVector()
+	 * @generated
+	 */
+	EReference getVector_Features();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -516,14 +604,22 @@ public interface SourcePackage extends EPackage {
 		EClass OSM = eINSTANCE.getOSM();
 
 		/**
-		 * The meta object literal for the '{@link org.locationtech.geoff.source.impl.MapQuestOpenAerialImpl <em>Map Quest Open Aerial</em>}' class.
+		 * The meta object literal for the '{@link org.locationtech.geoff.source.impl.MapQuestImpl <em>Map Quest</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.locationtech.geoff.source.impl.MapQuestOpenAerialImpl
-		 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getMapQuestOpenAerial()
+		 * @see org.locationtech.geoff.source.impl.MapQuestImpl
+		 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getMapQuest()
 		 * @generated
 		 */
-		EClass MAP_QUEST_OPEN_AERIAL = eINSTANCE.getMapQuestOpenAerial();
+		EClass MAP_QUEST = eINSTANCE.getMapQuest();
+
+		/**
+		 * The meta object literal for the '<em><b>Layer</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAP_QUEST__LAYER = eINSTANCE.getMapQuest_Layer();
 
 		/**
 		 * The meta object literal for the '{@link org.locationtech.geoff.source.impl.BingMapsImpl <em>Bing Maps</em>}' class.
@@ -550,6 +646,24 @@ public interface SourcePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BING_MAPS__IMAGERY_SET = eINSTANCE.getBingMaps_ImagerySet();
+
+		/**
+		 * The meta object literal for the '{@link org.locationtech.geoff.source.impl.VectorImpl <em>Vector</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.locationtech.geoff.source.impl.VectorImpl
+		 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getVector()
+		 * @generated
+		 */
+		EClass VECTOR = eINSTANCE.getVector();
+
+		/**
+		 * The meta object literal for the '<em><b>Features</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference VECTOR__FEATURES = eINSTANCE.getVector_Features();
 
 	}
 

@@ -7,9 +7,13 @@
    </configIni>
 
    <launcherArgs>
-      <programArgs>-clearPersistedState -console</programArgs>
-      <vmArgs>-Dgeoff.resources.server=localhost:80</vmArgs>
-      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+      <programArgs>-clearPersistedState -console
+      </programArgs>
+      <vmArgs>-Dorg.osgi.service.http.port=8888
+-Dgeoff.resources.server=localhost:8888
+      </vmArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
    </launcherArgs>
 
    <windowImages/>
@@ -130,8 +134,12 @@
       <plugin id="org.json"/>
       <plugin id="org.locationtech.geoff.core"/>
       <plugin id="org.locationtech.geoff.example.e4"/>
+      <plugin id="org.locationtech.geoff.geocoding"/>
+      <plugin id="org.locationtech.geoff.geocoding.google"/>
+      <plugin id="org.locationtech.geoff.geocoding.nominatim"/>
       <plugin id="org.locationtech.geoff.model"/>
       <plugin id="org.locationtech.geoff.ol"/>
+      <plugin id="org.locationtech.geoff.ol.index" fragment="true"/>
       <plugin id="org.locationtech.geoff.showcase"/>
       <plugin id="org.locationtech.geoff.showcase.swt"/>
       <plugin id="org.locationtech.geoff.ui"/>

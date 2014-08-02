@@ -14,14 +14,7 @@ package org.locationtech.geoff.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
-import org.locationtech.geoff.GeoMap;
-import org.locationtech.geoff.GeoffPackage;
-import org.locationtech.geoff.Identifiable;
-import org.locationtech.geoff.Location;
-import org.locationtech.geoff.Transformation;
-import org.locationtech.geoff.View;
-import org.locationtech.geoff.View2D;
-import org.locationtech.geoff.XYZLocation;
+import org.locationtech.geoff.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -112,17 +105,6 @@ public class GeoffSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case GeoffPackage.VIEW2_D: {
-			View2D view2D = (View2D) theEObject;
-			T result = caseView2D(view2D);
-			if (result == null)
-				result = caseView(view2D);
-			if (result == null)
-				result = caseIdentifiable(view2D);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case GeoffPackage.LOCATION: {
 			Location location = (Location) theEObject;
 			T result = caseLocation(location);
@@ -143,15 +125,11 @@ public class GeoffSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case GeoffPackage.TRANSFORMATION: {
-			Transformation transformation = (Transformation) theEObject;
-			T result = caseTransformation(transformation);
+		case GeoffPackage.FEATURE: {
+			Feature feature = (Feature) theEObject;
+			T result = caseFeature(feature);
 			if (result == null)
-				result = caseXYZLocation(transformation);
-			if (result == null)
-				result = caseLocation(transformation);
-			if (result == null)
-				result = caseIdentifiable(transformation);
+				result = caseIdentifiable(feature);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -207,21 +185,6 @@ public class GeoffSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>View2 D</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>View2 D</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseView2D(View2D object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Location</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -252,17 +215,17 @@ public class GeoffSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Transformation</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Feature</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Transformation</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Feature</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseTransformation(Transformation object) {
+	public T caseFeature(Feature object) {
 		return null;
 	}
 

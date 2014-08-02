@@ -15,7 +15,7 @@ import java.util.Set;
 
 import org.locationtech.geoff.showcase.examples.BingMapsExample;
 import org.locationtech.geoff.showcase.examples.GeoCodingExample;
-import org.locationtech.geoff.showcase.examples.MapQuestOpenAerialExample;
+import org.locationtech.geoff.showcase.examples.MapQuestExample;
 import org.locationtech.geoff.showcase.examples.OSMExample;
 
 public interface IShowcaseRegistry {
@@ -28,7 +28,7 @@ public interface IShowcaseRegistry {
 		{
 			examples.add(new OSMExample());
 			examples.add(new BingMapsExample());
-			examples.add(new MapQuestOpenAerialExample());
+			examples.add(new MapQuestExample());
 			examples.add(new GeoCodingExample());
 		}
 

@@ -15,10 +15,10 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.locationtech.geoff.showcase.IExampleGeoMap;
-import org.locationtech.geoff.ui.swt.GeoffMapComposite;
+import org.locationtech.geoff.ui.swt.GeoMapComposite;
 
 public class PreviewComposite extends Composite {
-	private GeoffMapComposite mapComposite;
+	private GeoMapComposite mapComposite;
 
 	public PreviewComposite(Composite parent, int style) {
 		super(parent, style);
@@ -27,11 +27,11 @@ public class PreviewComposite extends Composite {
 		layout.marginWidth = 0;
 		setLayout(layout);
 
-		mapComposite = new GeoffMapComposite(this, SWT.None);
+		mapComposite = new GeoMapComposite(this, SWT.None);
 		mapComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 	}
 
-	public GeoffMapComposite getMapComposite() {
+	public GeoMapComposite getMapComposite() {
 		return mapComposite;
 	}
 

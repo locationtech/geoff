@@ -57,13 +57,13 @@ public interface SourceFactory extends EFactory {
 	OSM createOSM();
 
 	/**
-	 * Returns a new object of class '<em>Map Quest Open Aerial</em>'.
+	 * Returns a new object of class '<em>Map Quest</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Map Quest Open Aerial</em>'.
+	 * @return a new object of class '<em>Map Quest</em>'.
 	 * @generated
 	 */
-	MapQuestOpenAerial createMapQuestOpenAerial();
+	MapQuest createMapQuest();
 
 	/**
 	 * Returns a new object of class '<em>Bing Maps</em>'.
@@ -73,6 +73,15 @@ public interface SourceFactory extends EFactory {
 	 * @generated
 	 */
 	BingMaps createBingMaps();
+
+	/**
+	 * Returns a new object of class '<em>Vector</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Vector</em>'.
+	 * @generated
+	 */
+	Vector createVector();
 
 	/**
 	 * Returns the package supported by this factory.

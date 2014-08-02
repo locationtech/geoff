@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="geoff" nsURI="http://www.locationtech.org/geoff-v1.0.0" nsPrefix="geoff">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="geoff" nsURI="http://www.locationtech.org/geoff-v1" nsPrefix="geoff">
   <eClassifiers xsi:type="ecore:EClass" name="Identifiable" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         iD="true"/>
@@ -18,49 +18,86 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rendererHint" eType="#//RendererHint"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="View" eSuperTypes="#//Identifiable"/>
-  <eClassifiers xsi:type="ecore:EClass" name="View2D" eSuperTypes="#//View">
+  <eClassifiers xsi:type="ecore:EClass" name="View" eSuperTypes="#//Identifiable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="center" lowerBound="1"
         eType="#//Location" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="zoom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Location" abstract="true" eSuperTypes="#//Identifiable"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Location" abstract="true" eSuperTypes="#//Identifiable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="projectionCode" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XYZLocation" eSuperTypes="#//Location">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="z" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Transformation" eSuperTypes="#//XYZLocation">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceProjection" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetProjection" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="RendererHint">
     <eLiterals name="CANVAS"/>
     <eLiterals name="DOM" value="1"/>
     <eLiterals name="WEBGL" value="2"/>
   </eClassifiers>
-  <eSubpackages name="layer" nsURI="http://www.locationtech.org/geoff-layer-v1.0.0"
-      nsPrefix="geoff.layer">
-    <eClassifiers xsi:type="ecore:EClass" name="Layer" abstract="true" eSuperTypes="#//Identifiable"/>
-    <eClassifiers xsi:type="ecore:EClass" name="Tile" eSuperTypes="#//layer/Layer">
+  <eClassifiers xsi:type="ecore:EClass" name="Feature" eSuperTypes="#//Identifiable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="geometry" lowerBound="1"
+        eType="#//geom/Geometry" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="styles" upperBound="-1"
+        eType="#//style/Style" containment="true">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="style"/>
+        <details key="kind" value="element"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eSubpackages name="layer" nsURI="http://www.locationtech.org/geoff-layer-v1" nsPrefix="geoff.layer">
+    <eClassifiers xsi:type="ecore:EClass" name="Layer" abstract="true" eSuperTypes="#//Identifiable">
       <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
           eType="#//source/Source" containment="true"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Tile" eSuperTypes="#//layer/Layer"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Vector" eSuperTypes="#//layer/Layer"/>
   </eSubpackages>
-  <eSubpackages name="source" nsURI="http://www.locationtech.org/geoff-source-v1.0.0"
+  <eSubpackages name="source" nsURI="http://www.locationtech.org/geoff-source-v1"
       nsPrefix="geoff.source">
     <eClassifiers xsi:type="ecore:EClass" name="Source" abstract="true" eSuperTypes="#//Identifiable"/>
     <eClassifiers xsi:type="ecore:EClass" name="Tile" abstract="true" eSuperTypes="#//source/Source"/>
     <eClassifiers xsi:type="ecore:EClass" name="TileImage" abstract="true" eSuperTypes="#//source/Tile"/>
     <eClassifiers xsi:type="ecore:EClass" name="XYZ" eSuperTypes="#//source/TileImage"/>
     <eClassifiers xsi:type="ecore:EClass" name="OSM" eSuperTypes="#//source/XYZ"/>
-    <eClassifiers xsi:type="ecore:EClass" name="MapQuestOpenAerial" eSuperTypes="#//source/XYZ"/>
+    <eClassifiers xsi:type="ecore:EClass" name="MapQuest" eSuperTypes="#//source/XYZ">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="layer" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral="osm"/>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BingMaps" eSuperTypes="#//source/XYZ">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="imagerySet" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Vector" eSuperTypes="#//source/Source">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
+          eType="#//Feature" containment="true">
+        <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+          <details key="name" value="feature"/>
+          <details key="kind" value="element"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="geom" nsURI="http://www.locationtech.org/geoff-geom-v1" nsPrefix="geoff.geom">
+    <eClassifiers xsi:type="ecore:EClass" name="Geometry" abstract="true" eSuperTypes="#//Identifiable"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SimpleGeometry" eSuperTypes="#//geom/Geometry"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Point" eSuperTypes="#//geom/SimpleGeometry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="coordinates" lowerBound="1"
+          eType="#//Location" containment="true"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="style" nsURI="http://www.locationtech.org/geoff-style-v1" nsPrefix="geoff.style">
+    <eClassifiers xsi:type="ecore:EClass" name="Style" eSuperTypes="#//Identifiable">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="image" eType="#//style/Image"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Image" eSuperTypes="#//Identifiable"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Icon" eSuperTypes="#//style/Image">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="src" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>

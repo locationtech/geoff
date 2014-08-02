@@ -16,8 +16,9 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.locationtech.geoff.Identifiable;
+import org.locationtech.geoff.source.*;
 import org.locationtech.geoff.source.BingMaps;
-import org.locationtech.geoff.source.MapQuestOpenAerial;
+import org.locationtech.geoff.source.MapQuest;
 import org.locationtech.geoff.source.OSM;
 import org.locationtech.geoff.source.Source;
 import org.locationtech.geoff.source.SourcePackage;
@@ -113,13 +114,18 @@ public class SourceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseMapQuestOpenAerial(MapQuestOpenAerial object) {
-			return createMapQuestOpenAerialAdapter();
+		public Adapter caseMapQuest(MapQuest object) {
+			return createMapQuestAdapter();
 		}
 
 		@Override
 		public Adapter caseBingMaps(BingMaps object) {
 			return createBingMapsAdapter();
+		}
+
+		@Override
+		public Adapter caseVector(Vector object) {
+			return createVectorAdapter();
 		}
 
 		@Override
@@ -217,16 +223,16 @@ public class SourceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.source.MapQuestOpenAerial <em>Map Quest Open Aerial</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.source.MapQuest <em>Map Quest</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.locationtech.geoff.source.MapQuestOpenAerial
+	 * @see org.locationtech.geoff.source.MapQuest
 	 * @generated
 	 */
-	public Adapter createMapQuestOpenAerialAdapter() {
+	public Adapter createMapQuestAdapter() {
 		return null;
 	}
 
@@ -241,6 +247,20 @@ public class SourceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBingMapsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.source.Vector <em>Vector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.locationtech.geoff.source.Vector
+	 * @generated
+	 */
+	public Adapter createVectorAdapter() {
 		return null;
 	}
 

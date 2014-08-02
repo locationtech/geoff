@@ -14,18 +14,24 @@ package org.locationtech.geoff.source.impl;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.locationtech.geoff.GeoffPackage;
+import org.locationtech.geoff.geom.GeomPackage;
+import org.locationtech.geoff.geom.impl.GeomPackageImpl;
 import org.locationtech.geoff.impl.GeoffPackageImpl;
 import org.locationtech.geoff.layer.LayerPackage;
 import org.locationtech.geoff.layer.impl.LayerPackageImpl;
 import org.locationtech.geoff.source.BingMaps;
-import org.locationtech.geoff.source.MapQuestOpenAerial;
+import org.locationtech.geoff.source.MapQuest;
 import org.locationtech.geoff.source.Source;
 import org.locationtech.geoff.source.SourceFactory;
 import org.locationtech.geoff.source.SourcePackage;
 import org.locationtech.geoff.source.Tile;
 import org.locationtech.geoff.source.TileImage;
+import org.locationtech.geoff.source.Vector;
+import org.locationtech.geoff.style.StylePackage;
+import org.locationtech.geoff.style.impl.StylePackageImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -81,7 +87,7 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass mapQuestOpenAerialEClass = null;
+	private EClass mapQuestEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -89,6 +95,13 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 * @generated
 	 */
 	private EClass bingMapsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass vectorEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -147,16 +160,26 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 		LayerPackageImpl theLayerPackage = (LayerPackageImpl) (EPackage.Registry.INSTANCE
 				.getEPackage(LayerPackage.eNS_URI) instanceof LayerPackageImpl ? EPackage.Registry.INSTANCE
 				.getEPackage(LayerPackage.eNS_URI) : LayerPackage.eINSTANCE);
+		GeomPackageImpl theGeomPackage = (GeomPackageImpl) (EPackage.Registry.INSTANCE
+				.getEPackage(GeomPackage.eNS_URI) instanceof GeomPackageImpl ? EPackage.Registry.INSTANCE
+				.getEPackage(GeomPackage.eNS_URI) : GeomPackage.eINSTANCE);
+		StylePackageImpl theStylePackage = (StylePackageImpl) (EPackage.Registry.INSTANCE
+				.getEPackage(StylePackage.eNS_URI) instanceof StylePackageImpl ? EPackage.Registry.INSTANCE
+				.getEPackage(StylePackage.eNS_URI) : StylePackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theSourcePackage.createPackageContents();
 		theGeoffPackage.createPackageContents();
 		theLayerPackage.createPackageContents();
+		theGeomPackage.createPackageContents();
+		theStylePackage.createPackageContents();
 
 		// Initialize created meta-data
 		theSourcePackage.initializePackageContents();
 		theGeoffPackage.initializePackageContents();
 		theLayerPackage.initializePackageContents();
+		theGeomPackage.initializePackageContents();
+		theStylePackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theSourcePackage.freeze();
@@ -216,8 +239,17 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getMapQuestOpenAerial() {
-		return mapQuestOpenAerialEClass;
+	public EClass getMapQuest() {
+		return mapQuestEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMapQuest_Layer() {
+		return (EAttribute) mapQuestEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -245,6 +277,24 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 */
 	public EAttribute getBingMaps_ImagerySet() {
 		return (EAttribute) bingMapsEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getVector() {
+		return vectorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getVector_Features() {
+		return (EReference) vectorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -286,11 +336,15 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 
 		osmEClass = createEClass(OSM);
 
-		mapQuestOpenAerialEClass = createEClass(MAP_QUEST_OPEN_AERIAL);
+		mapQuestEClass = createEClass(MAP_QUEST);
+		createEAttribute(mapQuestEClass, MAP_QUEST__LAYER);
 
 		bingMapsEClass = createEClass(BING_MAPS);
 		createEAttribute(bingMapsEClass, BING_MAPS__KEY);
 		createEAttribute(bingMapsEClass, BING_MAPS__IMAGERY_SET);
+
+		vectorEClass = createEClass(VECTOR);
+		createEReference(vectorEClass, VECTOR__FEATURES);
 	}
 
 	/**
@@ -331,8 +385,9 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 		tileImageEClass.getESuperTypes().add(this.getTile());
 		xyzEClass.getESuperTypes().add(this.getTileImage());
 		osmEClass.getESuperTypes().add(this.getXYZ());
-		mapQuestOpenAerialEClass.getESuperTypes().add(this.getXYZ());
+		mapQuestEClass.getESuperTypes().add(this.getXYZ());
 		bingMapsEClass.getESuperTypes().add(this.getXYZ());
+		vectorEClass.getESuperTypes().add(this.getSource());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(
@@ -355,9 +410,13 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 				"OSM", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
 		initEClass(
-				mapQuestOpenAerialEClass,
-				MapQuestOpenAerial.class,
-				"MapQuestOpenAerial", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+				mapQuestEClass,
+				MapQuest.class,
+				"MapQuest", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(
+				getMapQuest_Layer(),
+				ecorePackage.getEString(),
+				"layer", "osm", 0, 1, MapQuest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
 
 		initEClass(
 				bingMapsEClass,
@@ -371,6 +430,34 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 				getBingMaps_ImagerySet(),
 				ecorePackage.getEString(),
 				"imagerySet", null, 1, 1, BingMaps.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(
+				vectorEClass,
+				Vector.class,
+				"Vector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(
+				getVector_Features(),
+				theGeoffPackage.getFeature(),
+				null,
+				"features", null, 0, -1, Vector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		// Create annotations
+		// http:///org/eclipse/emf/ecore/util/ExtendedMetaData
+		createExtendedMetaDataAnnotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>http:///org/eclipse/emf/ecore/util/ExtendedMetaData</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createExtendedMetaDataAnnotations() {
+		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData"; //$NON-NLS-1$	
+		addAnnotation(getVector_Features(), source, new String[] {
+				"name", "feature", //$NON-NLS-1$ //$NON-NLS-2$
+				"kind", "element" //$NON-NLS-1$ //$NON-NLS-2$
+		});
 	}
 
 } //SourcePackageImpl

@@ -17,14 +17,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.locationtech.geoff.GeoMap;
-import org.locationtech.geoff.GeoffFactory;
-import org.locationtech.geoff.GeoffPackage;
-import org.locationtech.geoff.RendererHint;
-import org.locationtech.geoff.Transformation;
-import org.locationtech.geoff.View;
-import org.locationtech.geoff.View2D;
-import org.locationtech.geoff.XYZLocation;
+import org.locationtech.geoff.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -81,12 +74,10 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 			return createGeoMap();
 		case GeoffPackage.VIEW:
 			return createView();
-		case GeoffPackage.VIEW2_D:
-			return createView2D();
 		case GeoffPackage.XYZ_LOCATION:
 			return createXYZLocation();
-		case GeoffPackage.TRANSFORMATION:
-			return createTransformation();
+		case GeoffPackage.FEATURE:
+			return createFeature();
 		default:
 			throw new IllegalArgumentException(
 					"The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -150,16 +141,6 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public View2D createView2D() {
-		View2DImpl view2D = new View2DImpl();
-		return view2D;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public XYZLocation createXYZLocation() {
 		XYZLocationImpl xyzLocation = new XYZLocationImpl();
 		return xyzLocation;
@@ -170,9 +151,9 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Transformation createTransformation() {
-		TransformationImpl transformation = new TransformationImpl();
-		return transformation;
+	public Feature createFeature() {
+		FeatureImpl feature = new FeatureImpl();
+		return feature;
 	}
 
 	/**

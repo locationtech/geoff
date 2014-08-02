@@ -16,13 +16,18 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.locationtech.geoff.GeoffPackage;
+import org.locationtech.geoff.geom.GeomPackage;
+import org.locationtech.geoff.geom.impl.GeomPackageImpl;
 import org.locationtech.geoff.impl.GeoffPackageImpl;
 import org.locationtech.geoff.layer.Layer;
 import org.locationtech.geoff.layer.LayerFactory;
 import org.locationtech.geoff.layer.LayerPackage;
 import org.locationtech.geoff.layer.Tile;
+import org.locationtech.geoff.layer.Vector;
 import org.locationtech.geoff.source.SourcePackage;
 import org.locationtech.geoff.source.impl.SourcePackageImpl;
+import org.locationtech.geoff.style.StylePackage;
+import org.locationtech.geoff.style.impl.StylePackageImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,6 +56,13 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 	 * @generated
 	 */
 	private EClass tileEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass vectorEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -109,16 +121,26 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 		SourcePackageImpl theSourcePackage = (SourcePackageImpl) (EPackage.Registry.INSTANCE
 				.getEPackage(SourcePackage.eNS_URI) instanceof SourcePackageImpl ? EPackage.Registry.INSTANCE
 				.getEPackage(SourcePackage.eNS_URI) : SourcePackage.eINSTANCE);
+		GeomPackageImpl theGeomPackage = (GeomPackageImpl) (EPackage.Registry.INSTANCE
+				.getEPackage(GeomPackage.eNS_URI) instanceof GeomPackageImpl ? EPackage.Registry.INSTANCE
+				.getEPackage(GeomPackage.eNS_URI) : GeomPackage.eINSTANCE);
+		StylePackageImpl theStylePackage = (StylePackageImpl) (EPackage.Registry.INSTANCE
+				.getEPackage(StylePackage.eNS_URI) instanceof StylePackageImpl ? EPackage.Registry.INSTANCE
+				.getEPackage(StylePackage.eNS_URI) : StylePackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theLayerPackage.createPackageContents();
 		theGeoffPackage.createPackageContents();
 		theSourcePackage.createPackageContents();
+		theGeomPackage.createPackageContents();
+		theStylePackage.createPackageContents();
 
 		// Initialize created meta-data
 		theLayerPackage.initializePackageContents();
 		theGeoffPackage.initializePackageContents();
 		theSourcePackage.initializePackageContents();
+		theGeomPackage.initializePackageContents();
+		theStylePackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theLayerPackage.freeze();
@@ -142,6 +164,15 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getLayer_Source() {
+		return (EReference) layerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTile() {
 		return tileEClass;
 	}
@@ -151,8 +182,8 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTile_Source() {
-		return (EReference) tileEClass.getEStructuralFeatures().get(0);
+	public EClass getVector() {
+		return vectorEClass;
 	}
 
 	/**
@@ -185,9 +216,11 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 
 		// Create classes and their features
 		layerEClass = createEClass(LAYER);
+		createEReference(layerEClass, LAYER__SOURCE);
 
 		tileEClass = createEClass(TILE);
-		createEReference(tileEClass, TILE__SOURCE);
+
+		vectorEClass = createEClass(VECTOR);
 	}
 
 	/**
@@ -227,22 +260,28 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 		// Add supertypes to classes
 		layerEClass.getESuperTypes().add(theGeoffPackage.getIdentifiable());
 		tileEClass.getESuperTypes().add(this.getLayer());
+		vectorEClass.getESuperTypes().add(this.getLayer());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(
 				layerEClass,
 				Layer.class,
 				"Layer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(
+				getLayer_Source(),
+				theSourcePackage.getSource(),
+				null,
+				"source", null, 1, 1, Layer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(
 				tileEClass,
 				Tile.class,
 				"Tile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(
-				getTile_Source(),
-				theSourcePackage.getSource(),
-				null,
-				"source", null, 1, 1, Tile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(
+				vectorEClass,
+				Vector.class,
+				"Vector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 	}
 
 } //LayerPackageImpl

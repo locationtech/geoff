@@ -5,13 +5,16 @@ Bundle-SymbolicName: org.locationtech.geoff.model;singleton:=true
 Bundle-Version: 0.8.0.qualifier
 Bundle-ClassPath: .
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.locationtech.geoff,
+ org.locationtech.geoff.geom,
+ org.locationtech.geoff.geom.impl,
+ org.locationtech.geoff.geom.util,
  org.locationtech.geoff.impl,
  org.locationtech.geoff.layer,
  org.locationtech.geoff.layer.impl,
@@ -19,4 +22,7 @@ Export-Package: org.locationtech.geoff,
  org.locationtech.geoff.source,
  org.locationtech.geoff.source.impl,
  org.locationtech.geoff.source.util,
+ org.locationtech.geoff.style,
+ org.locationtech.geoff.style.impl,
+ org.locationtech.geoff.style.util,
  org.locationtech.geoff.util

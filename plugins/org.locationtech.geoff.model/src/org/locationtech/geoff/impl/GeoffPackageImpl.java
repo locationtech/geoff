@@ -17,20 +17,23 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.locationtech.geoff.Feature;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.GeoffFactory;
 import org.locationtech.geoff.GeoffPackage;
 import org.locationtech.geoff.Identifiable;
 import org.locationtech.geoff.Location;
 import org.locationtech.geoff.RendererHint;
-import org.locationtech.geoff.Transformation;
 import org.locationtech.geoff.View;
-import org.locationtech.geoff.View2D;
 import org.locationtech.geoff.XYZLocation;
+import org.locationtech.geoff.geom.GeomPackage;
+import org.locationtech.geoff.geom.impl.GeomPackageImpl;
 import org.locationtech.geoff.layer.LayerPackage;
 import org.locationtech.geoff.layer.impl.LayerPackageImpl;
 import org.locationtech.geoff.source.SourcePackage;
 import org.locationtech.geoff.source.impl.SourcePackageImpl;
+import org.locationtech.geoff.style.StylePackage;
+import org.locationtech.geoff.style.impl.StylePackageImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -72,13 +75,6 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass view2DEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass locationEClass = null;
 
 	/**
@@ -93,7 +89,7 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass transformationEClass = null;
+	private EClass featureEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -159,16 +155,26 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 		SourcePackageImpl theSourcePackage = (SourcePackageImpl) (EPackage.Registry.INSTANCE
 				.getEPackage(SourcePackage.eNS_URI) instanceof SourcePackageImpl ? EPackage.Registry.INSTANCE
 				.getEPackage(SourcePackage.eNS_URI) : SourcePackage.eINSTANCE);
+		GeomPackageImpl theGeomPackage = (GeomPackageImpl) (EPackage.Registry.INSTANCE
+				.getEPackage(GeomPackage.eNS_URI) instanceof GeomPackageImpl ? EPackage.Registry.INSTANCE
+				.getEPackage(GeomPackage.eNS_URI) : GeomPackage.eINSTANCE);
+		StylePackageImpl theStylePackage = (StylePackageImpl) (EPackage.Registry.INSTANCE
+				.getEPackage(StylePackage.eNS_URI) instanceof StylePackageImpl ? EPackage.Registry.INSTANCE
+				.getEPackage(StylePackage.eNS_URI) : StylePackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theGeoffPackage.createPackageContents();
 		theLayerPackage.createPackageContents();
 		theSourcePackage.createPackageContents();
+		theGeomPackage.createPackageContents();
+		theStylePackage.createPackageContents();
 
 		// Initialize created meta-data
 		theGeoffPackage.initializePackageContents();
 		theLayerPackage.initializePackageContents();
 		theSourcePackage.initializePackageContents();
+		theGeomPackage.initializePackageContents();
+		theStylePackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theGeoffPackage.freeze();
@@ -264,8 +270,8 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getView2D() {
-		return view2DEClass;
+	public EReference getView_Center() {
+		return (EReference) viewEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -273,17 +279,8 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getView2D_Center() {
-		return (EReference) view2DEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getView2D_Zoom() {
-		return (EAttribute) view2DEClass.getEStructuralFeatures().get(1);
+	public EAttribute getView_Zoom() {
+		return (EAttribute) viewEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -293,6 +290,15 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 	 */
 	public EClass getLocation() {
 		return locationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLocation_ProjectionCode() {
+		return (EAttribute) locationEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -336,8 +342,8 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTransformation() {
-		return transformationEClass;
+	public EClass getFeature() {
+		return featureEClass;
 	}
 
 	/**
@@ -345,9 +351,8 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTransformation_SourceProjection() {
-		return (EAttribute) transformationEClass.getEStructuralFeatures()
-				.get(0);
+	public EReference getFeature_Geometry() {
+		return (EReference) featureEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -355,9 +360,8 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTransformation_TargetProjection() {
-		return (EAttribute) transformationEClass.getEStructuralFeatures()
-				.get(1);
+	public EReference getFeature_Styles() {
+		return (EReference) featureEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -409,23 +413,20 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 		createEAttribute(geoMapEClass, GEO_MAP__RENDERER_HINT);
 
 		viewEClass = createEClass(VIEW);
-
-		view2DEClass = createEClass(VIEW2_D);
-		createEReference(view2DEClass, VIEW2_D__CENTER);
-		createEAttribute(view2DEClass, VIEW2_D__ZOOM);
+		createEReference(viewEClass, VIEW__CENTER);
+		createEAttribute(viewEClass, VIEW__ZOOM);
 
 		locationEClass = createEClass(LOCATION);
+		createEAttribute(locationEClass, LOCATION__PROJECTION_CODE);
 
 		xyzLocationEClass = createEClass(XYZ_LOCATION);
 		createEAttribute(xyzLocationEClass, XYZ_LOCATION__X);
 		createEAttribute(xyzLocationEClass, XYZ_LOCATION__Y);
 		createEAttribute(xyzLocationEClass, XYZ_LOCATION__Z);
 
-		transformationEClass = createEClass(TRANSFORMATION);
-		createEAttribute(transformationEClass,
-				TRANSFORMATION__SOURCE_PROJECTION);
-		createEAttribute(transformationEClass,
-				TRANSFORMATION__TARGET_PROJECTION);
+		featureEClass = createEClass(FEATURE);
+		createEReference(featureEClass, FEATURE__GEOMETRY);
+		createEReference(featureEClass, FEATURE__STYLES);
 
 		// Create enums
 		rendererHintEEnum = createEEnum(RENDERER_HINT);
@@ -460,10 +461,16 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 				.getEPackage(LayerPackage.eNS_URI);
 		SourcePackage theSourcePackage = (SourcePackage) EPackage.Registry.INSTANCE
 				.getEPackage(SourcePackage.eNS_URI);
+		GeomPackage theGeomPackage = (GeomPackage) EPackage.Registry.INSTANCE
+				.getEPackage(GeomPackage.eNS_URI);
+		StylePackage theStylePackage = (StylePackage) EPackage.Registry.INSTANCE
+				.getEPackage(StylePackage.eNS_URI);
 
 		// Add subpackages
 		getESubpackages().add(theLayerPackage);
 		getESubpackages().add(theSourcePackage);
+		getESubpackages().add(theGeomPackage);
+		getESubpackages().add(theStylePackage);
 
 		// Create type parameters
 
@@ -472,10 +479,9 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 		// Add supertypes to classes
 		geoMapEClass.getESuperTypes().add(this.getIdentifiable());
 		viewEClass.getESuperTypes().add(this.getIdentifiable());
-		view2DEClass.getESuperTypes().add(this.getView());
 		locationEClass.getESuperTypes().add(this.getIdentifiable());
 		xyzLocationEClass.getESuperTypes().add(this.getLocation());
-		transformationEClass.getESuperTypes().add(this.getXYZLocation());
+		featureEClass.getESuperTypes().add(this.getIdentifiable());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(
@@ -518,25 +524,24 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 				viewEClass,
 				View.class,
 				"View", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-		initEClass(
-				view2DEClass,
-				View2D.class,
-				"View2D", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(
-				getView2D_Center(),
+				getView_Center(),
 				this.getLocation(),
 				null,
-				"center", null, 1, 1, View2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+				"center", null, 1, 1, View.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(
-				getView2D_Zoom(),
+				getView_Zoom(),
 				ecorePackage.getEInt(),
-				"zoom", null, 0, 1, View2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+				"zoom", null, 0, 1, View.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(
 				locationEClass,
 				Location.class,
 				"Location", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(
+				getLocation_ProjectionCode(),
+				ecorePackage.getEString(),
+				"projectionCode", null, 1, 1, Location.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(
 				xyzLocationEClass,
@@ -556,17 +561,19 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 				"z", null, 0, 1, XYZLocation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(
-				transformationEClass,
-				Transformation.class,
-				"Transformation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(
-				getTransformation_SourceProjection(),
-				ecorePackage.getEString(),
-				"sourceProjection", null, 1, 1, Transformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(
-				getTransformation_TargetProjection(),
-				ecorePackage.getEString(),
-				"targetProjection", null, 1, 1, Transformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+				featureEClass,
+				Feature.class,
+				"Feature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(
+				getFeature_Geometry(),
+				theGeomPackage.getGeometry(),
+				null,
+				"geometry", null, 1, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(
+				getFeature_Styles(),
+				theStylePackage.getStyle(),
+				null,
+				"styles", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		// Initialize enums and add enum literals
 		initEEnum(rendererHintEEnum, RendererHint.class, "RendererHint"); //$NON-NLS-1$
@@ -589,9 +596,13 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 	 * @generated
 	 */
 	protected void createExtendedMetaDataAnnotations() {
-		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData"; //$NON-NLS-1$		
+		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData"; //$NON-NLS-1$	
 		addAnnotation(getGeoMap_Layers(), source, new String[] {
 				"name", "layer", //$NON-NLS-1$ //$NON-NLS-2$
+				"kind", "element" //$NON-NLS-1$ //$NON-NLS-2$
+		});
+		addAnnotation(getFeature_Styles(), source, new String[] {
+				"name", "style", //$NON-NLS-1$ //$NON-NLS-2$
 				"kind", "element" //$NON-NLS-1$ //$NON-NLS-2$
 		});
 	}

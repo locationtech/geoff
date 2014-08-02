@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.locationtech.geoff.layer.*;
 import org.locationtech.geoff.layer.LayerFactory;
 import org.locationtech.geoff.layer.LayerPackage;
 import org.locationtech.geoff.layer.Tile;
@@ -73,6 +74,8 @@ public class LayerFactoryImpl extends EFactoryImpl implements LayerFactory {
 		switch (eClass.getClassifierID()) {
 		case LayerPackage.TILE:
 			return createTile();
+		case LayerPackage.VECTOR:
+			return createVector();
 		default:
 			throw new IllegalArgumentException(
 					"The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -87,6 +90,16 @@ public class LayerFactoryImpl extends EFactoryImpl implements LayerFactory {
 	public Tile createTile() {
 		TileImpl tile = new TileImpl();
 		return tile;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Vector createVector() {
+		VectorImpl vector = new VectorImpl();
+		return vector;
 	}
 
 	/**

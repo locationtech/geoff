@@ -15,8 +15,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.locationtech.geoff.Identifiable;
+import org.locationtech.geoff.source.*;
 import org.locationtech.geoff.source.BingMaps;
-import org.locationtech.geoff.source.MapQuestOpenAerial;
+import org.locationtech.geoff.source.MapQuest;
 import org.locationtech.geoff.source.OSM;
 import org.locationtech.geoff.source.Source;
 import org.locationtech.geoff.source.SourcePackage;
@@ -153,19 +154,19 @@ public class SourceSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case SourcePackage.MAP_QUEST_OPEN_AERIAL: {
-			MapQuestOpenAerial mapQuestOpenAerial = (MapQuestOpenAerial) theEObject;
-			T result = caseMapQuestOpenAerial(mapQuestOpenAerial);
+		case SourcePackage.MAP_QUEST: {
+			MapQuest mapQuest = (MapQuest) theEObject;
+			T result = caseMapQuest(mapQuest);
 			if (result == null)
-				result = caseXYZ(mapQuestOpenAerial);
+				result = caseXYZ(mapQuest);
 			if (result == null)
-				result = caseTileImage(mapQuestOpenAerial);
+				result = caseTileImage(mapQuest);
 			if (result == null)
-				result = caseTile(mapQuestOpenAerial);
+				result = caseTile(mapQuest);
 			if (result == null)
-				result = caseSource(mapQuestOpenAerial);
+				result = caseSource(mapQuest);
 			if (result == null)
-				result = caseIdentifiable(mapQuestOpenAerial);
+				result = caseIdentifiable(mapQuest);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -183,6 +184,17 @@ public class SourceSwitch<T> extends Switch<T> {
 				result = caseSource(bingMaps);
 			if (result == null)
 				result = caseIdentifiable(bingMaps);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SourcePackage.VECTOR: {
+			Vector vector = (Vector) theEObject;
+			T result = caseVector(vector);
+			if (result == null)
+				result = caseSource(vector);
+			if (result == null)
+				result = caseIdentifiable(vector);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -268,17 +280,17 @@ public class SourceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Map Quest Open Aerial</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Map Quest</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Map Quest Open Aerial</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Map Quest</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseMapQuestOpenAerial(MapQuestOpenAerial object) {
+	public T caseMapQuest(MapQuest object) {
 		return null;
 	}
 
@@ -294,6 +306,21 @@ public class SourceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseBingMaps(BingMaps object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Vector</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Vector</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseVector(Vector object) {
 		return null;
 	}
 

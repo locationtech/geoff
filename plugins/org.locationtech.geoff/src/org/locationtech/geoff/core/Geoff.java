@@ -11,32 +11,35 @@
  */
 package org.locationtech.geoff.core;
 
-import static org.locationtech.geoff.core.Geoff.osmSource;
-import static org.locationtech.geoff.core.Geoff.tileLayer;
-import static org.locationtech.geoff.core.Geoff.trans;
-import static org.locationtech.geoff.core.Geoff.view2d;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.locationtech.geoff.Feature;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.GeoffFactory;
 import org.locationtech.geoff.Location;
 import org.locationtech.geoff.RendererHint;
-import org.locationtech.geoff.Transformation;
 import org.locationtech.geoff.View;
-import org.locationtech.geoff.View2D;
 import org.locationtech.geoff.XYZLocation;
+import org.locationtech.geoff.geom.GeomFactory;
+import org.locationtech.geoff.geom.Geometry;
+import org.locationtech.geoff.geom.Point;
+import org.locationtech.geoff.layer.Layer;
 import org.locationtech.geoff.layer.LayerFactory;
 import org.locationtech.geoff.layer.Tile;
+import org.locationtech.geoff.layer.Vector;
 import org.locationtech.geoff.source.BingMaps;
-import org.locationtech.geoff.source.MapQuestOpenAerial;
+import org.locationtech.geoff.source.MapQuest;
 import org.locationtech.geoff.source.OSM;
 import org.locationtech.geoff.source.Source;
 import org.locationtech.geoff.source.SourceFactory;
+import org.locationtech.geoff.style.Icon;
+import org.locationtech.geoff.style.Image;
+import org.locationtech.geoff.style.Style;
+import org.locationtech.geoff.style.StyleFactory;
 import org.locationtech.geoff.util.GeoffResourceFactoryImpl;
 
 /**
@@ -47,7 +50,7 @@ import org.locationtech.geoff.util.GeoffResourceFactoryImpl;
  * 
  * <pre>
  * Geoff.createMap(&quot;OpenStreetMap&quot;, &quot;A simple OSM base layer example.&quot;)
- * 		.view(view2d(trans(&quot;EPSG:4326&quot;, &quot;EPSG:3857&quot;, 8.2128d, 53.1403), 10))
+ * 		.view(view(trans(&quot;EPSG:4326&quot;, &quot;EPSG:3857&quot;, 8.2128d, 53.1403), 10))
  * 		.addLayer(tileLayer(osmSource()));
  * </pre>
  * 
@@ -60,7 +63,7 @@ public class Geoff {
 	private Geoff() {
 	}
 
-	public Geoff addLayer(Tile first, Tile... optional) {
+	public Geoff addLayer(Layer first, Layer... optional) {
 		map.getLayers().add(first);
 
 		if (optional != null) {
@@ -70,7 +73,10 @@ public class Geoff {
 		return this;
 	}
 
-	public Geoff view(View view) {
+	public Geoff view(Location center, int zoom) {
+		View view = GeoffFactory.eINSTANCE.createView();
+		view.setCenter(center);
+		view.setZoom(zoom);
 		map.setView(view);
 		return this;
 	}
@@ -118,15 +124,37 @@ public class Geoff {
 		return geoff;
 	}
 
-	public static View2D view2d(Location center, int zoom) {
-		View2D view = GeoffFactory.eINSTANCE.createView2D();
-		view.setCenter(center);
-		view.setZoom(zoom);
-		return view;
-	}
-
 	public static OSM osmSource() {
 		return SourceFactory.eINSTANCE.createOSM();
+	}
+
+	public static org.locationtech.geoff.source.Vector vectorSource(
+			Feature... optional) {
+		org.locationtech.geoff.source.Vector vector = SourceFactory.eINSTANCE
+				.createVector();
+
+		if (optional != null) {
+			vector.getFeatures().addAll(Arrays.asList(optional));
+		}
+
+		return vector;
+	}
+
+	public static Feature feature(Geometry geometry, Style... styles) {
+		Feature feature = GeoffFactory.eINSTANCE.createFeature();
+		feature.setGeometry(geometry);
+
+		if (styles != null) {
+			feature.getStyles().addAll(Arrays.asList(styles));
+		}
+
+		return feature;
+	}
+
+	public static Point pointGeom(Location location) {
+		Point point = GeomFactory.eINSTANCE.createPoint();
+		point.setCoordinates(location);
+		return point;
 	}
 
 	public static BingMaps bingSource(String key, String imagerySet) {
@@ -136,8 +164,8 @@ public class Geoff {
 		return bingMaps;
 	}
 
-	public static MapQuestOpenAerial mapquestSource() {
-		return SourceFactory.eINSTANCE.createMapQuestOpenAerial();
+	public static MapQuest mapQuestSource() {
+		return SourceFactory.eINSTANCE.createMapQuest();
 	}
 
 	public static Tile tileLayer(Source source) {
@@ -146,34 +174,38 @@ public class Geoff {
 		return tile;
 	}
 
+	public static Vector vectorLayer(Source source) {
+		Vector layer = LayerFactory.eINSTANCE.createVector();
+		layer.setSource(source);
+		return layer;
+	}
+
 	public static XYZLocation xyLocation(double x, double y) {
+		return xyLocation(x, y, null);
+	}
+
+	public static XYZLocation xyLocation(double x, double y,
+			String projectionCode) {
 		XYZLocation xyzLocation = GeoffFactory.eINSTANCE.createXYZLocation();
 		xyzLocation.setX(x);
 		xyzLocation.setY(y);
+
+		if (projectionCode != null) {
+			xyzLocation.setProjectionCode(projectionCode);
+		}
+
 		return xyzLocation;
 	}
 
-	public static Transformation trans(String sourceProjection,
-			String targetProjection, double... coords) {
-		Transformation transformation = GeoffFactory.eINSTANCE
-				.createTransformation();
-		transformation.setSourceProjection(sourceProjection);
-		transformation.setTargetProjection(targetProjection);
+	public static Style style(Image imageStyle) {
+		Style style = StyleFactory.eINSTANCE.createStyle();
+		style.setImage(imageStyle);
+		return style;
+	}
 
-		if (coords != null) {
-			if (coords.length > 0) {
-				transformation.setX(coords[0]);
-			}
-
-			if (coords.length > 1) {
-				transformation.setY(coords[1]);
-			}
-
-			if (coords.length > 2) {
-				transformation.setZ(coords[2]);
-			}
-		}
-
-		return transformation;
+	public static Icon icon(String src) {
+		Icon icon = StyleFactory.eINSTANCE.createIcon();
+		icon.setSrc(src);
+		return icon;
 	}
 }

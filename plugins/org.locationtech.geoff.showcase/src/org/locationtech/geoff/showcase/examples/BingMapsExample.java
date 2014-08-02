@@ -10,10 +10,7 @@
  ******************************************************************************/
 package org.locationtech.geoff.showcase.examples;
 
-import static org.locationtech.geoff.core.Geoff.bingSource;
-import static org.locationtech.geoff.core.Geoff.tileLayer;
-import static org.locationtech.geoff.core.Geoff.trans;
-import static org.locationtech.geoff.core.Geoff.view2d;
+import static org.locationtech.geoff.core.Geoff.*;
 
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.core.Geoff;
@@ -23,7 +20,7 @@ public class BingMapsExample extends AbstractExampleGeoMap {
 	protected GeoMap doCreateMap() {
 		Geoff g = Geoff
 				.createMap("BingMaps", "A simple BingMaps base layer example.")
-				.view(view2d(trans("EPSG:4326", "EPSG:3857", -123.1, 49.25), 10))
+				.view(xyLocation(-123.1, 49.25, "EPSG:4326"), 10)
 				.addLayer(
 						tileLayer(bingSource(
 								"Ak-dzM4wZjSqTlzveKz5u0d4IQ4bRzVI309GxmkgSVr1ewS6iPSrOvOKhA-CJlm3",

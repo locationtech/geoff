@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Geoff OpenLayers 3 Sample Index Fragment
+Bundle-SymbolicName: org.locationtech.geoff.ol.sampleindex
+Bundle-Version: 0.8.0.qualifier
+Bundle-Vendor: Erdal Karaca
+Fragment-Host: org.locationtech.geoff.ol;bundle-version="0.8.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: .

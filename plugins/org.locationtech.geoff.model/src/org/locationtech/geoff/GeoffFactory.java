@@ -57,15 +57,6 @@ public interface GeoffFactory extends EFactory {
 	View createView();
 
 	/**
-	 * Returns a new object of class '<em>View2 D</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>View2 D</em>'.
-	 * @generated
-	 */
-	View2D createView2D();
-
-	/**
 	 * Returns a new object of class '<em>XYZ Location</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -75,13 +66,13 @@ public interface GeoffFactory extends EFactory {
 	XYZLocation createXYZLocation();
 
 	/**
-	 * Returns a new object of class '<em>Transformation</em>'.
+	 * Returns a new object of class '<em>Feature</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Transformation</em>'.
+	 * @return a new object of class '<em>Feature</em>'.
 	 * @generated
 	 */
-	Transformation createTransformation();
+	Feature createFeature();
 
 	/**
 	 * Returns the package supported by this factory.

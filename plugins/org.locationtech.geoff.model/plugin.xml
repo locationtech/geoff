@@ -19,7 +19,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated geoff -->
       <package
-            uri="http://www.locationtech.org/geoff-v1.0.0"
+            uri="http://www.locationtech.org/geoff-v1"
             class="org.locationtech.geoff.GeoffPackage"
             genModel="model/geoff.genmodel"/>
    </extension>
@@ -34,7 +34,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated geoff -->
       <package
-            uri="http://www.locationtech.org/geoff-layer-v1.0.0"
+            uri="http://www.locationtech.org/geoff-layer-v1"
             class="org.locationtech.geoff.layer.LayerPackage"
             genModel="model/geoff.genmodel"/>
    </extension>
@@ -49,7 +49,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated geoff -->
       <package
-            uri="http://www.locationtech.org/geoff-source-v1.0.0"
+            uri="http://www.locationtech.org/geoff-source-v1"
             class="org.locationtech.geoff.source.SourcePackage"
             genModel="model/geoff.genmodel"/>
    </extension>
@@ -59,6 +59,36 @@
       <parser
             type="source"
             class="org.locationtech.geoff.source.util.SourceResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated geoff -->
+      <package
+            uri="http://www.locationtech.org/geoff-geom-v1"
+            class="org.locationtech.geoff.geom.GeomPackage"
+            genModel="model/geoff.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated geoff -->
+      <parser
+            type="geom"
+            class="org.locationtech.geoff.geom.util.GeomResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated geoff -->
+      <package
+            uri="http://www.locationtech.org/geoff-style-v1"
+            class="org.locationtech.geoff.style.StylePackage"
+            genModel="model/geoff.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated geoff -->
+      <parser
+            type="style"
+            class="org.locationtech.geoff.style.util.StyleResourceFactoryImpl"/>
    </extension>
 
 </plugin>
