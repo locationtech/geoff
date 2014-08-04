@@ -1,13 +1,21 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Openlayers Bridge
-Bundle-SymbolicName: org.locationtech.geoff.ol;singleton:=true
+Bundle-SymbolicName: org.locationtech.geoff.ol
 Bundle-Version: 0.8.0.qualifier
 Bundle-Vendor: Geoff Project (Eclipse LocationTech IWG)
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.equinox.http.registry;bundle-version="1.1.100",
  javax.servlet;bundle-version="3.0.0",
- org.locationtech.geoff.core
-Import-Package: org.locationtech.geoff
+ org.locationtech.geoff.core,
+ org.eclipse.jetty.server;bundle-version="8.1.14",
+ org.eclipse.jetty.http;bundle-version="8.1.14",
+ org.eclipse.jetty.io;bundle-version="8.1.14",
+ org.eclipse.jetty.servlet;bundle-version="8.1.14",
+ org.eclipse.jetty.util;bundle-version="8.1.14",
+ org.eclipse.jetty.continuation;bundle-version="8.1.14"
+Import-Package: org.locationtech.geoff,
+ org.osgi.framework;version="1.8.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.locationtech.geoff.ol
+Bundle-ClassPath: .

@@ -36,6 +36,6 @@ public class PreviewComposite extends Composite {
 	}
 
 	public void setMapProvider(IExampleGeoMap mapProvider) {
-		mapComposite.loadMap(mapProvider.getRegistryToken());
+		mapComposite.loadMap(mapProvider.getMap());
 	}
 }

@@ -50,7 +50,7 @@ public class GeoCodingExample extends AbstractExampleGeoMap {
 							.getLatLon().getLon(), (float) poi.getLatLon()
 							.getLat(), "EPSG:4326"));
 					Feature feature = feature(geometry,
-							style(icon("images/icon.png")));
+							style(icon("http://localhost:3333/images/icon.png")));
 					vectorSource.getFeatures().add(feature);
 				}
 			}

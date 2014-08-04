@@ -5,8 +5,7 @@ Bundle-SymbolicName: org.locationtech.geoff.ui.swt
 Bundle-Version: 0.8.0.qualifier
 Bundle-Vendor: Erdal Karaca
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.locationtech.geoff.ui;bundle-version="0.7.0",
- org.eclipse.emf.ecore,
+Require-Bundle: org.eclipse.emf.ecore,
  org.locationtech.geoff.core,
  org.locationtech.geoff.ol;bundle-version="0.8.0"
 Bundle-ClassPath: .

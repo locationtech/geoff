@@ -13,6 +13,7 @@ package org.locationtech.geoff.core;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Arrays;
 
 import org.eclipse.emf.ecore.resource.Resource;
@@ -94,6 +95,28 @@ public class Geoff {
 		}
 
 		return out.toString();
+	}
+
+	public static GeoMap fromURI(URI uri) {
+		org.eclipse.emf.common.util.URI emfURI = org.eclipse.emf.common.util.URI
+				.createURI(uri.toString());
+		Resource resource = new GeoffResourceFactoryImpl()
+				.createResource(emfURI);
+		try {
+			resource.load(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		if (resource.getContents().isEmpty()) {
+			return null;
+		}
+
+		if (resource.getContents().get(0) instanceof GeoMap) {
+			return (GeoMap) resource.getContents().get(0);
+		}
+
+		return null;
 	}
 
 	public GeoMap get() {

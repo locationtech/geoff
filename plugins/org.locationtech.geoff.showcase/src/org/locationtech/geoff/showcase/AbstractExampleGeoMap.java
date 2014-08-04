@@ -11,13 +11,10 @@
 package org.locationtech.geoff.showcase;
 
 import org.locationtech.geoff.GeoMap;
-import org.locationtech.geoff.ol.GeoMapProvidersRegistry;
 
 public abstract class AbstractExampleGeoMap implements IExampleGeoMap {
 	public static boolean DEBUG = true;
 	private GeoMap map;
-	private String token = GeoMapProvidersRegistry.INSTANCE
-			.registerProvider(this);
 
 	public GeoMap getMap() {
 		if (map == null || DEBUG) {
@@ -33,10 +30,6 @@ public abstract class AbstractExampleGeoMap implements IExampleGeoMap {
 
 	public String getDescription() {
 		return getMap().getDescription();
-	}
-
-	public String getRegistryToken() {
-		return token;
 	}
 
 	protected abstract GeoMap doCreateMap();

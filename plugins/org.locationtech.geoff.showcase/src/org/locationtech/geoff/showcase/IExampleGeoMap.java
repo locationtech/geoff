@@ -10,12 +10,12 @@
  ******************************************************************************/
 package org.locationtech.geoff.showcase;
 
-import org.locationtech.geoff.ol.IGeoMapProvider;
+import org.locationtech.geoff.GeoMap;
 
-public interface IExampleGeoMap extends IGeoMapProvider {
+public interface IExampleGeoMap {
 	String getName();
 
 	String getDescription();
 
-	String getRegistryToken();
+	GeoMap getMap();
 }

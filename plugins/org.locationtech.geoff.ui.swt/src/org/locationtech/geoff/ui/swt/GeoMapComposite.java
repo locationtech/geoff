@@ -10,29 +10,35 @@
  ******************************************************************************/
 package org.locationtech.geoff.ui.swt;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.browser.BrowserFunction;
+import org.eclipse.swt.browser.LocationEvent;
+import org.eclipse.swt.browser.LocationListener;
 import org.eclipse.swt.browser.ProgressEvent;
 import org.eclipse.swt.browser.ProgressListener;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MenuDetectEvent;
 import org.eclipse.swt.events.MenuDetectListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.locationtech.geoff.GeoMap;
-import org.locationtech.geoff.ol.GeoMapProvidersRegistry;
-import org.locationtech.geoff.ol.IGeoMapProvider;
+import org.locationtech.geoff.core.Geoff;
+import org.locationtech.geoff.ol.ScriptUtil;
 
 @SuppressWarnings("serial")
 public class GeoMapComposite extends Composite {
 	private static final boolean ENABLE_BROWSER_POPUP_MENU = false;
 	private Browser browser;
-	private SWTMapController renderer = new SWTMapController();
 	private boolean complete = false;
 
 	private Queue<Runnable> pendingTasks = new LinkedList<Runnable>();
+	private GeoMap currentMap;
 
 	public GeoMapComposite(Composite parent, int style) {
 		super(parent, style);
@@ -59,7 +65,39 @@ public class GeoMapComposite extends Composite {
 			}
 		});
 
-		renderer.prepareBrowser(browser);
+		try {
+			String indexHtml = ScriptUtil.getIndexHtml();
+			browser.setText(indexHtml);
+			String geoffOl3Impl = ScriptUtil.getOL3ImplScript(true);
+			executeJS(geoffOl3Impl);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		final BrowserFunction func = new BrowserFunction(browser,
+				"geoffSWTBridge") {
+			@Override
+			public Object function(Object[] arguments) {
+				if (arguments != null && arguments.length > 0) {
+					if ("loadMap".equals(arguments[0])) {
+						if (currentMap != null) {
+							String xml = Geoff.wrap(currentMap).toXML();
+							return xml;
+						}
+					}
+				}
+
+				throw new UnsupportedOperationException(
+						"Invalid bridge parameters: " + arguments);
+			}
+		};
+
+		browser.addDisposeListener(new DisposeListener() {
+
+			public void widgetDisposed(DisposeEvent e) {
+				func.dispose();
+			}
+		});
 	}
 
 	public Browser getBrowser() {
@@ -80,22 +118,12 @@ public class GeoMapComposite extends Composite {
 		}
 	}
 
-	public void loadMap(String registryToken) {
-		// FIXME clean existing map on JavaScript side
-		renderer.prepareBrowser(browser);
-		String loadScript = String.format("window.geoff.loadFromServer('%s')",
-				registryToken);
-		executeJS(loadScript);
-	}
-
 	public void loadMap(final GeoMap map) {
-		String token = GeoMapProvidersRegistry.INSTANCE
-				.registerProvider(new IGeoMapProvider() {
+		// TODO attach listener to map to auto-update changes
+		this.currentMap = map;
 
-					public GeoMap getMap() {
-						return map;
-					}
-				});
-		loadMap(token);
+		String loadXML = String.format("geoff.loadFromXMLString(%s,%s)",
+				"geoffSWTBridge('loadMap')", "'map'");
+		executeJS(loadXML);
 	}
 }

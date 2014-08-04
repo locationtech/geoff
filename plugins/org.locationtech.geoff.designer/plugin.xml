@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+      <extension
+            point="org.eclipse.ui.editors">
+      <editor
+            class="org.locationtech.geoff.designer.editors.GeoMapEditor"
+            default="false"
+            extensions="geoff"
+            id="org.locationtech.geoff.designer.editor"
+            name="Geoff Geo Map Editor">
+      </editor>
+      </extension>
+      <extension
+            point="org.eclipse.ui.perspectives">
+         <perspective
+               class="org.locationtech.geoff.designer.perspectives.GeoffDesignerPerspectiveFactory"
+               id="org.locationtech.geoff.designer.perspective"
+               name="Geo Map Designer">
+         </perspective>
+      </extension>
+      <extension
+            point="org.eclipse.ui.views">
+         <e4view
+               class="org.locationtech.geoff.designer.views.LayersView"
+               id="org.locationtech.geoff.designer.views.layers"
+               name="Layers"
+               restorable="true">
+         </e4view>
+      </extension>
+      <extension
+            point="org.eclipse.ui.perspectiveExtensions">
+         <perspectiveExtension
+               targetID="org.locationtech.geoff.designer.perspective">
+            <view
+                  id="org.eclipse.ui.views.ResourceNavigator"
+                  minimized="false"
+                  ratio="0.33"
+                  relationship="left"
+                  relative="org.eclipse.ui.editorss"
+                  visible="true">
+            </view>
+            <view
+                  id="org.locationtech.geoff.designer.views.layers"
+                  minimized="false"
+                  ratio="0.66"
+                  relationship="bottom"
+                  relative="org.eclipse.ui.views.ResourceNavigator">
+            </view>
+         </perspectiveExtension>
+      </extension>
+      <extension
+            point="org.eclipse.ui.newWizards">
+         <category
+               id="org.locationtech.geoff.designer.category"
+               name="Geoff">
+         </category>
+         <wizard
+               category="org.locationtech.geoff.designer.category"
+               class="org.locationtech.geoff.designer.wizards.NewGeoMapWizard"
+               id="org.locationtech.geoff.designer.wizard1"
+               name="New Geo Map">         </wizard>
+      </extension>
+
+</plugin>
