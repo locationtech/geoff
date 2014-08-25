@@ -13,7 +13,15 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.10.0",
  org.eclipse.core.resources;bundle-version="3.9.0",
  org.eclipse.core.databinding,
  org.eclipse.core.filesystem;bundle-version="1.4.100",
- org.eclipse.ui.ide;bundle-version="3.10.0"
+ org.eclipse.ui.ide;bundle-version="3.10.0",
+ org.eclipse.emf.edit,
+ org.eclipse.emf.edit.ui;bundle-version="2.10.0",
+ org.eclipse.e4.ui.workbench,
+ org.eclipse.e4.ui.model.workbench;bundle-version="1.1.0",
+ org.eclipse.e4.ui.services,
+ org.eclipse.jface.databinding,
+ org.eclipse.e4.core.contexts,
+ org.eclipse.e4.core.di
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
 Export-Package: org.locationtech.geoff.designer.editors,
