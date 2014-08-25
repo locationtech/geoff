@@ -29,7 +29,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.core.Geoff;
-import org.locationtech.geoff.ol.ScriptUtil;
+import org.locationtech.geoff.ol.ResourcesUtil;
 
 @SuppressWarnings("serial")
 public class GeoMapComposite extends Composite {
@@ -66,14 +66,47 @@ public class GeoMapComposite extends Composite {
 		});
 
 		try {
-			String indexHtml = ScriptUtil.getIndexHtml();
-			browser.setText(indexHtml);
-			String geoffOl3Impl = ScriptUtil.getOL3ImplScript(true);
-			executeJS(geoffOl3Impl);
+			// load template file and inline the OL3 CSS file contents
+			{
+				String indexHtml = ResourcesUtil
+						.readResource("index.template.html");
+				String ol3Css = ResourcesUtil.readResource("ol3-g3.css");
+				indexHtml = indexHtml.replace("{{OL3-CSS}}", ol3Css);
+				browser.setText(indexHtml);
+			}
+
+			// load jQuery and queue pre req check
+			{
+				String lib = ResourcesUtil.readResource("jquery-1.10.2.min.js");
+				executeJS(lib);
+				String checkPreReq = "if (!window.jQuery) {$('body').append("
+						+ "'<h1>the JQuery library is not loaded</h1>'" + ");}";
+				executeJS(checkPreReq);
+			}
+
+			// load OL3 and queue pre req check
+			{
+				String lib = ResourcesUtil.readResource("ol3-g3.js");
+				executeJS(lib);
+				String checkPreReq = "if (!window.ol) {$('body').append("
+						+ "'<h1>the OpenLayers library is not loaded</h1>'"
+						+ ");}";
+				executeJS(checkPreReq);
+			}
+
+			// queue geoff OL3 implementation
+			{
+				String geoffOl3Impl = ResourcesUtil
+						.readResource("geoff-ol3.js");
+				executeJS(geoffOl3Impl);
+			}
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 
+		// this is to transport serialized maps to the JavaScript side
+		// to circumvent escaping strings when executing
+		// Browser#evaluate(String)
 		final BrowserFunction func = new BrowserFunction(browser,
 				"geoffSWTBridge") {
 			@Override
@@ -122,6 +155,9 @@ public class GeoMapComposite extends Composite {
 		// TODO attach listener to map to auto-update changes
 		this.currentMap = map;
 
+		// we are using BrowserFunction as call back to get the serialized map
+		// i.e., the JavaScript side will call a function "geoffSWTBridge"
+		// which is defined as part of the Browser instance initialization
 		String loadXML = String.format("geoff.loadFromXMLString(%s,%s)",
 				"geoffSWTBridge('loadMap')", "'map'");
 		executeJS(loadXML);

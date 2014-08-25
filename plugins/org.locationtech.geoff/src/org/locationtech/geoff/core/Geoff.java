@@ -82,6 +82,14 @@ public class Geoff {
 		return this;
 	}
 
+	/**
+	 * Serializes the wrapped {@link GeoMap} instance using the model specific
+	 * resource factory {@link GeoffResourceFactoryImpl}.
+	 * 
+	 * @return the XML representation of the wrapped {@link GeoMap} instance or
+	 *         <code>null</code> if the {@link GeoMap} instance could not be
+	 *         serialized
+	 */
 	public String toXML() {
 		GeoMap mapCopy = EcoreUtil.copy(map);
 		Resource resource = new GeoffResourceFactoryImpl().createResource(null);
@@ -91,12 +99,23 @@ public class Geoff {
 		try {
 			resource.save(out, null);
 		} catch (IOException e) {
-			e.printStackTrace();
+			return null;
 		}
 
 		return out.toString();
 	}
 
+	/**
+	 * Loads the provided URI and grabs the first found {@link GeoMap} instance.
+	 * Note that the {@link GeoMap} will be attached to a new resource using the
+	 * provided {@link URI}.
+	 * 
+	 * @param uri
+	 *            the URI to load the {@link GeoMap} instance from
+	 * @return the first {@link GeoMap} instance found at the specified
+	 *         {@link URI}, or <code>null</code> if location does not contain a
+	 *         valid {@link GeoMap} instance
+	 */
 	public static GeoMap fromURI(URI uri) {
 		org.eclipse.emf.common.util.URI emfURI = org.eclipse.emf.common.util.URI
 				.createURI(uri.toString());
@@ -113,7 +132,8 @@ public class Geoff {
 		}
 
 		if (resource.getContents().get(0) instanceof GeoMap) {
-			return (GeoMap) resource.getContents().get(0);
+			GeoMap map = (GeoMap) resource.getContents().get(0);
+			return map;
 		}
 
 		return null;

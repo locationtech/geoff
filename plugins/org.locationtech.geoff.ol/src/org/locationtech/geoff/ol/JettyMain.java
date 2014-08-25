@@ -26,7 +26,7 @@ public class JettyMain {
 			public void handle(String target, Request baseRequest,
 					HttpServletRequest request, HttpServletResponse response)
 					throws IOException, ServletException {
-				String readResource = ScriptUtil.readResource(target
+				String readResource = ResourcesUtil.readResource(target
 						.substring(1));
 				response.getWriter().write(readResource);
 				response.getWriter().flush();
