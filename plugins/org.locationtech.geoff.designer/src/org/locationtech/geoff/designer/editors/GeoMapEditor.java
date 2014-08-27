@@ -1,6 +1,9 @@
 package org.locationtech.geoff.designer.editors;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -34,6 +37,7 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 	private ResourceSet resourceSet;
 
 	private GeoMap geoMap;
+	private URL baseUrl;
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
@@ -51,6 +55,13 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 		if (input instanceof FileEditorInput) {
 			FileEditorInput fInput = (FileEditorInput) input;
 			URI uri = fInput.getURI();
+
+			try {
+				baseUrl = new File(uri).getParentFile().toURI().toURL();
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+
 			geoMap = Geoff.fromURI(uri);
 		} else {
 			throw new UnsupportedOperationException(
@@ -91,6 +102,7 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new FillLayout());
 		geoMapComposite = new GeoMapComposite(parent, SWT.None);
+		geoMapComposite.setBaseUrl(baseUrl);
 		geoMapComposite.loadMap(geoMap);
 	}
 

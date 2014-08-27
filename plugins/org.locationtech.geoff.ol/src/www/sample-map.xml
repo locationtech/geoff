@@ -1,66 +1,53 @@
 <?xml version="1.0" encoding="ASCII"?>
-<geoff:GeoMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:geoff="http://www.locationtech.org/geoff-v1" xmlns:geoff.geom="http://www.locationtech.org/geoff-geom-v1"
-	xmlns:geoff.layer="http://www.locationtech.org/geoff-layer-v1"
-	xmlns:geoff.source="http://www.locationtech.org/geoff-source-v1"
-	xmlns:geoff.style="http://www.locationtech.org/geoff-style-v1"
-	xsi:schemaLocation="http://www.locationtech.org/geoff-geom-v1 http://www.locationtech.org/geoff-v1#//geom http://www.locationtech.org/geoff-layer-v1 http://www.locationtech.org/geoff-v1#//layer http://www.locationtech.org/geoff-source-v1 http://www.locationtech.org/geoff-v1#//source http://www.locationtech.org/geoff-style-v1 http://www.locationtech.org/geoff-v1#//style"
-	name="Geo Coding Example"
-	description="Shows a Map with a marker layer whose POIs have been geo coded at run time using the geocoding service interface.">
-	<view zoom="3">
-		<center xsi:type="geoff:XYZLocation" projectionCode="EPSG:4326"
-			x="8.0" y="53.0" />
-	</view>
-	<layer xsi:type="geoff.layer:Tile">
-		<source xsi:type="geoff.source:OSM" />
-	</layer>
-	<layer xsi:type="geoff.layer:Vector">
-		<source xsi:type="geoff.source:Vector">
-			<feature>
-				<geometry xsi:type="geoff.geom:Point">
-					<coordinates xsi:type="geoff:XYZLocation"
-						projectionCode="EPSG:4326" x="13.404953956604004" y="52.5200080871582" />
-				</geometry>
-				<style>
-					<image xsi:type="geoff.style:Icon" src="images/icon.png" />
-				</style>
-			</feature>
-			<feature>
-				<geometry xsi:type="geoff.geom:Point">
-					<coordinates xsi:type="geoff:XYZLocation"
-						projectionCode="EPSG:4326" x="2.352221965789795" y="48.85661315917969" />
-				</geometry>
-				<style>
-					<image xsi:type="geoff.style:Icon" src="images/icon.png" />
-				</style>
-			</feature>
-			<feature>
-				<geometry xsi:type="geoff.geom:Point">
-					<coordinates xsi:type="geoff:XYZLocation"
-						projectionCode="EPSG:4326" x="-0.12775829434394836" y="51.50735092163086" />
-				</geometry>
-				<style>
-					<image xsi:type="geoff.style:Icon" src="images/icon.png" />
-				</style>
-			</feature>
-			<feature>
-				<geometry xsi:type="geoff.geom:Point">
-					<coordinates xsi:type="geoff:XYZLocation"
-						projectionCode="EPSG:4326" x="-3.7037901878356934" y="40.41677474975586" />
-				</geometry>
-				<style>
-					<image xsi:type="geoff.style:Icon" src="images/icon.png" />
-				</style>
-			</feature>
-			<feature>
-				<geometry xsi:type="geoff.geom:Point">
-					<coordinates xsi:type="geoff:XYZLocation"
-						projectionCode="EPSG:4326" x="12.480179786682129" y="41.87239074707031" />
-				</geometry>
-				<style>
-					<image xsi:type="geoff.style:Icon" src="images/icon.png" />
-				</style>
-			</feature>
-		</source>
-	</layer>
+<geoff:GeoMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:geoff="http://www.locationtech.org/geoff-v1" xmlns:geoff.geom="http://www.locationtech.org/geoff-geom-v1" xmlns:geoff.layer="http://www.locationtech.org/geoff-layer-v1" xmlns:geoff.source="http://www.locationtech.org/geoff-source-v1" xmlns:geoff.style="http://www.locationtech.org/geoff-style-v1" xsi:schemaLocation="http://www.locationtech.org/geoff-geom-v1 http://www.locationtech.org/geoff-v1#//geom http://www.locationtech.org/geoff-layer-v1 http://www.locationtech.org/geoff-v1#//layer http://www.locationtech.org/geoff-source-v1 http://www.locationtech.org/geoff-v1#//source http://www.locationtech.org/geoff-style-v1 http://www.locationtech.org/geoff-v1#//style" name="Geo Coding Example" description="Shows a Map with a marker layer whose POIs have been geo coded at run time using the geocoding service interface.">
+  <view zoom="3">
+    <center xsi:type="geoff:XYZLocation" projectionCode="EPSG:4326" x="8.0" y="53.0"/>
+  </view>
+  <layer xsi:type="geoff.layer:Tile">
+    <source xsi:type="geoff.source:OSM"/>
+  </layer>
+  <layer xsi:type="geoff.layer:Vector">
+    <source xsi:type="geoff.source:Vector">
+      <feature>
+        <geometry xsi:type="geoff.geom:Point">
+          <coordinates xsi:type="geoff:XYZLocation" projectionCode="EPSG:4326" x="13.404953956604004" y="52.5200080871582"/>
+        </geometry>
+        <style>
+          <image xsi:type="geoff.style:Icon" src="marker.gif"/>
+        </style>
+      </feature>
+      <feature>
+        <geometry xsi:type="geoff.geom:Point">
+          <coordinates xsi:type="geoff:XYZLocation" projectionCode="EPSG:4326" x="2.352221965789795" y="48.85661315917969"/>
+        </geometry>
+        <style>
+          <image xsi:type="geoff.style:Icon" src="marker.gif"/>
+        </style>
+      </feature>
+      <feature>
+        <geometry xsi:type="geoff.geom:Point">
+          <coordinates xsi:type="geoff:XYZLocation" projectionCode="EPSG:4326" x="-0.12775829434394836" y="51.50735092163086"/>
+        </geometry>
+        <style>
+          <image xsi:type="geoff.style:Icon" src="marker.gif"/>
+        </style>
+      </feature>
+      <feature>
+        <geometry xsi:type="geoff.geom:Point">
+          <coordinates xsi:type="geoff:XYZLocation" projectionCode="EPSG:4326" x="-3.7037901878356934" y="40.41677474975586"/>
+        </geometry>
+        <style>
+          <image xsi:type="geoff.style:Icon" src="marker.gif"/>
+        </style>
+      </feature>
+      <feature>
+        <geometry xsi:type="geoff.geom:Point">
+          <coordinates xsi:type="geoff:XYZLocation" projectionCode="EPSG:4326" x="12.480179786682129" y="41.87239074707031"/>
+        </geometry>
+        <style>
+          <image xsi:type="geoff.style:Icon" src="marker.gif"/>
+        </style>
+      </feature>
+    </source>
+  </layer>
 </geoff:GeoMap>

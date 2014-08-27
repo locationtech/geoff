@@ -18,4 +18,5 @@ Import-Package: org.locationtech.geoff,
  org.locationtech.geoff.geom,
  org.locationtech.geoff.layer,
  org.locationtech.geoff.source,
- org.locationtech.geoff.style
+ org.locationtech.geoff.style,
+ org.osgi.framework

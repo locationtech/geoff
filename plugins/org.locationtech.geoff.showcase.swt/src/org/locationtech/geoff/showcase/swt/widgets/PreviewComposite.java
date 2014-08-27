@@ -10,11 +10,16 @@
  ******************************************************************************/
 package org.locationtech.geoff.showcase.swt.widgets;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.locationtech.geoff.showcase.IExampleGeoMap;
+import org.locationtech.geoff.showcase.ShowCaseUtil;
 import org.locationtech.geoff.ui.swt.GeoMapComposite;
 
 public class PreviewComposite extends Composite {
@@ -29,6 +34,18 @@ public class PreviewComposite extends Composite {
 
 		mapComposite = new GeoMapComposite(this, SWT.None);
 		mapComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+
+		URL baseUrl = null;
+
+		try {
+			baseUrl = ShowCaseUtil.exportResourcesToTempDir().toURI().toURL();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (baseUrl != null) {
+			mapComposite.setBaseUrl(baseUrl);
+		}
 	}
 
 	public GeoMapComposite getMapComposite() {

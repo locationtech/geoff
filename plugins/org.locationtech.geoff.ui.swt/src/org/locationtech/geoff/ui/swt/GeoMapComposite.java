@@ -11,6 +11,7 @@
 package org.locationtech.geoff.ui.swt;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -161,5 +162,15 @@ public class GeoMapComposite extends Composite {
 		String loadXML = String.format("geoff.loadFromXMLString(%s,%s)",
 				"geoffSWTBridge('loadMap')", "'map'");
 		executeJS(loadXML);
+	}
+
+	public void setBaseUrl(URL baseUrl) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("var newBase = document.createElement('base');");
+		sb.append("newBase.setAttribute('href', '").append(baseUrl.toString())
+				.append("');");
+		sb.append("document.getElementsByTagName('head')[0].appendChild(newBase);");
+		// sb.append("alert(document.getElementsByTagName('base')[0].getAttribute('href'));");
+		executeJS(sb.toString());
 	}
 }

@@ -19,7 +19,7 @@
 		"geoff.source" : "http://www.locationtech.org/geoff-source-v1",
 		"geoff.style" : "http://www.locationtech.org/geoff-style-v1"
 	};
-
+	
 	// this is the array of rules that are supported to transform DOM nodes to
 	// OL3 instructions, this is like a grammar of a language with dynamic rules
 	// ---

@@ -19,6 +19,7 @@ import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.core.Geoff;
 import org.locationtech.geoff.geocoding.IGeocodingService;
 import org.locationtech.geoff.geocoding.POI;
+import org.locationtech.geoff.geocoding.POI.LatLon;
 import org.locationtech.geoff.geom.Geometry;
 import org.locationtech.geoff.showcase.AbstractExampleGeoMap;
 import org.locationtech.geoff.source.Vector;
@@ -46,11 +47,12 @@ public class GeoCodingExample extends AbstractExampleGeoMap {
 
 				if (!results.isEmpty()) {
 					POI poi = results.get(0);
-					Geometry geometry = pointGeom(xyLocation((float) poi
-							.getLatLon().getLon(), (float) poi.getLatLon()
-							.getLat(), "EPSG:4326"));
+					LatLon latLon = poi.getLatLon();
+					Geometry geometry = pointGeom(xyLocation(
+							(float) latLon.getLon(), (float) latLon.getLat(),
+							"EPSG:4326"));
 					Feature feature = feature(geometry,
-							style(icon("http://localhost:3333/images/icon.png")));
+							style(icon("marker.gif")));
 					vectorSource.getFeatures().add(feature);
 				}
 			}
