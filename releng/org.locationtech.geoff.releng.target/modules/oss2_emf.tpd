@@ -1,0 +1,79 @@
+/*******************************************************************************
+ * Copyright (c) 2014 NetXForge.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *  You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *
+ * Contributors:
+ *    Christophe Bouhier - initial API and implementation and/or initial documentation
+ *******************************************************************************/ 
+ target "emf" with source allEnvironments
+
+// EMF, the latest release. 
+// http://www.eclipse.org/modeling/emf/downloads/?project=emf
+location "http://download.eclipse.org/modeling/emf/emf/updates/releases/" {
+	org.eclipse.emf.oda.sdk.feature.group 1.2.0.v20140203-1126
+	org.eclipse.emf.feature.group 2.9.2.v20140203-1126
+	org.eclipse.emf.gwt.ecore.feature.group 2.9.0.v20140203-1126
+	org.eclipse.emf.codegen.feature.group 2.9.0.v20140203-1126
+	org.eclipse.emf.converter.feature.group 2.9.1.v20140203-1126
+	org.eclipse.emf.gwt.ecore.edit.feature.group 2.8.0.v20140203-1126
+	org.eclipse.emf.rap.edit.ui.feature.group 2.9.0.v20140203-1126
+	org.eclipse.emf.gwt.edit.feature.group 2.8.0.v20140203-1126
+	org.eclipse.emf.codegen.ecore.feature.group 2.9.1.v20140203-1126
+	org.eclipse.emf.mapping.ecore.feature.group 2.7.0.v20140203-1126
+	org.eclipse.emf.codegen.ecore.ui.feature.group 2.9.1.v20140203-1126
+	org.eclipse.emf.oda.feature.group 1.2.0.v20140203-1126
+	org.eclipse.emf.gwt.edit.ui.feature.group 2.7.0.v20140203-1126
+	org.eclipse.emf.doc.feature.group 2.8.0.v20140203-1126
+	org.eclipse.xsd.mapping.editor.feature.group 2.8.0.v20140203-1126
+	org.eclipse.emf.ecore.editor.feature.group 2.9.0.v20140203-1126
+	org.eclipse.emf.all.feature.group 2.9.2.v20140203-1126
+	org.eclipse.xsd.editor.feature.group 2.7.0.v20140203-1126
+	org.eclipse.emf.gwt.feature.group 2.9.0.v20140203-1126
+	org.eclipse.emf.mapping.feature.group 2.7.0.v20140203-1126
+	org.eclipse.emf.ecore.feature.group 2.9.2.v20131212-0545
+	org.eclipse.emf.mapping.ecore.editor.feature.group 2.8.0.v20140203-1126
+	org.eclipse.xsd.edit.feature.group 2.7.0.v20140203-1126
+	org.eclipse.emf.rap.sdk.feature.group 2.9.1.v20140203-1126
+	org.eclipse.emf.ecore.edit.feature.group 2.8.0.v20140203-1126
+	org.eclipse.xsd.doc.feature.group 2.8.0.v20140203-1126
+	org.eclipse.emf.oda.ecore.feature.group 1.2.0.v20140203-1126
+	org.eclipse.emf.examples.feature.group 2.9.0.v20140203-1126
+	org.eclipse.emf.databinding.feature.group 1.3.0.v20140203-1126
+	org.eclipse.emf.edit.feature.group 2.9.0.v20140203-1126
+	org.eclipse.xsd.mapping.feature.group 2.7.0.v20140203-1126
+	org.eclipse.emf.edit.ui.feature.group 2.9.0.v20140203-1126
+	org.eclipse.emf.rap.common.ui.feature.group 2.8.0.v20140203-1126
+	org.eclipse.emf.mapping.ui.feature.group 2.7.0.v20140203-1126
+	org.eclipse.xsd.ecore.converter.feature.group 2.8.0.v20140203-1126
+	org.eclipse.xsd.sdk.feature.group 2.10.0.v20140203-0812
+	org.eclipse.emf.gwt.common.feature.group 2.9.0.v20140203-1126
+	org.eclipse.emf.gwt.sdk.feature.group 2.9.0.v20140203-1126
+	org.eclipse.emf.common.feature.group 2.9.2.v20131212-0545
+	org.eclipse.emf.oda.ecore.ui.feature.group 1.1.0.v20140203-1126
+	org.eclipse.emf.databinding.edit.feature.group 1.3.0.v20140203-1126
+	org.eclipse.emf.rap.feature.group 2.9.1.v20140203-1126
+	org.eclipse.emf.common.ui.feature.group 2.8.0.v20140203-1126
+	org.eclipse.emf.codegen.ui.feature.group 2.7.0.v20140203-1126
+	org.eclipse.xsd.feature.group 2.10.0.v20140203-0812
+	org.eclipse.emf.sdk.feature.group 2.9.2.v20140203-1126
+}
+
+location "http://download.eclipse.org/modeling/emf/compare/updates/releases/2.1" {
+	org.eclipse.emf.compare.ide.ui.source.feature.group 2.1.0.201306250935
+	org.eclipse.emf.compare.ide.ui.feature.group 2.1.0.201306250935
+	org.eclipse.emf.compare.source.feature.group 2.1.0.201306250935
+	org.eclipse.emf.compare.feature.group 2.1.0.201306250935
+	org.eclipse.emf.compare.rcp.ui.source.feature.group 2.1.0.201306250935
+	org.eclipse.emf.compare.rcp.ui.feature.group 2.1.0.201306250935
+}

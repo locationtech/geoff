@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.locationtech</groupId>
+	<artifactId>geoff.releng.root</artifactId>
+	<version>0.8.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<properties>
+		<tycho-version>0.20.0</tycho-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<dependency-resolution>
+						<optionalDependencies>ignore</optionalDependencies>
+					</dependency-resolution>
+					<target>
+						<artifact>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${project.artifactId}</artifactId>
+							<version>${project.version}</version>
+							<classifier>../../releng/org.locationtech.geoff.releng.target/geoff</classifier>
+						</artifact>
+					</target>
+					<environments>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
+					<filters>
+						<filter>
+							<type>p2-installable-unit</type>
+							<id>org.apache.ant</id>
+							<removeAll />
+						</filter>
+						<filter>
+							<type>p2-installable-unit</type>
+							<id>org.eclipse.ltk.core.refactoring</id>
+							<removeAll />
+						</filter>
+
+						<filter>
+							<type>p2-installable-unit</type>
+							<id>org.eclipse.debug.core</id>
+							<removeAll />
+						</filter>
+						<filter>
+							<type>p2-installable-unit</type>
+							<id>org.eclipse.jdt.core</id>
+							<removeAll />
+						</filter>
+						<filter>
+							<type>p2-installable-unit</type>
+							<id>org.eclipse.search</id>
+							<removeAll />
+						</filter>
+						<filter>
+							<type>p2-installable-unit</type>
+							<id>org.eclipse.team.core</id>
+							<removeAll />
+						</filter>
+						<filter>
+							<type>p2-installable-unit</type>
+							<id>org.eclipse.team.ui</id>
+							<removeAll />
+						</filter>
+					</filters>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<modules>
+		<module>
+		../../plugins/
+		</module>
+		<module>
+		../../features/
+		</module>
+		<module>
+		../org.locationtech.geoff.releng.p2
+		</module>
+	</modules>
+</project>

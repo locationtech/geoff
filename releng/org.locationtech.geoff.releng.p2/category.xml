@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.locationtech.geoff.runtime.feature_0.8.0.qualifier.jar" id="org.locationtech.geoff.runtime.feature" version="0.8.0.qualifier">
+      <category name="Geoff"/>
+   </feature>
+   <category-def name="Geoff" label="Geoff">
+      <description>
+         Geoff Runtime features
+      </description>
+   </category-def>
+</site>
