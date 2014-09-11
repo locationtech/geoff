@@ -66,44 +66,17 @@ public class GeoMapComposite extends Composite {
 			}
 		});
 
-		try {
-			// load template file and inline the OL3 CSS file contents
-			{
-				String indexHtml = ResourcesUtil
-						.readResource("index.template.html");
-				String ol3Css = ResourcesUtil.readResource("ol3-g3.css");
-				indexHtml = indexHtml.replace("{{OL3-CSS}}", ol3Css);
-				browser.setText(indexHtml);
+		// map window#alert() to System.err#println()
+		final BrowserFunction alertFunc = new BrowserFunction(browser, "alert") {
+			@Override
+			public Object function(Object[] arguments) {
+				for (Object object : arguments) {
+					System.err.print(object);
+				}
+				System.err.println();
+				return null;
 			}
-
-			// load jQuery and queue pre req check
-			{
-				String lib = ResourcesUtil.readResource("jquery-1.10.2.min.js");
-				executeJS(lib);
-				String checkPreReq = "if (!window.jQuery) {$('body').append("
-						+ "'<h1>the JQuery library is not loaded</h1>'" + ");}";
-				executeJS(checkPreReq);
-			}
-
-			// load OL3 and queue pre req check
-			{
-				String lib = ResourcesUtil.readResource("ol3-g3.js");
-				executeJS(lib);
-				String checkPreReq = "if (!window.ol) {$('body').append("
-						+ "'<h1>the OpenLayers library is not loaded</h1>'"
-						+ ");}";
-				executeJS(checkPreReq);
-			}
-
-			// queue geoff OL3 implementation
-			{
-				String geoffOl3Impl = ResourcesUtil
-						.readResource("geoff-ol3.js");
-				executeJS(geoffOl3Impl);
-			}
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		};
 
 		// this is to transport serialized maps to the JavaScript side
 		// to circumvent escaping strings when executing
@@ -125,13 +98,52 @@ public class GeoMapComposite extends Composite {
 						"Invalid bridge parameters: " + arguments);
 			}
 		};
-
+		
 		browser.addDisposeListener(new DisposeListener() {
 
 			public void widgetDisposed(DisposeEvent e) {
 				func.dispose();
+				alertFunc.dispose();
 			}
 		});
+		try {
+			// load template file and inline the OL3 CSS file contents
+			{
+				String indexHtml = ResourcesUtil
+						.readResource("index.template.html");
+				String ol3Css = ResourcesUtil.readResource("ol.css");
+				indexHtml = indexHtml.replace("{{OL3-CSS}}", ol3Css);
+				browser.setText(indexHtml);
+			}
+
+			// load jQuery and queue pre req check
+			{
+				String lib = ResourcesUtil.readResource("jquery-1.10.2.min.js");
+				executeJS(lib);
+				String checkPreReq = "if (!window.jQuery) {$('body').append("
+						+ "'<h1>the JQuery library is not loaded</h1>'" + ");}";
+				executeJS(checkPreReq);
+			}
+
+			// load OL3 and queue pre req check
+			{
+				String lib = ResourcesUtil.readResource("ol.js");
+				executeJS(lib);
+				String checkPreReq = "if (!window.ol) {$('body').append("
+						+ "'<h1>the OpenLayers library is not loaded</h1>'"
+						+ ");}";
+				executeJS(checkPreReq);
+			}
+
+			// queue geoff OL3 implementation
+			{
+				String geoffOl3Impl = ResourcesUtil
+						.readResource("geoff-ol3.js");
+				executeJS(geoffOl3Impl);
+			}
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	public Browser getBrowser() {
