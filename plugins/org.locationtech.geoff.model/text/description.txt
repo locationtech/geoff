@@ -31,7 +31,17 @@ Package geoff <http://www.locationtech.org/geoff-v1>
 
   Class Feature -> Identifiable
     Reference geometry : Geometry<<1..1>>
-    Reference styles : Style<<0..*>>
+    Reference style : Style
+
+  Class Color -> Identifiable
+    Attribute red : EInt
+    Attribute green : EInt
+    Attribute blue : EInt
+    Attribute alpha : EFloat
+
+  Class StyleEntry
+    Attribute key : EString<<1..1>>
+    Reference value : Style
 
   Enum RendererHint
     Literal CANVAS = 0

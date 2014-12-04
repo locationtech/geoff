@@ -78,6 +78,7 @@ public class StyleItemProvider extends ItemProviderAdapter implements
 			super.getPropertyDescriptors(object);
 
 			addIdPropertyDescriptor(object);
+			addZindexPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -103,6 +104,26 @@ public class StyleItemProvider extends ItemProviderAdapter implements
 	}
 
 	/**
+	 * This adds a property descriptor for the Zindex feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addZindexPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_Style_zindex_feature"), //$NON-NLS-1$
+						getString(
+								"_UI_PropertyDescriptor_description", "_UI_Style_zindex_feature", "_UI_Style_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						StylePackage.Literals.STYLE__ZINDEX, true, false,
+						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+						null, null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -116,6 +137,9 @@ public class StyleItemProvider extends ItemProviderAdapter implements
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(StylePackage.Literals.STYLE__IMAGE);
+			childrenFeatures.add(StylePackage.Literals.STYLE__FILL);
+			childrenFeatures.add(StylePackage.Literals.STYLE__STROKE);
+			childrenFeatures.add(StylePackage.Literals.STYLE__TEXT);
 		}
 		return childrenFeatures;
 	}
@@ -171,10 +195,14 @@ public class StyleItemProvider extends ItemProviderAdapter implements
 
 		switch (notification.getFeatureID(Style.class)) {
 		case StylePackage.STYLE__ID:
+		case StylePackage.STYLE__ZINDEX:
 			fireNotifyChanged(new ViewerNotification(notification,
 					notification.getNotifier(), false, true));
 			return;
 		case StylePackage.STYLE__IMAGE:
+		case StylePackage.STYLE__FILL:
+		case StylePackage.STYLE__STROKE:
+		case StylePackage.STYLE__TEXT:
 			fireNotifyChanged(new ViewerNotification(notification,
 					notification.getNotifier(), true, false));
 			return;
@@ -201,6 +229,22 @@ public class StyleItemProvider extends ItemProviderAdapter implements
 		newChildDescriptors.add(createChildParameter(
 				StylePackage.Literals.STYLE__IMAGE,
 				StyleFactory.eINSTANCE.createIcon()));
+
+		newChildDescriptors.add(createChildParameter(
+				StylePackage.Literals.STYLE__IMAGE,
+				StyleFactory.eINSTANCE.createCircle()));
+
+		newChildDescriptors.add(createChildParameter(
+				StylePackage.Literals.STYLE__FILL,
+				StyleFactory.eINSTANCE.createFill()));
+
+		newChildDescriptors.add(createChildParameter(
+				StylePackage.Literals.STYLE__STROKE,
+				StyleFactory.eINSTANCE.createStroke()));
+
+		newChildDescriptors.add(createChildParameter(
+				StylePackage.Literals.STYLE__TEXT,
+				StyleFactory.eINSTANCE.createText()));
 	}
 
 	/**

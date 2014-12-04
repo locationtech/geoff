@@ -158,6 +158,98 @@ public class StyleItemProviderAdapterFactory extends StyleAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.style.Fill} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FillItemProvider fillItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.locationtech.geoff.style.Fill}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFillAdapter() {
+		if (fillItemProvider == null) {
+			fillItemProvider = new FillItemProvider(this);
+		}
+
+		return fillItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.style.Stroke} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected StrokeItemProvider strokeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.locationtech.geoff.style.Stroke}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createStrokeAdapter() {
+		if (strokeItemProvider == null) {
+			strokeItemProvider = new StrokeItemProvider(this);
+		}
+
+		return strokeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.style.Circle} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CircleItemProvider circleItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.locationtech.geoff.style.Circle}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCircleAdapter() {
+		if (circleItemProvider == null) {
+			circleItemProvider = new CircleItemProvider(this);
+		}
+
+		return circleItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.style.Text} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TextItemProvider textItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.locationtech.geoff.style.Text}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTextAdapter() {
+		if (textItemProvider == null) {
+			textItemProvider = new TextItemProvider(this);
+		}
+
+		return textItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -265,6 +357,14 @@ public class StyleItemProviderAdapterFactory extends StyleAdapterFactory
 			imageItemProvider.dispose();
 		if (iconItemProvider != null)
 			iconItemProvider.dispose();
+		if (fillItemProvider != null)
+			fillItemProvider.dispose();
+		if (strokeItemProvider != null)
+			strokeItemProvider.dispose();
+		if (circleItemProvider != null)
+			circleItemProvider.dispose();
+		if (textItemProvider != null)
+			textItemProvider.dispose();
 	}
 
 }

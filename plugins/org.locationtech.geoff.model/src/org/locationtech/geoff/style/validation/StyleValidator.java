@@ -4,7 +4,10 @@
  */
 package org.locationtech.geoff.style.validation;
 
+import org.locationtech.geoff.style.Fill;
 import org.locationtech.geoff.style.Image;
+import org.locationtech.geoff.style.Stroke;
+import org.locationtech.geoff.style.Text;
 
 /**
  * A sample validator interface for {@link org.locationtech.geoff.style.Style}.
@@ -16,4 +19,12 @@ public interface StyleValidator {
 	boolean validate();
 
 	boolean validateImage(Image value);
+
+	boolean validateFill(Fill value);
+
+	boolean validateStroke(Stroke value);
+
+	boolean validateText(Text value);
+
+	boolean validateZindex(Double value);
 }

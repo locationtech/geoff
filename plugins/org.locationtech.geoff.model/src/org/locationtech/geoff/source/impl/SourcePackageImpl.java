@@ -23,10 +23,13 @@ import org.locationtech.geoff.impl.GeoffPackageImpl;
 import org.locationtech.geoff.layer.LayerPackage;
 import org.locationtech.geoff.layer.impl.LayerPackageImpl;
 import org.locationtech.geoff.source.BingMaps;
+import org.locationtech.geoff.source.FormatVector;
+import org.locationtech.geoff.source.GeoJSON;
 import org.locationtech.geoff.source.MapQuest;
 import org.locationtech.geoff.source.Source;
 import org.locationtech.geoff.source.SourceFactory;
 import org.locationtech.geoff.source.SourcePackage;
+import org.locationtech.geoff.source.StaticVector;
 import org.locationtech.geoff.source.Tile;
 import org.locationtech.geoff.source.TileImage;
 import org.locationtech.geoff.source.Vector;
@@ -102,6 +105,41 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 * @generated
 	 */
 	private EClass vectorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass formatVectorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass staticVectorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass geoJSONEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass gpxEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass kmlEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -302,6 +340,69 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getFormatVector() {
+		return formatVectorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getStaticVector() {
+		return staticVectorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStaticVector_Url() {
+		return (EAttribute) staticVectorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStaticVector_Projection() {
+		return (EAttribute) staticVectorEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGeoJSON() {
+		return geoJSONEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGPX() {
+		return gpxEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getKML() {
+		return kmlEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SourceFactory getSourceFactory() {
 		return (SourceFactory) getEFactoryInstance();
 	}
@@ -345,6 +446,18 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 
 		vectorEClass = createEClass(VECTOR);
 		createEReference(vectorEClass, VECTOR__FEATURES);
+
+		formatVectorEClass = createEClass(FORMAT_VECTOR);
+
+		staticVectorEClass = createEClass(STATIC_VECTOR);
+		createEAttribute(staticVectorEClass, STATIC_VECTOR__URL);
+		createEAttribute(staticVectorEClass, STATIC_VECTOR__PROJECTION);
+
+		geoJSONEClass = createEClass(GEO_JSON);
+
+		gpxEClass = createEClass(GPX);
+
+		kmlEClass = createEClass(KML);
 	}
 
 	/**
@@ -388,6 +501,11 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 		mapQuestEClass.getESuperTypes().add(this.getXYZ());
 		bingMapsEClass.getESuperTypes().add(this.getXYZ());
 		vectorEClass.getESuperTypes().add(this.getSource());
+		formatVectorEClass.getESuperTypes().add(this.getVector());
+		staticVectorEClass.getESuperTypes().add(this.getFormatVector());
+		geoJSONEClass.getESuperTypes().add(this.getStaticVector());
+		gpxEClass.getESuperTypes().add(this.getStaticVector());
+		kmlEClass.getESuperTypes().add(this.getStaticVector());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(
@@ -404,7 +522,7 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 				"TileImage", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
 		initEClass(xyzEClass, org.locationtech.geoff.source.XYZ.class,
-				"XYZ", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+				"XYZ", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
 		initEClass(osmEClass, org.locationtech.geoff.source.OSM.class,
 				"OSM", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -440,6 +558,35 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 				theGeoffPackage.getFeature(),
 				null,
 				"features", null, 0, -1, Vector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(
+				formatVectorEClass,
+				FormatVector.class,
+				"FormatVector", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+		initEClass(
+				staticVectorEClass,
+				StaticVector.class,
+				"StaticVector", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(
+				getStaticVector_Url(),
+				ecorePackage.getEString(),
+				"url", null, 1, 1, StaticVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getStaticVector_Projection(),
+				ecorePackage.getEString(),
+				"projection", null, 0, 1, StaticVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(
+				geoJSONEClass,
+				GeoJSON.class,
+				"GeoJSON", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+		initEClass(gpxEClass, org.locationtech.geoff.source.GPX.class,
+				"GPX", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+		initEClass(kmlEClass, org.locationtech.geoff.source.KML.class,
+				"KML", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
 		// Create annotations
 		// http:///org/eclipse/emf/ecore/util/ExtendedMetaData

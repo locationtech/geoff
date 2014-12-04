@@ -11,27 +11,15 @@
  */
 package org.locationtech.geoff.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.locationtech.geoff.Feature;
 import org.locationtech.geoff.GeoffPackage;
-
 import org.locationtech.geoff.geom.Geometry;
-
 import org.locationtech.geoff.style.Style;
 
 /**
@@ -43,7 +31,7 @@ import org.locationtech.geoff.style.Style;
  * <ul>
  *   <li>{@link org.locationtech.geoff.impl.FeatureImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.FeatureImpl#getGeometry <em>Geometry</em>}</li>
- *   <li>{@link org.locationtech.geoff.impl.FeatureImpl#getStyles <em>Styles</em>}</li>
+ *   <li>{@link org.locationtech.geoff.impl.FeatureImpl#getStyle <em>Style</em>}</li>
  * </ul>
  * </p>
  *
@@ -89,14 +77,14 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 	protected Geometry geometry;
 
 	/**
-	 * The cached value of the '{@link #getStyles() <em>Styles</em>}' containment reference list.
+	 * The cached value of the '{@link #getStyle() <em>Style</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getStyles()
+	 * @see #getStyle()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Style> styles;
+	protected Style style;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -198,12 +186,53 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Style> getStyles() {
-		if (styles == null) {
-			styles = new EObjectContainmentEList<Style>(Style.class, this,
-					GeoffPackage.FEATURE__STYLES);
+	public Style getStyle() {
+		return style;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetStyle(Style newStyle,
+			NotificationChain msgs) {
+		Style oldStyle = style;
+		style = newStyle;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this,
+					Notification.SET, GeoffPackage.FEATURE__STYLE, oldStyle,
+					newStyle);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
 		}
-		return styles;
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStyle(Style newStyle) {
+		if (newStyle != style) {
+			NotificationChain msgs = null;
+			if (style != null)
+				msgs = ((InternalEObject) style).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - GeoffPackage.FEATURE__STYLE,
+						null, msgs);
+			if (newStyle != null)
+				msgs = ((InternalEObject) newStyle).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - GeoffPackage.FEATURE__STYLE,
+						null, msgs);
+			msgs = basicSetStyle(newStyle, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					GeoffPackage.FEATURE__STYLE, newStyle, newStyle));
 	}
 
 	/**
@@ -217,8 +246,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 		switch (featureID) {
 		case GeoffPackage.FEATURE__GEOMETRY:
 			return basicSetGeometry(null, msgs);
-		case GeoffPackage.FEATURE__STYLES:
-			return ((InternalEList<?>) getStyles()).basicRemove(otherEnd, msgs);
+		case GeoffPackage.FEATURE__STYLE:
+			return basicSetStyle(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -235,8 +264,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 			return getId();
 		case GeoffPackage.FEATURE__GEOMETRY:
 			return getGeometry();
-		case GeoffPackage.FEATURE__STYLES:
-			return getStyles();
+		case GeoffPackage.FEATURE__STYLE:
+			return getStyle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -256,9 +285,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 		case GeoffPackage.FEATURE__GEOMETRY:
 			setGeometry((Geometry) newValue);
 			return;
-		case GeoffPackage.FEATURE__STYLES:
-			getStyles().clear();
-			getStyles().addAll((Collection<? extends Style>) newValue);
+		case GeoffPackage.FEATURE__STYLE:
+			setStyle((Style) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -278,8 +306,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 		case GeoffPackage.FEATURE__GEOMETRY:
 			setGeometry((Geometry) null);
 			return;
-		case GeoffPackage.FEATURE__STYLES:
-			getStyles().clear();
+		case GeoffPackage.FEATURE__STYLE:
+			setStyle((Style) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -297,8 +325,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		case GeoffPackage.FEATURE__GEOMETRY:
 			return geometry != null;
-		case GeoffPackage.FEATURE__STYLES:
-			return styles != null && !styles.isEmpty();
+		case GeoffPackage.FEATURE__STYLE:
+			return style != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -407,6 +407,308 @@ public interface SourcePackage extends EPackage {
 	int VECTOR_OPERATION_COUNT = SOURCE_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.locationtech.geoff.source.impl.FormatVectorImpl <em>Format Vector</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.locationtech.geoff.source.impl.FormatVectorImpl
+	 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getFormatVector()
+	 * @generated
+	 */
+	int FORMAT_VECTOR = 8;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORMAT_VECTOR__ID = VECTOR__ID;
+
+	/**
+	 * The feature id for the '<em><b>Features</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORMAT_VECTOR__FEATURES = VECTOR__FEATURES;
+
+	/**
+	 * The number of structural features of the '<em>Format Vector</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORMAT_VECTOR_FEATURE_COUNT = VECTOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Format Vector</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORMAT_VECTOR_OPERATION_COUNT = VECTOR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.locationtech.geoff.source.impl.StaticVectorImpl <em>Static Vector</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.locationtech.geoff.source.impl.StaticVectorImpl
+	 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getStaticVector()
+	 * @generated
+	 */
+	int STATIC_VECTOR = 9;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATIC_VECTOR__ID = FORMAT_VECTOR__ID;
+
+	/**
+	 * The feature id for the '<em><b>Features</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATIC_VECTOR__FEATURES = FORMAT_VECTOR__FEATURES;
+
+	/**
+	 * The feature id for the '<em><b>Url</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATIC_VECTOR__URL = FORMAT_VECTOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Projection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATIC_VECTOR__PROJECTION = FORMAT_VECTOR_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Static Vector</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATIC_VECTOR_FEATURE_COUNT = FORMAT_VECTOR_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Static Vector</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATIC_VECTOR_OPERATION_COUNT = FORMAT_VECTOR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.locationtech.geoff.source.impl.GeoJSONImpl <em>Geo JSON</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.locationtech.geoff.source.impl.GeoJSONImpl
+	 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getGeoJSON()
+	 * @generated
+	 */
+	int GEO_JSON = 10;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEO_JSON__ID = STATIC_VECTOR__ID;
+
+	/**
+	 * The feature id for the '<em><b>Features</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEO_JSON__FEATURES = STATIC_VECTOR__FEATURES;
+
+	/**
+	 * The feature id for the '<em><b>Url</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEO_JSON__URL = STATIC_VECTOR__URL;
+
+	/**
+	 * The feature id for the '<em><b>Projection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEO_JSON__PROJECTION = STATIC_VECTOR__PROJECTION;
+
+	/**
+	 * The number of structural features of the '<em>Geo JSON</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEO_JSON_FEATURE_COUNT = STATIC_VECTOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Geo JSON</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEO_JSON_OPERATION_COUNT = STATIC_VECTOR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.locationtech.geoff.source.impl.GPXImpl <em>GPX</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.locationtech.geoff.source.impl.GPXImpl
+	 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getGPX()
+	 * @generated
+	 */
+	int GPX = 11;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPX__ID = STATIC_VECTOR__ID;
+
+	/**
+	 * The feature id for the '<em><b>Features</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPX__FEATURES = STATIC_VECTOR__FEATURES;
+
+	/**
+	 * The feature id for the '<em><b>Url</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPX__URL = STATIC_VECTOR__URL;
+
+	/**
+	 * The feature id for the '<em><b>Projection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPX__PROJECTION = STATIC_VECTOR__PROJECTION;
+
+	/**
+	 * The number of structural features of the '<em>GPX</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPX_FEATURE_COUNT = STATIC_VECTOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>GPX</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GPX_OPERATION_COUNT = STATIC_VECTOR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.locationtech.geoff.source.impl.KMLImpl <em>KML</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.locationtech.geoff.source.impl.KMLImpl
+	 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getKML()
+	 * @generated
+	 */
+	int KML = 12;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KML__ID = STATIC_VECTOR__ID;
+
+	/**
+	 * The feature id for the '<em><b>Features</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KML__FEATURES = STATIC_VECTOR__FEATURES;
+
+	/**
+	 * The feature id for the '<em><b>Url</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KML__URL = STATIC_VECTOR__URL;
+
+	/**
+	 * The feature id for the '<em><b>Projection</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KML__PROJECTION = STATIC_VECTOR__PROJECTION;
+
+	/**
+	 * The number of structural features of the '<em>KML</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KML_FEATURE_COUNT = STATIC_VECTOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>KML</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KML_OPERATION_COUNT = STATIC_VECTOR_OPERATION_COUNT + 0;
+
+	/**
 	 * Returns the meta object for class '{@link org.locationtech.geoff.source.Source <em>Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -529,6 +831,78 @@ public interface SourcePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getVector_Features();
+
+	/**
+	 * Returns the meta object for class '{@link org.locationtech.geoff.source.FormatVector <em>Format Vector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Format Vector</em>'.
+	 * @see org.locationtech.geoff.source.FormatVector
+	 * @generated
+	 */
+	EClass getFormatVector();
+
+	/**
+	 * Returns the meta object for class '{@link org.locationtech.geoff.source.StaticVector <em>Static Vector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Static Vector</em>'.
+	 * @see org.locationtech.geoff.source.StaticVector
+	 * @generated
+	 */
+	EClass getStaticVector();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.source.StaticVector#getUrl <em>Url</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Url</em>'.
+	 * @see org.locationtech.geoff.source.StaticVector#getUrl()
+	 * @see #getStaticVector()
+	 * @generated
+	 */
+	EAttribute getStaticVector_Url();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.source.StaticVector#getProjection <em>Projection</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Projection</em>'.
+	 * @see org.locationtech.geoff.source.StaticVector#getProjection()
+	 * @see #getStaticVector()
+	 * @generated
+	 */
+	EAttribute getStaticVector_Projection();
+
+	/**
+	 * Returns the meta object for class '{@link org.locationtech.geoff.source.GeoJSON <em>Geo JSON</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Geo JSON</em>'.
+	 * @see org.locationtech.geoff.source.GeoJSON
+	 * @generated
+	 */
+	EClass getGeoJSON();
+
+	/**
+	 * Returns the meta object for class '{@link org.locationtech.geoff.source.GPX <em>GPX</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>GPX</em>'.
+	 * @see org.locationtech.geoff.source.GPX
+	 * @generated
+	 */
+	EClass getGPX();
+
+	/**
+	 * Returns the meta object for class '{@link org.locationtech.geoff.source.KML <em>KML</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>KML</em>'.
+	 * @see org.locationtech.geoff.source.KML
+	 * @generated
+	 */
+	EClass getKML();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -664,6 +1038,73 @@ public interface SourcePackage extends EPackage {
 		 * @generated
 		 */
 		EReference VECTOR__FEATURES = eINSTANCE.getVector_Features();
+
+		/**
+		 * The meta object literal for the '{@link org.locationtech.geoff.source.impl.FormatVectorImpl <em>Format Vector</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.locationtech.geoff.source.impl.FormatVectorImpl
+		 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getFormatVector()
+		 * @generated
+		 */
+		EClass FORMAT_VECTOR = eINSTANCE.getFormatVector();
+
+		/**
+		 * The meta object literal for the '{@link org.locationtech.geoff.source.impl.StaticVectorImpl <em>Static Vector</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.locationtech.geoff.source.impl.StaticVectorImpl
+		 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getStaticVector()
+		 * @generated
+		 */
+		EClass STATIC_VECTOR = eINSTANCE.getStaticVector();
+
+		/**
+		 * The meta object literal for the '<em><b>Url</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATIC_VECTOR__URL = eINSTANCE.getStaticVector_Url();
+
+		/**
+		 * The meta object literal for the '<em><b>Projection</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATIC_VECTOR__PROJECTION = eINSTANCE
+				.getStaticVector_Projection();
+
+		/**
+		 * The meta object literal for the '{@link org.locationtech.geoff.source.impl.GeoJSONImpl <em>Geo JSON</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.locationtech.geoff.source.impl.GeoJSONImpl
+		 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getGeoJSON()
+		 * @generated
+		 */
+		EClass GEO_JSON = eINSTANCE.getGeoJSON();
+
+		/**
+		 * The meta object literal for the '{@link org.locationtech.geoff.source.impl.GPXImpl <em>GPX</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.locationtech.geoff.source.impl.GPXImpl
+		 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getGPX()
+		 * @generated
+		 */
+		EClass GPX = eINSTANCE.getGPX();
+
+		/**
+		 * The meta object literal for the '{@link org.locationtech.geoff.source.impl.KMLImpl <em>KML</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.locationtech.geoff.source.impl.KMLImpl
+		 * @see org.locationtech.geoff.source.impl.SourcePackageImpl#getKML()
+		 * @generated
+		 */
+		EClass KML = eINSTANCE.getKML();
 
 	}
 

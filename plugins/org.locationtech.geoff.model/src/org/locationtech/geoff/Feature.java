@@ -11,10 +11,7 @@
  */
 package org.locationtech.geoff;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.locationtech.geoff.geom.Geometry;
-
 import org.locationtech.geoff.style.Style;
 
 /**
@@ -26,7 +23,7 @@ import org.locationtech.geoff.style.Style;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.locationtech.geoff.Feature#getGeometry <em>Geometry</em>}</li>
- *   <li>{@link org.locationtech.geoff.Feature#getStyles <em>Styles</em>}</li>
+ *   <li>{@link org.locationtech.geoff.Feature#getStyle <em>Style</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,20 +66,30 @@ public interface Feature extends Identifiable {
 	void setGeometry(Geometry value);
 
 	/**
-	 * Returns the value of the '<em><b>Styles</b></em>' containment reference list.
-	 * The list contents are of type {@link org.locationtech.geoff.style.Style}.
+	 * Returns the value of the '<em><b>Style</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Styles</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Style</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Styles</em>' containment reference list.
-	 * @see org.locationtech.geoff.GeoffPackage#getFeature_Styles()
+	 * @return the value of the '<em>Style</em>' containment reference.
+	 * @see #setStyle(Style)
+	 * @see org.locationtech.geoff.GeoffPackage#getFeature_Style()
 	 * @model containment="true"
 	 *        extendedMetaData="name='style' kind='element'"
 	 * @generated
 	 */
-	EList<Style> getStyles();
+	Style getStyle();
+
+	/**
+	 * Sets the value of the '{@link org.locationtech.geoff.Feature#getStyle <em>Style</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Style</em>' containment reference.
+	 * @see #getStyle()
+	 * @generated
+	 */
+	void setStyle(Style value);
 
 } // Feature

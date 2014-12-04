@@ -115,7 +115,7 @@ public class FeatureItemProvider extends ItemProviderAdapter implements
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GeoffPackage.Literals.FEATURE__GEOMETRY);
-			childrenFeatures.add(GeoffPackage.Literals.FEATURE__STYLES);
+			childrenFeatures.add(GeoffPackage.Literals.FEATURE__STYLE);
 		}
 		return childrenFeatures;
 	}
@@ -175,7 +175,7 @@ public class FeatureItemProvider extends ItemProviderAdapter implements
 					notification.getNotifier(), false, true));
 			return;
 		case GeoffPackage.FEATURE__GEOMETRY:
-		case GeoffPackage.FEATURE__STYLES:
+		case GeoffPackage.FEATURE__STYLE:
 			fireNotifyChanged(new ViewerNotification(notification,
 					notification.getNotifier(), true, false));
 			return;
@@ -204,7 +204,7 @@ public class FeatureItemProvider extends ItemProviderAdapter implements
 				GeomFactory.eINSTANCE.createPoint()));
 
 		newChildDescriptors.add(createChildParameter(
-				GeoffPackage.Literals.FEATURE__STYLES,
+				GeoffPackage.Literals.FEATURE__STYLE,
 				StyleFactory.eINSTANCE.createStyle()));
 	}
 

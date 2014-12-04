@@ -1,13 +1,24 @@
 package org.locationtech.geoff.designer.wizards;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.core.databinding.validation.ValidationStatus;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
@@ -19,9 +30,12 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.locationtech.geoff.core.Geoff;
+import org.locationtech.geoff.ol.ResourcesUtil;
 
 public class NewGeoMapWizard extends Wizard implements INewWizard {
 
+	private static final String INDEX_GEOMAP_HTML = "index-geomap.html";
+	private static final String RESOURCES = "resources";
 	private IStructuredSelection selection;
 
 	@Override
@@ -59,8 +73,10 @@ public class NewGeoMapWizard extends Wizard implements INewWizard {
 		}
 
 		File targetFolder = targetContainer.getLocation().toFile();
-		File file = new File(targetFolder, "new-map" + ".geoff");
-		Geoff geoff = Geoff.createMap("New Map", "A new map...");
+		String fileName = "new-map" + ".geoff";
+		File file = new File(targetFolder, fileName);
+		Geoff geoff = Geoff.createMap("New Map", "A new map...").view(
+				Geoff.xyLocation(0, 0), 3);
 		String xml = geoff.toXML();
 
 		try (FileOutputStream out = new FileOutputStream(file)) {
@@ -70,6 +86,87 @@ public class NewGeoMapWizard extends Wizard implements INewWizard {
 			StatusManager.getManager().handle(status, StatusManager.SHOW);
 		}
 
+		File resourcesFolder = new File(targetFolder, RESOURCES);
+		resourcesFolder.mkdirs();
+		copyGeoffOlResource(ResourcesUtil.GEOFF_OL_JS, resourcesFolder);
+		copyGeoffOlResource(ResourcesUtil.JQUERY_MIN_JS, resourcesFolder);
+		copyGeoffOlResource(ResourcesUtil.OL_CSS, resourcesFolder);
+		copyGeoffOlResource(ResourcesUtil.OL_JS, resourcesFolder);
+
+		copyResource("countries.geojson", resourcesFolder);
+
+		try {
+			String indexGeomapHtml = ResourcesUtil
+					.readStream(NewGeoMapWizard.class.getClassLoader()
+							.getResourceAsStream(
+									"resource-templates/" + INDEX_GEOMAP_HTML));
+			Map<String, String> replaceVars = new HashMap<String, String>();
+			replaceVars.put("\\{\\{GEOMAP_FILE_NAME\\}\\}", fileName);
+			replaceVars.put("\\{\\{OL_CSS\\}\\}", RESOURCES + "/"
+					+ ResourcesUtil.OL_CSS);
+			replaceVars.put("\\{\\{OL_JS\\}\\}", RESOURCES + "/"
+					+ ResourcesUtil.OL_JS);
+			replaceVars.put("\\{\\{JQUERY_MIN_JS\\}\\}", RESOURCES + "/"
+					+ ResourcesUtil.JQUERY_MIN_JS);
+			replaceVars.put("\\{\\{GEOFF_OL_JS\\}\\}", RESOURCES + "/"
+					+ ResourcesUtil.GEOFF_OL_JS);
+
+			indexGeomapHtml = replaceVars(indexGeomapHtml, replaceVars);
+
+			Files.copy(new ByteArrayInputStream(indexGeomapHtml.getBytes()),
+					new File(targetFolder, INDEX_GEOMAP_HTML).toPath(),
+					StandardCopyOption.REPLACE_EXISTING);
+		} catch (Exception e) {
+			IStatus status = ValidationStatus.error(e.getMessage(), e);
+			StatusManager.getManager().handle(status, StatusManager.SHOW);
+		}
+
+		try {
+			targetContainer.refreshLocal(IResource.DEPTH_INFINITE,
+					new NullProgressMonitor());
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+
 		return true;
+	}
+
+	private String replaceVars(String contents, Map<String, String> replaceVars) {
+		String ret = contents;
+
+		for (Entry<String, String> e : replaceVars.entrySet()) {
+			ret = ret.replaceAll(e.getKey(), e.getValue());
+		}
+
+		return ret;
+	}
+
+	private void copyResource(String fileName, File targetFolder) {
+		File targetFile = new File(targetFolder, fileName);
+
+		try {
+			InputStream stream = NewGeoMapWizard.class.getClassLoader()
+					.getResourceAsStream("resource-templates/" + fileName);
+			Files.copy(stream, targetFile.toPath(),
+					StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			IStatus status = ValidationStatus.error(e.getMessage(), e);
+			StatusManager.getManager().handle(status, StatusManager.SHOW);
+		}
+	}
+
+	private void copyGeoffOlResource(String geoffResourceFileName,
+			File targetFolder) {
+		File targetFile = new File(targetFolder, geoffResourceFileName);
+
+		try {
+			InputStream stream = ResourcesUtil
+					.readResourceAsStream(geoffResourceFileName);
+			Files.copy(stream, targetFile.toPath(),
+					StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			IStatus status = ValidationStatus.error(e.getMessage(), e);
+			StatusManager.getManager().handle(status, StatusManager.SHOW);
+		}
 	}
 }

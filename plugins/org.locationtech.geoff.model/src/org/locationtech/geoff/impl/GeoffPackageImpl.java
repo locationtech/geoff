@@ -11,12 +11,14 @@
  */
 package org.locationtech.geoff.impl;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.locationtech.geoff.Color;
 import org.locationtech.geoff.Feature;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.GeoffFactory;
@@ -90,6 +92,20 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 	 * @generated
 	 */
 	private EClass featureEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass colorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass styleEntryEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -360,8 +376,80 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFeature_Styles() {
+	public EReference getFeature_Style() {
 		return (EReference) featureEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getColor() {
+		return colorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getColor_Red() {
+		return (EAttribute) colorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getColor_Green() {
+		return (EAttribute) colorEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getColor_Blue() {
+		return (EAttribute) colorEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getColor_Alpha() {
+		return (EAttribute) colorEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getStyleEntry() {
+		return styleEntryEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStyleEntry_Key() {
+		return (EAttribute) styleEntryEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStyleEntry_Value() {
+		return (EReference) styleEntryEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -426,7 +514,17 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 
 		featureEClass = createEClass(FEATURE);
 		createEReference(featureEClass, FEATURE__GEOMETRY);
-		createEReference(featureEClass, FEATURE__STYLES);
+		createEReference(featureEClass, FEATURE__STYLE);
+
+		colorEClass = createEClass(COLOR);
+		createEAttribute(colorEClass, COLOR__RED);
+		createEAttribute(colorEClass, COLOR__GREEN);
+		createEAttribute(colorEClass, COLOR__BLUE);
+		createEAttribute(colorEClass, COLOR__ALPHA);
+
+		styleEntryEClass = createEClass(STYLE_ENTRY);
+		createEAttribute(styleEntryEClass, STYLE_ENTRY__KEY);
+		createEReference(styleEntryEClass, STYLE_ENTRY__VALUE);
 
 		// Create enums
 		rendererHintEEnum = createEEnum(RENDERER_HINT);
@@ -482,6 +580,7 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 		locationEClass.getESuperTypes().add(this.getIdentifiable());
 		xyzLocationEClass.getESuperTypes().add(this.getLocation());
 		featureEClass.getESuperTypes().add(this.getIdentifiable());
+		colorEClass.getESuperTypes().add(this.getIdentifiable());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(
@@ -570,10 +669,45 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 				null,
 				"geometry", null, 1, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(
-				getFeature_Styles(),
+				getFeature_Style(),
 				theStylePackage.getStyle(),
 				null,
-				"styles", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+				"style", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(
+				colorEClass,
+				Color.class,
+				"Color", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(
+				getColor_Red(),
+				ecorePackage.getEInt(),
+				"red", null, 0, 1, Color.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getColor_Green(),
+				ecorePackage.getEInt(),
+				"green", null, 0, 1, Color.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getColor_Blue(),
+				ecorePackage.getEInt(),
+				"blue", null, 0, 1, Color.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getColor_Alpha(),
+				ecorePackage.getEFloat(),
+				"alpha", "-1", 0, 1, Color.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+
+		initEClass(
+				styleEntryEClass,
+				Map.Entry.class,
+				"StyleEntry", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(
+				getStyleEntry_Key(),
+				ecorePackage.getEString(),
+				"key", null, 1, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(
+				getStyleEntry_Value(),
+				theStylePackage.getStyle(),
+				null,
+				"value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		// Initialize enums and add enum literals
 		initEEnum(rendererHintEEnum, RendererHint.class, "RendererHint"); //$NON-NLS-1$
@@ -601,7 +735,7 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 				"name", "layer", //$NON-NLS-1$ //$NON-NLS-2$
 				"kind", "element" //$NON-NLS-1$ //$NON-NLS-2$
 		});
-		addAnnotation(getFeature_Styles(), source, new String[] {
+		addAnnotation(getFeature_Style(), source, new String[] {
 				"name", "style", //$NON-NLS-1$ //$NON-NLS-2$
 				"kind", "element" //$NON-NLS-1$ //$NON-NLS-2$
 		});

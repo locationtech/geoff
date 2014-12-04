@@ -17,12 +17,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.locationtech.geoff.source.*;
-import org.locationtech.geoff.source.BingMaps;
-import org.locationtech.geoff.source.MapQuest;
-import org.locationtech.geoff.source.OSM;
-import org.locationtech.geoff.source.SourceFactory;
-import org.locationtech.geoff.source.SourcePackage;
-import org.locationtech.geoff.source.XYZ;
 
 /**
  * <!-- begin-user-doc -->
@@ -75,8 +69,6 @@ public class SourceFactoryImpl extends EFactoryImpl implements SourceFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case SourcePackage.XYZ:
-			return createXYZ();
 		case SourcePackage.OSM:
 			return createOSM();
 		case SourcePackage.MAP_QUEST:
@@ -85,20 +77,16 @@ public class SourceFactoryImpl extends EFactoryImpl implements SourceFactory {
 			return createBingMaps();
 		case SourcePackage.VECTOR:
 			return createVector();
+		case SourcePackage.GEO_JSON:
+			return createGeoJSON();
+		case SourcePackage.GPX:
+			return createGPX();
+		case SourcePackage.KML:
+			return createKML();
 		default:
 			throw new IllegalArgumentException(
 					"The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public XYZ createXYZ() {
-		XYZImpl xyz = new XYZImpl();
-		return xyz;
 	}
 
 	/**
@@ -139,6 +127,36 @@ public class SourceFactoryImpl extends EFactoryImpl implements SourceFactory {
 	public Vector createVector() {
 		VectorImpl vector = new VectorImpl();
 		return vector;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GeoJSON createGeoJSON() {
+		GeoJSONImpl geoJSON = new GeoJSONImpl();
+		return geoJSON;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GPX createGPX() {
+		GPXImpl gpx = new GPXImpl();
+		return gpx;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public KML createKML() {
+		KMLImpl kml = new KMLImpl();
+		return kml;
 	}
 
 	/**

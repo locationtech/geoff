@@ -194,13 +194,22 @@ public interface LayerPackage extends EPackage {
 	int VECTOR__SOURCE = LAYER__SOURCE;
 
 	/**
+	 * The feature id for the '<em><b>Styles</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VECTOR__STYLES = LAYER_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Vector</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VECTOR_FEATURE_COUNT = LAYER_FEATURE_COUNT + 0;
+	int VECTOR_FEATURE_COUNT = LAYER_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Vector</em>' class.
@@ -251,6 +260,17 @@ public interface LayerPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getVector();
+
+	/**
+	 * Returns the meta object for the map '{@link org.locationtech.geoff.layer.Vector#getStyles <em>Styles</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the map '<em>Styles</em>'.
+	 * @see org.locationtech.geoff.layer.Vector#getStyles()
+	 * @see #getVector()
+	 * @generated
+	 */
+	EReference getVector_Styles();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -312,6 +332,14 @@ public interface LayerPackage extends EPackage {
 		 * @generated
 		 */
 		EClass VECTOR = eINSTANCE.getVector();
+
+		/**
+		 * The meta object literal for the '<em><b>Styles</b></em>' map feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference VECTOR__STYLES = eINSTANCE.getVector_Styles();
 
 	}
 

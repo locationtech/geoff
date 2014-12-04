@@ -24,7 +24,7 @@ import org.locationtech.geoff.source.XYZ;
  *
  * @generated
  */
-public class XYZImpl extends TileImageImpl implements XYZ {
+public abstract class XYZImpl extends TileImageImpl implements XYZ {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

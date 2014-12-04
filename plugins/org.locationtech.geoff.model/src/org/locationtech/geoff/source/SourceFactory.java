@@ -39,15 +39,6 @@ public interface SourceFactory extends EFactory {
 			.init();
 
 	/**
-	 * Returns a new object of class '<em>XYZ</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>XYZ</em>'.
-	 * @generated
-	 */
-	XYZ createXYZ();
-
-	/**
 	 * Returns a new object of class '<em>OSM</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -82,6 +73,33 @@ public interface SourceFactory extends EFactory {
 	 * @generated
 	 */
 	Vector createVector();
+
+	/**
+	 * Returns a new object of class '<em>Geo JSON</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Geo JSON</em>'.
+	 * @generated
+	 */
+	GeoJSON createGeoJSON();
+
+	/**
+	 * Returns a new object of class '<em>GPX</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>GPX</em>'.
+	 * @generated
+	 */
+	GPX createGPX();
+
+	/**
+	 * Returns a new object of class '<em>KML</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>KML</em>'.
+	 * @generated
+	 */
+	KML createKML();
 
 	/**
 	 * Returns the package supported by this factory.

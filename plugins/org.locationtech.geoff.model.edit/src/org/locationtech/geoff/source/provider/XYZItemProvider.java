@@ -16,9 +16,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-
+import org.locationtech.geoff.layer.LayerPackage;
 import org.locationtech.geoff.source.XYZ;
 
 /**
@@ -111,4 +111,7 @@ public class XYZItemProvider extends TileImageItemProvider {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 
+	public EClass getCompatibleLayer() {
+		return LayerPackage.Literals.TILE;
+	}
 }

@@ -25,27 +25,29 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//GeoMap/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//GeoMap/rendererHint"/>
     </genClasses>
-    <genClasses ecoreClass="geoff.ecore#//View"/>
-    <genClasses ecoreClass="geoff.ecore#//View2D">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference geoff.ecore#//View2D/center"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//View2D/zoom"/>
+    <genClasses ecoreClass="geoff.ecore#//View">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference geoff.ecore#//View/center"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//View/zoom"/>
     </genClasses>
-    <genClasses ecoreClass="geoff.ecore#//Location"/>
+    <genClasses ecoreClass="geoff.ecore#//Location">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//Location/projectionCode"/>
+    </genClasses>
     <genClasses ecoreClass="geoff.ecore#//XYZLocation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//XYZLocation/x"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//XYZLocation/y"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//XYZLocation/z"/>
     </genClasses>
-    <genClasses ecoreClass="geoff.ecore#//Transformation">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//Transformation/sourceProjection"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//Transformation/targetProjection"/>
+    <genClasses ecoreClass="geoff.ecore#//Feature">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference geoff.ecore#//Feature/geometry"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference geoff.ecore#//Feature/style"/>
     </genClasses>
     <nestedGenPackages prefix="Layer" resource="XML" disposableProviderFactory="true"
         ecorePackage="geoff.ecore#//layer">
-      <genClasses ecoreClass="geoff.ecore#//layer/Layer"/>
-      <genClasses ecoreClass="geoff.ecore#//layer/Tile">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference geoff.ecore#//layer/Tile/source"/>
+      <genClasses ecoreClass="geoff.ecore#//layer/Layer">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference geoff.ecore#//layer/Layer/source"/>
       </genClasses>
+      <genClasses ecoreClass="geoff.ecore#//layer/Tile"/>
+      <genClasses ecoreClass="geoff.ecore#//layer/Vector"/>
     </nestedGenPackages>
     <nestedGenPackages prefix="Source" resource="XML" disposableProviderFactory="true"
         ecorePackage="geoff.ecore#//source">
@@ -54,10 +56,39 @@
       <genClasses ecoreClass="geoff.ecore#//source/TileImage"/>
       <genClasses ecoreClass="geoff.ecore#//source/XYZ"/>
       <genClasses ecoreClass="geoff.ecore#//source/OSM"/>
-      <genClasses ecoreClass="geoff.ecore#//source/MapQuestOpenAerial"/>
+      <genClasses ecoreClass="geoff.ecore#//source/MapQuest">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//source/MapQuest/layer"/>
+      </genClasses>
       <genClasses ecoreClass="geoff.ecore#//source/BingMaps">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//source/BingMaps/key"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//source/BingMaps/imagerySet"/>
+      </genClasses>
+      <genClasses ecoreClass="geoff.ecore#//source/Vector">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference geoff.ecore#//source/Vector/features"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="geoff.ecore#//source/FormatVector"/>
+      <genClasses image="false" ecoreClass="geoff.ecore#//source/StaticVector"/>
+      <genClasses ecoreClass="geoff.ecore#//source/GeoJSON">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//source/GeoJSON/url"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//source/GeoJSON/projection"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Geom" resource="XML" disposableProviderFactory="true"
+        ecorePackage="geoff.ecore#//geom">
+      <genClasses image="false" ecoreClass="geoff.ecore#//geom/Geometry"/>
+      <genClasses ecoreClass="geoff.ecore#//geom/SimpleGeometry"/>
+      <genClasses ecoreClass="geoff.ecore#//geom/Point">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference geoff.ecore#//geom/Point/coordinates"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Style" resource="XML" disposableProviderFactory="true"
+        ecorePackage="geoff.ecore#//style">
+      <genClasses ecoreClass="geoff.ecore#//style/Style">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference geoff.ecore#//style/Style/image"/>
+      </genClasses>
+      <genClasses ecoreClass="geoff.ecore#//style/Image"/>
+      <genClasses ecoreClass="geoff.ecore#//style/Icon">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute geoff.ecore#//style/Icon/src"/>
       </genClasses>
     </nestedGenPackages>
   </genPackages>

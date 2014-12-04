@@ -191,6 +191,15 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getVector_Styles() {
+		return (EReference) vectorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public LayerFactory getLayerFactory() {
 		return (LayerFactory) getEFactoryInstance();
 	}
@@ -221,6 +230,7 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 		tileEClass = createEClass(TILE);
 
 		vectorEClass = createEClass(VECTOR);
+		createEReference(vectorEClass, VECTOR__STYLES);
 	}
 
 	/**
@@ -282,6 +292,29 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 				vectorEClass,
 				Vector.class,
 				"Vector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(
+				getVector_Styles(),
+				theGeoffPackage.getStyleEntry(),
+				null,
+				"styles", null, 0, -1, Vector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		// Create annotations
+		// http:///org/eclipse/emf/ecore/util/ExtendedMetaData
+		createExtendedMetaDataAnnotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>http:///org/eclipse/emf/ecore/util/ExtendedMetaData</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createExtendedMetaDataAnnotations() {
+		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData"; //$NON-NLS-1$	
+		addAnnotation(getVector_Styles(), source, new String[] {
+				"name", "style", //$NON-NLS-1$ //$NON-NLS-2$
+				"kind", "element" //$NON-NLS-1$ //$NON-NLS-2$
+		});
 	}
 
 } //LayerPackageImpl

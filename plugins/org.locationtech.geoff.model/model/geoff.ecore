@@ -40,13 +40,25 @@
   <eClassifiers xsi:type="ecore:EClass" name="Feature" eSuperTypes="#//Identifiable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="geometry" lowerBound="1"
         eType="#//geom/Geometry" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="styles" upperBound="-1"
-        eType="#//style/Style" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="style" eType="#//style/Style"
+        containment="true">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="name" value="style"/>
         <details key="kind" value="element"/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Color" eSuperTypes="#//Identifiable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="red" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="green" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="blue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alpha" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
+        defaultValueLiteral="-1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StyleEntry" instanceClassName="java.util.Map$Entry">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//style/Style"
+        containment="true"/>
   </eClassifiers>
   <eSubpackages name="layer" nsURI="http://www.locationtech.org/geoff-layer-v1" nsPrefix="geoff.layer">
     <eClassifiers xsi:type="ecore:EClass" name="Layer" abstract="true" eSuperTypes="#//Identifiable">
@@ -54,14 +66,22 @@
           eType="#//source/Source" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Tile" eSuperTypes="#//layer/Layer"/>
-    <eClassifiers xsi:type="ecore:EClass" name="Vector" eSuperTypes="#//layer/Layer"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Vector" eSuperTypes="#//layer/Layer">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="styles" upperBound="-1"
+          eType="#//StyleEntry" containment="true">
+        <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+          <details key="name" value="style"/>
+          <details key="kind" value="element"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="source" nsURI="http://www.locationtech.org/geoff-source-v1"
       nsPrefix="geoff.source">
     <eClassifiers xsi:type="ecore:EClass" name="Source" abstract="true" eSuperTypes="#//Identifiable"/>
     <eClassifiers xsi:type="ecore:EClass" name="Tile" abstract="true" eSuperTypes="#//source/Source"/>
     <eClassifiers xsi:type="ecore:EClass" name="TileImage" abstract="true" eSuperTypes="#//source/Tile"/>
-    <eClassifiers xsi:type="ecore:EClass" name="XYZ" eSuperTypes="#//source/TileImage"/>
+    <eClassifiers xsi:type="ecore:EClass" name="XYZ" abstract="true" eSuperTypes="#//source/TileImage"/>
     <eClassifiers xsi:type="ecore:EClass" name="OSM" eSuperTypes="#//source/XYZ"/>
     <eClassifiers xsi:type="ecore:EClass" name="MapQuest" eSuperTypes="#//source/XYZ">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="layer" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
@@ -81,6 +101,14 @@
         </eAnnotations>
       </eStructuralFeatures>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FormatVector" abstract="true" eSuperTypes="#//source/Vector"/>
+    <eClassifiers xsi:type="ecore:EClass" name="StaticVector" abstract="true" eSuperTypes="#//source/FormatVector">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="url" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="projection" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="GeoJSON" eSuperTypes="#//source/StaticVector"/>
+    <eClassifiers xsi:type="ecore:EClass" name="GPX" eSuperTypes="#//source/StaticVector"/>
+    <eClassifiers xsi:type="ecore:EClass" name="KML" eSuperTypes="#//source/StaticVector"/>
   </eSubpackages>
   <eSubpackages name="geom" nsURI="http://www.locationtech.org/geoff-geom-v1" nsPrefix="geoff.geom">
     <eClassifiers xsi:type="ecore:EClass" name="Geometry" abstract="true" eSuperTypes="#//Identifiable"/>
@@ -94,10 +122,52 @@
     <eClassifiers xsi:type="ecore:EClass" name="Style" eSuperTypes="#//Identifiable">
       <eStructuralFeatures xsi:type="ecore:EReference" name="image" eType="#//style/Image"
           containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="fill" eType="#//style/Fill"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="stroke" eType="#//style/Stroke"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="text" eType="#//style/Text"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="zindex" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Image" eSuperTypes="#//Identifiable"/>
     <eClassifiers xsi:type="ecore:EClass" name="Icon" eSuperTypes="#//style/Image">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="src" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Fill" eSuperTypes="#//Identifiable">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="color" eType="#//Color"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Stroke" eSuperTypes="#//Identifiable">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="color" eType="#//Color"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineCap" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineJoin" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="miterLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineDash" upperBound="-1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Circle" eSuperTypes="#//style/Image">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="radius" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="fill" eType="#//style/Fill"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="stroke" eType="#//style/Stroke"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Text" eSuperTypes="#//Identifiable">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="fill" eType="#//style/Fill"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="font" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="offsetX" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="offsetY" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="rotation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="scale" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="stroke" eType="#//style/Stroke"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="textAlign" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="textBaseLine" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>

@@ -181,6 +181,52 @@ public class GeoffItemProviderAdapterFactory extends GeoffAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.Color} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ColorItemProvider colorItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.locationtech.geoff.Color}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createColorAdapter() {
+		if (colorItemProvider == null) {
+			colorItemProvider = new ColorItemProvider(this);
+		}
+
+		return colorItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link java.util.Map.Entry} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected StyleEntryItemProvider styleEntryItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link java.util.Map.Entry}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createStyleEntryAdapter() {
+		if (styleEntryItemProvider == null) {
+			styleEntryItemProvider = new StyleEntryItemProvider(this);
+		}
+
+		return styleEntryItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -290,6 +336,10 @@ public class GeoffItemProviderAdapterFactory extends GeoffAdapterFactory
 			xyzLocationItemProvider.dispose();
 		if (featureItemProvider != null)
 			featureItemProvider.dispose();
+		if (colorItemProvider != null)
+			colorItemProvider.dispose();
+		if (styleEntryItemProvider != null)
+			styleEntryItemProvider.dispose();
 	}
 
 }

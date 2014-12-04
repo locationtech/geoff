@@ -18,7 +18,7 @@ package org.locationtech.geoff.source;
  *
  *
  * @see org.locationtech.geoff.source.SourcePackage#getXYZ()
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface XYZ extends TileImage {

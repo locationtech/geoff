@@ -66,6 +66,42 @@ public interface StyleFactory extends EFactory {
 	Icon createIcon();
 
 	/**
+	 * Returns a new object of class '<em>Fill</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Fill</em>'.
+	 * @generated
+	 */
+	Fill createFill();
+
+	/**
+	 * Returns a new object of class '<em>Stroke</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Stroke</em>'.
+	 * @generated
+	 */
+	Stroke createStroke();
+
+	/**
+	 * Returns a new object of class '<em>Circle</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Circle</em>'.
+	 * @generated
+	 */
+	Circle createCircle();
+
+	/**
+	 * Returns a new object of class '<em>Text</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Text</em>'.
+	 * @generated
+	 */
+	Text createText();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

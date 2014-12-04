@@ -113,6 +113,44 @@ public class StyleSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case StylePackage.FILL: {
+			Fill fill = (Fill) theEObject;
+			T result = caseFill(fill);
+			if (result == null)
+				result = caseIdentifiable(fill);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case StylePackage.STROKE: {
+			Stroke stroke = (Stroke) theEObject;
+			T result = caseStroke(stroke);
+			if (result == null)
+				result = caseIdentifiable(stroke);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case StylePackage.CIRCLE: {
+			Circle circle = (Circle) theEObject;
+			T result = caseCircle(circle);
+			if (result == null)
+				result = caseImage(circle);
+			if (result == null)
+				result = caseIdentifiable(circle);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case StylePackage.TEXT: {
+			Text text = (Text) theEObject;
+			T result = caseText(text);
+			if (result == null)
+				result = caseIdentifiable(text);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -160,6 +198,66 @@ public class StyleSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseIcon(Icon object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Fill</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Fill</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFill(Fill object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Stroke</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Stroke</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStroke(Stroke object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Circle</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Circle</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCircle(Circle object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Text</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Text</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseText(Text object) {
 		return null;
 	}
 

@@ -21,5 +21,7 @@ public interface FeatureValidator {
 
 	boolean validateGeometry(Geometry value);
 
+	boolean validateStyle(Style value);
+
 	boolean validateStyles(EList<Style> value);
 }

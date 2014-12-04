@@ -11,10 +11,12 @@
  */
 package org.locationtech.geoff.util;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.locationtech.geoff.*;
+import org.locationtech.geoff.style.Style;
 
 /**
  * <!-- begin-user-doc -->
@@ -134,6 +136,23 @@ public class GeoffSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case GeoffPackage.COLOR: {
+			Color color = (Color) theEObject;
+			T result = caseColor(color);
+			if (result == null)
+				result = caseIdentifiable(color);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case GeoffPackage.STYLE_ENTRY: {
+			@SuppressWarnings("unchecked")
+			Map.Entry<String, Style> styleEntry = (Map.Entry<String, Style>) theEObject;
+			T result = caseStyleEntry(styleEntry);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -226,6 +245,36 @@ public class GeoffSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseFeature(Feature object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Color</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Color</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseColor(Color object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Style Entry</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Style Entry</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStyleEntry(Map.Entry<String, Style> object) {
 		return null;
 	}
 

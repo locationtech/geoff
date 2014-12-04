@@ -396,13 +396,13 @@ public interface GeoffPackage extends EPackage {
 	int FEATURE__GEOMETRY = IDENTIFIABLE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Styles</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Style</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE__STYLES = IDENTIFIABLE_FEATURE_COUNT + 1;
+	int FEATURE__STYLE = IDENTIFIABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Feature</em>' class.
@@ -423,6 +423,125 @@ public interface GeoffPackage extends EPackage {
 	int FEATURE_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.locationtech.geoff.impl.ColorImpl <em>Color</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.locationtech.geoff.impl.ColorImpl
+	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getColor()
+	 * @generated
+	 */
+	int COLOR = 6;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLOR__ID = IDENTIFIABLE__ID;
+
+	/**
+	 * The feature id for the '<em><b>Red</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLOR__RED = IDENTIFIABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Green</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLOR__GREEN = IDENTIFIABLE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Blue</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLOR__BLUE = IDENTIFIABLE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Alpha</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLOR__ALPHA = IDENTIFIABLE_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Color</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLOR_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 4;
+
+	/**
+	 * The number of operations of the '<em>Color</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLOR_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.locationtech.geoff.impl.StyleEntryImpl <em>Style Entry</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.locationtech.geoff.impl.StyleEntryImpl
+	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getStyleEntry()
+	 * @generated
+	 */
+	int STYLE_ENTRY = 7;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STYLE_ENTRY__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STYLE_ENTRY__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Style Entry</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STYLE_ENTRY_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Style Entry</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STYLE_ENTRY_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.locationtech.geoff.RendererHint <em>Renderer Hint</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -430,7 +549,7 @@ public interface GeoffPackage extends EPackage {
 	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getRendererHint()
 	 * @generated
 	 */
-	int RENDERER_HINT = 6;
+	int RENDERER_HINT = 8;
 
 	/**
 	 * Returns the meta object for class '{@link org.locationtech.geoff.Identifiable <em>Identifiable</em>}'.
@@ -636,15 +755,103 @@ public interface GeoffPackage extends EPackage {
 	EReference getFeature_Geometry();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.locationtech.geoff.Feature#getStyles <em>Styles</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.locationtech.geoff.Feature#getStyle <em>Style</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Styles</em>'.
-	 * @see org.locationtech.geoff.Feature#getStyles()
+	 * @return the meta object for the containment reference '<em>Style</em>'.
+	 * @see org.locationtech.geoff.Feature#getStyle()
 	 * @see #getFeature()
 	 * @generated
 	 */
-	EReference getFeature_Styles();
+	EReference getFeature_Style();
+
+	/**
+	 * Returns the meta object for class '{@link org.locationtech.geoff.Color <em>Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Color</em>'.
+	 * @see org.locationtech.geoff.Color
+	 * @generated
+	 */
+	EClass getColor();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.Color#getRed <em>Red</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Red</em>'.
+	 * @see org.locationtech.geoff.Color#getRed()
+	 * @see #getColor()
+	 * @generated
+	 */
+	EAttribute getColor_Red();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.Color#getGreen <em>Green</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Green</em>'.
+	 * @see org.locationtech.geoff.Color#getGreen()
+	 * @see #getColor()
+	 * @generated
+	 */
+	EAttribute getColor_Green();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.Color#getBlue <em>Blue</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Blue</em>'.
+	 * @see org.locationtech.geoff.Color#getBlue()
+	 * @see #getColor()
+	 * @generated
+	 */
+	EAttribute getColor_Blue();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.Color#getAlpha <em>Alpha</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Alpha</em>'.
+	 * @see org.locationtech.geoff.Color#getAlpha()
+	 * @see #getColor()
+	 * @generated
+	 */
+	EAttribute getColor_Alpha();
+
+	/**
+	 * Returns the meta object for class '{@link java.util.Map.Entry <em>Style Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Style Entry</em>'.
+	 * @see java.util.Map.Entry
+	 * @model keyDataType="org.eclipse.emf.ecore.EString" keyRequired="true"
+	 *        valueType="org.locationtech.geoff.style.Style" valueContainment="true"
+	 * @generated
+	 */
+	EClass getStyleEntry();
+
+	/**
+	 * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getStyleEntry()
+	 * @generated
+	 */
+	EAttribute getStyleEntry_Key();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link java.util.Map.Entry <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getStyleEntry()
+	 * @generated
+	 */
+	EReference getStyleEntry_Value();
 
 	/**
 	 * Returns the meta object for enum '{@link org.locationtech.geoff.RendererHint <em>Renderer Hint</em>}'.
@@ -845,12 +1052,80 @@ public interface GeoffPackage extends EPackage {
 		EReference FEATURE__GEOMETRY = eINSTANCE.getFeature_Geometry();
 
 		/**
-		 * The meta object literal for the '<em><b>Styles</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Style</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FEATURE__STYLES = eINSTANCE.getFeature_Styles();
+		EReference FEATURE__STYLE = eINSTANCE.getFeature_Style();
+
+		/**
+		 * The meta object literal for the '{@link org.locationtech.geoff.impl.ColorImpl <em>Color</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.locationtech.geoff.impl.ColorImpl
+		 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getColor()
+		 * @generated
+		 */
+		EClass COLOR = eINSTANCE.getColor();
+
+		/**
+		 * The meta object literal for the '<em><b>Red</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLOR__RED = eINSTANCE.getColor_Red();
+
+		/**
+		 * The meta object literal for the '<em><b>Green</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLOR__GREEN = eINSTANCE.getColor_Green();
+
+		/**
+		 * The meta object literal for the '<em><b>Blue</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLOR__BLUE = eINSTANCE.getColor_Blue();
+
+		/**
+		 * The meta object literal for the '<em><b>Alpha</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLOR__ALPHA = eINSTANCE.getColor_Alpha();
+
+		/**
+		 * The meta object literal for the '{@link org.locationtech.geoff.impl.StyleEntryImpl <em>Style Entry</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.locationtech.geoff.impl.StyleEntryImpl
+		 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getStyleEntry()
+		 * @generated
+		 */
+		EClass STYLE_ENTRY = eINSTANCE.getStyleEntry();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STYLE_ENTRY__KEY = eINSTANCE.getStyleEntry_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STYLE_ENTRY__VALUE = eINSTANCE.getStyleEntry_Value();
 
 		/**
 		 * The meta object literal for the '{@link org.locationtech.geoff.RendererHint <em>Renderer Hint</em>}' enum.

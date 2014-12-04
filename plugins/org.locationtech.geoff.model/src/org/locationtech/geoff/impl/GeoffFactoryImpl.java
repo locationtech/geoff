@@ -11,6 +11,7 @@
  */
 package org.locationtech.geoff.impl;
 
+import java.util.Map;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -18,6 +19,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.locationtech.geoff.*;
+import org.locationtech.geoff.style.Style;
 
 /**
  * <!-- begin-user-doc -->
@@ -78,6 +80,10 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 			return createXYZLocation();
 		case GeoffPackage.FEATURE:
 			return createFeature();
+		case GeoffPackage.COLOR:
+			return createColor();
+		case GeoffPackage.STYLE_ENTRY:
+			return (EObject) createStyleEntry();
 		default:
 			throw new IllegalArgumentException(
 					"The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -154,6 +160,26 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 	public Feature createFeature() {
 		FeatureImpl feature = new FeatureImpl();
 		return feature;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Color createColor() {
+		ColorImpl color = new ColorImpl();
+		return color;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Map.Entry<String, Style> createStyleEntry() {
+		StyleEntryImpl styleEntry = new StyleEntryImpl();
+		return styleEntry;
 	}
 
 	/**

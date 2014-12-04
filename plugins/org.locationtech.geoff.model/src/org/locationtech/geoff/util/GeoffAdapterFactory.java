@@ -11,11 +11,13 @@
  */
 package org.locationtech.geoff.util;
 
+import java.util.Map;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.locationtech.geoff.*;
+import org.locationtech.geoff.style.Style;
 
 /**
  * <!-- begin-user-doc -->
@@ -107,6 +109,16 @@ public class GeoffAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseFeature(Feature object) {
 			return createFeatureAdapter();
+		}
+
+		@Override
+		public Adapter caseColor(Color object) {
+			return createColorAdapter();
+		}
+
+		@Override
+		public Adapter caseStyleEntry(Map.Entry<String, Style> object) {
+			return createStyleEntryAdapter();
 		}
 
 		@Override
@@ -209,6 +221,34 @@ public class GeoffAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFeatureAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.Color <em>Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.locationtech.geoff.Color
+	 * @generated
+	 */
+	public Adapter createColorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>Style Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see java.util.Map.Entry
+	 * @generated
+	 */
+	public Adapter createStyleEntryAdapter() {
 		return null;
 	}
 

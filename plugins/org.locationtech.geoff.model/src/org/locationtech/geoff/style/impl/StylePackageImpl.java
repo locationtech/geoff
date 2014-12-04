@@ -34,11 +34,15 @@ import org.locationtech.geoff.source.SourcePackage;
 
 import org.locationtech.geoff.source.impl.SourcePackageImpl;
 
+import org.locationtech.geoff.style.Circle;
+import org.locationtech.geoff.style.Fill;
 import org.locationtech.geoff.style.Icon;
 import org.locationtech.geoff.style.Image;
+import org.locationtech.geoff.style.Stroke;
 import org.locationtech.geoff.style.Style;
 import org.locationtech.geoff.style.StyleFactory;
 import org.locationtech.geoff.style.StylePackage;
+import org.locationtech.geoff.style.Text;
 
 /**
  * <!-- begin-user-doc -->
@@ -74,6 +78,34 @@ public class StylePackageImpl extends EPackageImpl implements StylePackage {
 	 * @generated
 	 */
 	private EClass iconEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass fillEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass strokeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass circleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass textEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -184,6 +216,42 @@ public class StylePackageImpl extends EPackageImpl implements StylePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getStyle_Fill() {
+		return (EReference) styleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStyle_Stroke() {
+		return (EReference) styleEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStyle_Text() {
+		return (EReference) styleEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStyle_Zindex() {
+		return (EAttribute) styleEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getImage() {
 		return imageEClass;
 	}
@@ -204,6 +272,222 @@ public class StylePackageImpl extends EPackageImpl implements StylePackage {
 	 */
 	public EAttribute getIcon_Src() {
 		return (EAttribute) iconEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFill() {
+		return fillEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFill_Color() {
+		return (EReference) fillEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getStroke() {
+		return strokeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStroke_Color() {
+		return (EReference) strokeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStroke_LineCap() {
+		return (EAttribute) strokeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStroke_LineJoin() {
+		return (EAttribute) strokeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStroke_MiterLimit() {
+		return (EAttribute) strokeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStroke_Width() {
+		return (EAttribute) strokeEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStroke_LineDash() {
+		return (EAttribute) strokeEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCircle() {
+		return circleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCircle_Radius() {
+		return (EAttribute) circleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCircle_Fill() {
+		return (EReference) circleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCircle_Stroke() {
+		return (EReference) circleEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getText() {
+		return textEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getText_Fill() {
+		return (EReference) textEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getText_Font() {
+		return (EAttribute) textEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getText_OffsetX() {
+		return (EAttribute) textEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getText_OffsetY() {
+		return (EAttribute) textEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getText_Rotation() {
+		return (EAttribute) textEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getText_Scale() {
+		return (EAttribute) textEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getText_Stroke() {
+		return (EReference) textEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getText_Text() {
+		return (EAttribute) textEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getText_TextAlign() {
+		return (EAttribute) textEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getText_TextBaseLine() {
+		return (EAttribute) textEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -237,11 +521,43 @@ public class StylePackageImpl extends EPackageImpl implements StylePackage {
 		// Create classes and their features
 		styleEClass = createEClass(STYLE);
 		createEReference(styleEClass, STYLE__IMAGE);
+		createEReference(styleEClass, STYLE__FILL);
+		createEReference(styleEClass, STYLE__STROKE);
+		createEReference(styleEClass, STYLE__TEXT);
+		createEAttribute(styleEClass, STYLE__ZINDEX);
 
 		imageEClass = createEClass(IMAGE);
 
 		iconEClass = createEClass(ICON);
 		createEAttribute(iconEClass, ICON__SRC);
+
+		fillEClass = createEClass(FILL);
+		createEReference(fillEClass, FILL__COLOR);
+
+		strokeEClass = createEClass(STROKE);
+		createEReference(strokeEClass, STROKE__COLOR);
+		createEAttribute(strokeEClass, STROKE__LINE_CAP);
+		createEAttribute(strokeEClass, STROKE__LINE_JOIN);
+		createEAttribute(strokeEClass, STROKE__MITER_LIMIT);
+		createEAttribute(strokeEClass, STROKE__WIDTH);
+		createEAttribute(strokeEClass, STROKE__LINE_DASH);
+
+		circleEClass = createEClass(CIRCLE);
+		createEAttribute(circleEClass, CIRCLE__RADIUS);
+		createEReference(circleEClass, CIRCLE__FILL);
+		createEReference(circleEClass, CIRCLE__STROKE);
+
+		textEClass = createEClass(TEXT);
+		createEReference(textEClass, TEXT__FILL);
+		createEAttribute(textEClass, TEXT__FONT);
+		createEAttribute(textEClass, TEXT__OFFSET_X);
+		createEAttribute(textEClass, TEXT__OFFSET_Y);
+		createEAttribute(textEClass, TEXT__ROTATION);
+		createEAttribute(textEClass, TEXT__SCALE);
+		createEReference(textEClass, TEXT__STROKE);
+		createEAttribute(textEClass, TEXT__TEXT);
+		createEAttribute(textEClass, TEXT__TEXT_ALIGN);
+		createEAttribute(textEClass, TEXT__TEXT_BASE_LINE);
 	}
 
 	/**
@@ -280,6 +596,10 @@ public class StylePackageImpl extends EPackageImpl implements StylePackage {
 		styleEClass.getESuperTypes().add(theGeoffPackage.getIdentifiable());
 		imageEClass.getESuperTypes().add(theGeoffPackage.getIdentifiable());
 		iconEClass.getESuperTypes().add(this.getImage());
+		fillEClass.getESuperTypes().add(theGeoffPackage.getIdentifiable());
+		strokeEClass.getESuperTypes().add(theGeoffPackage.getIdentifiable());
+		circleEClass.getESuperTypes().add(this.getImage());
+		textEClass.getESuperTypes().add(theGeoffPackage.getIdentifiable());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(
@@ -291,6 +611,25 @@ public class StylePackageImpl extends EPackageImpl implements StylePackage {
 				this.getImage(),
 				null,
 				"image", null, 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(
+				getStyle_Fill(),
+				this.getFill(),
+				null,
+				"fill", null, 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(
+				getStyle_Stroke(),
+				this.getStroke(),
+				null,
+				"stroke", null, 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(
+				getStyle_Text(),
+				this.getText(),
+				null,
+				"text", null, 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getStyle_Zindex(),
+				ecorePackage.getEDoubleObject(),
+				"zindex", null, 0, 1, Style.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(
 				imageEClass,
@@ -305,6 +644,112 @@ public class StylePackageImpl extends EPackageImpl implements StylePackage {
 				getIcon_Src(),
 				ecorePackage.getEString(),
 				"src", null, 1, 1, Icon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(
+				fillEClass,
+				Fill.class,
+				"Fill", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(
+				getFill_Color(),
+				theGeoffPackage.getColor(),
+				null,
+				"color", null, 0, 1, Fill.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(
+				strokeEClass,
+				Stroke.class,
+				"Stroke", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(
+				getStroke_Color(),
+				theGeoffPackage.getColor(),
+				null,
+				"color", null, 0, 1, Stroke.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getStroke_LineCap(),
+				ecorePackage.getEString(),
+				"lineCap", null, 0, 1, Stroke.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getStroke_LineJoin(),
+				ecorePackage.getEString(),
+				"lineJoin", null, 0, 1, Stroke.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getStroke_MiterLimit(),
+				ecorePackage.getEDoubleObject(),
+				"miterLimit", null, 0, 1, Stroke.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getStroke_Width(),
+				ecorePackage.getEDoubleObject(),
+				"width", null, 0, 1, Stroke.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getStroke_LineDash(),
+				ecorePackage.getEDouble(),
+				"lineDash", null, 0, -1, Stroke.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(
+				circleEClass,
+				Circle.class,
+				"Circle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(
+				getCircle_Radius(),
+				ecorePackage.getEDouble(),
+				"radius", null, 0, 1, Circle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(
+				getCircle_Fill(),
+				this.getFill(),
+				null,
+				"fill", null, 0, 1, Circle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(
+				getCircle_Stroke(),
+				this.getStroke(),
+				null,
+				"stroke", null, 0, 1, Circle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(
+				textEClass,
+				Text.class,
+				"Text", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(
+				getText_Fill(),
+				this.getFill(),
+				null,
+				"fill", null, 0, 1, Text.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getText_Font(),
+				ecorePackage.getEString(),
+				"font", null, 0, 1, Text.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getText_OffsetX(),
+				ecorePackage.getEDouble(),
+				"offsetX", null, 0, 1, Text.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getText_OffsetY(),
+				ecorePackage.getEDouble(),
+				"offsetY", null, 0, 1, Text.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getText_Rotation(),
+				ecorePackage.getEDoubleObject(),
+				"rotation", null, 0, 1, Text.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getText_Scale(),
+				ecorePackage.getEDoubleObject(),
+				"scale", null, 0, 1, Text.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(
+				getText_Stroke(),
+				this.getStroke(),
+				null,
+				"stroke", null, 0, 1, Text.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getText_Text(),
+				ecorePackage.getEString(),
+				"text", null, 0, 1, Text.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getText_TextAlign(),
+				ecorePackage.getEString(),
+				"textAlign", null, 0, 1, Text.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getText_TextBaseLine(),
+				ecorePackage.getEString(),
+				"textBaseLine", null, 0, 1, Text.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 	}
 
 } //StylePackageImpl

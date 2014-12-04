@@ -78,6 +78,14 @@ public class StyleFactoryImpl extends EFactoryImpl implements StyleFactory {
 			return createImage();
 		case StylePackage.ICON:
 			return createIcon();
+		case StylePackage.FILL:
+			return createFill();
+		case StylePackage.STROKE:
+			return createStroke();
+		case StylePackage.CIRCLE:
+			return createCircle();
+		case StylePackage.TEXT:
+			return createText();
 		default:
 			throw new IllegalArgumentException(
 					"The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -112,6 +120,46 @@ public class StyleFactoryImpl extends EFactoryImpl implements StyleFactory {
 	public Icon createIcon() {
 		IconImpl icon = new IconImpl();
 		return icon;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Fill createFill() {
+		FillImpl fill = new FillImpl();
+		return fill;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Stroke createStroke() {
+		StrokeImpl stroke = new StrokeImpl();
+		return stroke;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Circle createCircle() {
+		CircleImpl circle = new CircleImpl();
+		return circle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Text createText() {
+		TextImpl text = new TextImpl();
+		return text;
 	}
 
 	/**

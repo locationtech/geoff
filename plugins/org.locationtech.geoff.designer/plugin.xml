@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-      <extension
+<extension
             point="org.eclipse.ui.editors">
       <editor
             class="org.locationtech.geoff.designer.editors.GeoMapEditor"
             default="false"
             extensions="geoff"
             id="org.locationtech.geoff.designer.editor"
-            name="Geoff Geo Map Editor">
+            name="Geo Map Editor">
       </editor>
       </extension>
       <extension
@@ -21,12 +21,22 @@
       </extension>
       <extension
             point="org.eclipse.ui.views">
-         <e4view
-               class="org.locationtech.geoff.designer.views.LayersView"
+         <category
+               id="org.locationtech.geoff.designer"
+               name="Geo Map Editor">
+         </category>
+         <view
+               class="org.locationtech.geoff.designer.buddies.E3PageBookViewPart:org.locationtech.geoff.designer.views.LayersUI"
                id="org.locationtech.geoff.designer.views.layers"
                name="Layers"
                restorable="true">
-         </e4view>
+         </view>
+         <view
+               class="org.locationtech.geoff.designer.buddies.E3PageBookViewPart:org.locationtech.geoff.designer.views.GeocodingUI"
+               id="org.locationtech.geoff.designer.views.geocoding"
+               name="Geocoding"
+               restorable="true">
+         </view>
       </extension>
       <extension
             point="org.eclipse.ui.perspectiveExtensions">
@@ -47,6 +57,13 @@
                   relationship="bottom"
                   relative="org.eclipse.ui.views.ResourceNavigator">
             </view>
+            <view
+                  id="XXXorg.locationtech.geoff.designer.views.geocoding"
+                  minimized="false"
+                  ratio="0.66"
+                  relationship="right"
+                  relative="org.eclipse.ui.editorss">
+            </view>
          </perspectiveExtension>
       </extension>
       <extension
@@ -62,24 +79,164 @@
                name="New Geo Map">         </wizard>
       </extension>
       <extension
+            point="org.eclipse.ui.commands">
+         <command
+               defaultHandler="org.locationtech.geoff.designer.buddies.E3Handler:org.locationtech.geoff.designer.handlers.AddResourceAsLayerHandler"
+               description="Add as a new layer"
+               id="org.locationtech.geoff.designer.commands.addResourceAsLayer"
+               name="Add Layer">
+         </command>
+         <command
+               defaultHandler="org.locationtech.geoff.designer.buddies.E3Handler:org.locationtech.geoff.designer.handlers.AddTileLayerHandler"
+               description="Add new tile layer"
+               id="org.locationtech.geoff.designer.commands.addTileLayer"
+               name="Add Tile Layer">
+            <commandParameter
+                  id="tileProvider"
+                  name="Tile Provider"
+                  optional="true">
+            </commandParameter>
+         </command>
+      </extension>
+      <extension
             point="org.eclipse.ui.menus">
+            <menuContribution
+               allPopups="false"
+               locationURI="toolbar:org.locationtech.geoff.designer.views.layers">
+            <command
+                  commandId="org.locationtech.geoff.designer.commands.addResourceAsLayer"
+                  icon="icons/layers-menu.gif"
+                  id="org.locationtech.geoff.designer.layers"
+                  label="Layers"
+                  style="pulldown">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <with
+                           variable="activeEditorId">
+                        <equals
+                              value="org.locationtech.geoff.designer.editor">
+                        </equals>
+                     </with>
+                  </and>
+               </visibleWhen>
+                           </command>
+         </menuContribution>
          <menuContribution
                allPopups="false"
-               locationURI="toolbar:org.locationtech.geoff.designer.views.layers?after=additions">
+               locationURI="popup:org.eclipse.ui.popup.any">
+            <menu
+                  id="org.locationtech.geoff.designer.popup"
+                  label="LT/Geoff">
+            </menu>
+         </menuContribution>
+         <menuContribution
+               allPopups="false"
+               locationURI="popup:org.locationtech.geoff.designer.popup">
             <command
-                  commandId="org.locationtech.geoff.designer.commands.addLayer"
-                  label="Add Layer"
+                  commandId="org.locationtech.geoff.designer.commands.addResourceAsLayer"
+                  icon="platform:/plugin/org.locationtech.geoff.model.edit/icons/actions16/add.gif"
+                  label="Add GeoJSON Layer"
                   style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <with
+                           variable="activeEditorId">
+                        <equals
+                              value="org.locationtech.geoff.designer.editor">
+                        </equals>
+                     </with>
+                     <count
+                           value="+">
+                     </count>
+                     <iterate>
+                        <test
+                              forcePluginActivation="true"
+                              property="org.eclipse.core.resources.extension"
+                              value="geojson">
+                        </test>
+                     </iterate>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="org.locationtech.geoff.designer.commands.addResourceAsLayer"
+                  icon="platform:/plugin/org.locationtech.geoff.model.edit/icons/actions16/add.gif"
+                  label="Add KML Layer"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <with
+                           variable="activeEditorId">
+                        <equals
+                              value="org.locationtech.geoff.designer.editor">
+                        </equals>
+                     </with>
+                     <count
+                           value="+">
+                     </count>
+                     <iterate>
+                        <test
+                              forcePluginActivation="true"
+                              property="org.eclipse.core.resources.extension"
+                              value="kml">
+                        </test>
+                     </iterate>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="org.locationtech.geoff.designer.commands.addResourceAsLayer"
+                  icon="platform:/plugin/org.locationtech.geoff.model.edit/icons/actions16/add.gif"
+                  label="Add GPX Layer"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <with
+                           variable="activeEditorId">
+                        <equals
+                              value="org.locationtech.geoff.designer.editor">
+                        </equals>
+                     </with>
+                     <count
+                           value="+">
+                     </count>
+                     <iterate>
+                        <test
+                              forcePluginActivation="true"
+                              property="org.eclipse.core.resources.extension"
+                              value="gpx">
+                        </test>
+                     </iterate>
+                  </and>
+               </visibleWhen>
+            </command>
+         </menuContribution>
+         <menuContribution
+               allPopups="false"
+               locationURI="menu:org.locationtech.geoff.designer.layers">
+            <command
+                  commandId="org.locationtech.geoff.designer.commands.addTileLayer"
+                  icon="icons/OSM.png"
+                  label="OpenStreetMap"
+                  style="push">
+               <parameter
+                     name="tileProvider"
+                     value="OSM">
+               </parameter>
+            </command>
+            <command
+                  commandId="org.locationtech.geoff.designer.commands.addTileLayer"
+                  label="Bing Maps"
+                  style="push">
+               <parameter
+                     name="tileProvider"
+                     value="BingMaps">
+               </parameter>
             </command>
          </menuContribution>
       </extension>
-      <extension
-            point="org.eclipse.ui.commands">
-         <command
-               defaultHandler="org.locationtech.geoff.designer.commands.AddLayerHandler"
-               id="org.locationtech.geoff.designer.commands.addLayer"
-               name="Add Layer">
-         </command>
-      </extension>
-
 </plugin>

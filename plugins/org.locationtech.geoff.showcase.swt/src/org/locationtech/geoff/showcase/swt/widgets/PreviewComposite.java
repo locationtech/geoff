@@ -20,6 +20,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.locationtech.geoff.showcase.IExampleGeoMap;
 import org.locationtech.geoff.showcase.ShowCaseUtil;
+import org.locationtech.geoff.ui.IGeoMapRenderer;
 import org.locationtech.geoff.ui.swt.GeoMapComposite;
 
 public class PreviewComposite extends Composite {
@@ -46,10 +47,6 @@ public class PreviewComposite extends Composite {
 		if (baseUrl != null) {
 			mapComposite.setBaseUrl(baseUrl);
 		}
-	}
-
-	public GeoMapComposite getMapComposite() {
-		return mapComposite;
 	}
 
 	public void setMapProvider(IExampleGeoMap mapProvider) {

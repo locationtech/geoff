@@ -31,6 +31,7 @@ import org.locationtech.geoff.GeoffPackage;
 import org.locationtech.geoff.layer.Layer;
 import org.locationtech.geoff.layer.LayerPackage;
 import org.locationtech.geoff.provider.GeoffEditPlugin;
+import org.locationtech.geoff.source.Source;
 import org.locationtech.geoff.source.SourceFactory;
 
 /**
@@ -135,16 +136,26 @@ public class LayerItemProvider extends ItemProviderAdapter implements
 	}
 
 	/**
-	 * This returns the label text for the adapted class.
-	 * <!-- begin-user-doc
+	 * This returns the label text for the adapted class. <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * @generated
+	 * 
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Layer) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_Layer_type") : //$NON-NLS-1$
-				getString("_UI_Layer_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		Layer tile = (Layer) object;
+		Source source = tile.getSource();
+		String sourceText = "";
+
+		if (source != null) {
+			IItemLabelProvider itemLabelProvider = (IItemLabelProvider) getRootAdapterFactory()
+					.adapt((Object) source, IItemLabelProvider.class);
+			sourceText = String.format(" (%s)",
+					itemLabelProvider.getText(source));
+		}
+
+		String text = String.format("%s%s", getTypeText(object), sourceText);
+		return text;
 	}
 
 	/**
@@ -185,10 +196,6 @@ public class LayerItemProvider extends ItemProviderAdapter implements
 
 		newChildDescriptors.add(createChildParameter(
 				LayerPackage.Literals.LAYER__SOURCE,
-				SourceFactory.eINSTANCE.createXYZ()));
-
-		newChildDescriptors.add(createChildParameter(
-				LayerPackage.Literals.LAYER__SOURCE,
 				SourceFactory.eINSTANCE.createOSM()));
 
 		newChildDescriptors.add(createChildParameter(
@@ -202,6 +209,14 @@ public class LayerItemProvider extends ItemProviderAdapter implements
 		newChildDescriptors.add(createChildParameter(
 				LayerPackage.Literals.LAYER__SOURCE,
 				SourceFactory.eINSTANCE.createVector()));
+
+		newChildDescriptors.add(createChildParameter(
+				LayerPackage.Literals.LAYER__SOURCE,
+				SourceFactory.eINSTANCE.createGeoJSON()));
+
+		newChildDescriptors.add(createChildParameter(
+				LayerPackage.Literals.LAYER__SOURCE,
+				SourceFactory.eINSTANCE.createGPX()));
 	}
 
 	/**

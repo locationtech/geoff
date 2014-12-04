@@ -4,6 +4,10 @@
  */
 package org.locationtech.geoff.layer.validation;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
+import org.locationtech.geoff.style.Style;
+
 /**
  * A sample validator interface for {@link org.locationtech.geoff.layer.Vector}.
  * This doesn't really do anything, and it's not a real EMF artifact.
@@ -12,5 +16,9 @@ package org.locationtech.geoff.layer.validation;
  */
 public interface VectorValidator {
 	boolean validate();
+
+	boolean validateStyles(EMap<String, Style> value);
+
+	boolean validateStyles(EList<Style> value);
 
 }

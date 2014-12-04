@@ -19,7 +19,7 @@
 		"geoff.source" : "http://www.locationtech.org/geoff-source-v1",
 		"geoff.style" : "http://www.locationtech.org/geoff-style-v1"
 	};
-	
+
 	// this is the array of rules that are supported to transform DOM nodes to
 	// OL3 instructions, this is like a grammar of a language with dynamic rules
 	// ---
@@ -40,9 +40,9 @@
 	// this is the entry rule that is responsible for parsing the root DOM node
 	// geoff:GeoMap
 	rules["geoff:GeoMap"] = function(domNode, env) {
-		var layers = domNode.getElementsByTagName("layer");
-		var domView = domNode.getElementsByTagName("view")[0];
-		var rendererHint = domNode.getAttribute("rendererHint");
+		var layers = elements(domNode, "layer");
+		var domView = elements(domNode, "view")[0];
+		var rendererHint = attrValue(domNode, "rendererHint");
 
 		if (rendererHint != null) {
 			rendererHint = rendererHint.toLowerCase();
@@ -52,24 +52,28 @@
 		// make the view available to the environment, for example,
 		// to transform positions/locations to view projection
 		env.view = olView;
+
 		var map = new ol.Map({
 			layers : convertCollection(layers, env),
 			view : olView
 		});
 
+		zoomslider = new ol.control.ZoomSlider();
+		map.addControl(zoomslider);
+
 		return map;
 	};
 
 	rules["geoff:View"] = function(domNode, env) {
-		var center = domNode.getElementsByTagName("center")[0];
-		var zoom = domNode.getAttribute("zoom");
+		var center = elements(domNode, "center")[0];
+		var zoom = attrValue(domNode, "zoom");
 
 		var view = new ol.View({
 			zoom : convertInt(zoom, env)
 		});
 
 		var centerCoords = convertObject(center, env);
-		var sourceProj = center.getAttribute("projectionCode");
+		var sourceProj = attrValue(center, "projectionCode");
 
 		// if the center node has a projection code set,
 		// use it to transform the coordinates to the view's projection
@@ -81,11 +85,12 @@
 		}
 
 		view.setCenter(centerCoords);
+
 		return view;
 	};
 
 	rules["geoff.layer:Tile"] = function(domNode, env) {
-		var source = domNode.getElementsByTagName("source")[0];
+		var source = elements(domNode, "source")[0];
 
 		return new ol.layer.Tile({
 			source : convertObject(source, env)
@@ -93,23 +98,63 @@
 	};
 
 	rules["geoff.layer:Vector"] = function(domNode, env) {
-		var source = domNode.getElementsByTagName("source")[0];
+		var source = elements(domNode, "source")[0];
+		var domStyles = elements(domNode, "style");
+		var stylesMap = {};
+
+		for (var i = 0; i < domStyles.length; i++) {
+			var style = domStyles[i];
+			var styleKey = attrValue(style, "key");
+			var styleValue = elements(style, "value")[0];
+			var olStyle = convertObject(styleValue, env, "geoff.style:Style");
+			stylesMap[styleKey] = [ olStyle ];
+		}
 
 		return new ol.layer.Vector({
-			source : convertObject(source, env)
+			source : convertObject(source, env),
+			style : function(feature, resolution) {
+				var key = feature.getGeometry().getType();
+				var st = stylesMap[key];
+				return st;
+			}
 		});
 	};
 
 	rules["geoff.source:Vector"] = function(domNode, env) {
-		var features = domNode.getElementsByTagName("feature");
+		var features = elements(domNode, "feature");
 		return new ol.source.Vector({
 			features : convertCollection(features, env, "geoff:Feature")
 		});
 	};
 
+	function staticVectorSourceOptions(domNode, env) {
+		var url = attrValue(domNode, "url");
+		var projection = attrValue(domNode, "projection");
+
+		return {
+			url : url,
+			projection : projection
+		};
+	}
+
+	rules["geoff.source:GPX"] = function(domNode, env) {
+		var options = staticVectorSourceOptions(domNode, env);
+		return new ol.source.GPX(options);
+	};
+
+	rules["geoff.source:KML"] = function(domNode, env) {
+		var options = staticVectorSourceOptions(domNode, env);
+		return new ol.source.KML(options);
+	};
+
+	rules["geoff.source:GeoJSON"] = function(domNode, env) {
+		var options = staticVectorSourceOptions(domNode, env);
+		return new ol.source.GeoJSON(options);
+	};
+
 	rules["geoff:Feature"] = function(domNode, env) {
-		var geometry = domNode.getElementsByTagName("geometry")[0];
-		var styles = domNode.getElementsByTagName("style")[0];
+		var geometry = elements(domNode, "geometry")[0];
+		var styles = elements(domNode, "style")[0];
 
 		var olFeature = new ol.Feature({
 			geometry : convertObject(geometry, env)
@@ -122,9 +167,9 @@
 	};
 
 	rules["geoff.geom:Point"] = function(domNode, env) {
-		var coords = domNode.getElementsByTagName("coordinates")[0];
+		var coords = elements(domNode, "coordinates")[0];
 		var location = convertObject(coords, env);
-		var sourceProj = coords.getAttribute("projectionCode");
+		var sourceProj = attrValue(coords, "projectionCode");
 
 		if (sourceProj != null) {
 			var viewProjection = env.view.getProjection();
@@ -137,22 +182,97 @@
 	};
 
 	rules["geoff.style:Style"] = function(domNode, env) {
-		var image = domNode.getElementsByTagName("image")[0];
+		var image = elements(domNode, "image");
+		var fill = elements(domNode, "fill");
+		var stroke = elements(domNode, "stroke");
 
 		return new ol.style.Style({
-			image : convertObject(image, env)
+			image : image.length > 0 ? convertObject(image[0], env) : null,
+			fill : fill.length > 0 ? convertObject(fill[0], env,
+					"geoff.style:Fill") : null,
+			stroke : stroke.length > 0 ? convertObject(stroke[0], env,
+					"geoff.style:Stroke") : null
 		});
 	};
 
 	rules["geoff.style:Icon"] = function(domNode, env) {
-		var src = domNode.getAttribute("src");
+		var src = attrValue(domNode, "src");
 		return new ol.style.Icon({
-			anchor : [ 0.5, 46 ],
-			anchorXUnits : 'fraction',
-			anchorYUnits : 'pixels',
-			opacity : 0.75,
 			src : src
 		});
+	};
+
+	rules["geoff.style:Color"] = function(domNode, env) {
+		var r = attrValue(domNode, "red");
+		var g = attrValue(domNode, "green");
+		var b = attrValue(domNode, "blue");
+		var a = attrValue(domNode, "alpha");
+
+		return 'rgba(' + (r == null ? 0 : r) + ',' + (g == null ? 0 : g) + ','
+				+ (b == null ? 0 : b) + ',' + (a == null ? 0 : a) + ')';
+	};
+
+	rules["geoff.style:Fill"] = function(domNode, env) {
+		var color = elements(domNode, "color");
+
+		return new ol.style.Fill({
+			color : color.length > 0 ? convertObject(color[0], env,
+					"geoff.style:Color") : null,
+		});
+	};
+
+	rules["geoff.style:Circle"] = function(domNode, env) {
+		var fill = elements(domNode, "fill");
+		var stroke = elements(domNode, "stroke");
+		var radius = convertFloat(attrValue(domNode, "radius"));
+
+		return new ol.style.Circle({
+			radius : radius,
+			fill : fill.length > 0 ? convertObject(fill[0], env,
+					"geoff.style:Fill") : null,
+			stroke : stroke.length > 0 ? convertObject(stroke[0], env,
+					"geoff.style:Stroke") : null
+		});
+	};
+
+	rules["geoff.style:Stroke"] = function(domNode, env) {
+		var color = elements(domNode, "color");
+		var lineDash = elements(domNode, "lineDash");
+		var options = {};
+
+		if (color.length > 0) {
+			options.color = convertObject(color[0], env, "geoff.style:Color");
+		}
+
+		if (lineDash.length > 0) {
+			options.lineDash = convertCollectionFloat(lineDash, env);
+		}
+
+		var widthStr = attrValue(domNode, "width");
+
+		if (widthStr != null) {
+			options.width = convertFloat(widthStr);
+		}
+
+		var lineCap = attrValue(domNode, "lineCap");
+
+		if (lineCap != null) {
+			options.lineCap = lineCap;
+		}
+
+		var lineJoin = attrValue(domNode, "lineJoin");
+
+		if (lineJoin != null) {
+			options.lineJoin = lineJoin;
+		}
+
+		var meterLimitStr = attrValue(domNode, "miterLimit");
+
+		if (meterLimitStr != null) {
+			options.miterLimit = convertFloat(meterLimitStr);
+		}
+
+		return new ol.style.Stroke(options)
 	};
 
 	rules["geoff.source:OSM"] = function(domNode, env) {
@@ -160,7 +280,7 @@
 	};
 
 	rules["geoff.source:MapQuest"] = function(domNode, env) {
-		var layer = domNode.getAttribute("zoom");
+		var layer = attrValue(domNode, "layer");
 
 		if (layer == null) {
 			layer = "osm";
@@ -172,8 +292,8 @@
 	};
 
 	rules["geoff.source:BingMaps"] = function(domNode, env) {
-		var key = domNode.getAttribute("key");
-		var imagerySet = domNode.getAttribute("imagerySet");
+		var key = attrValue(domNode, "key");
+		var imagerySet = attrValue(domNode, "imagerySet");
 
 		return new ol.source.BingMaps({
 			key : key,
@@ -182,15 +302,41 @@
 	};
 
 	rules["geoff:XYZLocation"] = function(domNode, env) {
-		var x = domNode.getAttribute("x") != null ? convertFloat(domNode
-				.getAttribute("x"), env) : 0;
-		var y = domNode.getAttribute("y") != null ? convertFloat(domNode
-				.getAttribute("y"), env) : 0;
-		var z = domNode.getAttribute("z") != null ? convertFloat(domNode
-				.getAttribute("z"), env) : 0;
-		var coords = [ x, y, z ];
+		var coords = new Array();
+		var x = attrValue(domNode, "x") != null ? convertFloat(attrValue(
+				domNode, "x"), env) : 0;
+		var y = attrValue(domNode, "y") != null ? convertFloat(attrValue(
+				domNode, "y"), env) : 0;
+
+		coords.push(x);
+		coords.push(y);
+
+		if (attrValue(domNode, "z") != null) {
+			var z = convertFloat(attrValue(domNode, "z"), env);
+			coords.push(z);
+		}
+
 		return coords;
 	};
+
+	function elements(domNode, elemName) {
+		var ret = new Array();
+		var children = domNode.childNodes;
+
+		for (var i = 0; i < children.length; i++) {
+			var child = children.item(i);
+
+			if (child.nodeName === elemName) {
+				ret.push(child);
+			}
+		}
+
+		return ret;
+	}
+
+	function attrValue(domNode, attrName) {
+		return domNode.getAttribute(attrName);
+	}
 
 	function execRule(nsPrefix, tagName, contextNode, env) {
 		var ruleName = nsPrefix + ":" + tagName;
@@ -202,6 +348,24 @@
 
 		for (var i = 0; i < domCollection.length; i++) {
 			var jObject = convertObject(domCollection[i], env, type);
+			jArray.push(jObject);
+		}
+
+		return jArray;
+	}
+
+	function convertCollectionFloat(domCollection, env, type) {
+		var jArray = new Array();
+
+		for (var i = 0; i < domCollection.length; i++) {
+			var strValue = domCollection[i];
+
+			if (strValue == null) {
+				continue;
+			}
+
+			strValue = strValue.textContent;
+			var jObject = convertFloat(strValue, env);
 			jArray.push(jObject);
 		}
 

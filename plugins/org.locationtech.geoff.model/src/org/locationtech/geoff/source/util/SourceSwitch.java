@@ -199,6 +199,85 @@ public class SourceSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case SourcePackage.FORMAT_VECTOR: {
+			FormatVector formatVector = (FormatVector) theEObject;
+			T result = caseFormatVector(formatVector);
+			if (result == null)
+				result = caseVector(formatVector);
+			if (result == null)
+				result = caseSource(formatVector);
+			if (result == null)
+				result = caseIdentifiable(formatVector);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SourcePackage.STATIC_VECTOR: {
+			StaticVector staticVector = (StaticVector) theEObject;
+			T result = caseStaticVector(staticVector);
+			if (result == null)
+				result = caseFormatVector(staticVector);
+			if (result == null)
+				result = caseVector(staticVector);
+			if (result == null)
+				result = caseSource(staticVector);
+			if (result == null)
+				result = caseIdentifiable(staticVector);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SourcePackage.GEO_JSON: {
+			GeoJSON geoJSON = (GeoJSON) theEObject;
+			T result = caseGeoJSON(geoJSON);
+			if (result == null)
+				result = caseStaticVector(geoJSON);
+			if (result == null)
+				result = caseFormatVector(geoJSON);
+			if (result == null)
+				result = caseVector(geoJSON);
+			if (result == null)
+				result = caseSource(geoJSON);
+			if (result == null)
+				result = caseIdentifiable(geoJSON);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SourcePackage.GPX: {
+			GPX gpx = (GPX) theEObject;
+			T result = caseGPX(gpx);
+			if (result == null)
+				result = caseStaticVector(gpx);
+			if (result == null)
+				result = caseFormatVector(gpx);
+			if (result == null)
+				result = caseVector(gpx);
+			if (result == null)
+				result = caseSource(gpx);
+			if (result == null)
+				result = caseIdentifiable(gpx);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SourcePackage.KML: {
+			KML kml = (KML) theEObject;
+			T result = caseKML(kml);
+			if (result == null)
+				result = caseStaticVector(kml);
+			if (result == null)
+				result = caseFormatVector(kml);
+			if (result == null)
+				result = caseVector(kml);
+			if (result == null)
+				result = caseSource(kml);
+			if (result == null)
+				result = caseIdentifiable(kml);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -321,6 +400,81 @@ public class SourceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseVector(Vector object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Format Vector</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Format Vector</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFormatVector(FormatVector object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Static Vector</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Static Vector</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStaticVector(StaticVector object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Geo JSON</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Geo JSON</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGeoJSON(GeoJSON object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>GPX</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>GPX</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGPX(GPX object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>KML</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>KML</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseKML(KML object) {
 		return null;
 	}
 

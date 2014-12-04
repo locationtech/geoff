@@ -89,29 +89,6 @@ public class SourceItemProviderAdapterFactory extends SourceAdapterFactory
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.source.XYZ} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected XYZItemProvider xyzItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.locationtech.geoff.source.XYZ}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createXYZAdapter() {
-		if (xyzItemProvider == null) {
-			xyzItemProvider = new XYZItemProvider(this);
-		}
-
-		return xyzItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.source.OSM} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -201,6 +178,52 @@ public class SourceItemProviderAdapterFactory extends SourceAdapterFactory
 		}
 
 		return vectorItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.source.GeoJSON} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GeoJSONItemProvider geoJSONItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.locationtech.geoff.source.GeoJSON}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGeoJSONAdapter() {
+		if (geoJSONItemProvider == null) {
+			geoJSONItemProvider = new GeoJSONItemProvider(this);
+		}
+
+		return geoJSONItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.source.GPX} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GPXItemProvider gpxItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.locationtech.geoff.source.GPX}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGPXAdapter() {
+		if (gpxItemProvider == null) {
+			gpxItemProvider = new GPXItemProvider(this);
+		}
+
+		return gpxItemProvider;
 	}
 
 	/**
@@ -305,8 +328,6 @@ public class SourceItemProviderAdapterFactory extends SourceAdapterFactory
 	 * @generated
 	 */
 	public void dispose() {
-		if (xyzItemProvider != null)
-			xyzItemProvider.dispose();
 		if (osmItemProvider != null)
 			osmItemProvider.dispose();
 		if (mapQuestItemProvider != null)
@@ -315,6 +336,10 @@ public class SourceItemProviderAdapterFactory extends SourceAdapterFactory
 			bingMapsItemProvider.dispose();
 		if (vectorItemProvider != null)
 			vectorItemProvider.dispose();
+		if (geoJSONItemProvider != null)
+			geoJSONItemProvider.dispose();
+		if (gpxItemProvider != null)
+			gpxItemProvider.dispose();
 	}
 
 }

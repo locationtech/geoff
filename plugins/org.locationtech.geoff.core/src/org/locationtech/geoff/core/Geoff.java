@@ -183,12 +183,12 @@ public class Geoff {
 		return vector;
 	}
 
-	public static Feature feature(Geometry geometry, Style... styles) {
+	public static Feature feature(Geometry geometry, Style style) {
 		Feature feature = GeoffFactory.eINSTANCE.createFeature();
 		feature.setGeometry(geometry);
 
-		if (styles != null) {
-			feature.getStyles().addAll(Arrays.asList(styles));
+		if (style != null) {
+			feature.setStyle(style);
 		}
 
 		return feature;

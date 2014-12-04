@@ -100,6 +100,26 @@ public class StyleAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseFill(Fill object) {
+			return createFillAdapter();
+		}
+
+		@Override
+		public Adapter caseStroke(Stroke object) {
+			return createStrokeAdapter();
+		}
+
+		@Override
+		public Adapter caseCircle(Circle object) {
+			return createCircleAdapter();
+		}
+
+		@Override
+		public Adapter caseText(Text object) {
+			return createTextAdapter();
+		}
+
+		@Override
 		public Adapter caseIdentifiable(Identifiable object) {
 			return createIdentifiableAdapter();
 		}
@@ -162,6 +182,62 @@ public class StyleAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createIconAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.style.Fill <em>Fill</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.locationtech.geoff.style.Fill
+	 * @generated
+	 */
+	public Adapter createFillAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.style.Stroke <em>Stroke</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.locationtech.geoff.style.Stroke
+	 * @generated
+	 */
+	public Adapter createStrokeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.style.Circle <em>Circle</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.locationtech.geoff.style.Circle
+	 * @generated
+	 */
+	public Adapter createCircleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.style.Text <em>Text</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.locationtech.geoff.style.Text
+	 * @generated
+	 */
+	public Adapter createTextAdapter() {
 		return null;
 	}
 
