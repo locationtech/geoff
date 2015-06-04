@@ -32,11 +32,11 @@ import org.locationtech.geoff.designer.IEditingService;
 import org.locationtech.geoff.designer.databinding.ActionsObservables;
 import org.locationtech.geoff.layer.Layer;
 import org.locationtech.geoff.layer.LayerPackage;
+import org.locationtech.geoff.layer.TileLayer;
+import org.locationtech.geoff.layer.VectorLayer;
 import org.locationtech.geoff.provider.GeoffEditPlugin;
 import org.locationtech.geoff.source.Source;
 import org.locationtech.geoff.source.SourcePackage;
-import org.locationtech.geoff.source.Tile;
-import org.locationtech.geoff.source.Vector;
 
 public class LayersUI {
 	@Inject
@@ -58,8 +58,7 @@ public class LayersUI {
 	@PostConstruct
 	public void createUI(Composite parent, IToolBarManager toolBarManager) {
 		AdapterFactoryLabelProvider aflp = new AdapterFactoryLabelProvider(af);
-		AdapterFactoryContentProvider afcp = new AdapterFactoryContentProvider(
-				af) {
+		AdapterFactoryContentProvider afcp = new AdapterFactoryContentProvider(af) {
 			@Override
 			public boolean hasChildren(Object object) {
 				// only flat list
@@ -80,10 +79,8 @@ public class LayersUI {
 		layersViewer.setContentProvider(afcp);
 		layersViewer.setLabelProvider(aflp);
 
-		singleSelectionObservable = ViewersObservables
-				.observeSingleSelection(layersViewer);
-		IObservableValue inputObservable = ViewersObservables
-				.observeInput(layersViewer);
+		singleSelectionObservable = ViewersObservables.observeSingleSelection(layersViewer);
+		IObservableValue inputObservable = ViewersObservables.observeInput(layersViewer);
 		dbc.bindValue(inputObservable, masterObservable);
 
 		site.setSelectionProvider(layersViewer);
@@ -95,24 +92,20 @@ public class LayersUI {
 		masterObservable.setValue(geoMap);
 	}
 
-	private void makeContributions(IToolBarManager toolBarManager,
-			final Shell shell) {
+	private void makeContributions(IToolBarManager toolBarManager, final Shell shell) {
 		{
 			Action deleteAction = new Action("Delete Layer/s",
-					GeoffEditPlugin.INSTANCE
-							.getImageDescriptor("actions16/delete")) {
+					GeoffEditPlugin.INSTANCE.getImageDescriptor("actions16/delete")) {
 				@Override
 				public void run() {
-					List list = ((IStructuredSelection) layersViewer
-							.getSelection()).toList();
+					List list = ((IStructuredSelection) layersViewer.getSelection()).toList();
 
 					CompoundCommand cc = new CompoundCommand();
 					cc.setLabel(getText());
 
 					for (Object obj : list) {
 						if (obj instanceof Identifiable) {
-							Command delete = editingService
-									.createDeleteCommand((Identifiable) obj);
+							Command delete = editingService.createDeleteCommand((Identifiable) obj);
 							cc.append(delete);
 						}
 					}
@@ -121,16 +114,16 @@ public class LayersUI {
 				}
 			};
 
-			ActionsObservables.bindEnabled(dbc, deleteAction,
-					singleSelectionObservable);
+			ActionsObservables.bindEnabled(dbc, deleteAction, singleSelectionObservable);
 
 			toolBarManager.add(deleteAction);
 		}
 
-		{
+		boolean addGenericLayerSelection = false;
+
+		if (addGenericLayerSelection) {
 			Action newAction = new Action("New Layer...",
-					GeoffEditPlugin.INSTANCE
-							.getImageDescriptor("actions16/add")) {
+					GeoffEditPlugin.INSTANCE.getImageDescriptor("actions16/add")) {
 				@SuppressWarnings("unchecked")
 				@Override
 				public void run() {
@@ -140,10 +133,8 @@ public class LayersUI {
 					// .samplesOf(LayerPackage.Literals.LAYER);
 					Collection<Source> sources = (Collection<Source>) editingService
 							.samplesOf(SourcePackage.Literals.SOURCE);
-					AdapterFactoryLabelProvider lp = new AdapterFactoryLabelProvider(
-							af);
-					ElementListSelectionDialog diag = new ElementListSelectionDialog(
-							shell, lp);
+					AdapterFactoryLabelProvider lp = new AdapterFactoryLabelProvider(af);
+					ElementListSelectionDialog diag = new ElementListSelectionDialog(shell, lp);
 					diag.setMessage("Choose a source to create a new layer");
 					diag.setMultipleSelection(false);
 					diag.setBlockOnOpen(true);
@@ -158,10 +149,10 @@ public class LayersUI {
 						for (Object object : result) {
 							EClass type = null;
 
-							if (object instanceof Tile) {
-								type = LayerPackage.Literals.TILE;
-							} else if (object instanceof Vector) {
-								type = LayerPackage.Literals.VECTOR;
+							if (object instanceof TileLayer) {
+								type = LayerPackage.Literals.TILE_LAYER;
+							} else if (object instanceof VectorLayer) {
+								type = LayerPackage.Literals.VECTOR_LAYER;
 							}
 
 							if (type == null) {
@@ -170,13 +161,10 @@ public class LayersUI {
 
 							Source sample = (Source) object;
 							Layer layer = editingService.createInstance(type);
-							Source source = editingService
-									.createInstance(sample.eClass());
+							Source source = editingService.createInstance(sample.eClass());
 							layer.setSource(source);
-							Command command = editingService.createAddCommand(
-									geoMap,
-									GeoffPackage.Literals.GEO_MAP__LAYERS,
-									layer);
+							Command command = editingService.createAddCommand(geoMap,
+									GeoffPackage.Literals.GEO_MAP__LAYERS, layer);
 							cc.append(command);
 						}
 

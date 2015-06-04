@@ -23,10 +23,10 @@ import org.locationtech.geoff.source.SourcePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.source.impl.MapQuestImpl#getLayer <em>Layer</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -94,8 +94,7 @@ public class MapQuestImpl extends XYZImpl implements MapQuest {
 		String oldLayer = layer;
 		layer = newLayer;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					SourcePackage.MAP_QUEST__LAYER, oldLayer, layer));
+			eNotify(new ENotificationImpl(this, Notification.SET, SourcePackage.MAP_QUEST__LAYER, oldLayer, layer));
 	}
 
 	/**
@@ -151,8 +150,7 @@ public class MapQuestImpl extends XYZImpl implements MapQuest {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case SourcePackage.MAP_QUEST__LAYER:
-			return LAYER_EDEFAULT == null ? layer != null : !LAYER_EDEFAULT
-					.equals(layer);
+			return LAYER_EDEFAULT == null ? layer != null : !LAYER_EDEFAULT.equals(layer);
 		}
 		return super.eIsSet(featureID);
 	}

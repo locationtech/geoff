@@ -20,6 +20,7 @@ import org.locationtech.geoff.Identifiable;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.style.Style#getImage <em>Image</em>}</li>
  *   <li>{@link org.locationtech.geoff.style.Style#getFill <em>Fill</em>}</li>
@@ -27,7 +28,6 @@ import org.locationtech.geoff.Identifiable;
  *   <li>{@link org.locationtech.geoff.style.Style#getText <em>Text</em>}</li>
  *   <li>{@link org.locationtech.geoff.style.Style#getZindex <em>Zindex</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.locationtech.geoff.style.StylePackage#getStyle()
  * @model

@@ -27,15 +27,14 @@ import org.locationtech.geoff.geom.Geometry;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.geom.impl.GeometryImpl#getId <em>Id</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public abstract class GeometryImpl extends MinimalEObjectImpl.Container
-		implements Geometry {
+public abstract class GeometryImpl extends MinimalEObjectImpl.Container implements Geometry {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -100,8 +99,7 @@ public abstract class GeometryImpl extends MinimalEObjectImpl.Container
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeomPackage.GEOMETRY__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeomPackage.GEOMETRY__ID, oldId, id));
 	}
 
 	/**

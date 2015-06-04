@@ -227,14 +227,36 @@ public class GeoffItemProviderAdapterFactory extends GeoffAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link java.util.Map.Entry} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected StringToStringMapEntryItemProvider stringToStringMapEntryItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link java.util.Map.Entry}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createStringToStringMapEntryAdapter() {
+		if (stringToStringMapEntryItemProvider == null) {
+			stringToStringMapEntryItemProvider = new StringToStringMapEntryItemProvider(this);
+		}
+
+		return stringToStringMapEntryItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public ComposeableAdapterFactory getRootAdapterFactory() {
-		return parentAdapterFactory == null ? this : parentAdapterFactory
-				.getRootAdapterFactory();
+		return parentAdapterFactory == null ? this : parentAdapterFactory.getRootAdapterFactory();
 	}
 
 	/**
@@ -243,8 +265,7 @@ public class GeoffItemProviderAdapterFactory extends GeoffAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setParentAdapterFactory(
-			ComposedAdapterFactory parentAdapterFactory) {
+	public void setParentAdapterFactory(ComposedAdapterFactory parentAdapterFactory) {
 		this.parentAdapterFactory = parentAdapterFactory;
 	}
 
@@ -278,8 +299,7 @@ public class GeoffItemProviderAdapterFactory extends GeoffAdapterFactory
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
-			if (!(type instanceof Class<?>)
-					|| (((Class<?>) type).isInstance(adapter))) {
+			if (!(type instanceof Class<?>) || (((Class<?>) type).isInstance(adapter))) {
 				return adapter;
 			}
 		}
@@ -340,6 +360,8 @@ public class GeoffItemProviderAdapterFactory extends GeoffAdapterFactory
 			colorItemProvider.dispose();
 		if (styleEntryItemProvider != null)
 			styleEntryItemProvider.dispose();
+		if (stringToStringMapEntryItemProvider != null)
+			stringToStringMapEntryItemProvider.dispose();
 	}
 
 }

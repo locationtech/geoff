@@ -31,11 +31,11 @@ import org.locationtech.geoff.style.StylePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.style.impl.FillImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.locationtech.geoff.style.impl.FillImpl#getColor <em>Color</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -114,8 +114,7 @@ public class FillImpl extends MinimalEObjectImpl.Container implements Fill {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.FILL__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.FILL__ID, oldId, id));
 	}
 
 	/**
@@ -132,14 +131,12 @@ public class FillImpl extends MinimalEObjectImpl.Container implements Fill {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetColor(Color newColor,
-			NotificationChain msgs) {
+	public NotificationChain basicSetColor(Color newColor, NotificationChain msgs) {
 		Color oldColor = color;
 		color = newColor;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, StylePackage.FILL__COLOR, oldColor,
-					newColor);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StylePackage.FILL__COLOR,
+					oldColor, newColor);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -157,19 +154,16 @@ public class FillImpl extends MinimalEObjectImpl.Container implements Fill {
 		if (newColor != color) {
 			NotificationChain msgs = null;
 			if (color != null)
-				msgs = ((InternalEObject) color).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.FILL__COLOR,
+				msgs = ((InternalEObject) color).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StylePackage.FILL__COLOR,
 						null, msgs);
 			if (newColor != null)
-				msgs = ((InternalEObject) newColor).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.FILL__COLOR,
+				msgs = ((InternalEObject) newColor).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StylePackage.FILL__COLOR,
 						null, msgs);
 			msgs = basicSetColor(newColor, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.FILL__COLOR, newColor, newColor));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.FILL__COLOR, newColor, newColor));
 	}
 
 	/**
@@ -178,8 +172,7 @@ public class FillImpl extends MinimalEObjectImpl.Container implements Fill {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case StylePackage.FILL__COLOR:
 			return basicSetColor(null, msgs);

@@ -43,8 +43,7 @@ public class GeomFactoryImpl extends EFactoryImpl implements GeomFactory {
 	 */
 	public static GeomFactory init() {
 		try {
-			GeomFactory theGeomFactory = (GeomFactory) EPackage.Registry.INSTANCE
-					.getEFactory(GeomPackage.eNS_URI);
+			GeomFactory theGeomFactory = (GeomFactory) EPackage.Registry.INSTANCE.getEFactory(GeomPackage.eNS_URI);
 			if (theGeomFactory != null) {
 				return theGeomFactory;
 			}
@@ -77,8 +76,7 @@ public class GeomFactoryImpl extends EFactoryImpl implements GeomFactory {
 		case GeomPackage.POINT:
 			return createPoint();
 		default:
-			throw new IllegalArgumentException(
-					"The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

@@ -30,10 +30,10 @@ import org.locationtech.geoff.geom.Point;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.geom.impl.PointImpl#getCoordinates <em>Coordinates</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -88,14 +88,12 @@ public class PointImpl extends SimpleGeometryImpl implements Point {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCoordinates(Location newCoordinates,
-			NotificationChain msgs) {
+	public NotificationChain basicSetCoordinates(Location newCoordinates, NotificationChain msgs) {
 		Location oldCoordinates = coordinates;
 		coordinates = newCoordinates;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, GeomPackage.POINT__COORDINATES,
-					oldCoordinates, newCoordinates);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					GeomPackage.POINT__COORDINATES, oldCoordinates, newCoordinates);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -113,19 +111,16 @@ public class PointImpl extends SimpleGeometryImpl implements Point {
 		if (newCoordinates != coordinates) {
 			NotificationChain msgs = null;
 			if (coordinates != null)
-				msgs = ((InternalEObject) coordinates)
-						.eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-								- GeomPackage.POINT__COORDINATES, null, msgs);
+				msgs = ((InternalEObject) coordinates).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - GeomPackage.POINT__COORDINATES, null, msgs);
 			if (newCoordinates != null)
-				msgs = ((InternalEObject) newCoordinates)
-						.eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-								- GeomPackage.POINT__COORDINATES, null, msgs);
+				msgs = ((InternalEObject) newCoordinates).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - GeomPackage.POINT__COORDINATES, null, msgs);
 			msgs = basicSetCoordinates(newCoordinates, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeomPackage.POINT__COORDINATES, newCoordinates,
+			eNotify(new ENotificationImpl(this, Notification.SET, GeomPackage.POINT__COORDINATES, newCoordinates,
 					newCoordinates));
 	}
 
@@ -135,8 +130,7 @@ public class PointImpl extends SimpleGeometryImpl implements Point {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GeomPackage.POINT__COORDINATES:
 			return basicSetCoordinates(null, msgs);

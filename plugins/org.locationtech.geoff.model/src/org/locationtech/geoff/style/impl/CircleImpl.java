@@ -30,12 +30,12 @@ import org.locationtech.geoff.style.StylePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.style.impl.CircleImpl#getRadius <em>Radius</em>}</li>
  *   <li>{@link org.locationtech.geoff.style.impl.CircleImpl#getFill <em>Fill</em>}</li>
  *   <li>{@link org.locationtech.geoff.style.impl.CircleImpl#getStroke <em>Stroke</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -124,8 +124,7 @@ public class CircleImpl extends ImageImpl implements Circle {
 		double oldRadius = radius;
 		radius = newRadius;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.CIRCLE__RADIUS, oldRadius, radius));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.CIRCLE__RADIUS, oldRadius, radius));
 	}
 
 	/**
@@ -146,9 +145,8 @@ public class CircleImpl extends ImageImpl implements Circle {
 		Fill oldFill = fill;
 		fill = newFill;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, StylePackage.CIRCLE__FILL, oldFill,
-					newFill);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StylePackage.CIRCLE__FILL,
+					oldFill, newFill);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -166,19 +164,16 @@ public class CircleImpl extends ImageImpl implements Circle {
 		if (newFill != fill) {
 			NotificationChain msgs = null;
 			if (fill != null)
-				msgs = ((InternalEObject) fill).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.CIRCLE__FILL,
+				msgs = ((InternalEObject) fill).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StylePackage.CIRCLE__FILL,
 						null, msgs);
 			if (newFill != null)
-				msgs = ((InternalEObject) newFill).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.CIRCLE__FILL,
+				msgs = ((InternalEObject) newFill).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StylePackage.CIRCLE__FILL,
 						null, msgs);
 			msgs = basicSetFill(newFill, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.CIRCLE__FILL, newFill, newFill));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.CIRCLE__FILL, newFill, newFill));
 	}
 
 	/**
@@ -195,14 +190,12 @@ public class CircleImpl extends ImageImpl implements Circle {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetStroke(Stroke newStroke,
-			NotificationChain msgs) {
+	public NotificationChain basicSetStroke(Stroke newStroke, NotificationChain msgs) {
 		Stroke oldStroke = stroke;
 		stroke = newStroke;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, StylePackage.CIRCLE__STROKE, oldStroke,
-					newStroke);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StylePackage.CIRCLE__STROKE,
+					oldStroke, newStroke);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -221,18 +214,15 @@ public class CircleImpl extends ImageImpl implements Circle {
 			NotificationChain msgs = null;
 			if (stroke != null)
 				msgs = ((InternalEObject) stroke).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.CIRCLE__STROKE,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - StylePackage.CIRCLE__STROKE, null, msgs);
 			if (newStroke != null)
 				msgs = ((InternalEObject) newStroke).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.CIRCLE__STROKE,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - StylePackage.CIRCLE__STROKE, null, msgs);
 			msgs = basicSetStroke(newStroke, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.CIRCLE__STROKE, newStroke, newStroke));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.CIRCLE__STROKE, newStroke, newStroke));
 	}
 
 	/**
@@ -241,8 +231,7 @@ public class CircleImpl extends ImageImpl implements Circle {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case StylePackage.CIRCLE__FILL:
 			return basicSetFill(null, msgs);

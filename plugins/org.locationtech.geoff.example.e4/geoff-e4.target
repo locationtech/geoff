@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target name="Running Platform" sequenceNumber="11">
+<?pde version="3.8"?><target name="Running Platform" sequenceNumber="71">
 <locations>
-<location path="${eclipse_home}" type="Profile"/>
+<location id="org.eclipse.wst.common_core.feature" path="C:\Users\ekaraca\.p2\pool" type="Feature"/>
+<location id="org.eclipse.wst.common.fproj" path="C:\Users\ekaraca\.p2\pool" type="Feature"/>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.json" version="1.0.0.v201011060100"/>
 <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/"/>
 </location>
+<location id="org.eclipse.wst.server_core.feature" path="C:\Users\ekaraca\.p2\pool" type="Feature"/>
+<location id="org.eclipse.wst.server_ui.feature" path="C:\Users\ekaraca\.p2\pool" type="Feature"/>
+<location id="org.eclipse.wst.server_adapters.feature" path="C:\Users\ekaraca\.p2\pool" type="Feature"/>
+<location path="${eclipse_home}" type="Profile"/>
+<location id="org.eclipse.wst.web_core.feature" path="C:\Users\ekaraca\.p2\pool" type="Feature"/>
+<location id="org.eclipse.wst.web_ui.feature" path="C:\Users\ekaraca\.p2\pool" type="Feature"/>
+<location id="org.eclipse.wst.ws_core.feature" path="C:\Users\ekaraca\.p2\pool" type="Feature"/>
+<location id="org.eclipse.wst.ws_ui.feature" path="C:\Users\ekaraca\.p2\pool" type="Feature"/>
 </locations>
 <environment>
 <os>win32</os>

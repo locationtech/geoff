@@ -7,6 +7,7 @@
             class="org.locationtech.geoff.designer.editors.GeoMapEditor"
             default="false"
             extensions="geoff"
+            icon="icons/geoff-16.png"
             id="org.locationtech.geoff.designer.editor"
             name="Geo Map Editor">
       </editor>
@@ -15,24 +16,26 @@
             point="org.eclipse.ui.perspectives">
          <perspective
                class="org.locationtech.geoff.designer.perspectives.GeoffDesignerPerspectiveFactory"
+               icon="icons/geoff-16.png"
                id="org.locationtech.geoff.designer.perspective"
-               name="Geo Map Designer">
+               name="Geo Map">
          </perspective>
       </extension>
       <extension
             point="org.eclipse.ui.views">
          <category
                id="org.locationtech.geoff.designer"
-               name="Geo Map Editor">
+               name="Geo Map">
          </category>
          <view
-               class="org.locationtech.geoff.designer.buddies.E3PageBookViewPart:org.locationtech.geoff.designer.views.LayersUI"
+               class="org.locationtech.geoff.designer.e3x.E3PageBookViewPart:org.locationtech.geoff.designer.views.LayersUI"
+               icon="icons/layers-16.png"
                id="org.locationtech.geoff.designer.views.layers"
                name="Layers"
                restorable="true">
          </view>
          <view
-               class="org.locationtech.geoff.designer.buddies.E3PageBookViewPart:org.locationtech.geoff.designer.views.GeocodingUI"
+               class="org.locationtech.geoff.designer.e3x.E3PageBookViewPart:org.locationtech.geoff.designer.views.GeocodingUI"
                id="org.locationtech.geoff.designer.views.geocoding"
                name="Geocoding"
                restorable="true">
@@ -75,19 +78,20 @@
          <wizard
                category="org.locationtech.geoff.designer.category"
                class="org.locationtech.geoff.designer.wizards.NewGeoMapWizard"
+               icon="icons/geoff-16.png"
                id="org.locationtech.geoff.designer.wizard1"
                name="New Geo Map">         </wizard>
       </extension>
       <extension
             point="org.eclipse.ui.commands">
          <command
-               defaultHandler="org.locationtech.geoff.designer.buddies.E3Handler:org.locationtech.geoff.designer.handlers.AddResourceAsLayerHandler"
+               defaultHandler="org.locationtech.geoff.designer.e3x.E3Handler:org.locationtech.geoff.designer.handlers.AddResourceAsLayerHandler"
                description="Add as a new layer"
                id="org.locationtech.geoff.designer.commands.addResourceAsLayer"
                name="Add Layer">
          </command>
          <command
-               defaultHandler="org.locationtech.geoff.designer.buddies.E3Handler:org.locationtech.geoff.designer.handlers.AddTileLayerHandler"
+               defaultHandler="org.locationtech.geoff.designer.e3x.E3Handler:org.locationtech.geoff.designer.handlers.AddTileLayerHandler"
                description="Add new tile layer"
                id="org.locationtech.geoff.designer.commands.addTileLayer"
                name="Add Tile Layer">
@@ -105,7 +109,7 @@
                locationURI="toolbar:org.locationtech.geoff.designer.views.layers">
             <command
                   commandId="org.locationtech.geoff.designer.commands.addResourceAsLayer"
-                  icon="icons/layers-menu.gif"
+                  icon="icons/layers-16.png"
                   id="org.locationtech.geoff.designer.layers"
                   label="Layers"
                   style="pulldown">
@@ -126,8 +130,9 @@
                allPopups="false"
                locationURI="popup:org.eclipse.ui.popup.any">
             <menu
+                  icon="icons/geoff-16.png"
                   id="org.locationtech.geoff.designer.popup"
-                  label="LT/Geoff">
+                  label="Geoff">
             </menu>
          </menuContribution>
          <menuContribution
@@ -235,6 +240,15 @@
                <parameter
                      name="tileProvider"
                      value="BingMaps">
+               </parameter>
+            </command>
+            <command
+                  commandId="org.locationtech.geoff.designer.commands.addTileLayer"
+                  label="MapQuest"
+                  style="push">
+               <parameter
+                     name="tileProvider"
+                     value="MapQuest">
                </parameter>
             </command>
          </menuContribution>

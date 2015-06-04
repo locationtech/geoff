@@ -74,16 +74,12 @@ public class BingMapsItemProvider extends XYZItemProvider {
 	 */
 	protected void addKeyPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_BingMaps_key_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_BingMaps_key_feature", "_UI_BingMaps_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						SourcePackage.Literals.BING_MAPS__KEY, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_BingMaps_key_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_BingMaps_key_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_BingMaps_type"), //$NON-NLS-1$
+						SourcePackage.Literals.BING_MAPS__KEY, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -94,15 +90,11 @@ public class BingMapsItemProvider extends XYZItemProvider {
 	 */
 	protected void addImagerySetPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_BingMaps_imagerySet_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_BingMaps_imagerySet_feature", "_UI_BingMaps_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						SourcePackage.Literals.BING_MAPS__IMAGERY_SET, true,
-						false, false,
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_BingMaps_imagerySet_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_BingMaps_imagerySet_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_BingMaps_type"), //$NON-NLS-1$
+						SourcePackage.Literals.BING_MAPS__IMAGERY_SET, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -114,8 +106,7 @@ public class BingMapsItemProvider extends XYZItemProvider {
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/BingMaps")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/BingMaps")); //$NON-NLS-1$
 	}
 
 	/**
@@ -127,7 +118,8 @@ public class BingMapsItemProvider extends XYZItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((BingMaps) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_BingMaps_type") : //$NON-NLS-1$
+		return label == null || label.length() == 0 ? getString("_UI_BingMaps_type") //$NON-NLS-1$
+				:
 				getString("_UI_BingMaps_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
@@ -145,8 +137,7 @@ public class BingMapsItemProvider extends XYZItemProvider {
 		switch (notification.getFeatureID(BingMaps.class)) {
 		case SourcePackage.BING_MAPS__KEY:
 		case SourcePackage.BING_MAPS__IMAGERY_SET:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -160,8 +151,7 @@ public class BingMapsItemProvider extends XYZItemProvider {
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

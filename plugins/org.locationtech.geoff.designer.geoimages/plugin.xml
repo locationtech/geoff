@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.locationtech.geoff.designer.e3x.E3Handler:org.locationtech.geoff.designer.geoimages.handlers.AddGeotaggedImagesLayer"
+            id="org.locationtech.geoff.designer.commands.addGeotaggedImagesLayer"
+            name="Geotagged Images">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+         <menuContribution
+               allPopups="false"
+               locationURI="popup:org.locationtech.geoff.designer.popup">
+            <command
+                  commandId="org.locationtech.geoff.designer.commands.addGeotaggedImagesLayer"
+                  icon="icons/tree-16.png"
+                  label="Add Geotagged Images Layer"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <with
+                           variable="activeEditorId">
+                        <equals
+                              value="org.locationtech.geoff.designer.editor">
+                        </equals>
+                     </with>
+                     <count
+                           value="+">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.eclipse.core.resources.IFolder">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </visibleWhen>
+            </command>
+         </menuContribution>
+   </extension>
+
+</plugin>

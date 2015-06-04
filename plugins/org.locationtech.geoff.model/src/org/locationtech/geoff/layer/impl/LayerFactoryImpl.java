@@ -17,9 +17,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.locationtech.geoff.layer.*;
-import org.locationtech.geoff.layer.LayerFactory;
-import org.locationtech.geoff.layer.LayerPackage;
-import org.locationtech.geoff.layer.Tile;
 
 /**
  * <!-- begin-user-doc -->
@@ -43,8 +40,7 @@ public class LayerFactoryImpl extends EFactoryImpl implements LayerFactory {
 	 */
 	public static LayerFactory init() {
 		try {
-			LayerFactory theLayerFactory = (LayerFactory) EPackage.Registry.INSTANCE
-					.getEFactory(LayerPackage.eNS_URI);
+			LayerFactory theLayerFactory = (LayerFactory) EPackage.Registry.INSTANCE.getEFactory(LayerPackage.eNS_URI);
 			if (theLayerFactory != null) {
 				return theLayerFactory;
 			}
@@ -72,13 +68,12 @@ public class LayerFactoryImpl extends EFactoryImpl implements LayerFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case LayerPackage.TILE:
-			return createTile();
-		case LayerPackage.VECTOR:
-			return createVector();
+		case LayerPackage.TILE_LAYER:
+			return createTileLayer();
+		case LayerPackage.VECTOR_LAYER:
+			return createVectorLayer();
 		default:
-			throw new IllegalArgumentException(
-					"The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -87,9 +82,9 @@ public class LayerFactoryImpl extends EFactoryImpl implements LayerFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Tile createTile() {
-		TileImpl tile = new TileImpl();
-		return tile;
+	public TileLayer createTileLayer() {
+		TileLayerImpl tileLayer = new TileLayerImpl();
+		return tileLayer;
 	}
 
 	/**
@@ -97,9 +92,9 @@ public class LayerFactoryImpl extends EFactoryImpl implements LayerFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Vector createVector() {
-		VectorImpl vector = new VectorImpl();
-		return vector;
+	public VectorLayer createVectorLayer() {
+		VectorLayerImpl vectorLayer = new VectorLayerImpl();
+		return vectorLayer;
 	}
 
 	/**

@@ -76,16 +76,11 @@ public class CircleItemProvider extends ImageItemProvider {
 	 */
 	protected void addRadiusPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Circle_radius_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Circle_radius_feature", "_UI_Circle_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						StylePackage.Literals.CIRCLE__RADIUS, true, false,
-						false, ItemPropertyDescriptor.REAL_VALUE_IMAGE, null,
-						null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Circle_radius_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Circle_radius_feature", "_UI_Circle_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						StylePackage.Literals.CIRCLE__RADIUS, true, false, false,
+						ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -97,8 +92,7 @@ public class CircleItemProvider extends ImageItemProvider {
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(StylePackage.Literals.CIRCLE__FILL);
@@ -128,8 +122,7 @@ public class CircleItemProvider extends ImageItemProvider {
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Circle")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Circle")); //$NON-NLS-1$
 	}
 
 	/**
@@ -141,7 +134,8 @@ public class CircleItemProvider extends ImageItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((Circle) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_Circle_type") : //$NON-NLS-1$
+		return label == null || label.length() == 0 ? getString("_UI_Circle_type") //$NON-NLS-1$
+				:
 				getString("_UI_Circle_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
@@ -158,13 +152,11 @@ public class CircleItemProvider extends ImageItemProvider {
 
 		switch (notification.getFeatureID(Circle.class)) {
 		case StylePackage.CIRCLE__RADIUS:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case StylePackage.CIRCLE__FILL:
 		case StylePackage.CIRCLE__STROKE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -178,17 +170,14 @@ public class CircleItemProvider extends ImageItemProvider {
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				StylePackage.Literals.CIRCLE__FILL,
-				StyleFactory.eINSTANCE.createFill()));
+		newChildDescriptors
+				.add(createChildParameter(StylePackage.Literals.CIRCLE__FILL, StyleFactory.eINSTANCE.createFill()));
 
-		newChildDescriptors.add(createChildParameter(
-				StylePackage.Literals.CIRCLE__STROKE,
-				StyleFactory.eINSTANCE.createStroke()));
+		newChildDescriptors
+				.add(createChildParameter(StylePackage.Literals.CIRCLE__STROKE, StyleFactory.eINSTANCE.createStroke()));
 	}
 
 }

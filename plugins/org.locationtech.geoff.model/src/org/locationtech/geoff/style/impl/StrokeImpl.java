@@ -37,6 +37,7 @@ import org.locationtech.geoff.style.StylePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.style.impl.StrokeImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.locationtech.geoff.style.impl.StrokeImpl#getColor <em>Color</em>}</li>
@@ -46,7 +47,6 @@ import org.locationtech.geoff.style.StylePackage;
  *   <li>{@link org.locationtech.geoff.style.impl.StrokeImpl#getWidth <em>Width</em>}</li>
  *   <li>{@link org.locationtech.geoff.style.impl.StrokeImpl#getLineDash <em>Line Dash</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -215,8 +215,7 @@ public class StrokeImpl extends MinimalEObjectImpl.Container implements Stroke {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.STROKE__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.STROKE__ID, oldId, id));
 	}
 
 	/**
@@ -233,14 +232,12 @@ public class StrokeImpl extends MinimalEObjectImpl.Container implements Stroke {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetColor(Color newColor,
-			NotificationChain msgs) {
+	public NotificationChain basicSetColor(Color newColor, NotificationChain msgs) {
 		Color oldColor = color;
 		color = newColor;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, StylePackage.STROKE__COLOR, oldColor,
-					newColor);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StylePackage.STROKE__COLOR,
+					oldColor, newColor);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -259,18 +256,15 @@ public class StrokeImpl extends MinimalEObjectImpl.Container implements Stroke {
 			NotificationChain msgs = null;
 			if (color != null)
 				msgs = ((InternalEObject) color).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.STROKE__COLOR,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - StylePackage.STROKE__COLOR, null, msgs);
 			if (newColor != null)
 				msgs = ((InternalEObject) newColor).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.STROKE__COLOR,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - StylePackage.STROKE__COLOR, null, msgs);
 			msgs = basicSetColor(newColor, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.STROKE__COLOR, newColor, newColor));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.STROKE__COLOR, newColor, newColor));
 	}
 
 	/**
@@ -291,8 +285,7 @@ public class StrokeImpl extends MinimalEObjectImpl.Container implements Stroke {
 		String oldLineCap = lineCap;
 		lineCap = newLineCap;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.STROKE__LINE_CAP, oldLineCap, lineCap));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.STROKE__LINE_CAP, oldLineCap, lineCap));
 	}
 
 	/**
@@ -313,8 +306,8 @@ public class StrokeImpl extends MinimalEObjectImpl.Container implements Stroke {
 		String oldLineJoin = lineJoin;
 		lineJoin = newLineJoin;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.STROKE__LINE_JOIN, oldLineJoin, lineJoin));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.STROKE__LINE_JOIN, oldLineJoin,
+					lineJoin));
 	}
 
 	/**
@@ -335,8 +328,8 @@ public class StrokeImpl extends MinimalEObjectImpl.Container implements Stroke {
 		Double oldMiterLimit = miterLimit;
 		miterLimit = newMiterLimit;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.STROKE__MITER_LIMIT, oldMiterLimit, miterLimit));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.STROKE__MITER_LIMIT, oldMiterLimit,
+					miterLimit));
 	}
 
 	/**
@@ -357,8 +350,7 @@ public class StrokeImpl extends MinimalEObjectImpl.Container implements Stroke {
 		Double oldWidth = width;
 		width = newWidth;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.STROKE__WIDTH, oldWidth, width));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.STROKE__WIDTH, oldWidth, width));
 	}
 
 	/**
@@ -368,8 +360,7 @@ public class StrokeImpl extends MinimalEObjectImpl.Container implements Stroke {
 	 */
 	public EList<Double> getLineDash() {
 		if (lineDash == null) {
-			lineDash = new EDataTypeUniqueEList<Double>(Double.class, this,
-					StylePackage.STROKE__LINE_DASH);
+			lineDash = new EDataTypeUniqueEList<Double>(Double.class, this, StylePackage.STROKE__LINE_DASH);
 		}
 		return lineDash;
 	}
@@ -380,8 +371,7 @@ public class StrokeImpl extends MinimalEObjectImpl.Container implements Stroke {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case StylePackage.STROKE__COLOR:
 			return basicSetColor(null, msgs);
@@ -496,17 +486,13 @@ public class StrokeImpl extends MinimalEObjectImpl.Container implements Stroke {
 		case StylePackage.STROKE__COLOR:
 			return color != null;
 		case StylePackage.STROKE__LINE_CAP:
-			return LINE_CAP_EDEFAULT == null ? lineCap != null
-					: !LINE_CAP_EDEFAULT.equals(lineCap);
+			return LINE_CAP_EDEFAULT == null ? lineCap != null : !LINE_CAP_EDEFAULT.equals(lineCap);
 		case StylePackage.STROKE__LINE_JOIN:
-			return LINE_JOIN_EDEFAULT == null ? lineJoin != null
-					: !LINE_JOIN_EDEFAULT.equals(lineJoin);
+			return LINE_JOIN_EDEFAULT == null ? lineJoin != null : !LINE_JOIN_EDEFAULT.equals(lineJoin);
 		case StylePackage.STROKE__MITER_LIMIT:
-			return MITER_LIMIT_EDEFAULT == null ? miterLimit != null
-					: !MITER_LIMIT_EDEFAULT.equals(miterLimit);
+			return MITER_LIMIT_EDEFAULT == null ? miterLimit != null : !MITER_LIMIT_EDEFAULT.equals(miterLimit);
 		case StylePackage.STROKE__WIDTH:
-			return WIDTH_EDEFAULT == null ? width != null : !WIDTH_EDEFAULT
-					.equals(width);
+			return WIDTH_EDEFAULT == null ? width != null : !WIDTH_EDEFAULT.equals(width);
 		case StylePackage.STROKE__LINE_DASH:
 			return lineDash != null && !lineDash.isEmpty();
 		}

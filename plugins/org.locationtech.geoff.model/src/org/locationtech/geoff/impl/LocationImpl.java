@@ -24,16 +24,15 @@ import org.locationtech.geoff.Location;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.impl.LocationImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.LocationImpl#getProjectionCode <em>Projection Code</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public abstract class LocationImpl extends MinimalEObjectImpl.Container
-		implements Location {
+public abstract class LocationImpl extends MinimalEObjectImpl.Container implements Location {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -118,8 +117,7 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.LOCATION__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.LOCATION__ID, oldId, id));
 	}
 
 	/**
@@ -140,9 +138,8 @@ public abstract class LocationImpl extends MinimalEObjectImpl.Container
 		String oldProjectionCode = projectionCode;
 		projectionCode = newProjectionCode;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.LOCATION__PROJECTION_CODE, oldProjectionCode,
-					projectionCode));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.LOCATION__PROJECTION_CODE,
+					oldProjectionCode, projectionCode));
 	}
 
 	/**

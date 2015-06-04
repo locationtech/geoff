@@ -44,9 +44,8 @@ import org.locationtech.geoff.layer.LayerFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class GeoMapItemProvider extends ItemProviderAdapter implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class GeoMapItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -76,8 +75,8 @@ public class GeoMapItemProvider extends ItemProviderAdapter implements
 			super.getPropertyDescriptors(object);
 
 			addIdPropertyDescriptor(object);
-			addNamePropertyDescriptor(object);
-			addDescriptionPropertyDescriptor(object);
+			addShortDescriptionPropertyDescriptor(object);
+			addLongDescriptionPropertyDescriptor(object);
 			addRendererHintPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -91,55 +90,43 @@ public class GeoMapItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addIdPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Identifiable_id_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Identifiable_id_feature", "_UI_Identifiable_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						GeoffPackage.Literals.IDENTIFIABLE__ID, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Identifiable_id_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Identifiable_id_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Identifiable_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.IDENTIFIABLE__ID, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
+	 * This adds a property descriptor for the Short Description feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addNamePropertyDescriptor(Object object) {
+	protected void addShortDescriptionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_GeoMap_name_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_GeoMap_name_feature", "_UI_GeoMap_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						GeoffPackage.Literals.GEO_MAP__NAME, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Descriptive_shortDescription_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Descriptive_shortDescription_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Descriptive_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.DESCRIPTIVE__SHORT_DESCRIPTION, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Description feature.
+	 * This adds a property descriptor for the Long Description feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDescriptionPropertyDescriptor(Object object) {
+	protected void addLongDescriptionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_GeoMap_description_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_GeoMap_description_feature", "_UI_GeoMap_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						GeoffPackage.Literals.GEO_MAP__DESCRIPTION, true,
-						false, false,
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Descriptive_longDescription_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Descriptive_longDescription_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Descriptive_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.DESCRIPTIVE__LONG_DESCRIPTION, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -151,15 +138,11 @@ public class GeoMapItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addRendererHintPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_GeoMap_rendererHint_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_GeoMap_rendererHint_feature", "_UI_GeoMap_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						GeoffPackage.Literals.GEO_MAP__RENDERER_HINT, true,
-						false, false,
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_GeoMap_rendererHint_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_GeoMap_rendererHint_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_GeoMap_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.GEO_MAP__RENDERER_HINT, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -172,8 +155,7 @@ public class GeoMapItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GeoffPackage.Literals.GEO_MAP__LAYERS);
@@ -203,8 +185,7 @@ public class GeoMapItemProvider extends ItemProviderAdapter implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/GeoMap")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GeoMap")); //$NON-NLS-1$
 	}
 
 	/**
@@ -215,8 +196,9 @@ public class GeoMapItemProvider extends ItemProviderAdapter implements
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((GeoMap) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_GeoMap_type") : //$NON-NLS-1$
+		String label = ((GeoMap) object).getId();
+		return label == null || label.length() == 0 ? getString("_UI_GeoMap_type") //$NON-NLS-1$
+				:
 				getString("_UI_GeoMap_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
@@ -233,16 +215,14 @@ public class GeoMapItemProvider extends ItemProviderAdapter implements
 
 		switch (notification.getFeatureID(GeoMap.class)) {
 		case GeoffPackage.GEO_MAP__ID:
-		case GeoffPackage.GEO_MAP__NAME:
-		case GeoffPackage.GEO_MAP__DESCRIPTION:
+		case GeoffPackage.GEO_MAP__SHORT_DESCRIPTION:
+		case GeoffPackage.GEO_MAP__LONG_DESCRIPTION:
 		case GeoffPackage.GEO_MAP__RENDERER_HINT:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case GeoffPackage.GEO_MAP__LAYERS:
 		case GeoffPackage.GEO_MAP__VIEW:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -256,21 +236,17 @@ public class GeoMapItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				GeoffPackage.Literals.GEO_MAP__LAYERS,
-				LayerFactory.eINSTANCE.createTile()));
+		newChildDescriptors.add(
+				createChildParameter(GeoffPackage.Literals.GEO_MAP__LAYERS, LayerFactory.eINSTANCE.createTileLayer()));
 
-		newChildDescriptors.add(createChildParameter(
-				GeoffPackage.Literals.GEO_MAP__LAYERS,
-				LayerFactory.eINSTANCE.createVector()));
+		newChildDescriptors.add(createChildParameter(GeoffPackage.Literals.GEO_MAP__LAYERS,
+				LayerFactory.eINSTANCE.createVectorLayer()));
 
-		newChildDescriptors.add(createChildParameter(
-				GeoffPackage.Literals.GEO_MAP__VIEW,
-				GeoffFactory.eINSTANCE.createView()));
+		newChildDescriptors
+				.add(createChildParameter(GeoffPackage.Literals.GEO_MAP__VIEW, GeoffFactory.eINSTANCE.createView()));
 	}
 
 	/**

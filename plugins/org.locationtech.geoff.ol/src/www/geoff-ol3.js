@@ -89,7 +89,7 @@
 		return view;
 	};
 
-	rules["geoff.layer:Tile"] = function(domNode, env) {
+	rules["geoff.layer:TileLayer"] = function(domNode, env) {
 		var source = elements(domNode, "source")[0];
 
 		return new ol.layer.Tile({
@@ -97,7 +97,7 @@
 		});
 	};
 
-	rules["geoff.layer:Vector"] = function(domNode, env) {
+	rules["geoff.layer:VectorLayer"] = function(domNode, env) {
 		var source = elements(domNode, "source")[0];
 		var domStyles = elements(domNode, "style");
 		var stylesMap = {};
@@ -120,36 +120,27 @@
 		});
 	};
 
-	rules["geoff.source:Vector"] = function(domNode, env) {
+	rules["geoff.source:VectorSource"] = function(domNode, env) {
 		var features = elements(domNode, "feature");
-		return new ol.source.Vector({
-			features : convertCollection(features, env, "geoff:Feature")
-		});
-	};
-
-	function staticVectorSourceOptions(domNode, env) {
 		var url = attrValue(domNode, "url");
-		var projection = attrValue(domNode, "projection");
+		var formatStr = attrValue(domNode, "format");
+		var formatObj = null;
 
-		return {
+		if (formatStr === "GeoJSON") {
+			formatObj = new ol.format.GeoJSON();
+		} else if (formatStr === "KML") {
+			formatObj = new ol.format.KML();
+		} else if (formatStr === "GML" ) {
+			formatObj = new ol.format.GML();
+		} else if (formatStr === "GPX" ) {
+			formatObj = new ol.format.GPX();
+		}
+		
+		return new ol.source.Vector({
+			features : convertCollection(features, env, "geoff:Feature"),
 			url : url,
-			projection : projection
-		};
-	}
-
-	rules["geoff.source:GPX"] = function(domNode, env) {
-		var options = staticVectorSourceOptions(domNode, env);
-		return new ol.source.GPX(options);
-	};
-
-	rules["geoff.source:KML"] = function(domNode, env) {
-		var options = staticVectorSourceOptions(domNode, env);
-		return new ol.source.KML(options);
-	};
-
-	rules["geoff.source:GeoJSON"] = function(domNode, env) {
-		var options = staticVectorSourceOptions(domNode, env);
-		return new ol.source.GeoJSON(options);
+			format : formatObj
+		});
 	};
 
 	rules["geoff:Feature"] = function(domNode, env) {

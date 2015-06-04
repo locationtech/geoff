@@ -115,8 +115,7 @@ public enum RendererHint implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final RendererHint[] VALUES_ARRAY = new RendererHint[] {
-			CANVAS, DOM, WEBGL, };
+	private static final RendererHint[] VALUES_ARRAY = new RendererHint[] { CANVAS, DOM, WEBGL, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Renderer Hint</b></em>' enumerators.
@@ -124,13 +123,14 @@ public enum RendererHint implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<RendererHint> VALUES = Collections
-			.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<RendererHint> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Renderer Hint</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static RendererHint get(String literal) {
@@ -147,6 +147,8 @@ public enum RendererHint implements Enumerator {
 	 * Returns the '<em><b>Renderer Hint</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static RendererHint getByName(String name) {
@@ -163,6 +165,8 @@ public enum RendererHint implements Enumerator {
 	 * Returns the '<em><b>Renderer Hint</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static RendererHint get(int value) {

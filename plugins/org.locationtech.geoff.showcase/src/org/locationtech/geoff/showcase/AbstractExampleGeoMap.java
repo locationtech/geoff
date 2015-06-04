@@ -25,11 +25,11 @@ public abstract class AbstractExampleGeoMap implements IExampleGeoMap {
 	}
 
 	public String getName() {
-		return getMap().getName();
+		return getMap().getShortDescription();
 	}
 
 	public String getDescription() {
-		return getMap().getDescription();
+		return getMap().getLongDescription();
 	}
 
 	protected abstract GeoMap doCreateMap();

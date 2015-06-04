@@ -43,8 +43,7 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 	 */
 	public static GeoffFactory init() {
 		try {
-			GeoffFactory theGeoffFactory = (GeoffFactory) EPackage.Registry.INSTANCE
-					.getEFactory(GeoffPackage.eNS_URI);
+			GeoffFactory theGeoffFactory = (GeoffFactory) EPackage.Registry.INSTANCE.getEFactory(GeoffPackage.eNS_URI);
 			if (theGeoffFactory != null) {
 				return theGeoffFactory;
 			}
@@ -84,9 +83,10 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 			return createColor();
 		case GeoffPackage.STYLE_ENTRY:
 			return (EObject) createStyleEntry();
+		case GeoffPackage.STRING_TO_STRING_MAP_ENTRY:
+			return (EObject) createStringToStringMapEntry();
 		default:
-			throw new IllegalArgumentException(
-					"The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -101,8 +101,7 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 		case GeoffPackage.RENDERER_HINT:
 			return createRendererHintFromString(eDataType, initialValue);
 		default:
-			throw new IllegalArgumentException(
-					"The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -117,8 +116,7 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 		case GeoffPackage.RENDERER_HINT:
 			return convertRendererHintToString(eDataType, instanceValue);
 		default:
-			throw new IllegalArgumentException(
-					"The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -187,8 +185,17 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RendererHint createRendererHintFromString(EDataType eDataType,
-			String initialValue) {
+	public Map.Entry<String, String> createStringToStringMapEntry() {
+		StringToStringMapEntryImpl stringToStringMapEntry = new StringToStringMapEntryImpl();
+		return stringToStringMapEntry;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RendererHint createRendererHintFromString(EDataType eDataType, String initialValue) {
 		RendererHint result = RendererHint.get(initialValue);
 		if (result == null)
 			throw new IllegalArgumentException(
@@ -201,8 +208,7 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertRendererHintToString(EDataType eDataType,
-			Object instanceValue) {
+	public String convertRendererHintToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

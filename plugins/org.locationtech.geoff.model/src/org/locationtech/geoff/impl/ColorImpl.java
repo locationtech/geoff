@@ -27,6 +27,7 @@ import org.locationtech.geoff.GeoffPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.impl.ColorImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.ColorImpl#getRed <em>Red</em>}</li>
@@ -34,7 +35,6 @@ import org.locationtech.geoff.GeoffPackage;
  *   <li>{@link org.locationtech.geoff.impl.ColorImpl#getBlue <em>Blue</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.ColorImpl#getAlpha <em>Alpha</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -183,8 +183,7 @@ public class ColorImpl extends MinimalEObjectImpl.Container implements Color {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.COLOR__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.COLOR__ID, oldId, id));
 	}
 
 	/**
@@ -205,8 +204,7 @@ public class ColorImpl extends MinimalEObjectImpl.Container implements Color {
 		int oldRed = red;
 		red = newRed;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.COLOR__RED, oldRed, red));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.COLOR__RED, oldRed, red));
 	}
 
 	/**
@@ -227,8 +225,7 @@ public class ColorImpl extends MinimalEObjectImpl.Container implements Color {
 		int oldGreen = green;
 		green = newGreen;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.COLOR__GREEN, oldGreen, green));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.COLOR__GREEN, oldGreen, green));
 	}
 
 	/**
@@ -249,8 +246,7 @@ public class ColorImpl extends MinimalEObjectImpl.Container implements Color {
 		int oldBlue = blue;
 		blue = newBlue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.COLOR__BLUE, oldBlue, blue));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.COLOR__BLUE, oldBlue, blue));
 	}
 
 	/**
@@ -271,8 +267,7 @@ public class ColorImpl extends MinimalEObjectImpl.Container implements Color {
 		float oldAlpha = alpha;
 		alpha = newAlpha;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.COLOR__ALPHA, oldAlpha, alpha));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.COLOR__ALPHA, oldAlpha, alpha));
 	}
 
 	/**

@@ -27,10 +27,10 @@ import org.locationtech.geoff.style.StylePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.style.impl.ImageImpl#getId <em>Id</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -99,8 +99,7 @@ public class ImageImpl extends MinimalEObjectImpl.Container implements Image {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.IMAGE__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.IMAGE__ID, oldId, id));
 	}
 
 	/**

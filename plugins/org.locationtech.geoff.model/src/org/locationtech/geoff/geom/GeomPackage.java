@@ -71,8 +71,7 @@ public interface GeomPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	GeomPackage eINSTANCE = org.locationtech.geoff.geom.impl.GeomPackageImpl
-			.init();
+	GeomPackage eINSTANCE = org.locationtech.geoff.geom.impl.GeomPackageImpl.init();
 
 	/**
 	 * The meta object id for the '{@link org.locationtech.geoff.geom.impl.GeometryImpl <em>Geometry</em>}' class.

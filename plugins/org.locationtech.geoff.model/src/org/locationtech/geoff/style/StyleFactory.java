@@ -35,8 +35,7 @@ public interface StyleFactory extends EFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	StyleFactory eINSTANCE = org.locationtech.geoff.style.impl.StyleFactoryImpl
-			.init();
+	StyleFactory eINSTANCE = org.locationtech.geoff.style.impl.StyleFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Style</em>'.

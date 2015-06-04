@@ -18,10 +18,10 @@ package org.locationtech.geoff.source;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.source.MapQuest#getLayer <em>Layer</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.locationtech.geoff.source.SourcePackage#getMapQuest()
  * @model

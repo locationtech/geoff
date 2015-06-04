@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.locationtech.geoff.Feature;
@@ -28,15 +29,18 @@ import org.locationtech.geoff.XYZLocation;
 import org.locationtech.geoff.geom.GeomFactory;
 import org.locationtech.geoff.geom.Geometry;
 import org.locationtech.geoff.geom.Point;
+import org.locationtech.geoff.impl.GeoffFactoryImpl;
+import org.locationtech.geoff.impl.StringToStringMapEntryImpl;
 import org.locationtech.geoff.layer.Layer;
 import org.locationtech.geoff.layer.LayerFactory;
-import org.locationtech.geoff.layer.Tile;
-import org.locationtech.geoff.layer.Vector;
+import org.locationtech.geoff.layer.TileLayer;
+import org.locationtech.geoff.layer.VectorLayer;
 import org.locationtech.geoff.source.BingMaps;
 import org.locationtech.geoff.source.MapQuest;
 import org.locationtech.geoff.source.OSM;
 import org.locationtech.geoff.source.Source;
 import org.locationtech.geoff.source.SourceFactory;
+import org.locationtech.geoff.source.VectorSource;
 import org.locationtech.geoff.style.Icon;
 import org.locationtech.geoff.style.Image;
 import org.locationtech.geoff.style.Style;
@@ -51,15 +55,17 @@ import org.locationtech.geoff.util.GeoffResourceFactoryImpl;
  * 
  * <pre>
  * Geoff.createMap(&quot;OpenStreetMap&quot;, &quot;A simple OSM base layer example.&quot;)
- * 		.view(view(trans(&quot;EPSG:4326&quot;, &quot;EPSG:3857&quot;, 8.2128d, 53.1403), 10))
- * 		.addLayer(tileLayer(osmSource()));
+ * 		.view(view(trans(&quot;EPSG:4326&quot;, &quot;EPSG:3857&quot;, 8.2128d, 53.1403), 10)).addLayer(tileLayer(osmSource()));
  * </pre>
  * 
  * @author Erdal Karaca
  * 
  */
 public class Geoff {
+	private static final GeoffFactoryImpl GEOFF_IMPL = (GeoffFactoryImpl) GeoffFactory.eINSTANCE;
 	private GeoMap map;
+	public static final String EPSG3857_WEB_MERCATOR = "EPSG:3857";
+	public static final String EPSG4326_WGS84 = "EPSG:4326";
 
 	private Geoff() {
 	}
@@ -117,10 +123,8 @@ public class Geoff {
 	 *         valid {@link GeoMap} instance
 	 */
 	public static GeoMap fromURI(URI uri) {
-		org.eclipse.emf.common.util.URI emfURI = org.eclipse.emf.common.util.URI
-				.createURI(uri.toString());
-		Resource resource = new GeoffResourceFactoryImpl()
-				.createResource(emfURI);
+		org.eclipse.emf.common.util.URI emfURI = org.eclipse.emf.common.util.URI.createURI(uri.toString());
+		Resource resource = new GeoffResourceFactoryImpl().createResource(emfURI);
 		try {
 			resource.load(null);
 		} catch (IOException e) {
@@ -147,12 +151,11 @@ public class Geoff {
 		return createMap(name, description, null);
 	}
 
-	public static Geoff createMap(String name, String description,
-			RendererHint rendererHint) {
+	public static Geoff createMap(String name, String description, RendererHint rendererHint) {
 		Geoff geoff = new Geoff();
 		geoff.map = GeoffFactory.eINSTANCE.createGeoMap();
-		geoff.map.setName(name);
-		geoff.map.setDescription(description);
+		geoff.map.setShortDescription(name);
+		geoff.map.setLongDescription(description);
 
 		if (rendererHint != null) {
 			geoff.map.setRendererHint(rendererHint);
@@ -171,10 +174,8 @@ public class Geoff {
 		return SourceFactory.eINSTANCE.createOSM();
 	}
 
-	public static org.locationtech.geoff.source.Vector vectorSource(
-			Feature... optional) {
-		org.locationtech.geoff.source.Vector vector = SourceFactory.eINSTANCE
-				.createVector();
+	public static VectorSource vectorSource(Feature... optional) {
+		VectorSource vector = SourceFactory.eINSTANCE.createVectorSource();
 
 		if (optional != null) {
 			vector.getFeatures().addAll(Arrays.asList(optional));
@@ -211,14 +212,14 @@ public class Geoff {
 		return SourceFactory.eINSTANCE.createMapQuest();
 	}
 
-	public static Tile tileLayer(Source source) {
-		Tile tile = LayerFactory.eINSTANCE.createTile();
+	public static TileLayer tileLayer(Source source) {
+		TileLayer tile = LayerFactory.eINSTANCE.createTileLayer();
 		tile.setSource(source);
 		return tile;
 	}
 
-	public static Vector vectorLayer(Source source) {
-		Vector layer = LayerFactory.eINSTANCE.createVector();
+	public static VectorLayer vectorLayer(Source source) {
+		VectorLayer layer = LayerFactory.eINSTANCE.createVectorLayer();
 		layer.setSource(source);
 		return layer;
 	}
@@ -227,8 +228,7 @@ public class Geoff {
 		return xyLocation(x, y, null);
 	}
 
-	public static XYZLocation xyLocation(double x, double y,
-			String projectionCode) {
+	public static XYZLocation xyLocation(double x, double y, String projectionCode) {
 		XYZLocation xyzLocation = GeoffFactory.eINSTANCE.createXYZLocation();
 		xyzLocation.setX(x);
 		xyzLocation.setY(y);
@@ -250,5 +250,22 @@ public class Geoff {
 		Icon icon = StyleFactory.eINSTANCE.createIcon();
 		icon.setSrc(src);
 		return icon;
+	}
+
+	public static Geoff createMap() {
+		return createMap("", "");
+	}
+
+	public static org.eclipse.emf.common.util.BasicEMap.Entry<String, String> featureProperty(String key,
+			String value) {
+		StringToStringMapEntryImpl entry = (StringToStringMapEntryImpl) GEOFF_IMPL.createStringToStringMapEntry();
+		entry.setKey(key);
+		entry.setValue(value);
+		return entry;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> T instance(EClass eClass) {
+		return (T) EcoreUtil.create(eClass);
 	}
 }

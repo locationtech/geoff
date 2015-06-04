@@ -1,11 +1,20 @@
 package org.locationtech.geoff.designer.internal;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.e4.core.services.log.Logger;
+import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -20,8 +29,13 @@ import org.locationtech.geoff.GeoffPackage;
 import org.locationtech.geoff.Identifiable;
 import org.locationtech.geoff.designer.IEditingService;
 import org.locationtech.geoff.layer.Layer;
+import org.locationtech.geoff.ol.ResourcesUtil;
 
+@SuppressWarnings("restriction")
 public class EditingServiceImpl implements IEditingService {
+	@Inject
+	private Logger logger;
+
 	@Inject
 	private EditingDomain editingDomain;
 
@@ -64,8 +78,7 @@ public class EditingServiceImpl implements IEditingService {
 		return ret;
 	}
 
-	private void collectSubtypes(Collection<EClass> eclasses, EClass eclass,
-			EPackage root) {
+	private void collectSubtypes(Collection<EClass> eclasses, EClass eclass, EPackage root) {
 		for (EClassifier eClassifier : root.getEClassifiers()) {
 			if (!(eClassifier instanceof EClass)) {
 				continue;
@@ -88,9 +101,8 @@ public class EditingServiceImpl implements IEditingService {
 	}
 
 	@Override
-	public Command createAddCommand(GeoMap geoMap, EReference ref,
-			Identifiable id) {
-		Command command = AddCommand.create(editingDomain, geoMap, ref, id);
+	public Command createAddCommand(GeoMap geoMap, EReference ref, Identifiable id) {
+		AddCommand command = (AddCommand) AddCommand.create(editingDomain, geoMap, ref, id);
 		return command;
 	}
 
@@ -98,30 +110,79 @@ public class EditingServiceImpl implements IEditingService {
 	@Override
 	public Identifiable createInstance(EClass ec) {
 		if (ec == null) {
-			throw new IllegalArgumentException(
-					"The provided type must not be null.");
+			throw new IllegalArgumentException("The provided type must not be null.");
 		}
 
 		if (!GeoffPackage.Literals.IDENTIFIABLE.isSuperTypeOf(ec)) {
-			throw new IllegalArgumentException(
-					"Only creation of instances of Identifiable are supported.");
+			throw new IllegalArgumentException("Only creation of instances of Identifiable are supported.");
 		}
 
 		if (ec.isAbstract()) {
-			throw new IllegalArgumentException(
-					"Abstract classes cannot be instantiated.");
+			throw new IllegalArgumentException("Abstract classes cannot be instantiated.");
 		}
 
 		Identifiable ret = (Identifiable) EcoreUtil.create(ec);
-		String id = UUID.randomUUID().toString().toUpperCase();
-		ret.setId(id);
+		// String id = UUID.randomUUID().toString().toUpperCase();
+		// ret.setId(id);
 		return ret;
 	}
 
 	@Override
 	public void addLayer(Layer layer) {
-		Command addLayerCommand = createAddCommand(geoMap,
-				GeoffPackage.Literals.GEO_MAP__LAYERS, layer);
+		Command addLayerCommand = createAddCommand(geoMap, GeoffPackage.Literals.GEO_MAP__LAYERS, layer);
 		execute(addLayerCommand);
+	}
+
+	@Override
+	public Command createAddResourceCommand(final IFolder targetFolder, final String targetResourceName,
+			final URL srcUrl, final boolean overwrite) {
+		return new AbstractCommand("Add resource", "Adding resource " + targetResourceName) {
+
+			@Override
+			protected boolean prepare() {
+				return true;
+			}
+
+			@Override
+			public void redo() {
+				execute();
+			}
+
+			@Override
+			public void execute() {
+				try {
+					IFile file = targetFolder.getFile(targetResourceName);
+
+					if (file.exists() && !overwrite) {
+						return;
+					}
+
+					InputStream source = srcUrl.openStream();
+
+					if (file.exists()) {
+						file.setContents(source, true, true, new NullProgressMonitor());
+					} else {
+						file.create(source, true, new NullProgressMonitor());
+					}
+
+					targetFolder.refreshLocal(IFolder.DEPTH_INFINITE, new NullProgressMonitor());
+				} catch (IOException e) {
+					logger.error(e);
+				} catch (CoreException e) {
+					logger.error(e);
+				}
+			}
+
+			@Override
+			public void undo() {
+				try {
+					IFile file = targetFolder.getFile(targetResourceName);
+					file.delete(true, new NullProgressMonitor());
+					targetFolder.refreshLocal(IFolder.DEPTH_INFINITE, new NullProgressMonitor());
+				} catch (CoreException e) {
+					logger.error(e);
+				}
+			}
+		};
 	}
 }

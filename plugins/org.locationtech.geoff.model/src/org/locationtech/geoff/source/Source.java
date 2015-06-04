@@ -11,6 +11,7 @@
  */
 package org.locationtech.geoff.source;
 
+import org.locationtech.geoff.Descriptive;
 import org.locationtech.geoff.Identifiable;
 
 /**
@@ -23,7 +24,7 @@ import org.locationtech.geoff.Identifiable;
  * @model abstract="true"
  * @generated
  */
-public interface Source extends Identifiable {
+public interface Source extends Identifiable, Descriptive {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

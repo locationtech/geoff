@@ -46,9 +46,8 @@ import org.locationtech.geoff.style.StylePackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class StrokeItemProvider extends ItemProviderAdapter implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class StrokeItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -95,16 +94,12 @@ public class StrokeItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addIdPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Identifiable_id_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Identifiable_id_feature", "_UI_Identifiable_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						GeoffPackage.Literals.IDENTIFIABLE__ID, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Identifiable_id_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Identifiable_id_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Identifiable_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.IDENTIFIABLE__ID, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -115,16 +110,12 @@ public class StrokeItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addLineCapPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Stroke_lineCap_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Stroke_lineCap_feature", "_UI_Stroke_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						StylePackage.Literals.STROKE__LINE_CAP, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Stroke_lineCap_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Stroke_lineCap_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Stroke_type"), //$NON-NLS-1$
+						StylePackage.Literals.STROKE__LINE_CAP, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -135,16 +126,12 @@ public class StrokeItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addLineJoinPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Stroke_lineJoin_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Stroke_lineJoin_feature", "_UI_Stroke_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						StylePackage.Literals.STROKE__LINE_JOIN, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Stroke_lineJoin_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Stroke_lineJoin_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Stroke_type"), //$NON-NLS-1$
+						StylePackage.Literals.STROKE__LINE_JOIN, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -155,16 +142,12 @@ public class StrokeItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addMiterLimitPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Stroke_miterLimit_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Stroke_miterLimit_feature", "_UI_Stroke_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						StylePackage.Literals.STROKE__MITER_LIMIT, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Stroke_miterLimit_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Stroke_miterLimit_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Stroke_type"), //$NON-NLS-1$
+						StylePackage.Literals.STROKE__MITER_LIMIT, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -175,16 +158,11 @@ public class StrokeItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addWidthPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Stroke_width_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Stroke_width_feature", "_UI_Stroke_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						StylePackage.Literals.STROKE__WIDTH, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Stroke_width_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Stroke_width_feature", "_UI_Stroke_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						StylePackage.Literals.STROKE__WIDTH, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -195,16 +173,12 @@ public class StrokeItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addLineDashPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Stroke_lineDash_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Stroke_lineDash_feature", "_UI_Stroke_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						StylePackage.Literals.STROKE__LINE_DASH, true, false,
-						false, ItemPropertyDescriptor.REAL_VALUE_IMAGE, null,
-						null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Stroke_lineDash_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Stroke_lineDash_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Stroke_type"), //$NON-NLS-1$
+						StylePackage.Literals.STROKE__LINE_DASH, true, false, false,
+						ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -216,8 +190,7 @@ public class StrokeItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(StylePackage.Literals.STROKE__COLOR);
@@ -246,8 +219,7 @@ public class StrokeItemProvider extends ItemProviderAdapter implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Stroke")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Stroke")); //$NON-NLS-1$
 	}
 
 	/**
@@ -259,7 +231,8 @@ public class StrokeItemProvider extends ItemProviderAdapter implements
 	@Override
 	public String getText(Object object) {
 		String label = ((Stroke) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_Stroke_type") : //$NON-NLS-1$
+		return label == null || label.length() == 0 ? getString("_UI_Stroke_type") //$NON-NLS-1$
+				:
 				getString("_UI_Stroke_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
@@ -281,12 +254,10 @@ public class StrokeItemProvider extends ItemProviderAdapter implements
 		case StylePackage.STROKE__MITER_LIMIT:
 		case StylePackage.STROKE__WIDTH:
 		case StylePackage.STROKE__LINE_DASH:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case StylePackage.STROKE__COLOR:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -300,13 +271,11 @@ public class StrokeItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				StylePackage.Literals.STROKE__COLOR,
-				GeoffFactory.eINSTANCE.createColor()));
+		newChildDescriptors
+				.add(createChildParameter(StylePackage.Literals.STROKE__COLOR, GeoffFactory.eINSTANCE.createColor()));
 	}
 
 	/**

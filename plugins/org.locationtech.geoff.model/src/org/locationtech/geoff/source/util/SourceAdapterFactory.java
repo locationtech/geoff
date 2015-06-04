@@ -15,16 +15,9 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.locationtech.geoff.Descriptive;
 import org.locationtech.geoff.Identifiable;
 import org.locationtech.geoff.source.*;
-import org.locationtech.geoff.source.BingMaps;
-import org.locationtech.geoff.source.MapQuest;
-import org.locationtech.geoff.source.OSM;
-import org.locationtech.geoff.source.Source;
-import org.locationtech.geoff.source.SourcePackage;
-import org.locationtech.geoff.source.Tile;
-import org.locationtech.geoff.source.TileImage;
-import org.locationtech.geoff.source.XYZ;
 
 /**
  * <!-- begin-user-doc -->
@@ -94,8 +87,8 @@ public class SourceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseTile(Tile object) {
-			return createTileAdapter();
+		public Adapter caseTileSource(TileSource object) {
+			return createTileSourceAdapter();
 		}
 
 		@Override
@@ -124,38 +117,18 @@ public class SourceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseVector(Vector object) {
-			return createVectorAdapter();
-		}
-
-		@Override
-		public Adapter caseFormatVector(FormatVector object) {
-			return createFormatVectorAdapter();
-		}
-
-		@Override
-		public Adapter caseStaticVector(StaticVector object) {
-			return createStaticVectorAdapter();
-		}
-
-		@Override
-		public Adapter caseGeoJSON(GeoJSON object) {
-			return createGeoJSONAdapter();
-		}
-
-		@Override
-		public Adapter caseGPX(GPX object) {
-			return createGPXAdapter();
-		}
-
-		@Override
-		public Adapter caseKML(KML object) {
-			return createKMLAdapter();
+		public Adapter caseVectorSource(VectorSource object) {
+			return createVectorSourceAdapter();
 		}
 
 		@Override
 		public Adapter caseIdentifiable(Identifiable object) {
 			return createIdentifiableAdapter();
+		}
+
+		@Override
+		public Adapter caseDescriptive(Descriptive object) {
+			return createDescriptiveAdapter();
 		}
 
 		@Override
@@ -192,16 +165,16 @@ public class SourceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.source.Tile <em>Tile</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.source.TileSource <em>Tile Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.locationtech.geoff.source.Tile
+	 * @see org.locationtech.geoff.source.TileSource
 	 * @generated
 	 */
-	public Adapter createTileAdapter() {
+	public Adapter createTileSourceAdapter() {
 		return null;
 	}
 
@@ -276,86 +249,16 @@ public class SourceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.source.Vector <em>Vector</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.source.VectorSource <em>Vector Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.locationtech.geoff.source.Vector
+	 * @see org.locationtech.geoff.source.VectorSource
 	 * @generated
 	 */
-	public Adapter createVectorAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.source.FormatVector <em>Format Vector</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.locationtech.geoff.source.FormatVector
-	 * @generated
-	 */
-	public Adapter createFormatVectorAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.source.StaticVector <em>Static Vector</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.locationtech.geoff.source.StaticVector
-	 * @generated
-	 */
-	public Adapter createStaticVectorAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.source.GeoJSON <em>Geo JSON</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.locationtech.geoff.source.GeoJSON
-	 * @generated
-	 */
-	public Adapter createGeoJSONAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.source.GPX <em>GPX</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.locationtech.geoff.source.GPX
-	 * @generated
-	 */
-	public Adapter createGPXAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.source.KML <em>KML</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.locationtech.geoff.source.KML
-	 * @generated
-	 */
-	public Adapter createKMLAdapter() {
+	public Adapter createVectorSourceAdapter() {
 		return null;
 	}
 
@@ -370,6 +273,20 @@ public class SourceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createIdentifiableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.Descriptive <em>Descriptive</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.locationtech.geoff.Descriptive
+	 * @generated
+	 */
+	public Adapter createDescriptiveAdapter() {
 		return null;
 	}
 

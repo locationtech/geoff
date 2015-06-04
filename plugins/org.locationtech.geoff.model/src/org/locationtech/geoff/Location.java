@@ -18,10 +18,10 @@ package org.locationtech.geoff;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.Location#getProjectionCode <em>Projection Code</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.locationtech.geoff.GeoffPackage#getLocation()
  * @model abstract="true"

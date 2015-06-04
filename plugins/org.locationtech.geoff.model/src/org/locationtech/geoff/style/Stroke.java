@@ -23,6 +23,7 @@ import org.locationtech.geoff.Identifiable;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.style.Stroke#getColor <em>Color</em>}</li>
  *   <li>{@link org.locationtech.geoff.style.Stroke#getLineCap <em>Line Cap</em>}</li>
@@ -31,7 +32,6 @@ import org.locationtech.geoff.Identifiable;
  *   <li>{@link org.locationtech.geoff.style.Stroke#getWidth <em>Width</em>}</li>
  *   <li>{@link org.locationtech.geoff.style.Stroke#getLineDash <em>Line Dash</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.locationtech.geoff.style.StylePackage#getStroke()
  * @model

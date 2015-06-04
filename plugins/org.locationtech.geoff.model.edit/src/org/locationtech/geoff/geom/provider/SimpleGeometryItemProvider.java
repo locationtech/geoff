@@ -68,8 +68,7 @@ public class SimpleGeometryItemProvider extends GeometryItemProvider {
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/SimpleGeometry")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SimpleGeometry")); //$NON-NLS-1$
 	}
 
 	/**
@@ -81,7 +80,8 @@ public class SimpleGeometryItemProvider extends GeometryItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((SimpleGeometry) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_SimpleGeometry_type") : //$NON-NLS-1$
+		return label == null || label.length() == 0 ? getString("_UI_SimpleGeometry_type") //$NON-NLS-1$
+				:
 				getString("_UI_SimpleGeometry_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
@@ -106,8 +106,7 @@ public class SimpleGeometryItemProvider extends GeometryItemProvider {
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

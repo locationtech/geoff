@@ -35,8 +35,7 @@ public interface GeomFactory extends EFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	GeomFactory eINSTANCE = org.locationtech.geoff.geom.impl.GeomFactoryImpl
-			.init();
+	GeomFactory eINSTANCE = org.locationtech.geoff.geom.impl.GeomFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Simple Geometry</em>'.

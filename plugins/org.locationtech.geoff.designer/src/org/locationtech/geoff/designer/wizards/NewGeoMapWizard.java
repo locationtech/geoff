@@ -36,6 +36,8 @@ public class NewGeoMapWizard extends Wizard implements INewWizard {
 
 	private static final String INDEX_GEOMAP_HTML = "index-geomap.html";
 	private static final String RESOURCES = "resources";
+	private static final String JS = "js";
+	private static final String CSS = "css";
 	private IStructuredSelection selection;
 
 	@Override
@@ -68,15 +70,13 @@ public class NewGeoMapWizard extends Wizard implements INewWizard {
 		} else if (selectedResource instanceof IFile) {
 			targetContainer = ((IFile) selectedResource).getParent();
 		} else {
-			throw new UnsupportedOperationException(
-					"Implement target container selection.");
+			throw new UnsupportedOperationException("Implement target container selection.");
 		}
 
 		File targetFolder = targetContainer.getLocation().toFile();
-		String fileName = "new-map" + ".geoff";
+		String fileName = "geomap" + ".geoff";
 		File file = new File(targetFolder, fileName);
-		Geoff geoff = Geoff.createMap("New Map", "A new map...").view(
-				Geoff.xyLocation(0, 0), 3);
+		Geoff geoff = Geoff.createMap("New Map", "A new map...").view(Geoff.xyLocation(0, 0), 3);
 		String xml = geoff.toXML();
 
 		try (FileOutputStream out = new FileOutputStream(file)) {
@@ -88,42 +88,39 @@ public class NewGeoMapWizard extends Wizard implements INewWizard {
 
 		File resourcesFolder = new File(targetFolder, RESOURCES);
 		resourcesFolder.mkdirs();
-		copyGeoffOlResource(ResourcesUtil.GEOFF_OL_JS, resourcesFolder);
-		copyGeoffOlResource(ResourcesUtil.JQUERY_MIN_JS, resourcesFolder);
-		copyGeoffOlResource(ResourcesUtil.OL_CSS, resourcesFolder);
-		copyGeoffOlResource(ResourcesUtil.OL_JS, resourcesFolder);
+		File jsFolder = new File(targetFolder, JS);
+		jsFolder.mkdirs();
+		File cssFolder = new File(targetFolder, CSS);
+		cssFolder.mkdirs();
+
+		copyGeoffOlResource(ResourcesUtil.GEOFF_OL_JS, jsFolder);
+		copyGeoffOlResource(ResourcesUtil.JQUERY_MIN_JS, jsFolder);
+		copyGeoffOlResource(ResourcesUtil.OL_JS, jsFolder);
+		copyGeoffOlResource(ResourcesUtil.OL_CSS, cssFolder);
 
 		copyResource("countries.geojson", resourcesFolder);
 
 		try {
-			String indexGeomapHtml = ResourcesUtil
-					.readStream(NewGeoMapWizard.class.getClassLoader()
-							.getResourceAsStream(
-									"resource-templates/" + INDEX_GEOMAP_HTML));
+			String indexGeomapHtml = ResourcesUtil.readStream(NewGeoMapWizard.class.getClassLoader()
+					.getResourceAsStream("resource-templates/" + INDEX_GEOMAP_HTML));
 			Map<String, String> replaceVars = new HashMap<String, String>();
 			replaceVars.put("\\{\\{GEOMAP_FILE_NAME\\}\\}", fileName);
-			replaceVars.put("\\{\\{OL_CSS\\}\\}", RESOURCES + "/"
-					+ ResourcesUtil.OL_CSS);
-			replaceVars.put("\\{\\{OL_JS\\}\\}", RESOURCES + "/"
-					+ ResourcesUtil.OL_JS);
-			replaceVars.put("\\{\\{JQUERY_MIN_JS\\}\\}", RESOURCES + "/"
-					+ ResourcesUtil.JQUERY_MIN_JS);
-			replaceVars.put("\\{\\{GEOFF_OL_JS\\}\\}", RESOURCES + "/"
-					+ ResourcesUtil.GEOFF_OL_JS);
+			replaceVars.put("\\{\\{OL_CSS\\}\\}", CSS + "/" + ResourcesUtil.OL_CSS);
+			replaceVars.put("\\{\\{OL_JS\\}\\}", JS + "/" + ResourcesUtil.OL_JS);
+			replaceVars.put("\\{\\{JQUERY_MIN_JS\\}\\}", JS + "/" + ResourcesUtil.JQUERY_MIN_JS);
+			replaceVars.put("\\{\\{GEOFF_OL_JS\\}\\}", JS + "/" + ResourcesUtil.GEOFF_OL_JS);
 
 			indexGeomapHtml = replaceVars(indexGeomapHtml, replaceVars);
 
 			Files.copy(new ByteArrayInputStream(indexGeomapHtml.getBytes()),
-					new File(targetFolder, INDEX_GEOMAP_HTML).toPath(),
-					StandardCopyOption.REPLACE_EXISTING);
+					new File(targetFolder, INDEX_GEOMAP_HTML).toPath(), StandardCopyOption.REPLACE_EXISTING);
 		} catch (Exception e) {
 			IStatus status = ValidationStatus.error(e.getMessage(), e);
 			StatusManager.getManager().handle(status, StatusManager.SHOW);
 		}
 
 		try {
-			targetContainer.refreshLocal(IResource.DEPTH_INFINITE,
-					new NullProgressMonitor());
+			targetContainer.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
@@ -147,23 +144,19 @@ public class NewGeoMapWizard extends Wizard implements INewWizard {
 		try {
 			InputStream stream = NewGeoMapWizard.class.getClassLoader()
 					.getResourceAsStream("resource-templates/" + fileName);
-			Files.copy(stream, targetFile.toPath(),
-					StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(stream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			IStatus status = ValidationStatus.error(e.getMessage(), e);
 			StatusManager.getManager().handle(status, StatusManager.SHOW);
 		}
 	}
 
-	private void copyGeoffOlResource(String geoffResourceFileName,
-			File targetFolder) {
+	private void copyGeoffOlResource(String geoffResourceFileName, File targetFolder) {
 		File targetFile = new File(targetFolder, geoffResourceFileName);
 
 		try {
-			InputStream stream = ResourcesUtil
-					.readResourceAsStream(geoffResourceFileName);
-			Files.copy(stream, targetFile.toPath(),
-					StandardCopyOption.REPLACE_EXISTING);
+			InputStream stream = ResourcesUtil.readResourceAsStream(geoffResourceFileName);
+			Files.copy(stream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			IStatus status = ValidationStatus.error(e.getMessage(), e);
 			StatusManager.getManager().handle(status, StatusManager.SHOW);

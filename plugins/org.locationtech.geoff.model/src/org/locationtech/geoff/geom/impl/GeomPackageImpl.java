@@ -114,29 +114,28 @@ public class GeomPackageImpl extends EPackageImpl implements GeomPackage {
 	 */
 	public static GeomPackage init() {
 		if (isInited)
-			return (GeomPackage) EPackage.Registry.INSTANCE
-					.getEPackage(GeomPackage.eNS_URI);
+			return (GeomPackage) EPackage.Registry.INSTANCE.getEPackage(GeomPackage.eNS_URI);
 
 		// Obtain or create and register package
 		GeomPackageImpl theGeomPackage = (GeomPackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof GeomPackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI) : new GeomPackageImpl());
+				.get(eNS_URI) instanceof GeomPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
+						: new GeomPackageImpl());
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
 		GeoffPackageImpl theGeoffPackage = (GeoffPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(GeoffPackage.eNS_URI) instanceof GeoffPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(GeoffPackage.eNS_URI) : GeoffPackage.eINSTANCE);
+				.getEPackage(GeoffPackage.eNS_URI) instanceof GeoffPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(GeoffPackage.eNS_URI) : GeoffPackage.eINSTANCE);
 		LayerPackageImpl theLayerPackage = (LayerPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(LayerPackage.eNS_URI) instanceof LayerPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(LayerPackage.eNS_URI) : LayerPackage.eINSTANCE);
+				.getEPackage(LayerPackage.eNS_URI) instanceof LayerPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(LayerPackage.eNS_URI) : LayerPackage.eINSTANCE);
 		SourcePackageImpl theSourcePackage = (SourcePackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(SourcePackage.eNS_URI) instanceof SourcePackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(SourcePackage.eNS_URI) : SourcePackage.eINSTANCE);
+				.getEPackage(SourcePackage.eNS_URI) instanceof SourcePackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(SourcePackage.eNS_URI) : SourcePackage.eINSTANCE);
 		StylePackageImpl theStylePackage = (StylePackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(StylePackage.eNS_URI) instanceof StylePackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(StylePackage.eNS_URI) : StylePackage.eINSTANCE);
+				.getEPackage(StylePackage.eNS_URI) instanceof StylePackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(StylePackage.eNS_URI) : StylePackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theGeomPackage.createPackageContents();
@@ -258,8 +257,7 @@ public class GeomPackageImpl extends EPackageImpl implements GeomPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		GeoffPackage theGeoffPackage = (GeoffPackage) EPackage.Registry.INSTANCE
-				.getEPackage(GeoffPackage.eNS_URI);
+		GeoffPackage theGeoffPackage = (GeoffPackage) EPackage.Registry.INSTANCE.getEPackage(GeoffPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -271,25 +269,15 @@ public class GeomPackageImpl extends EPackageImpl implements GeomPackage {
 		pointEClass.getESuperTypes().add(this.getSimpleGeometry());
 
 		// Initialize classes, features, and operations; add parameters
-		initEClass(
-				geometryEClass,
-				Geometry.class,
-				"Geometry", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEClass(geometryEClass, Geometry.class, "Geometry", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
-		initEClass(
-				simpleGeometryEClass,
-				SimpleGeometry.class,
-				"SimpleGeometry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEClass(simpleGeometryEClass, SimpleGeometry.class, "SimpleGeometry", !IS_ABSTRACT, !IS_INTERFACE, //$NON-NLS-1$
+				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(
-				pointEClass,
-				Point.class,
-				"Point", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(
-				getPoint_Coordinates(),
-				theGeoffPackage.getLocation(),
-				null,
-				"coordinates", null, 1, 1, Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEClass(pointEClass, Point.class, "Point", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getPoint_Coordinates(), theGeoffPackage.getLocation(), null, "coordinates", null, 1, 1, //$NON-NLS-1$
+				Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //GeomPackageImpl

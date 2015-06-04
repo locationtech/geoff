@@ -19,12 +19,10 @@ import org.locationtech.geoff.source.TileImage;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Tile Image</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
-public abstract class TileImageImpl extends TileImpl implements TileImage {
+public abstract class TileImageImpl extends TileSourceImpl implements TileImage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

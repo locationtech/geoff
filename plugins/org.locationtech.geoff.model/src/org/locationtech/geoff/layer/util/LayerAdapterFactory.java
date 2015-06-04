@@ -15,11 +15,9 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.locationtech.geoff.Descriptive;
 import org.locationtech.geoff.Identifiable;
 import org.locationtech.geoff.layer.*;
-import org.locationtech.geoff.layer.Layer;
-import org.locationtech.geoff.layer.LayerPackage;
-import org.locationtech.geoff.layer.Tile;
 
 /**
  * <!-- begin-user-doc -->
@@ -89,18 +87,23 @@ public class LayerAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseTile(Tile object) {
-			return createTileAdapter();
+		public Adapter caseTileLayer(TileLayer object) {
+			return createTileLayerAdapter();
 		}
 
 		@Override
-		public Adapter caseVector(Vector object) {
-			return createVectorAdapter();
+		public Adapter caseVectorLayer(VectorLayer object) {
+			return createVectorLayerAdapter();
 		}
 
 		@Override
 		public Adapter caseIdentifiable(Identifiable object) {
 			return createIdentifiableAdapter();
+		}
+
+		@Override
+		public Adapter caseDescriptive(Descriptive object) {
+			return createDescriptiveAdapter();
 		}
 
 		@Override
@@ -137,30 +140,30 @@ public class LayerAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.layer.Tile <em>Tile</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.layer.TileLayer <em>Tile Layer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.locationtech.geoff.layer.Tile
+	 * @see org.locationtech.geoff.layer.TileLayer
 	 * @generated
 	 */
-	public Adapter createTileAdapter() {
+	public Adapter createTileLayerAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.layer.Vector <em>Vector</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.layer.VectorLayer <em>Vector Layer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.locationtech.geoff.layer.Vector
+	 * @see org.locationtech.geoff.layer.VectorLayer
 	 * @generated
 	 */
-	public Adapter createVectorAdapter() {
+	public Adapter createVectorLayerAdapter() {
 		return null;
 	}
 
@@ -175,6 +178,20 @@ public class LayerAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createIdentifiableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.Descriptive <em>Descriptive</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.locationtech.geoff.Descriptive
+	 * @generated
+	 */
+	public Adapter createDescriptiveAdapter() {
 		return null;
 	}
 

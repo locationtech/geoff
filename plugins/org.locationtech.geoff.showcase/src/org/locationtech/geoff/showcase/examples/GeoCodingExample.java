@@ -10,7 +10,15 @@
  ******************************************************************************/
 package org.locationtech.geoff.showcase.examples;
 
-import static org.locationtech.geoff.core.Geoff.*;
+import static org.locationtech.geoff.core.Geoff.feature;
+import static org.locationtech.geoff.core.Geoff.icon;
+import static org.locationtech.geoff.core.Geoff.osmSource;
+import static org.locationtech.geoff.core.Geoff.pointGeom;
+import static org.locationtech.geoff.core.Geoff.style;
+import static org.locationtech.geoff.core.Geoff.tileLayer;
+import static org.locationtech.geoff.core.Geoff.vectorLayer;
+import static org.locationtech.geoff.core.Geoff.vectorSource;
+import static org.locationtech.geoff.core.Geoff.xyLocation;
 
 import java.util.List;
 
@@ -22,7 +30,7 @@ import org.locationtech.geoff.geocoding.POI;
 import org.locationtech.geoff.geocoding.POI.LatLon;
 import org.locationtech.geoff.geom.Geometry;
 import org.locationtech.geoff.showcase.AbstractExampleGeoMap;
-import org.locationtech.geoff.source.Vector;
+import org.locationtech.geoff.source.VectorSource;
 
 public class GeoCodingExample extends AbstractExampleGeoMap {
 	protected GeoMap doCreateMap() {
@@ -30,11 +38,11 @@ public class GeoCodingExample extends AbstractExampleGeoMap {
 				"Shows a Map with a marker layer whose POIs have been geo coded "
 						+ "at run time using the geocoding service interface.");
 
-		g.view(xyLocation(8, 53, "EPSG:4326"), 3);
+		g.view(xyLocation(8, 53, Geoff.EPSG4326_WGS84), 3);
 		g.addLayer(tileLayer(osmSource()));
 
 		{
-			Vector vectorSource = vectorSource();
+			VectorSource vectorSource = vectorSource();
 			g.addLayer(vectorLayer(vectorSource));
 
 			String[] cities = new String[] { "Berlin", "Paris", "London",
@@ -50,7 +58,7 @@ public class GeoCodingExample extends AbstractExampleGeoMap {
 					LatLon latLon = poi.getLatLon();
 					Geometry geometry = pointGeom(xyLocation(
 							(float) latLon.getLon(), (float) latLon.getLat(),
-							"EPSG:4326"));
+							Geoff.EPSG4326_WGS84));
 					Feature feature = feature(geometry,
 							style(icon("marker.gif")));
 					vectorSource.getFeatures().add(feature);

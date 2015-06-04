@@ -13,6 +13,7 @@ package org.locationtech.geoff.source.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
@@ -23,16 +24,14 @@ import org.locationtech.geoff.impl.GeoffPackageImpl;
 import org.locationtech.geoff.layer.LayerPackage;
 import org.locationtech.geoff.layer.impl.LayerPackageImpl;
 import org.locationtech.geoff.source.BingMaps;
-import org.locationtech.geoff.source.FormatVector;
-import org.locationtech.geoff.source.GeoJSON;
 import org.locationtech.geoff.source.MapQuest;
 import org.locationtech.geoff.source.Source;
 import org.locationtech.geoff.source.SourceFactory;
+import org.locationtech.geoff.source.SourceFormat;
 import org.locationtech.geoff.source.SourcePackage;
-import org.locationtech.geoff.source.StaticVector;
-import org.locationtech.geoff.source.Tile;
 import org.locationtech.geoff.source.TileImage;
-import org.locationtech.geoff.source.Vector;
+import org.locationtech.geoff.source.TileSource;
+import org.locationtech.geoff.source.VectorSource;
 import org.locationtech.geoff.style.StylePackage;
 import org.locationtech.geoff.style.impl.StylePackageImpl;
 
@@ -62,7 +61,7 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass tileEClass = null;
+	private EClass tileSourceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -104,42 +103,14 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass vectorEClass = null;
+	private EClass vectorSourceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass formatVectorEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass staticVectorEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass geoJSONEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass gpxEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass kmlEClass = null;
+	private EEnum sourceFormatEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -181,29 +152,28 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 */
 	public static SourcePackage init() {
 		if (isInited)
-			return (SourcePackage) EPackage.Registry.INSTANCE
-					.getEPackage(SourcePackage.eNS_URI);
+			return (SourcePackage) EPackage.Registry.INSTANCE.getEPackage(SourcePackage.eNS_URI);
 
 		// Obtain or create and register package
 		SourcePackageImpl theSourcePackage = (SourcePackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof SourcePackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI) : new SourcePackageImpl());
+				.get(eNS_URI) instanceof SourcePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
+						: new SourcePackageImpl());
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
 		GeoffPackageImpl theGeoffPackage = (GeoffPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(GeoffPackage.eNS_URI) instanceof GeoffPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(GeoffPackage.eNS_URI) : GeoffPackage.eINSTANCE);
+				.getEPackage(GeoffPackage.eNS_URI) instanceof GeoffPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(GeoffPackage.eNS_URI) : GeoffPackage.eINSTANCE);
 		LayerPackageImpl theLayerPackage = (LayerPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(LayerPackage.eNS_URI) instanceof LayerPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(LayerPackage.eNS_URI) : LayerPackage.eINSTANCE);
+				.getEPackage(LayerPackage.eNS_URI) instanceof LayerPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(LayerPackage.eNS_URI) : LayerPackage.eINSTANCE);
 		GeomPackageImpl theGeomPackage = (GeomPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(GeomPackage.eNS_URI) instanceof GeomPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(GeomPackage.eNS_URI) : GeomPackage.eINSTANCE);
+				.getEPackage(GeomPackage.eNS_URI) instanceof GeomPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(GeomPackage.eNS_URI) : GeomPackage.eINSTANCE);
 		StylePackageImpl theStylePackage = (StylePackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(StylePackage.eNS_URI) instanceof StylePackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(StylePackage.eNS_URI) : StylePackage.eINSTANCE);
+				.getEPackage(StylePackage.eNS_URI) instanceof StylePackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(StylePackage.eNS_URI) : StylePackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theSourcePackage.createPackageContents();
@@ -241,8 +211,8 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTile() {
-		return tileEClass;
+	public EClass getTileSource() {
+		return tileSourceEClass;
 	}
 
 	/**
@@ -322,8 +292,8 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getVector() {
-		return vectorEClass;
+	public EClass getVectorSource() {
+		return vectorSourceEClass;
 	}
 
 	/**
@@ -331,8 +301,8 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getVector_Features() {
-		return (EReference) vectorEClass.getEStructuralFeatures().get(0);
+	public EReference getVectorSource_Features() {
+		return (EReference) vectorSourceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -340,8 +310,8 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getFormatVector() {
-		return formatVectorEClass;
+	public EAttribute getVectorSource_Url() {
+		return (EAttribute) vectorSourceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -349,8 +319,8 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getStaticVector() {
-		return staticVectorEClass;
+	public EAttribute getVectorSource_Projection() {
+		return (EAttribute) vectorSourceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -358,8 +328,8 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getStaticVector_Url() {
-		return (EAttribute) staticVectorEClass.getEStructuralFeatures().get(0);
+	public EAttribute getVectorSource_Format() {
+		return (EAttribute) vectorSourceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -367,35 +337,8 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getStaticVector_Projection() {
-		return (EAttribute) staticVectorEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getGeoJSON() {
-		return geoJSONEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getGPX() {
-		return gpxEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getKML() {
-		return kmlEClass;
+	public EEnum getSourceFormat() {
+		return sourceFormatEEnum;
 	}
 
 	/**
@@ -429,7 +372,7 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 		// Create classes and their features
 		sourceEClass = createEClass(SOURCE);
 
-		tileEClass = createEClass(TILE);
+		tileSourceEClass = createEClass(TILE_SOURCE);
 
 		tileImageEClass = createEClass(TILE_IMAGE);
 
@@ -444,20 +387,14 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 		createEAttribute(bingMapsEClass, BING_MAPS__KEY);
 		createEAttribute(bingMapsEClass, BING_MAPS__IMAGERY_SET);
 
-		vectorEClass = createEClass(VECTOR);
-		createEReference(vectorEClass, VECTOR__FEATURES);
+		vectorSourceEClass = createEClass(VECTOR_SOURCE);
+		createEReference(vectorSourceEClass, VECTOR_SOURCE__FEATURES);
+		createEAttribute(vectorSourceEClass, VECTOR_SOURCE__URL);
+		createEAttribute(vectorSourceEClass, VECTOR_SOURCE__PROJECTION);
+		createEAttribute(vectorSourceEClass, VECTOR_SOURCE__FORMAT);
 
-		formatVectorEClass = createEClass(FORMAT_VECTOR);
-
-		staticVectorEClass = createEClass(STATIC_VECTOR);
-		createEAttribute(staticVectorEClass, STATIC_VECTOR__URL);
-		createEAttribute(staticVectorEClass, STATIC_VECTOR__PROJECTION);
-
-		geoJSONEClass = createEClass(GEO_JSON);
-
-		gpxEClass = createEClass(GPX);
-
-		kmlEClass = createEClass(KML);
+		// Create enums
+		sourceFormatEEnum = createEEnum(SOURCE_FORMAT);
 	}
 
 	/**
@@ -485,8 +422,7 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		GeoffPackage theGeoffPackage = (GeoffPackage) EPackage.Registry.INSTANCE
-				.getEPackage(GeoffPackage.eNS_URI);
+		GeoffPackage theGeoffPackage = (GeoffPackage) EPackage.Registry.INSTANCE.getEPackage(GeoffPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -494,99 +430,60 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 
 		// Add supertypes to classes
 		sourceEClass.getESuperTypes().add(theGeoffPackage.getIdentifiable());
-		tileEClass.getESuperTypes().add(this.getSource());
-		tileImageEClass.getESuperTypes().add(this.getTile());
+		sourceEClass.getESuperTypes().add(theGeoffPackage.getDescriptive());
+		tileSourceEClass.getESuperTypes().add(this.getSource());
+		tileImageEClass.getESuperTypes().add(this.getTileSource());
 		xyzEClass.getESuperTypes().add(this.getTileImage());
 		osmEClass.getESuperTypes().add(this.getXYZ());
 		mapQuestEClass.getESuperTypes().add(this.getXYZ());
 		bingMapsEClass.getESuperTypes().add(this.getXYZ());
-		vectorEClass.getESuperTypes().add(this.getSource());
-		formatVectorEClass.getESuperTypes().add(this.getVector());
-		staticVectorEClass.getESuperTypes().add(this.getFormatVector());
-		geoJSONEClass.getESuperTypes().add(this.getStaticVector());
-		gpxEClass.getESuperTypes().add(this.getStaticVector());
-		kmlEClass.getESuperTypes().add(this.getStaticVector());
+		vectorSourceEClass.getESuperTypes().add(this.getSource());
 
 		// Initialize classes, features, and operations; add parameters
-		initEClass(
-				sourceEClass,
-				Source.class,
-				"Source", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEClass(sourceEClass, Source.class, "Source", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
-		initEClass(tileEClass, Tile.class,
-				"Tile", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEClass(tileSourceEClass, TileSource.class, "TileSource", IS_ABSTRACT, !IS_INTERFACE, //$NON-NLS-1$
+				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(
-				tileImageEClass,
-				TileImage.class,
-				"TileImage", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEClass(tileImageEClass, TileImage.class, "TileImage", IS_ABSTRACT, !IS_INTERFACE, //$NON-NLS-1$
+				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(xyzEClass, org.locationtech.geoff.source.XYZ.class,
-				"XYZ", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEClass(xyzEClass, org.locationtech.geoff.source.XYZ.class, "XYZ", IS_ABSTRACT, !IS_INTERFACE, //$NON-NLS-1$
+				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(osmEClass, org.locationtech.geoff.source.OSM.class,
-				"OSM", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEClass(osmEClass, org.locationtech.geoff.source.OSM.class, "OSM", !IS_ABSTRACT, !IS_INTERFACE, //$NON-NLS-1$
+				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(
-				mapQuestEClass,
-				MapQuest.class,
-				"MapQuest", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(
-				getMapQuest_Layer(),
-				ecorePackage.getEString(),
-				"layer", "osm", 0, 1, MapQuest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+		initEClass(mapQuestEClass, MapQuest.class, "MapQuest", !IS_ABSTRACT, !IS_INTERFACE, //$NON-NLS-1$
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMapQuest_Layer(), ecorePackage.getEString(), "layer", "osm", 0, 1, MapQuest.class, //$NON-NLS-1$//$NON-NLS-2$
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(
-				bingMapsEClass,
-				BingMaps.class,
-				"BingMaps", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(
-				getBingMaps_Key(),
-				ecorePackage.getEString(),
-				"key", null, 1, 1, BingMaps.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(
-				getBingMaps_ImagerySet(),
-				ecorePackage.getEString(),
-				"imagerySet", null, 1, 1, BingMaps.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEClass(bingMapsEClass, BingMaps.class, "BingMaps", !IS_ABSTRACT, !IS_INTERFACE, //$NON-NLS-1$
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBingMaps_Key(), ecorePackage.getEString(), "key", null, 1, 1, BingMaps.class, !IS_TRANSIENT, //$NON-NLS-1$
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBingMaps_ImagerySet(), ecorePackage.getEString(), "imagerySet", null, 1, 1, BingMaps.class, //$NON-NLS-1$
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(
-				vectorEClass,
-				Vector.class,
-				"Vector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(
-				getVector_Features(),
-				theGeoffPackage.getFeature(),
-				null,
-				"features", null, 0, -1, Vector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEClass(vectorSourceEClass, VectorSource.class, "VectorSource", !IS_ABSTRACT, !IS_INTERFACE, //$NON-NLS-1$
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getVectorSource_Features(), theGeoffPackage.getFeature(), null, "features", null, 0, -1, //$NON-NLS-1$
+				VectorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVectorSource_Url(), ecorePackage.getEString(), "url", null, 1, 1, VectorSource.class, //$NON-NLS-1$
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVectorSource_Projection(), ecorePackage.getEString(), "projection", null, 0, 1, //$NON-NLS-1$
+				VectorSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVectorSource_Format(), this.getSourceFormat(), "format", null, 0, 1, VectorSource.class, //$NON-NLS-1$
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(
-				formatVectorEClass,
-				FormatVector.class,
-				"FormatVector", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-		initEClass(
-				staticVectorEClass,
-				StaticVector.class,
-				"StaticVector", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(
-				getStaticVector_Url(),
-				ecorePackage.getEString(),
-				"url", null, 1, 1, StaticVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(
-				getStaticVector_Projection(),
-				ecorePackage.getEString(),
-				"projection", null, 0, 1, StaticVector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(
-				geoJSONEClass,
-				GeoJSON.class,
-				"GeoJSON", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-		initEClass(gpxEClass, org.locationtech.geoff.source.GPX.class,
-				"GPX", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-		initEClass(kmlEClass, org.locationtech.geoff.source.KML.class,
-				"KML", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		// Initialize enums and add enum literals
+		initEEnum(sourceFormatEEnum, SourceFormat.class, "SourceFormat"); //$NON-NLS-1$
+		addEEnumLiteral(sourceFormatEEnum, SourceFormat.GEO_JSON);
+		addEEnumLiteral(sourceFormatEEnum, SourceFormat.GPX);
+		addEEnumLiteral(sourceFormatEEnum, SourceFormat.KML);
 
 		// Create annotations
 		// http:///org/eclipse/emf/ecore/util/ExtendedMetaData
@@ -601,8 +498,7 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 	 */
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData"; //$NON-NLS-1$	
-		addAnnotation(getVector_Features(), source, new String[] {
-				"name", "feature", //$NON-NLS-1$ //$NON-NLS-2$
+		addAnnotation(getVectorSource_Features(), source, new String[] { "name", "feature", //$NON-NLS-1$ //$NON-NLS-2$
 				"kind", "element" //$NON-NLS-1$ //$NON-NLS-2$
 		});
 	}

@@ -43,8 +43,7 @@ public class StyleFactoryImpl extends EFactoryImpl implements StyleFactory {
 	 */
 	public static StyleFactory init() {
 		try {
-			StyleFactory theStyleFactory = (StyleFactory) EPackage.Registry.INSTANCE
-					.getEFactory(StylePackage.eNS_URI);
+			StyleFactory theStyleFactory = (StyleFactory) EPackage.Registry.INSTANCE.getEFactory(StylePackage.eNS_URI);
 			if (theStyleFactory != null) {
 				return theStyleFactory;
 			}
@@ -87,8 +86,7 @@ public class StyleFactoryImpl extends EFactoryImpl implements StyleFactory {
 		case StylePackage.TEXT:
 			return createText();
 		default:
-			throw new IllegalArgumentException(
-					"The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

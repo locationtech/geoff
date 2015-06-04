@@ -14,16 +14,9 @@ package org.locationtech.geoff.source.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
+import org.locationtech.geoff.Descriptive;
 import org.locationtech.geoff.Identifiable;
 import org.locationtech.geoff.source.*;
-import org.locationtech.geoff.source.BingMaps;
-import org.locationtech.geoff.source.MapQuest;
-import org.locationtech.geoff.source.OSM;
-import org.locationtech.geoff.source.Source;
-import org.locationtech.geoff.source.SourcePackage;
-import org.locationtech.geoff.source.Tile;
-import org.locationtech.geoff.source.TileImage;
-import org.locationtech.geoff.source.XYZ;
 
 /**
  * <!-- begin-user-doc -->
@@ -70,7 +63,7 @@ public class SourceSwitch<T> extends Switch<T> {
 	 * Checks whether this is a switch for the given package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @parameter ePackage the package in question.
+	 * @param ePackage the package in question.
 	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
@@ -95,16 +88,20 @@ public class SourceSwitch<T> extends Switch<T> {
 			if (result == null)
 				result = caseIdentifiable(source);
 			if (result == null)
+				result = caseDescriptive(source);
+			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case SourcePackage.TILE: {
-			Tile tile = (Tile) theEObject;
-			T result = caseTile(tile);
+		case SourcePackage.TILE_SOURCE: {
+			TileSource tileSource = (TileSource) theEObject;
+			T result = caseTileSource(tileSource);
 			if (result == null)
-				result = caseSource(tile);
+				result = caseSource(tileSource);
 			if (result == null)
-				result = caseIdentifiable(tile);
+				result = caseIdentifiable(tileSource);
+			if (result == null)
+				result = caseDescriptive(tileSource);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -113,11 +110,13 @@ public class SourceSwitch<T> extends Switch<T> {
 			TileImage tileImage = (TileImage) theEObject;
 			T result = caseTileImage(tileImage);
 			if (result == null)
-				result = caseTile(tileImage);
+				result = caseTileSource(tileImage);
 			if (result == null)
 				result = caseSource(tileImage);
 			if (result == null)
 				result = caseIdentifiable(tileImage);
+			if (result == null)
+				result = caseDescriptive(tileImage);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -128,11 +127,13 @@ public class SourceSwitch<T> extends Switch<T> {
 			if (result == null)
 				result = caseTileImage(xyz);
 			if (result == null)
-				result = caseTile(xyz);
+				result = caseTileSource(xyz);
 			if (result == null)
 				result = caseSource(xyz);
 			if (result == null)
 				result = caseIdentifiable(xyz);
+			if (result == null)
+				result = caseDescriptive(xyz);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -145,11 +146,13 @@ public class SourceSwitch<T> extends Switch<T> {
 			if (result == null)
 				result = caseTileImage(osm);
 			if (result == null)
-				result = caseTile(osm);
+				result = caseTileSource(osm);
 			if (result == null)
 				result = caseSource(osm);
 			if (result == null)
 				result = caseIdentifiable(osm);
+			if (result == null)
+				result = caseDescriptive(osm);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -162,11 +165,13 @@ public class SourceSwitch<T> extends Switch<T> {
 			if (result == null)
 				result = caseTileImage(mapQuest);
 			if (result == null)
-				result = caseTile(mapQuest);
+				result = caseTileSource(mapQuest);
 			if (result == null)
 				result = caseSource(mapQuest);
 			if (result == null)
 				result = caseIdentifiable(mapQuest);
+			if (result == null)
+				result = caseDescriptive(mapQuest);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -179,101 +184,26 @@ public class SourceSwitch<T> extends Switch<T> {
 			if (result == null)
 				result = caseTileImage(bingMaps);
 			if (result == null)
-				result = caseTile(bingMaps);
+				result = caseTileSource(bingMaps);
 			if (result == null)
 				result = caseSource(bingMaps);
 			if (result == null)
 				result = caseIdentifiable(bingMaps);
 			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case SourcePackage.VECTOR: {
-			Vector vector = (Vector) theEObject;
-			T result = caseVector(vector);
-			if (result == null)
-				result = caseSource(vector);
-			if (result == null)
-				result = caseIdentifiable(vector);
+				result = caseDescriptive(bingMaps);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case SourcePackage.FORMAT_VECTOR: {
-			FormatVector formatVector = (FormatVector) theEObject;
-			T result = caseFormatVector(formatVector);
+		case SourcePackage.VECTOR_SOURCE: {
+			VectorSource vectorSource = (VectorSource) theEObject;
+			T result = caseVectorSource(vectorSource);
 			if (result == null)
-				result = caseVector(formatVector);
+				result = caseSource(vectorSource);
 			if (result == null)
-				result = caseSource(formatVector);
+				result = caseIdentifiable(vectorSource);
 			if (result == null)
-				result = caseIdentifiable(formatVector);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case SourcePackage.STATIC_VECTOR: {
-			StaticVector staticVector = (StaticVector) theEObject;
-			T result = caseStaticVector(staticVector);
-			if (result == null)
-				result = caseFormatVector(staticVector);
-			if (result == null)
-				result = caseVector(staticVector);
-			if (result == null)
-				result = caseSource(staticVector);
-			if (result == null)
-				result = caseIdentifiable(staticVector);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case SourcePackage.GEO_JSON: {
-			GeoJSON geoJSON = (GeoJSON) theEObject;
-			T result = caseGeoJSON(geoJSON);
-			if (result == null)
-				result = caseStaticVector(geoJSON);
-			if (result == null)
-				result = caseFormatVector(geoJSON);
-			if (result == null)
-				result = caseVector(geoJSON);
-			if (result == null)
-				result = caseSource(geoJSON);
-			if (result == null)
-				result = caseIdentifiable(geoJSON);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case SourcePackage.GPX: {
-			GPX gpx = (GPX) theEObject;
-			T result = caseGPX(gpx);
-			if (result == null)
-				result = caseStaticVector(gpx);
-			if (result == null)
-				result = caseFormatVector(gpx);
-			if (result == null)
-				result = caseVector(gpx);
-			if (result == null)
-				result = caseSource(gpx);
-			if (result == null)
-				result = caseIdentifiable(gpx);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case SourcePackage.KML: {
-			KML kml = (KML) theEObject;
-			T result = caseKML(kml);
-			if (result == null)
-				result = caseStaticVector(kml);
-			if (result == null)
-				result = caseFormatVector(kml);
-			if (result == null)
-				result = caseVector(kml);
-			if (result == null)
-				result = caseSource(kml);
-			if (result == null)
-				result = caseIdentifiable(kml);
+				result = caseDescriptive(vectorSource);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -299,17 +229,17 @@ public class SourceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Tile</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Tile Source</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Tile</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Tile Source</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseTile(Tile object) {
+	public T caseTileSource(TileSource object) {
 		return null;
 	}
 
@@ -389,92 +319,17 @@ public class SourceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Vector</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Vector Source</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Vector</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Vector Source</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseVector(Vector object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Format Vector</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Format Vector</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseFormatVector(FormatVector object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Static Vector</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Static Vector</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseStaticVector(StaticVector object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Geo JSON</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Geo JSON</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseGeoJSON(GeoJSON object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>GPX</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>GPX</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseGPX(GPX object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>KML</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>KML</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseKML(KML object) {
+	public T caseVectorSource(VectorSource object) {
 		return null;
 	}
 
@@ -490,6 +345,21 @@ public class SourceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseIdentifiable(Identifiable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Descriptive</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Descriptive</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDescriptive(Descriptive object) {
 		return null;
 	}
 

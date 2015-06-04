@@ -73,15 +73,11 @@ public class IconItemProvider extends ImageItemProvider {
 	 */
 	protected void addSrcPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Icon_src_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Icon_src_feature", "_UI_Icon_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						StylePackage.Literals.ICON__SRC, true, false, false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Icon_src_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Icon_src_feature", "_UI_Icon_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						StylePackage.Literals.ICON__SRC, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+						null, null));
 	}
 
 	/**
@@ -92,8 +88,7 @@ public class IconItemProvider extends ImageItemProvider {
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Icon")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Icon")); //$NON-NLS-1$
 	}
 
 	/**
@@ -105,7 +100,8 @@ public class IconItemProvider extends ImageItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((Icon) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_Icon_type") : //$NON-NLS-1$
+		return label == null || label.length() == 0 ? getString("_UI_Icon_type") //$NON-NLS-1$
+				:
 				getString("_UI_Icon_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
@@ -122,8 +118,7 @@ public class IconItemProvider extends ImageItemProvider {
 
 		switch (notification.getFeatureID(Icon.class)) {
 		case StylePackage.ICON__SRC:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -137,8 +132,7 @@ public class IconItemProvider extends ImageItemProvider {
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

@@ -46,9 +46,8 @@ import org.locationtech.geoff.style.Text;
  * <!-- end-user-doc -->
  * @generated
  */
-public class TextItemProvider extends ItemProviderAdapter implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class TextItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -98,16 +97,12 @@ public class TextItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addIdPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Identifiable_id_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Identifiable_id_feature", "_UI_Identifiable_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						GeoffPackage.Literals.IDENTIFIABLE__ID, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Identifiable_id_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Identifiable_id_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Identifiable_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.IDENTIFIABLE__ID, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -118,13 +113,9 @@ public class TextItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addFontPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Text_font_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Text_font_feature", "_UI_Text_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Text_font_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Text_font_feature", "_UI_Text_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						StylePackage.Literals.TEXT__FONT, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
@@ -137,16 +128,11 @@ public class TextItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addOffsetXPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Text_offsetX_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Text_offsetX_feature", "_UI_Text_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						StylePackage.Literals.TEXT__OFFSET_X, true, false,
-						false, ItemPropertyDescriptor.REAL_VALUE_IMAGE, null,
-						null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Text_offsetX_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Text_offsetX_feature", "_UI_Text_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						StylePackage.Literals.TEXT__OFFSET_X, true, false, false,
+						ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -157,16 +143,11 @@ public class TextItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addOffsetYPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Text_offsetY_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Text_offsetY_feature", "_UI_Text_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						StylePackage.Literals.TEXT__OFFSET_Y, true, false,
-						false, ItemPropertyDescriptor.REAL_VALUE_IMAGE, null,
-						null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Text_offsetY_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Text_offsetY_feature", "_UI_Text_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						StylePackage.Literals.TEXT__OFFSET_Y, true, false, false,
+						ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -177,16 +158,11 @@ public class TextItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addRotationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Text_rotation_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Text_rotation_feature", "_UI_Text_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						StylePackage.Literals.TEXT__ROTATION, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Text_rotation_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Text_rotation_feature", "_UI_Text_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						StylePackage.Literals.TEXT__ROTATION, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -197,13 +173,9 @@ public class TextItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addScalePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Text_scale_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Text_scale_feature", "_UI_Text_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Text_scale_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Text_scale_feature", "_UI_Text_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						StylePackage.Literals.TEXT__SCALE, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
@@ -216,13 +188,9 @@ public class TextItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addTextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Text_text_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Text_text_feature", "_UI_Text_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Text_text_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Text_text_feature", "_UI_Text_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						StylePackage.Literals.TEXT__TEXT, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
@@ -235,16 +203,11 @@ public class TextItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addTextAlignPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Text_textAlign_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Text_textAlign_feature", "_UI_Text_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						StylePackage.Literals.TEXT__TEXT_ALIGN, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Text_textAlign_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Text_textAlign_feature", "_UI_Text_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						StylePackage.Literals.TEXT__TEXT_ALIGN, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -255,15 +218,11 @@ public class TextItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addTextBaseLinePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Text_textBaseLine_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Text_textBaseLine_feature", "_UI_Text_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						StylePackage.Literals.TEXT__TEXT_BASE_LINE, true,
-						false, false,
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Text_textBaseLine_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Text_textBaseLine_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Text_type"), //$NON-NLS-1$
+						StylePackage.Literals.TEXT__TEXT_BASE_LINE, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -276,8 +235,7 @@ public class TextItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(StylePackage.Literals.TEXT__FILL);
@@ -307,8 +265,7 @@ public class TextItemProvider extends ItemProviderAdapter implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Text")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Text")); //$NON-NLS-1$
 	}
 
 	/**
@@ -320,7 +277,8 @@ public class TextItemProvider extends ItemProviderAdapter implements
 	@Override
 	public String getText(Object object) {
 		String label = ((Text) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_Text_type") : //$NON-NLS-1$
+		return label == null || label.length() == 0 ? getString("_UI_Text_type") //$NON-NLS-1$
+				:
 				getString("_UI_Text_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
@@ -345,13 +303,11 @@ public class TextItemProvider extends ItemProviderAdapter implements
 		case StylePackage.TEXT__TEXT:
 		case StylePackage.TEXT__TEXT_ALIGN:
 		case StylePackage.TEXT__TEXT_BASE_LINE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case StylePackage.TEXT__FILL:
 		case StylePackage.TEXT__STROKE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -365,17 +321,14 @@ public class TextItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				StylePackage.Literals.TEXT__FILL,
-				StyleFactory.eINSTANCE.createFill()));
+		newChildDescriptors
+				.add(createChildParameter(StylePackage.Literals.TEXT__FILL, StyleFactory.eINSTANCE.createFill()));
 
-		newChildDescriptors.add(createChildParameter(
-				StylePackage.Literals.TEXT__STROKE,
-				StyleFactory.eINSTANCE.createStroke()));
+		newChildDescriptors
+				.add(createChildParameter(StylePackage.Literals.TEXT__STROKE, StyleFactory.eINSTANCE.createStroke()));
 	}
 
 	/**

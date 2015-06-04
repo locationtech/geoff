@@ -43,9 +43,8 @@ import org.locationtech.geoff.style.StyleFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class StyleEntryItemProvider extends ItemProviderAdapter implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class StyleEntryItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -87,16 +86,12 @@ public class StyleEntryItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addKeyPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_StyleEntry_key_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_StyleEntry_key_feature", "_UI_StyleEntry_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						GeoffPackage.Literals.STYLE_ENTRY__KEY, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_StyleEntry_key_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_StyleEntry_key_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_StyleEntry_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.STYLE_ENTRY__KEY, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -108,8 +103,7 @@ public class StyleEntryItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GeoffPackage.Literals.STYLE_ENTRY__VALUE);
@@ -138,8 +132,7 @@ public class StyleEntryItemProvider extends ItemProviderAdapter implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/StyleEntry")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/StyleEntry")); //$NON-NLS-1$
 	}
 
 	/**
@@ -167,12 +160,10 @@ public class StyleEntryItemProvider extends ItemProviderAdapter implements
 
 		switch (notification.getFeatureID(Map.Entry.class)) {
 		case GeoffPackage.STYLE_ENTRY__KEY:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case GeoffPackage.STYLE_ENTRY__VALUE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -186,13 +177,11 @@ public class StyleEntryItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				GeoffPackage.Literals.STYLE_ENTRY__VALUE,
-				StyleFactory.eINSTANCE.createStyle()));
+		newChildDescriptors.add(
+				createChildParameter(GeoffPackage.Literals.STYLE_ENTRY__VALUE, StyleFactory.eINSTANCE.createStyle()));
 	}
 
 	/**

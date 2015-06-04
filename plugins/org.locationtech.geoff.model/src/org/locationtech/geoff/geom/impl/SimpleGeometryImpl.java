@@ -20,8 +20,6 @@ import org.locationtech.geoff.geom.SimpleGeometry;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Simple Geometry</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

@@ -18,10 +18,10 @@ package org.locationtech.geoff.style;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.style.Icon#getSrc <em>Src</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.locationtech.geoff.style.StylePackage#getIcon()
  * @model

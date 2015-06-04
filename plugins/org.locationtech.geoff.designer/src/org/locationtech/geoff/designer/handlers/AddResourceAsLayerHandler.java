@@ -1,6 +1,5 @@
 package org.locationtech.geoff.designer.handlers;
 
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,17 +11,17 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.locationtech.geoff.Color;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.GeoffPackage;
+import org.locationtech.geoff.core.Geoff;
+import org.locationtech.geoff.designer.DesignerUtil;
 import org.locationtech.geoff.designer.IEditingService;
-import org.locationtech.geoff.layer.LayerPackage;
-import org.locationtech.geoff.layer.Vector;
-import org.locationtech.geoff.source.SourcePackage;
-import org.locationtech.geoff.source.StaticVector;
+import org.locationtech.geoff.layer.VectorLayer;
+import org.locationtech.geoff.source.SourceFormat;
+import org.locationtech.geoff.source.VectorSource;
 import org.locationtech.geoff.style.Circle;
 import org.locationtech.geoff.style.Fill;
 import org.locationtech.geoff.style.Stroke;
@@ -30,16 +29,16 @@ import org.locationtech.geoff.style.Style;
 import org.locationtech.geoff.style.StylePackage;
 
 public class AddResourceAsLayerHandler {
-	private Map<String, EClass> sourceMappings = new HashMap<String, EClass>();
+	private Map<String, SourceFormat> formatsMappings = new HashMap<String, SourceFormat>();
+
 	{
-		sourceMappings.put("geojson", SourcePackage.Literals.GEO_JSON);
-		sourceMappings.put("gpx", SourcePackage.Literals.GPX);
-		sourceMappings.put("kml", SourcePackage.Literals.KML);
+		formatsMappings.put("geojson", SourceFormat.GEO_JSON);
+		formatsMappings.put("gpx", SourceFormat.GPX);
+		formatsMappings.put("kml", SourceFormat.KML);
 	}
 
 	@Execute
-	public void execute(IEditingService editingService, GeoMap geoMap,
-			ISelection selection) {
+	public void execute(IEditingService editingService, GeoMap geoMap, ISelection selection) {
 		if (selection.isEmpty()) {
 			return;
 		}
@@ -48,27 +47,28 @@ public class AddResourceAsLayerHandler {
 		CompoundCommand cc = new CompoundCommand();
 
 		for (Object o : array) {
-			if (o instanceof IFile) {
-				IFile file = (IFile) o;
-				String fileExtension = file.getFileExtension();
-				EClass sourceFormat = sourceMappings.get(fileExtension);
-
-				if (sourceFormat != null) {
-					StaticVector source = editingService
-							.createInstance(sourceFormat);
-					source.setProjection("EPSG:3857");
-					String path = getPathUpToProject(file);
-					source.setUrl(path);
-
-					Vector layer = editingService
-							.createInstance(LayerPackage.Literals.VECTOR);
-					layer.setSource(source);
-					populateDefaultStyles(editingService, layer);
-					Command command = editingService.createAddCommand(geoMap,
-							GeoffPackage.Literals.GEO_MAP__LAYERS, layer);
-					cc.append(command);
-				}
+			if (!(o instanceof IFile)) {
+				continue;
 			}
+
+			IFile file = (IFile) o;
+			String fileExtension = file.getFileExtension();
+			SourceFormat sourceFormat = formatsMappings.get(fileExtension);
+
+			if (sourceFormat == null) {
+				continue;
+			}
+
+			VectorSource source = Geoff.vectorSource();
+			source.setFormat(sourceFormat);
+			source.setProjection(Geoff.EPSG3857_WEB_MERCATOR);
+			String path = DesignerUtil.toRelativeURL(file);
+			source.setUrl(path);
+
+			VectorLayer layer = Geoff.vectorLayer(source);
+			populateDefaultStyles(editingService, layer);
+			Command command = editingService.createAddCommand(geoMap, GeoffPackage.Literals.GEO_MAP__LAYERS, layer);
+			cc.append(command);
 		}
 
 		if (!cc.isEmpty()) {
@@ -76,31 +76,7 @@ public class AddResourceAsLayerHandler {
 		}
 	}
 
-	private String getPathUpToProject(IFile file) {
-		List<String> nodes = new ArrayList<String>();
-
-		for (IResource node = file; node != null; node = node.getParent()) {
-			if (node instanceof IProject) {
-				break;
-			}
-
-			nodes.add(node.getName());
-		}
-
-		StringBuilder sb = new StringBuilder();
-
-		for (int i = nodes.size() - 1; i >= 0; i--) {
-			sb.append(nodes.get(i));
-
-			if (i > 0) {
-				sb.append("/");
-			}
-		}
-
-		return sb.toString();
-	}
-
-	private void populateDefaultStyles(IEditingService es, Vector layer) {
+	private void populateDefaultStyles(IEditingService es, VectorLayer layer) {
 		{
 			Style style = createPointStyle(es);
 			layer.getStyles().put("Point", style);
@@ -177,8 +153,7 @@ public class AddResourceAsLayerHandler {
 		return fill;
 	}
 
-	private Stroke createStroke(IEditingService es, float width, int r, int g,
-			int b, float alpha) {
+	private Stroke createStroke(IEditingService es, float width, int r, int g, int b, float alpha) {
 		Stroke stroke = es.createInstance(StylePackage.Literals.STROKE);
 		{
 			stroke.setWidth((double) width);

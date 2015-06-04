@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.locationtech.geoff.Descriptive;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.GeoffPackage;
 import org.locationtech.geoff.RendererHint;
@@ -34,15 +35,15 @@ import org.locationtech.geoff.layer.Layer;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.impl.GeoMapImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.locationtech.geoff.impl.GeoMapImpl#getShortDescription <em>Short Description</em>}</li>
+ *   <li>{@link org.locationtech.geoff.impl.GeoMapImpl#getLongDescription <em>Long Description</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.GeoMapImpl#getLayers <em>Layers</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.GeoMapImpl#getView <em>View</em>}</li>
- *   <li>{@link org.locationtech.geoff.impl.GeoMapImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.locationtech.geoff.impl.GeoMapImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.GeoMapImpl#getRendererHint <em>Renderer Hint</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -75,6 +76,46 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 	protected String id = ID_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getShortDescription() <em>Short Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShortDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SHORT_DESCRIPTION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getShortDescription() <em>Short Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShortDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected String shortDescription = SHORT_DESCRIPTION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getLongDescription() <em>Long Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLongDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LONG_DESCRIPTION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLongDescription() <em>Long Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLongDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected String longDescription = LONG_DESCRIPTION_EDEFAULT;
+
+	/**
 	 * The cached value of the '{@link #getLayers() <em>Layers</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -93,46 +134,6 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 	 * @ordered
 	 */
 	protected View view;
-
-	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String name = NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDescription()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String DESCRIPTION_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDescription()
-	 * @generated
-	 * @ordered
-	 */
-	protected String description = DESCRIPTION_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getRendererHint() <em>Renderer Hint</em>}' attribute.
@@ -191,8 +192,51 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.GEO_MAP__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.GEO_MAP__ID, oldId, id));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getShortDescription() {
+		return shortDescription;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setShortDescription(String newShortDescription) {
+		String oldShortDescription = shortDescription;
+		shortDescription = newShortDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.GEO_MAP__SHORT_DESCRIPTION,
+					oldShortDescription, shortDescription));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLongDescription() {
+		return longDescription;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLongDescription(String newLongDescription) {
+		String oldLongDescription = longDescription;
+		longDescription = newLongDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.GEO_MAP__LONG_DESCRIPTION,
+					oldLongDescription, longDescription));
 	}
 
 	/**
@@ -202,8 +246,7 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 	 */
 	public EList<Layer> getLayers() {
 		if (layers == null) {
-			layers = new EObjectContainmentEList<Layer>(Layer.class, this,
-					GeoffPackage.GEO_MAP__LAYERS);
+			layers = new EObjectContainmentEList<Layer>(Layer.class, this, GeoffPackage.GEO_MAP__LAYERS);
 		}
 		return layers;
 	}
@@ -226,9 +269,8 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 		View oldView = view;
 		view = newView;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, GeoffPackage.GEO_MAP__VIEW, oldView,
-					newView);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GeoffPackage.GEO_MAP__VIEW,
+					oldView, newView);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -247,63 +289,15 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 			NotificationChain msgs = null;
 			if (view != null)
 				msgs = ((InternalEObject) view).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - GeoffPackage.GEO_MAP__VIEW,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - GeoffPackage.GEO_MAP__VIEW, null, msgs);
 			if (newView != null)
 				msgs = ((InternalEObject) newView).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - GeoffPackage.GEO_MAP__VIEW,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - GeoffPackage.GEO_MAP__VIEW, null, msgs);
 			msgs = basicSetView(newView, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.GEO_MAP__VIEW, newView, newView));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.GEO_MAP__NAME, oldName, name));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDescription(String newDescription) {
-		String oldDescription = description;
-		description = newDescription;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.GEO_MAP__DESCRIPTION, oldDescription,
-					description));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.GEO_MAP__VIEW, newView, newView));
 	}
 
 	/**
@@ -322,11 +316,9 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 	 */
 	public void setRendererHint(RendererHint newRendererHint) {
 		RendererHint oldRendererHint = rendererHint;
-		rendererHint = newRendererHint == null ? RENDERER_HINT_EDEFAULT
-				: newRendererHint;
+		rendererHint = newRendererHint == null ? RENDERER_HINT_EDEFAULT : newRendererHint;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.GEO_MAP__RENDERER_HINT, oldRendererHint,
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.GEO_MAP__RENDERER_HINT, oldRendererHint,
 					rendererHint));
 	}
 
@@ -336,8 +328,7 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GeoffPackage.GEO_MAP__LAYERS:
 			return ((InternalEList<?>) getLayers()).basicRemove(otherEnd, msgs);
@@ -357,14 +348,14 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 		switch (featureID) {
 		case GeoffPackage.GEO_MAP__ID:
 			return getId();
+		case GeoffPackage.GEO_MAP__SHORT_DESCRIPTION:
+			return getShortDescription();
+		case GeoffPackage.GEO_MAP__LONG_DESCRIPTION:
+			return getLongDescription();
 		case GeoffPackage.GEO_MAP__LAYERS:
 			return getLayers();
 		case GeoffPackage.GEO_MAP__VIEW:
 			return getView();
-		case GeoffPackage.GEO_MAP__NAME:
-			return getName();
-		case GeoffPackage.GEO_MAP__DESCRIPTION:
-			return getDescription();
 		case GeoffPackage.GEO_MAP__RENDERER_HINT:
 			return getRendererHint();
 		}
@@ -383,18 +374,18 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 		case GeoffPackage.GEO_MAP__ID:
 			setId((String) newValue);
 			return;
+		case GeoffPackage.GEO_MAP__SHORT_DESCRIPTION:
+			setShortDescription((String) newValue);
+			return;
+		case GeoffPackage.GEO_MAP__LONG_DESCRIPTION:
+			setLongDescription((String) newValue);
+			return;
 		case GeoffPackage.GEO_MAP__LAYERS:
 			getLayers().clear();
 			getLayers().addAll((Collection<? extends Layer>) newValue);
 			return;
 		case GeoffPackage.GEO_MAP__VIEW:
 			setView((View) newValue);
-			return;
-		case GeoffPackage.GEO_MAP__NAME:
-			setName((String) newValue);
-			return;
-		case GeoffPackage.GEO_MAP__DESCRIPTION:
-			setDescription((String) newValue);
 			return;
 		case GeoffPackage.GEO_MAP__RENDERER_HINT:
 			setRendererHint((RendererHint) newValue);
@@ -414,17 +405,17 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 		case GeoffPackage.GEO_MAP__ID:
 			setId(ID_EDEFAULT);
 			return;
+		case GeoffPackage.GEO_MAP__SHORT_DESCRIPTION:
+			setShortDescription(SHORT_DESCRIPTION_EDEFAULT);
+			return;
+		case GeoffPackage.GEO_MAP__LONG_DESCRIPTION:
+			setLongDescription(LONG_DESCRIPTION_EDEFAULT);
+			return;
 		case GeoffPackage.GEO_MAP__LAYERS:
 			getLayers().clear();
 			return;
 		case GeoffPackage.GEO_MAP__VIEW:
 			setView((View) null);
-			return;
-		case GeoffPackage.GEO_MAP__NAME:
-			setName(NAME_EDEFAULT);
-			return;
-		case GeoffPackage.GEO_MAP__DESCRIPTION:
-			setDescription(DESCRIPTION_EDEFAULT);
 			return;
 		case GeoffPackage.GEO_MAP__RENDERER_HINT:
 			setRendererHint(RENDERER_HINT_EDEFAULT);
@@ -443,20 +434,60 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 		switch (featureID) {
 		case GeoffPackage.GEO_MAP__ID:
 			return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+		case GeoffPackage.GEO_MAP__SHORT_DESCRIPTION:
+			return SHORT_DESCRIPTION_EDEFAULT == null ? shortDescription != null
+					: !SHORT_DESCRIPTION_EDEFAULT.equals(shortDescription);
+		case GeoffPackage.GEO_MAP__LONG_DESCRIPTION:
+			return LONG_DESCRIPTION_EDEFAULT == null ? longDescription != null
+					: !LONG_DESCRIPTION_EDEFAULT.equals(longDescription);
 		case GeoffPackage.GEO_MAP__LAYERS:
 			return layers != null && !layers.isEmpty();
 		case GeoffPackage.GEO_MAP__VIEW:
 			return view != null;
-		case GeoffPackage.GEO_MAP__NAME:
-			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT
-					.equals(name);
-		case GeoffPackage.GEO_MAP__DESCRIPTION:
-			return DESCRIPTION_EDEFAULT == null ? description != null
-					: !DESCRIPTION_EDEFAULT.equals(description);
 		case GeoffPackage.GEO_MAP__RENDERER_HINT:
 			return rendererHint != RENDERER_HINT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == Descriptive.class) {
+			switch (derivedFeatureID) {
+			case GeoffPackage.GEO_MAP__SHORT_DESCRIPTION:
+				return GeoffPackage.DESCRIPTIVE__SHORT_DESCRIPTION;
+			case GeoffPackage.GEO_MAP__LONG_DESCRIPTION:
+				return GeoffPackage.DESCRIPTIVE__LONG_DESCRIPTION;
+			default:
+				return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == Descriptive.class) {
+			switch (baseFeatureID) {
+			case GeoffPackage.DESCRIPTIVE__SHORT_DESCRIPTION:
+				return GeoffPackage.GEO_MAP__SHORT_DESCRIPTION;
+			case GeoffPackage.DESCRIPTIVE__LONG_DESCRIPTION:
+				return GeoffPackage.GEO_MAP__LONG_DESCRIPTION;
+			default:
+				return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**
@@ -472,10 +503,10 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (id: "); //$NON-NLS-1$
 		result.append(id);
-		result.append(", name: "); //$NON-NLS-1$
-		result.append(name);
-		result.append(", description: "); //$NON-NLS-1$
-		result.append(description);
+		result.append(", shortDescription: "); //$NON-NLS-1$
+		result.append(shortDescription);
+		result.append(", longDescription: "); //$NON-NLS-1$
+		result.append(longDescription);
 		result.append(", rendererHint: "); //$NON-NLS-1$
 		result.append(rendererHint);
 		result.append(')');

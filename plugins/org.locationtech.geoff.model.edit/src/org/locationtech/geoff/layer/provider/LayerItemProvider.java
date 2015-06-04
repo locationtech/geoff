@@ -40,9 +40,8 @@ import org.locationtech.geoff.source.SourceFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class LayerItemProvider extends ItemProviderAdapter implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class LayerItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
@@ -71,6 +70,8 @@ public class LayerItemProvider extends ItemProviderAdapter implements
 			super.getPropertyDescriptors(object);
 
 			addIdPropertyDescriptor(object);
+			addShortDescriptionPropertyDescriptor(object);
+			addLongDescriptionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -83,16 +84,44 @@ public class LayerItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addIdPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Identifiable_id_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Identifiable_id_feature", "_UI_Identifiable_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						GeoffPackage.Literals.IDENTIFIABLE__ID, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Identifiable_id_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Identifiable_id_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Identifiable_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.IDENTIFIABLE__ID, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Short Description feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addShortDescriptionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Descriptive_shortDescription_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Descriptive_shortDescription_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Descriptive_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.DESCRIPTIVE__SHORT_DESCRIPTION, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Long Description feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLongDescriptionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Descriptive_longDescription_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Descriptive_longDescription_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Descriptive_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.DESCRIPTIVE__LONG_DESCRIPTION, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -103,8 +132,7 @@ public class LayerItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(LayerPackage.Literals.LAYER__SOURCE);
@@ -131,8 +159,7 @@ public class LayerItemProvider extends ItemProviderAdapter implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Layer")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Layer")); //$NON-NLS-1$
 	}
 
 	/**
@@ -148,10 +175,9 @@ public class LayerItemProvider extends ItemProviderAdapter implements
 		String sourceText = "";
 
 		if (source != null) {
-			IItemLabelProvider itemLabelProvider = (IItemLabelProvider) getRootAdapterFactory()
-					.adapt((Object) source, IItemLabelProvider.class);
-			sourceText = String.format(" (%s)",
-					itemLabelProvider.getText(source));
+			IItemLabelProvider itemLabelProvider = (IItemLabelProvider) getRootAdapterFactory().adapt((Object) source,
+					IItemLabelProvider.class);
+			sourceText = String.format(" (%s)", itemLabelProvider.getText(source));
 		}
 
 		String text = String.format("%s%s", getTypeText(object), sourceText);
@@ -171,12 +197,12 @@ public class LayerItemProvider extends ItemProviderAdapter implements
 
 		switch (notification.getFeatureID(Layer.class)) {
 		case LayerPackage.LAYER__ID:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+		case LayerPackage.LAYER__SHORT_DESCRIPTION:
+		case LayerPackage.LAYER__LONG_DESCRIPTION:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case LayerPackage.LAYER__SOURCE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -190,33 +216,20 @@ public class LayerItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				LayerPackage.Literals.LAYER__SOURCE,
-				SourceFactory.eINSTANCE.createOSM()));
+		newChildDescriptors
+				.add(createChildParameter(LayerPackage.Literals.LAYER__SOURCE, SourceFactory.eINSTANCE.createOSM()));
 
-		newChildDescriptors.add(createChildParameter(
-				LayerPackage.Literals.LAYER__SOURCE,
-				SourceFactory.eINSTANCE.createMapQuest()));
+		newChildDescriptors.add(
+				createChildParameter(LayerPackage.Literals.LAYER__SOURCE, SourceFactory.eINSTANCE.createMapQuest()));
 
-		newChildDescriptors.add(createChildParameter(
-				LayerPackage.Literals.LAYER__SOURCE,
-				SourceFactory.eINSTANCE.createBingMaps()));
+		newChildDescriptors.add(
+				createChildParameter(LayerPackage.Literals.LAYER__SOURCE, SourceFactory.eINSTANCE.createBingMaps()));
 
-		newChildDescriptors.add(createChildParameter(
-				LayerPackage.Literals.LAYER__SOURCE,
-				SourceFactory.eINSTANCE.createVector()));
-
-		newChildDescriptors.add(createChildParameter(
-				LayerPackage.Literals.LAYER__SOURCE,
-				SourceFactory.eINSTANCE.createGeoJSON()));
-
-		newChildDescriptors.add(createChildParameter(
-				LayerPackage.Literals.LAYER__SOURCE,
-				SourceFactory.eINSTANCE.createGPX()));
+		newChildDescriptors.add(createChildParameter(LayerPackage.Literals.LAYER__SOURCE,
+				SourceFactory.eINSTANCE.createVectorSource()));
 	}
 
 	/**

@@ -75,8 +75,7 @@ public class PointItemProvider extends SimpleGeometryItemProvider {
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GeomPackage.Literals.POINT__COORDINATES);
@@ -105,8 +104,7 @@ public class PointItemProvider extends SimpleGeometryItemProvider {
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Point")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Point")); //$NON-NLS-1$
 	}
 
 	/**
@@ -118,7 +116,8 @@ public class PointItemProvider extends SimpleGeometryItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((Point) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_Point_type") : //$NON-NLS-1$
+		return label == null || label.length() == 0 ? getString("_UI_Point_type") //$NON-NLS-1$
+				:
 				getString("_UI_Point_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
@@ -135,8 +134,7 @@ public class PointItemProvider extends SimpleGeometryItemProvider {
 
 		switch (notification.getFeatureID(Point.class)) {
 		case GeomPackage.POINT__COORDINATES:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -150,12 +148,10 @@ public class PointItemProvider extends SimpleGeometryItemProvider {
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				GeomPackage.Literals.POINT__COORDINATES,
+		newChildDescriptors.add(createChildParameter(GeomPackage.Literals.POINT__COORDINATES,
 				GeoffFactory.eINSTANCE.createXYZLocation()));
 	}
 

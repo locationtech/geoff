@@ -35,26 +35,25 @@ public interface LayerFactory extends EFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	LayerFactory eINSTANCE = org.locationtech.geoff.layer.impl.LayerFactoryImpl
-			.init();
+	LayerFactory eINSTANCE = org.locationtech.geoff.layer.impl.LayerFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Tile</em>'.
+	 * Returns a new object of class '<em>Tile Layer</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Tile</em>'.
+	 * @return a new object of class '<em>Tile Layer</em>'.
 	 * @generated
 	 */
-	Tile createTile();
+	TileLayer createTileLayer();
 
 	/**
-	 * Returns a new object of class '<em>Vector</em>'.
+	 * Returns a new object of class '<em>Vector Layer</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Vector</em>'.
+	 * @return a new object of class '<em>Vector Layer</em>'.
 	 * @generated
 	 */
-	Vector createVector();
+	VectorLayer createVectorLayer();
 
 	/**
 	 * Returns the package supported by this factory.

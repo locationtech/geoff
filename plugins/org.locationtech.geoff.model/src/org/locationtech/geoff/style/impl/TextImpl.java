@@ -31,6 +31,7 @@ import org.locationtech.geoff.style.Text;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.style.impl.TextImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.locationtech.geoff.style.impl.TextImpl#getFill <em>Fill</em>}</li>
@@ -44,7 +45,6 @@ import org.locationtech.geoff.style.Text;
  *   <li>{@link org.locationtech.geoff.style.impl.TextImpl#getTextAlign <em>Text Align</em>}</li>
  *   <li>{@link org.locationtech.geoff.style.impl.TextImpl#getTextBaseLine <em>Text Base Line</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -293,8 +293,7 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.TEXT__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.TEXT__ID, oldId, id));
 	}
 
 	/**
@@ -315,8 +314,8 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 		Fill oldFill = fill;
 		fill = newFill;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, StylePackage.TEXT__FILL, oldFill, newFill);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StylePackage.TEXT__FILL,
+					oldFill, newFill);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -334,19 +333,16 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 		if (newFill != fill) {
 			NotificationChain msgs = null;
 			if (fill != null)
-				msgs = ((InternalEObject) fill).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.TEXT__FILL, null,
-						msgs);
+				msgs = ((InternalEObject) fill).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StylePackage.TEXT__FILL,
+						null, msgs);
 			if (newFill != null)
-				msgs = ((InternalEObject) newFill).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.TEXT__FILL, null,
-						msgs);
+				msgs = ((InternalEObject) newFill).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StylePackage.TEXT__FILL,
+						null, msgs);
 			msgs = basicSetFill(newFill, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.TEXT__FILL, newFill, newFill));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.TEXT__FILL, newFill, newFill));
 	}
 
 	/**
@@ -367,8 +363,7 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 		String oldFont = font;
 		font = newFont;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.TEXT__FONT, oldFont, font));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.TEXT__FONT, oldFont, font));
 	}
 
 	/**
@@ -389,8 +384,7 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 		double oldOffsetX = offsetX;
 		offsetX = newOffsetX;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.TEXT__OFFSET_X, oldOffsetX, offsetX));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.TEXT__OFFSET_X, oldOffsetX, offsetX));
 	}
 
 	/**
@@ -411,8 +405,7 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 		double oldOffsetY = offsetY;
 		offsetY = newOffsetY;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.TEXT__OFFSET_Y, oldOffsetY, offsetY));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.TEXT__OFFSET_Y, oldOffsetY, offsetY));
 	}
 
 	/**
@@ -433,8 +426,7 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 		Double oldRotation = rotation;
 		rotation = newRotation;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.TEXT__ROTATION, oldRotation, rotation));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.TEXT__ROTATION, oldRotation, rotation));
 	}
 
 	/**
@@ -455,8 +447,7 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 		Double oldScale = scale;
 		scale = newScale;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.TEXT__SCALE, oldScale, scale));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.TEXT__SCALE, oldScale, scale));
 	}
 
 	/**
@@ -473,14 +464,12 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetStroke(Stroke newStroke,
-			NotificationChain msgs) {
+	public NotificationChain basicSetStroke(Stroke newStroke, NotificationChain msgs) {
 		Stroke oldStroke = stroke;
 		stroke = newStroke;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, StylePackage.TEXT__STROKE, oldStroke,
-					newStroke);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StylePackage.TEXT__STROKE,
+					oldStroke, newStroke);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -499,18 +488,15 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 			NotificationChain msgs = null;
 			if (stroke != null)
 				msgs = ((InternalEObject) stroke).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.TEXT__STROKE,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - StylePackage.TEXT__STROKE, null, msgs);
 			if (newStroke != null)
 				msgs = ((InternalEObject) newStroke).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.TEXT__STROKE,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - StylePackage.TEXT__STROKE, null, msgs);
 			msgs = basicSetStroke(newStroke, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.TEXT__STROKE, newStroke, newStroke));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.TEXT__STROKE, newStroke, newStroke));
 	}
 
 	/**
@@ -531,8 +517,7 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 		String oldText = text;
 		text = newText;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.TEXT__TEXT, oldText, text));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.TEXT__TEXT, oldText, text));
 	}
 
 	/**
@@ -553,8 +538,8 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 		String oldTextAlign = textAlign;
 		textAlign = newTextAlign;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.TEXT__TEXT_ALIGN, oldTextAlign, textAlign));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.TEXT__TEXT_ALIGN, oldTextAlign,
+					textAlign));
 	}
 
 	/**
@@ -575,8 +560,7 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 		String oldTextBaseLine = textBaseLine;
 		textBaseLine = newTextBaseLine;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.TEXT__TEXT_BASE_LINE, oldTextBaseLine,
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.TEXT__TEXT_BASE_LINE, oldTextBaseLine,
 					textBaseLine));
 	}
 
@@ -586,8 +570,7 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case StylePackage.TEXT__FILL:
 			return basicSetFill(null, msgs);
@@ -734,26 +717,21 @@ public class TextImpl extends MinimalEObjectImpl.Container implements Text {
 		case StylePackage.TEXT__FILL:
 			return fill != null;
 		case StylePackage.TEXT__FONT:
-			return FONT_EDEFAULT == null ? font != null : !FONT_EDEFAULT
-					.equals(font);
+			return FONT_EDEFAULT == null ? font != null : !FONT_EDEFAULT.equals(font);
 		case StylePackage.TEXT__OFFSET_X:
 			return offsetX != OFFSET_X_EDEFAULT;
 		case StylePackage.TEXT__OFFSET_Y:
 			return offsetY != OFFSET_Y_EDEFAULT;
 		case StylePackage.TEXT__ROTATION:
-			return ROTATION_EDEFAULT == null ? rotation != null
-					: !ROTATION_EDEFAULT.equals(rotation);
+			return ROTATION_EDEFAULT == null ? rotation != null : !ROTATION_EDEFAULT.equals(rotation);
 		case StylePackage.TEXT__SCALE:
-			return SCALE_EDEFAULT == null ? scale != null : !SCALE_EDEFAULT
-					.equals(scale);
+			return SCALE_EDEFAULT == null ? scale != null : !SCALE_EDEFAULT.equals(scale);
 		case StylePackage.TEXT__STROKE:
 			return stroke != null;
 		case StylePackage.TEXT__TEXT:
-			return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT
-					.equals(text);
+			return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
 		case StylePackage.TEXT__TEXT_ALIGN:
-			return TEXT_ALIGN_EDEFAULT == null ? textAlign != null
-					: !TEXT_ALIGN_EDEFAULT.equals(textAlign);
+			return TEXT_ALIGN_EDEFAULT == null ? textAlign != null : !TEXT_ALIGN_EDEFAULT.equals(textAlign);
 		case StylePackage.TEXT__TEXT_BASE_LINE:
 			return TEXT_BASE_LINE_EDEFAULT == null ? textBaseLine != null
 					: !TEXT_BASE_LINE_EDEFAULT.equals(textBaseLine);

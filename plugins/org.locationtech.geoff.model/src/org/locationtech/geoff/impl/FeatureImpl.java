@@ -13,10 +13,14 @@ package org.locationtech.geoff.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EcoreEMap;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.locationtech.geoff.Feature;
 import org.locationtech.geoff.GeoffPackage;
 import org.locationtech.geoff.geom.Geometry;
@@ -28,17 +32,17 @@ import org.locationtech.geoff.style.Style;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.impl.FeatureImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.FeatureImpl#getGeometry <em>Geometry</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.FeatureImpl#getStyle <em>Style</em>}</li>
+ *   <li>{@link org.locationtech.geoff.impl.FeatureImpl#getProperties <em>Properties</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class FeatureImpl extends MinimalEObjectImpl.Container implements
-		Feature {
+public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -87,6 +91,16 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 	protected Style style;
 
 	/**
+	 * The cached value of the '{@link #getProperties() <em>Properties</em>}' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProperties()
+	 * @generated
+	 * @ordered
+	 */
+	protected EMap<String, String> properties;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -123,8 +137,7 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.FEATURE__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.FEATURE__ID, oldId, id));
 	}
 
 	/**
@@ -141,14 +154,12 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetGeometry(Geometry newGeometry,
-			NotificationChain msgs) {
+	public NotificationChain basicSetGeometry(Geometry newGeometry, NotificationChain msgs) {
 		Geometry oldGeometry = geometry;
 		geometry = newGeometry;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, GeoffPackage.FEATURE__GEOMETRY,
-					oldGeometry, newGeometry);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					GeoffPackage.FEATURE__GEOMETRY, oldGeometry, newGeometry);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -166,19 +177,17 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 		if (newGeometry != geometry) {
 			NotificationChain msgs = null;
 			if (geometry != null)
-				msgs = ((InternalEObject) geometry)
-						.eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-								- GeoffPackage.FEATURE__GEOMETRY, null, msgs);
+				msgs = ((InternalEObject) geometry).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - GeoffPackage.FEATURE__GEOMETRY, null, msgs);
 			if (newGeometry != null)
-				msgs = ((InternalEObject) newGeometry)
-						.eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-								- GeoffPackage.FEATURE__GEOMETRY, null, msgs);
+				msgs = ((InternalEObject) newGeometry).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - GeoffPackage.FEATURE__GEOMETRY, null, msgs);
 			msgs = basicSetGeometry(newGeometry, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.FEATURE__GEOMETRY, newGeometry, newGeometry));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.FEATURE__GEOMETRY, newGeometry,
+					newGeometry));
 	}
 
 	/**
@@ -195,14 +204,12 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetStyle(Style newStyle,
-			NotificationChain msgs) {
+	public NotificationChain basicSetStyle(Style newStyle, NotificationChain msgs) {
 		Style oldStyle = style;
 		style = newStyle;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, GeoffPackage.FEATURE__STYLE, oldStyle,
-					newStyle);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GeoffPackage.FEATURE__STYLE,
+					oldStyle, newStyle);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -221,18 +228,28 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 			NotificationChain msgs = null;
 			if (style != null)
 				msgs = ((InternalEObject) style).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - GeoffPackage.FEATURE__STYLE,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - GeoffPackage.FEATURE__STYLE, null, msgs);
 			if (newStyle != null)
 				msgs = ((InternalEObject) newStyle).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - GeoffPackage.FEATURE__STYLE,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - GeoffPackage.FEATURE__STYLE, null, msgs);
 			msgs = basicSetStyle(newStyle, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.FEATURE__STYLE, newStyle, newStyle));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.FEATURE__STYLE, newStyle, newStyle));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EMap<String, String> getProperties() {
+		if (properties == null) {
+			properties = new EcoreEMap<String, String>(GeoffPackage.Literals.STRING_TO_STRING_MAP_ENTRY,
+					StringToStringMapEntryImpl.class, this, GeoffPackage.FEATURE__PROPERTIES);
+		}
+		return properties;
 	}
 
 	/**
@@ -241,13 +258,14 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GeoffPackage.FEATURE__GEOMETRY:
 			return basicSetGeometry(null, msgs);
 		case GeoffPackage.FEATURE__STYLE:
 			return basicSetStyle(null, msgs);
+		case GeoffPackage.FEATURE__PROPERTIES:
+			return ((InternalEList<?>) getProperties()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -266,6 +284,11 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 			return getGeometry();
 		case GeoffPackage.FEATURE__STYLE:
 			return getStyle();
+		case GeoffPackage.FEATURE__PROPERTIES:
+			if (coreType)
+				return getProperties();
+			else
+				return getProperties().map();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -288,6 +311,9 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 		case GeoffPackage.FEATURE__STYLE:
 			setStyle((Style) newValue);
 			return;
+		case GeoffPackage.FEATURE__PROPERTIES:
+			((EStructuralFeature.Setting) getProperties()).set(newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -309,6 +335,9 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 		case GeoffPackage.FEATURE__STYLE:
 			setStyle((Style) null);
 			return;
+		case GeoffPackage.FEATURE__PROPERTIES:
+			getProperties().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -327,6 +356,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements
 			return geometry != null;
 		case GeoffPackage.FEATURE__STYLE:
 			return style != null;
+		case GeoffPackage.FEATURE__PROPERTIES:
+			return properties != null && !properties.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -11,6 +11,7 @@
  */
 package org.locationtech.geoff.layer;
 
+import org.locationtech.geoff.Descriptive;
 import org.locationtech.geoff.Identifiable;
 import org.locationtech.geoff.source.Source;
 
@@ -21,16 +22,16 @@ import org.locationtech.geoff.source.Source;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.layer.Layer#getSource <em>Source</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.locationtech.geoff.layer.LayerPackage#getLayer()
  * @model abstract="true"
  * @generated
  */
-public interface Layer extends Identifiable {
+public interface Layer extends Identifiable, Descriptive {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

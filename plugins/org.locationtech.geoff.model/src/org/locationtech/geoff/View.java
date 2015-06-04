@@ -18,11 +18,11 @@ package org.locationtech.geoff;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.View#getCenter <em>Center</em>}</li>
  *   <li>{@link org.locationtech.geoff.View#getZoom <em>Zoom</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.locationtech.geoff.GeoffPackage#getView()
  * @model

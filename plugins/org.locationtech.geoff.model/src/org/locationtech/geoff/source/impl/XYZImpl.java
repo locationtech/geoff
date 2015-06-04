@@ -19,8 +19,6 @@ import org.locationtech.geoff.source.XYZ;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>XYZ</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

@@ -71,8 +71,7 @@ public interface GeoffPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	GeoffPackage eINSTANCE = org.locationtech.geoff.impl.GeoffPackageImpl
-			.init();
+	GeoffPackage eINSTANCE = org.locationtech.geoff.impl.GeoffPackageImpl.init();
 
 	/**
 	 * The meta object id for the '{@link org.locationtech.geoff.Identifiable <em>Identifiable</em>}' class.
@@ -112,6 +111,52 @@ public interface GeoffPackage extends EPackage {
 	int IDENTIFIABLE_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link org.locationtech.geoff.Descriptive <em>Descriptive</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.locationtech.geoff.Descriptive
+	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getDescriptive()
+	 * @generated
+	 */
+	int DESCRIPTIVE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Short Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESCRIPTIVE__SHORT_DESCRIPTION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Long Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESCRIPTIVE__LONG_DESCRIPTION = 1;
+
+	/**
+	 * The number of structural features of the '<em>Descriptive</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESCRIPTIVE_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Descriptive</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DESCRIPTIVE_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.locationtech.geoff.impl.GeoMapImpl <em>Geo Map</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -119,7 +164,7 @@ public interface GeoffPackage extends EPackage {
 	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getGeoMap()
 	 * @generated
 	 */
-	int GEO_MAP = 1;
+	int GEO_MAP = 2;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -131,13 +176,31 @@ public interface GeoffPackage extends EPackage {
 	int GEO_MAP__ID = IDENTIFIABLE__ID;
 
 	/**
+	 * The feature id for the '<em><b>Short Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEO_MAP__SHORT_DESCRIPTION = IDENTIFIABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Long Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEO_MAP__LONG_DESCRIPTION = IDENTIFIABLE_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Layers</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEO_MAP__LAYERS = IDENTIFIABLE_FEATURE_COUNT + 0;
+	int GEO_MAP__LAYERS = IDENTIFIABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>View</b></em>' containment reference.
@@ -146,25 +209,7 @@ public interface GeoffPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEO_MAP__VIEW = IDENTIFIABLE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEO_MAP__NAME = IDENTIFIABLE_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Description</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEO_MAP__DESCRIPTION = IDENTIFIABLE_FEATURE_COUNT + 3;
+	int GEO_MAP__VIEW = IDENTIFIABLE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Renderer Hint</b></em>' attribute.
@@ -201,7 +246,7 @@ public interface GeoffPackage extends EPackage {
 	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getView()
 	 * @generated
 	 */
-	int VIEW = 2;
+	int VIEW = 3;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -256,7 +301,7 @@ public interface GeoffPackage extends EPackage {
 	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getLocation()
 	 * @generated
 	 */
-	int LOCATION = 3;
+	int LOCATION = 4;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -302,7 +347,7 @@ public interface GeoffPackage extends EPackage {
 	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getXYZLocation()
 	 * @generated
 	 */
-	int XYZ_LOCATION = 4;
+	int XYZ_LOCATION = 5;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -375,7 +420,7 @@ public interface GeoffPackage extends EPackage {
 	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getFeature()
 	 * @generated
 	 */
-	int FEATURE = 5;
+	int FEATURE = 6;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -405,13 +450,22 @@ public interface GeoffPackage extends EPackage {
 	int FEATURE__STYLE = IDENTIFIABLE_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Properties</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__PROPERTIES = IDENTIFIABLE_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Feature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 2;
+	int FEATURE_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Feature</em>' class.
@@ -430,7 +484,7 @@ public interface GeoffPackage extends EPackage {
 	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getColor()
 	 * @generated
 	 */
-	int COLOR = 6;
+	int COLOR = 7;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -503,7 +557,7 @@ public interface GeoffPackage extends EPackage {
 	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getStyleEntry()
 	 * @generated
 	 */
-	int STYLE_ENTRY = 7;
+	int STYLE_ENTRY = 8;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -542,6 +596,52 @@ public interface GeoffPackage extends EPackage {
 	int STYLE_ENTRY_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link org.locationtech.geoff.impl.StringToStringMapEntryImpl <em>String To String Map Entry</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.locationtech.geoff.impl.StringToStringMapEntryImpl
+	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getStringToStringMapEntry()
+	 * @generated
+	 */
+	int STRING_TO_STRING_MAP_ENTRY = 9;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_TO_STRING_MAP_ENTRY__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_TO_STRING_MAP_ENTRY__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>String To String Map Entry</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_TO_STRING_MAP_ENTRY_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>String To String Map Entry</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_TO_STRING_MAP_ENTRY_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link org.locationtech.geoff.RendererHint <em>Renderer Hint</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -549,7 +649,7 @@ public interface GeoffPackage extends EPackage {
 	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getRendererHint()
 	 * @generated
 	 */
-	int RENDERER_HINT = 8;
+	int RENDERER_HINT = 10;
 
 	/**
 	 * Returns the meta object for class '{@link org.locationtech.geoff.Identifiable <em>Identifiable</em>}'.
@@ -571,6 +671,38 @@ public interface GeoffPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getIdentifiable_Id();
+
+	/**
+	 * Returns the meta object for class '{@link org.locationtech.geoff.Descriptive <em>Descriptive</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Descriptive</em>'.
+	 * @see org.locationtech.geoff.Descriptive
+	 * @generated
+	 */
+	EClass getDescriptive();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.Descriptive#getShortDescription <em>Short Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Short Description</em>'.
+	 * @see org.locationtech.geoff.Descriptive#getShortDescription()
+	 * @see #getDescriptive()
+	 * @generated
+	 */
+	EAttribute getDescriptive_ShortDescription();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.Descriptive#getLongDescription <em>Long Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Long Description</em>'.
+	 * @see org.locationtech.geoff.Descriptive#getLongDescription()
+	 * @see #getDescriptive()
+	 * @generated
+	 */
+	EAttribute getDescriptive_LongDescription();
 
 	/**
 	 * Returns the meta object for class '{@link org.locationtech.geoff.GeoMap <em>Geo Map</em>}'.
@@ -603,28 +735,6 @@ public interface GeoffPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGeoMap_View();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.GeoMap#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.locationtech.geoff.GeoMap#getName()
-	 * @see #getGeoMap()
-	 * @generated
-	 */
-	EAttribute getGeoMap_Name();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.GeoMap#getDescription <em>Description</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Description</em>'.
-	 * @see org.locationtech.geoff.GeoMap#getDescription()
-	 * @see #getGeoMap()
-	 * @generated
-	 */
-	EAttribute getGeoMap_Description();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.GeoMap#getRendererHint <em>Renderer Hint</em>}'.
@@ -766,6 +876,17 @@ public interface GeoffPackage extends EPackage {
 	EReference getFeature_Style();
 
 	/**
+	 * Returns the meta object for the map '{@link org.locationtech.geoff.Feature#getProperties <em>Properties</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the map '<em>Properties</em>'.
+	 * @see org.locationtech.geoff.Feature#getProperties()
+	 * @see #getFeature()
+	 * @generated
+	 */
+	EReference getFeature_Properties();
+
+	/**
 	 * Returns the meta object for class '{@link org.locationtech.geoff.Color <em>Color</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -854,6 +975,40 @@ public interface GeoffPackage extends EPackage {
 	EReference getStyleEntry_Value();
 
 	/**
+	 * Returns the meta object for class '{@link java.util.Map.Entry <em>String To String Map Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>String To String Map Entry</em>'.
+	 * @see java.util.Map.Entry
+	 * @model keyDataType="org.eclipse.emf.ecore.EString"
+	 *        valueDataType="org.eclipse.emf.ecore.EString"
+	 * @generated
+	 */
+	EClass getStringToStringMapEntry();
+
+	/**
+	 * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getStringToStringMapEntry()
+	 * @generated
+	 */
+	EAttribute getStringToStringMapEntry_Key();
+
+	/**
+	 * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see java.util.Map.Entry
+	 * @see #getStringToStringMapEntry()
+	 * @generated
+	 */
+	EAttribute getStringToStringMapEntry_Value();
+
+	/**
 	 * Returns the meta object for enum '{@link org.locationtech.geoff.RendererHint <em>Renderer Hint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -905,6 +1060,32 @@ public interface GeoffPackage extends EPackage {
 		EAttribute IDENTIFIABLE__ID = eINSTANCE.getIdentifiable_Id();
 
 		/**
+		 * The meta object literal for the '{@link org.locationtech.geoff.Descriptive <em>Descriptive</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.locationtech.geoff.Descriptive
+		 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getDescriptive()
+		 * @generated
+		 */
+		EClass DESCRIPTIVE = eINSTANCE.getDescriptive();
+
+		/**
+		 * The meta object literal for the '<em><b>Short Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DESCRIPTIVE__SHORT_DESCRIPTION = eINSTANCE.getDescriptive_ShortDescription();
+
+		/**
+		 * The meta object literal for the '<em><b>Long Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DESCRIPTIVE__LONG_DESCRIPTION = eINSTANCE.getDescriptive_LongDescription();
+
+		/**
 		 * The meta object literal for the '{@link org.locationtech.geoff.impl.GeoMapImpl <em>Geo Map</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -929,22 +1110,6 @@ public interface GeoffPackage extends EPackage {
 		 * @generated
 		 */
 		EReference GEO_MAP__VIEW = eINSTANCE.getGeoMap_View();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute GEO_MAP__NAME = eINSTANCE.getGeoMap_Name();
-
-		/**
-		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute GEO_MAP__DESCRIPTION = eINSTANCE.getGeoMap_Description();
 
 		/**
 		 * The meta object literal for the '<em><b>Renderer Hint</b></em>' attribute feature.
@@ -996,8 +1161,7 @@ public interface GeoffPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute LOCATION__PROJECTION_CODE = eINSTANCE
-				.getLocation_ProjectionCode();
+		EAttribute LOCATION__PROJECTION_CODE = eINSTANCE.getLocation_ProjectionCode();
 
 		/**
 		 * The meta object literal for the '{@link org.locationtech.geoff.impl.XYZLocationImpl <em>XYZ Location</em>}' class.
@@ -1058,6 +1222,14 @@ public interface GeoffPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FEATURE__STYLE = eINSTANCE.getFeature_Style();
+
+		/**
+		 * The meta object literal for the '<em><b>Properties</b></em>' map feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FEATURE__PROPERTIES = eINSTANCE.getFeature_Properties();
 
 		/**
 		 * The meta object literal for the '{@link org.locationtech.geoff.impl.ColorImpl <em>Color</em>}' class.
@@ -1126,6 +1298,32 @@ public interface GeoffPackage extends EPackage {
 		 * @generated
 		 */
 		EReference STYLE_ENTRY__VALUE = eINSTANCE.getStyleEntry_Value();
+
+		/**
+		 * The meta object literal for the '{@link org.locationtech.geoff.impl.StringToStringMapEntryImpl <em>String To String Map Entry</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.locationtech.geoff.impl.StringToStringMapEntryImpl
+		 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getStringToStringMapEntry()
+		 * @generated
+		 */
+		EClass STRING_TO_STRING_MAP_ENTRY = eINSTANCE.getStringToStringMapEntry();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STRING_TO_STRING_MAP_ENTRY__KEY = eINSTANCE.getStringToStringMapEntry_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STRING_TO_STRING_MAP_ENTRY__VALUE = eINSTANCE.getStringToStringMapEntry_Value();
 
 		/**
 		 * The meta object literal for the '{@link org.locationtech.geoff.RendererHint <em>Renderer Hint</em>}' enum.

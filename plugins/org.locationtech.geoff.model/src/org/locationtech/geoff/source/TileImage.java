@@ -21,7 +21,7 @@ package org.locationtech.geoff.source;
  * @model abstract="true"
  * @generated
  */
-public interface TileImage extends Tile {
+public interface TileImage extends TileSource {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

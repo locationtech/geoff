@@ -23,11 +23,11 @@ import org.locationtech.geoff.source.SourcePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.source.impl.BingMapsImpl#getKey <em>Key</em>}</li>
  *   <li>{@link org.locationtech.geoff.source.impl.BingMapsImpl#getImagerySet <em>Imagery Set</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -116,8 +116,7 @@ public class BingMapsImpl extends XYZImpl implements BingMaps {
 		String oldKey = key;
 		key = newKey;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					SourcePackage.BING_MAPS__KEY, oldKey, key));
+			eNotify(new ENotificationImpl(this, Notification.SET, SourcePackage.BING_MAPS__KEY, oldKey, key));
 	}
 
 	/**
@@ -138,8 +137,7 @@ public class BingMapsImpl extends XYZImpl implements BingMaps {
 		String oldImagerySet = imagerySet;
 		imagerySet = newImagerySet;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					SourcePackage.BING_MAPS__IMAGERY_SET, oldImagerySet,
+			eNotify(new ENotificationImpl(this, Notification.SET, SourcePackage.BING_MAPS__IMAGERY_SET, oldImagerySet,
 					imagerySet));
 	}
 
@@ -204,11 +202,9 @@ public class BingMapsImpl extends XYZImpl implements BingMaps {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case SourcePackage.BING_MAPS__KEY:
-			return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT
-					.equals(key);
+			return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT.equals(key);
 		case SourcePackage.BING_MAPS__IMAGERY_SET:
-			return IMAGERY_SET_EDEFAULT == null ? imagerySet != null
-					: !IMAGERY_SET_EDEFAULT.equals(imagerySet);
+			return IMAGERY_SET_EDEFAULT == null ? imagerySet != null : !IMAGERY_SET_EDEFAULT.equals(imagerySet);
 		}
 		return super.eIsSet(featureID);
 	}

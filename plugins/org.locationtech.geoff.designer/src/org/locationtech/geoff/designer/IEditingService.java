@@ -1,7 +1,9 @@
 package org.locationtech.geoff.designer;
 
+import java.net.URL;
 import java.util.Collection;
 
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
@@ -21,4 +23,6 @@ public interface IEditingService {
 	<T extends Identifiable> T createInstance(EClass ec);
 
 	void addLayer(Layer layer);
+
+	Command createAddResourceCommand(IFolder targetFolder, String targetResourceName, URL srcUrl, boolean overwrite);
 }

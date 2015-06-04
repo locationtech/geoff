@@ -18,12 +18,12 @@ package org.locationtech.geoff.style;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.style.Circle#getRadius <em>Radius</em>}</li>
  *   <li>{@link org.locationtech.geoff.style.Circle#getFill <em>Fill</em>}</li>
  *   <li>{@link org.locationtech.geoff.style.Circle#getStroke <em>Stroke</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.locationtech.geoff.style.StylePackage#getCircle()
  * @model

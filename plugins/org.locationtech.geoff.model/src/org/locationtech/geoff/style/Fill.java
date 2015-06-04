@@ -21,10 +21,10 @@ import org.locationtech.geoff.Identifiable;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.style.Fill#getColor <em>Color</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.locationtech.geoff.style.StylePackage#getFill()
  * @model

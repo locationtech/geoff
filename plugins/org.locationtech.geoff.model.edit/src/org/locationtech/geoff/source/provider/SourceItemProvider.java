@@ -43,9 +43,8 @@ import org.locationtech.geoff.source.SourcePackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SourceItemProvider extends ItemProviderAdapter implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class SourceItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -75,6 +74,8 @@ public class SourceItemProvider extends ItemProviderAdapter implements
 			super.getPropertyDescriptors(object);
 
 			addIdPropertyDescriptor(object);
+			addShortDescriptionPropertyDescriptor(object);
+			addLongDescriptionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -87,16 +88,44 @@ public class SourceItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addIdPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Identifiable_id_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Identifiable_id_feature", "_UI_Identifiable_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						GeoffPackage.Literals.IDENTIFIABLE__ID, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Identifiable_id_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Identifiable_id_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Identifiable_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.IDENTIFIABLE__ID, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Short Description feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addShortDescriptionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Descriptive_shortDescription_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Descriptive_shortDescription_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Descriptive_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.DESCRIPTIVE__SHORT_DESCRIPTION, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Long Description feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLongDescriptionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Descriptive_longDescription_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Descriptive_longDescription_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Descriptive_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.DESCRIPTIVE__LONG_DESCRIPTION, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -107,8 +136,7 @@ public class SourceItemProvider extends ItemProviderAdapter implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Source")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Source")); //$NON-NLS-1$
 	}
 
 	/**
@@ -120,7 +148,8 @@ public class SourceItemProvider extends ItemProviderAdapter implements
 	@Override
 	public String getText(Object object) {
 		String label = ((Source) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_Source_type") : //$NON-NLS-1$
+		return label == null || label.length() == 0 ? getString("_UI_Source_type") //$NON-NLS-1$
+				:
 				getString("_UI_Source_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
@@ -137,8 +166,9 @@ public class SourceItemProvider extends ItemProviderAdapter implements
 
 		switch (notification.getFeatureID(Source.class)) {
 		case SourcePackage.SOURCE__ID:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+		case SourcePackage.SOURCE__SHORT_DESCRIPTION:
+		case SourcePackage.SOURCE__LONG_DESCRIPTION:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -152,8 +182,7 @@ public class SourceItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

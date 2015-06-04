@@ -72,8 +72,7 @@ public interface StylePackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	StylePackage eINSTANCE = org.locationtech.geoff.style.impl.StylePackageImpl
-			.init();
+	StylePackage eINSTANCE = org.locationtech.geoff.style.impl.StylePackageImpl.init();
 
 	/**
 	 * The meta object id for the '{@link org.locationtech.geoff.style.impl.StyleImpl <em>Style</em>}' class.

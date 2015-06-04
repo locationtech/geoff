@@ -27,12 +27,12 @@ import org.locationtech.geoff.View;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.impl.ViewImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.ViewImpl#getCenter <em>Center</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.ViewImpl#getZoom <em>Zoom</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -131,8 +131,7 @@ public class ViewImpl extends MinimalEObjectImpl.Container implements View {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.VIEW__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.VIEW__ID, oldId, id));
 	}
 
 	/**
@@ -149,14 +148,12 @@ public class ViewImpl extends MinimalEObjectImpl.Container implements View {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCenter(Location newCenter,
-			NotificationChain msgs) {
+	public NotificationChain basicSetCenter(Location newCenter, NotificationChain msgs) {
 		Location oldCenter = center;
 		center = newCenter;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, GeoffPackage.VIEW__CENTER, oldCenter,
-					newCenter);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GeoffPackage.VIEW__CENTER,
+					oldCenter, newCenter);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -175,18 +172,15 @@ public class ViewImpl extends MinimalEObjectImpl.Container implements View {
 			NotificationChain msgs = null;
 			if (center != null)
 				msgs = ((InternalEObject) center).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - GeoffPackage.VIEW__CENTER,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - GeoffPackage.VIEW__CENTER, null, msgs);
 			if (newCenter != null)
 				msgs = ((InternalEObject) newCenter).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - GeoffPackage.VIEW__CENTER,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - GeoffPackage.VIEW__CENTER, null, msgs);
 			msgs = basicSetCenter(newCenter, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.VIEW__CENTER, newCenter, newCenter));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.VIEW__CENTER, newCenter, newCenter));
 	}
 
 	/**
@@ -207,8 +201,7 @@ public class ViewImpl extends MinimalEObjectImpl.Container implements View {
 		int oldZoom = zoom;
 		zoom = newZoom;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.VIEW__ZOOM, oldZoom, zoom));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.VIEW__ZOOM, oldZoom, zoom));
 	}
 
 	/**
@@ -217,8 +210,7 @@ public class ViewImpl extends MinimalEObjectImpl.Container implements View {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GeoffPackage.VIEW__CENTER:
 			return basicSetCenter(null, msgs);

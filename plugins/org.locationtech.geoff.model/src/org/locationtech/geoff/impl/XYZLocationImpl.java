@@ -23,12 +23,12 @@ import org.locationtech.geoff.XYZLocation;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.impl.XYZLocationImpl#getX <em>X</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.XYZLocationImpl#getY <em>Y</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.XYZLocationImpl#getZ <em>Z</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -137,8 +137,7 @@ public class XYZLocationImpl extends LocationImpl implements XYZLocation {
 		double oldX = x;
 		x = newX;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.XYZ_LOCATION__X, oldX, x));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.XYZ_LOCATION__X, oldX, x));
 	}
 
 	/**
@@ -159,8 +158,7 @@ public class XYZLocationImpl extends LocationImpl implements XYZLocation {
 		double oldY = y;
 		y = newY;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.XYZ_LOCATION__Y, oldY, y));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.XYZ_LOCATION__Y, oldY, y));
 	}
 
 	/**
@@ -181,8 +179,7 @@ public class XYZLocationImpl extends LocationImpl implements XYZLocation {
 		double oldZ = z;
 		z = newZ;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.XYZ_LOCATION__Z, oldZ, z));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.XYZ_LOCATION__Z, oldZ, z));
 	}
 
 	/**

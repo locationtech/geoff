@@ -68,8 +68,7 @@ public class XYZItemProvider extends TileImageItemProvider {
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/XYZ")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/XYZ")); //$NON-NLS-1$
 	}
 
 	/**
@@ -81,7 +80,8 @@ public class XYZItemProvider extends TileImageItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((XYZ) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_XYZ_type") : //$NON-NLS-1$
+		return label == null || label.length() == 0 ? getString("_UI_XYZ_type") //$NON-NLS-1$
+				:
 				getString("_UI_XYZ_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
@@ -106,12 +106,7 @@ public class XYZItemProvider extends TileImageItemProvider {
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
-
-	public EClass getCompatibleLayer() {
-		return LayerPackage.Literals.TILE;
 	}
 }

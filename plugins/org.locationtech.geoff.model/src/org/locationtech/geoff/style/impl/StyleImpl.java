@@ -33,6 +33,7 @@ import org.locationtech.geoff.style.Text;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.style.impl.StyleImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.locationtech.geoff.style.impl.StyleImpl#getImage <em>Image</em>}</li>
@@ -41,7 +42,6 @@ import org.locationtech.geoff.style.Text;
  *   <li>{@link org.locationtech.geoff.style.impl.StyleImpl#getText <em>Text</em>}</li>
  *   <li>{@link org.locationtech.geoff.style.impl.StyleImpl#getZindex <em>Zindex</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -170,8 +170,7 @@ public class StyleImpl extends MinimalEObjectImpl.Container implements Style {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.STYLE__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.STYLE__ID, oldId, id));
 	}
 
 	/**
@@ -188,14 +187,12 @@ public class StyleImpl extends MinimalEObjectImpl.Container implements Style {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetImage(Image newImage,
-			NotificationChain msgs) {
+	public NotificationChain basicSetImage(Image newImage, NotificationChain msgs) {
 		Image oldImage = image;
 		image = newImage;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, StylePackage.STYLE__IMAGE, oldImage,
-					newImage);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StylePackage.STYLE__IMAGE,
+					oldImage, newImage);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -214,18 +211,15 @@ public class StyleImpl extends MinimalEObjectImpl.Container implements Style {
 			NotificationChain msgs = null;
 			if (image != null)
 				msgs = ((InternalEObject) image).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__IMAGE,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__IMAGE, null, msgs);
 			if (newImage != null)
 				msgs = ((InternalEObject) newImage).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__IMAGE,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__IMAGE, null, msgs);
 			msgs = basicSetImage(newImage, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.STYLE__IMAGE, newImage, newImage));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.STYLE__IMAGE, newImage, newImage));
 	}
 
 	/**
@@ -246,9 +240,8 @@ public class StyleImpl extends MinimalEObjectImpl.Container implements Style {
 		Fill oldFill = fill;
 		fill = newFill;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, StylePackage.STYLE__FILL, oldFill,
-					newFill);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StylePackage.STYLE__FILL,
+					oldFill, newFill);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -266,19 +259,16 @@ public class StyleImpl extends MinimalEObjectImpl.Container implements Style {
 		if (newFill != fill) {
 			NotificationChain msgs = null;
 			if (fill != null)
-				msgs = ((InternalEObject) fill).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__FILL,
+				msgs = ((InternalEObject) fill).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__FILL,
 						null, msgs);
 			if (newFill != null)
-				msgs = ((InternalEObject) newFill).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__FILL,
+				msgs = ((InternalEObject) newFill).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__FILL,
 						null, msgs);
 			msgs = basicSetFill(newFill, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.STYLE__FILL, newFill, newFill));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.STYLE__FILL, newFill, newFill));
 	}
 
 	/**
@@ -295,14 +285,12 @@ public class StyleImpl extends MinimalEObjectImpl.Container implements Style {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetStroke(Stroke newStroke,
-			NotificationChain msgs) {
+	public NotificationChain basicSetStroke(Stroke newStroke, NotificationChain msgs) {
 		Stroke oldStroke = stroke;
 		stroke = newStroke;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, StylePackage.STYLE__STROKE, oldStroke,
-					newStroke);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StylePackage.STYLE__STROKE,
+					oldStroke, newStroke);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -321,18 +309,15 @@ public class StyleImpl extends MinimalEObjectImpl.Container implements Style {
 			NotificationChain msgs = null;
 			if (stroke != null)
 				msgs = ((InternalEObject) stroke).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__STROKE,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__STROKE, null, msgs);
 			if (newStroke != null)
 				msgs = ((InternalEObject) newStroke).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__STROKE,
-						null, msgs);
+						EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__STROKE, null, msgs);
 			msgs = basicSetStroke(newStroke, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.STYLE__STROKE, newStroke, newStroke));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.STYLE__STROKE, newStroke, newStroke));
 	}
 
 	/**
@@ -353,9 +338,8 @@ public class StyleImpl extends MinimalEObjectImpl.Container implements Style {
 		Text oldText = text;
 		text = newText;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, StylePackage.STYLE__TEXT, oldText,
-					newText);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, StylePackage.STYLE__TEXT,
+					oldText, newText);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -373,19 +357,16 @@ public class StyleImpl extends MinimalEObjectImpl.Container implements Style {
 		if (newText != text) {
 			NotificationChain msgs = null;
 			if (text != null)
-				msgs = ((InternalEObject) text).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__TEXT,
+				msgs = ((InternalEObject) text).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__TEXT,
 						null, msgs);
 			if (newText != null)
-				msgs = ((InternalEObject) newText).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__TEXT,
+				msgs = ((InternalEObject) newText).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - StylePackage.STYLE__TEXT,
 						null, msgs);
 			msgs = basicSetText(newText, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.STYLE__TEXT, newText, newText));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.STYLE__TEXT, newText, newText));
 	}
 
 	/**
@@ -406,8 +387,7 @@ public class StyleImpl extends MinimalEObjectImpl.Container implements Style {
 		Double oldZindex = zindex;
 		zindex = newZindex;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.STYLE__ZINDEX, oldZindex, zindex));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.STYLE__ZINDEX, oldZindex, zindex));
 	}
 
 	/**
@@ -416,8 +396,7 @@ public class StyleImpl extends MinimalEObjectImpl.Container implements Style {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case StylePackage.STYLE__IMAGE:
 			return basicSetImage(null, msgs);
@@ -534,8 +513,7 @@ public class StyleImpl extends MinimalEObjectImpl.Container implements Style {
 		case StylePackage.STYLE__TEXT:
 			return text != null;
 		case StylePackage.STYLE__ZINDEX:
-			return ZINDEX_EDEFAULT == null ? zindex != null : !ZINDEX_EDEFAULT
-					.equals(zindex);
+			return ZINDEX_EDEFAULT == null ? zindex != null : !ZINDEX_EDEFAULT.equals(zindex);
 		}
 		return super.eIsSet(featureID);
 	}

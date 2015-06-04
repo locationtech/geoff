@@ -33,6 +33,7 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.locationtech.geoff.Feature;
+import org.locationtech.geoff.GeoffFactory;
 import org.locationtech.geoff.GeoffPackage;
 
 import org.locationtech.geoff.geom.GeomFactory;
@@ -45,9 +46,8 @@ import org.locationtech.geoff.style.StyleFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeatureItemProvider extends ItemProviderAdapter implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class FeatureItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -89,16 +89,12 @@ public class FeatureItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addIdPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Identifiable_id_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Identifiable_id_feature", "_UI_Identifiable_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						GeoffPackage.Literals.IDENTIFIABLE__ID, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Identifiable_id_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Identifiable_id_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Identifiable_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.IDENTIFIABLE__ID, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -110,12 +106,12 @@ public class FeatureItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(
-			Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GeoffPackage.Literals.FEATURE__GEOMETRY);
 			childrenFeatures.add(GeoffPackage.Literals.FEATURE__STYLE);
+			childrenFeatures.add(GeoffPackage.Literals.FEATURE__PROPERTIES);
 		}
 		return childrenFeatures;
 	}
@@ -141,8 +137,7 @@ public class FeatureItemProvider extends ItemProviderAdapter implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Feature")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Feature")); //$NON-NLS-1$
 	}
 
 	/**
@@ -154,7 +149,8 @@ public class FeatureItemProvider extends ItemProviderAdapter implements
 	@Override
 	public String getText(Object object) {
 		String label = ((Feature) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_Feature_type") : //$NON-NLS-1$
+		return label == null || label.length() == 0 ? getString("_UI_Feature_type") //$NON-NLS-1$
+				:
 				getString("_UI_Feature_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
@@ -171,13 +167,12 @@ public class FeatureItemProvider extends ItemProviderAdapter implements
 
 		switch (notification.getFeatureID(Feature.class)) {
 		case GeoffPackage.FEATURE__ID:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case GeoffPackage.FEATURE__GEOMETRY:
 		case GeoffPackage.FEATURE__STYLE:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), true, false));
+		case GeoffPackage.FEATURE__PROPERTIES:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -191,21 +186,20 @@ public class FeatureItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				GeoffPackage.Literals.FEATURE__GEOMETRY,
+		newChildDescriptors.add(createChildParameter(GeoffPackage.Literals.FEATURE__GEOMETRY,
 				GeomFactory.eINSTANCE.createSimpleGeometry()));
 
-		newChildDescriptors.add(createChildParameter(
-				GeoffPackage.Literals.FEATURE__GEOMETRY,
-				GeomFactory.eINSTANCE.createPoint()));
+		newChildDescriptors.add(
+				createChildParameter(GeoffPackage.Literals.FEATURE__GEOMETRY, GeomFactory.eINSTANCE.createPoint()));
 
-		newChildDescriptors.add(createChildParameter(
-				GeoffPackage.Literals.FEATURE__STYLE,
-				StyleFactory.eINSTANCE.createStyle()));
+		newChildDescriptors
+				.add(createChildParameter(GeoffPackage.Literals.FEATURE__STYLE, StyleFactory.eINSTANCE.createStyle()));
+
+		newChildDescriptors.add(createChildParameter(GeoffPackage.Literals.FEATURE__PROPERTIES,
+				GeoffFactory.eINSTANCE.create(GeoffPackage.Literals.STRING_TO_STRING_MAP_ENTRY)));
 	}
 
 	/**

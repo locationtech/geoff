@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<geoff:GeoMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:geoff="http://www.locationtech.org/geoff-v1"
+	xmlns:geoff.layer="http://www.locationtech.org/geoff-layer-v1"
+	xmlns:geoff.source="http://www.locationtech.org/geoff-source-v1"
+	xmlns:geoff.style="http://www.locationtech.org/geoff-style-v1">
+	<view zoom="10">
+		<center xsi:type="geoff:XYZLocation" x="8.2128" y="53.1403"
+			projectionCode="EPSG:4326" />
+	</view>
+	<layer xsi:type="geoff.layer:Tile">
+		<source xsi:type="geoff.source:OSM" />
+	</layer>
+</geoff:GeoMap>

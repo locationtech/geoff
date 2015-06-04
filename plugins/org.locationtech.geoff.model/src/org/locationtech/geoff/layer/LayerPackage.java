@@ -70,8 +70,7 @@ public interface LayerPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	LayerPackage eINSTANCE = org.locationtech.geoff.layer.impl.LayerPackageImpl
-			.init();
+	LayerPackage eINSTANCE = org.locationtech.geoff.layer.impl.LayerPackageImpl.init();
 
 	/**
 	 * The meta object id for the '{@link org.locationtech.geoff.layer.impl.LayerImpl <em>Layer</em>}' class.
@@ -93,13 +92,31 @@ public interface LayerPackage extends EPackage {
 	int LAYER__ID = GeoffPackage.IDENTIFIABLE__ID;
 
 	/**
+	 * The feature id for the '<em><b>Short Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LAYER__SHORT_DESCRIPTION = GeoffPackage.IDENTIFIABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Long Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LAYER__LONG_DESCRIPTION = GeoffPackage.IDENTIFIABLE_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Source</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LAYER__SOURCE = GeoffPackage.IDENTIFIABLE_FEATURE_COUNT + 0;
+	int LAYER__SOURCE = GeoffPackage.IDENTIFIABLE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Layer</em>' class.
@@ -108,7 +125,7 @@ public interface LayerPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LAYER_FEATURE_COUNT = GeoffPackage.IDENTIFIABLE_FEATURE_COUNT + 1;
+	int LAYER_FEATURE_COUNT = GeoffPackage.IDENTIFIABLE_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Layer</em>' class.
@@ -120,14 +137,14 @@ public interface LayerPackage extends EPackage {
 	int LAYER_OPERATION_COUNT = GeoffPackage.IDENTIFIABLE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.locationtech.geoff.layer.impl.TileImpl <em>Tile</em>}' class.
+	 * The meta object id for the '{@link org.locationtech.geoff.layer.impl.TileLayerImpl <em>Tile Layer</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.locationtech.geoff.layer.impl.TileImpl
-	 * @see org.locationtech.geoff.layer.impl.LayerPackageImpl#getTile()
+	 * @see org.locationtech.geoff.layer.impl.TileLayerImpl
+	 * @see org.locationtech.geoff.layer.impl.LayerPackageImpl#getTileLayer()
 	 * @generated
 	 */
-	int TILE = 1;
+	int TILE_LAYER = 1;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -136,7 +153,25 @@ public interface LayerPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TILE__ID = LAYER__ID;
+	int TILE_LAYER__ID = LAYER__ID;
+
+	/**
+	 * The feature id for the '<em><b>Short Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TILE_LAYER__SHORT_DESCRIPTION = LAYER__SHORT_DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Long Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TILE_LAYER__LONG_DESCRIPTION = LAYER__LONG_DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' containment reference.
@@ -145,35 +180,35 @@ public interface LayerPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TILE__SOURCE = LAYER__SOURCE;
+	int TILE_LAYER__SOURCE = LAYER__SOURCE;
 
 	/**
-	 * The number of structural features of the '<em>Tile</em>' class.
+	 * The number of structural features of the '<em>Tile Layer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TILE_FEATURE_COUNT = LAYER_FEATURE_COUNT + 0;
+	int TILE_LAYER_FEATURE_COUNT = LAYER_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of operations of the '<em>Tile</em>' class.
+	 * The number of operations of the '<em>Tile Layer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TILE_OPERATION_COUNT = LAYER_OPERATION_COUNT + 0;
+	int TILE_LAYER_OPERATION_COUNT = LAYER_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.locationtech.geoff.layer.impl.VectorImpl <em>Vector</em>}' class.
+	 * The meta object id for the '{@link org.locationtech.geoff.layer.impl.VectorLayerImpl <em>Vector Layer</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.locationtech.geoff.layer.impl.VectorImpl
-	 * @see org.locationtech.geoff.layer.impl.LayerPackageImpl#getVector()
+	 * @see org.locationtech.geoff.layer.impl.VectorLayerImpl
+	 * @see org.locationtech.geoff.layer.impl.LayerPackageImpl#getVectorLayer()
 	 * @generated
 	 */
-	int VECTOR = 2;
+	int VECTOR_LAYER = 2;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -182,7 +217,25 @@ public interface LayerPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VECTOR__ID = LAYER__ID;
+	int VECTOR_LAYER__ID = LAYER__ID;
+
+	/**
+	 * The feature id for the '<em><b>Short Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VECTOR_LAYER__SHORT_DESCRIPTION = LAYER__SHORT_DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Long Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VECTOR_LAYER__LONG_DESCRIPTION = LAYER__LONG_DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' containment reference.
@@ -191,7 +244,7 @@ public interface LayerPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VECTOR__SOURCE = LAYER__SOURCE;
+	int VECTOR_LAYER__SOURCE = LAYER__SOURCE;
 
 	/**
 	 * The feature id for the '<em><b>Styles</b></em>' map.
@@ -200,25 +253,25 @@ public interface LayerPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VECTOR__STYLES = LAYER_FEATURE_COUNT + 0;
+	int VECTOR_LAYER__STYLES = LAYER_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Vector</em>' class.
+	 * The number of structural features of the '<em>Vector Layer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VECTOR_FEATURE_COUNT = LAYER_FEATURE_COUNT + 1;
+	int VECTOR_LAYER_FEATURE_COUNT = LAYER_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of operations of the '<em>Vector</em>' class.
+	 * The number of operations of the '<em>Vector Layer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VECTOR_OPERATION_COUNT = LAYER_OPERATION_COUNT + 0;
+	int VECTOR_LAYER_OPERATION_COUNT = LAYER_OPERATION_COUNT + 0;
 
 	/**
 	 * Returns the meta object for class '{@link org.locationtech.geoff.layer.Layer <em>Layer</em>}'.
@@ -242,35 +295,35 @@ public interface LayerPackage extends EPackage {
 	EReference getLayer_Source();
 
 	/**
-	 * Returns the meta object for class '{@link org.locationtech.geoff.layer.Tile <em>Tile</em>}'.
+	 * Returns the meta object for class '{@link org.locationtech.geoff.layer.TileLayer <em>Tile Layer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Tile</em>'.
-	 * @see org.locationtech.geoff.layer.Tile
+	 * @return the meta object for class '<em>Tile Layer</em>'.
+	 * @see org.locationtech.geoff.layer.TileLayer
 	 * @generated
 	 */
-	EClass getTile();
+	EClass getTileLayer();
 
 	/**
-	 * Returns the meta object for class '{@link org.locationtech.geoff.layer.Vector <em>Vector</em>}'.
+	 * Returns the meta object for class '{@link org.locationtech.geoff.layer.VectorLayer <em>Vector Layer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Vector</em>'.
-	 * @see org.locationtech.geoff.layer.Vector
+	 * @return the meta object for class '<em>Vector Layer</em>'.
+	 * @see org.locationtech.geoff.layer.VectorLayer
 	 * @generated
 	 */
-	EClass getVector();
+	EClass getVectorLayer();
 
 	/**
-	 * Returns the meta object for the map '{@link org.locationtech.geoff.layer.Vector#getStyles <em>Styles</em>}'.
+	 * Returns the meta object for the map '{@link org.locationtech.geoff.layer.VectorLayer#getStyles <em>Styles</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the map '<em>Styles</em>'.
-	 * @see org.locationtech.geoff.layer.Vector#getStyles()
-	 * @see #getVector()
+	 * @see org.locationtech.geoff.layer.VectorLayer#getStyles()
+	 * @see #getVectorLayer()
 	 * @generated
 	 */
-	EReference getVector_Styles();
+	EReference getVectorLayer_Styles();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -314,24 +367,24 @@ public interface LayerPackage extends EPackage {
 		EReference LAYER__SOURCE = eINSTANCE.getLayer_Source();
 
 		/**
-		 * The meta object literal for the '{@link org.locationtech.geoff.layer.impl.TileImpl <em>Tile</em>}' class.
+		 * The meta object literal for the '{@link org.locationtech.geoff.layer.impl.TileLayerImpl <em>Tile Layer</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.locationtech.geoff.layer.impl.TileImpl
-		 * @see org.locationtech.geoff.layer.impl.LayerPackageImpl#getTile()
+		 * @see org.locationtech.geoff.layer.impl.TileLayerImpl
+		 * @see org.locationtech.geoff.layer.impl.LayerPackageImpl#getTileLayer()
 		 * @generated
 		 */
-		EClass TILE = eINSTANCE.getTile();
+		EClass TILE_LAYER = eINSTANCE.getTileLayer();
 
 		/**
-		 * The meta object literal for the '{@link org.locationtech.geoff.layer.impl.VectorImpl <em>Vector</em>}' class.
+		 * The meta object literal for the '{@link org.locationtech.geoff.layer.impl.VectorLayerImpl <em>Vector Layer</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.locationtech.geoff.layer.impl.VectorImpl
-		 * @see org.locationtech.geoff.layer.impl.LayerPackageImpl#getVector()
+		 * @see org.locationtech.geoff.layer.impl.VectorLayerImpl
+		 * @see org.locationtech.geoff.layer.impl.LayerPackageImpl#getVectorLayer()
 		 * @generated
 		 */
-		EClass VECTOR = eINSTANCE.getVector();
+		EClass VECTOR_LAYER = eINSTANCE.getVectorLayer();
 
 		/**
 		 * The meta object literal for the '<em><b>Styles</b></em>' map feature.
@@ -339,7 +392,7 @@ public interface LayerPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference VECTOR__STYLES = eINSTANCE.getVector_Styles();
+		EReference VECTOR_LAYER__STYLES = eINSTANCE.getVectorLayer_Styles();
 
 	}
 

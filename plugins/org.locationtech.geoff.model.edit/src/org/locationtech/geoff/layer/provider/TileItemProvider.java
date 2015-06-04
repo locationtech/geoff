@@ -62,8 +62,7 @@ public class TileItemProvider extends LayerItemProvider {
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Tile")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Tile")); //$NON-NLS-1$
 	}
 
 	/**
@@ -98,8 +97,7 @@ public class TileItemProvider extends LayerItemProvider {
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

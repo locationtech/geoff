@@ -63,7 +63,7 @@ public class GeoffSwitch<T> extends Switch<T> {
 	 * Checks whether this is a switch for the given package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @parameter ePackage the package in question.
+	 * @param ePackage the package in question.
 	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
@@ -89,11 +89,20 @@ public class GeoffSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case GeoffPackage.DESCRIPTIVE: {
+			Descriptive descriptive = (Descriptive) theEObject;
+			T result = caseDescriptive(descriptive);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case GeoffPackage.GEO_MAP: {
 			GeoMap geoMap = (GeoMap) theEObject;
 			T result = caseGeoMap(geoMap);
 			if (result == null)
 				result = caseIdentifiable(geoMap);
+			if (result == null)
+				result = caseDescriptive(geoMap);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -153,6 +162,14 @@ public class GeoffSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case GeoffPackage.STRING_TO_STRING_MAP_ENTRY: {
+			@SuppressWarnings("unchecked")
+			Map.Entry<String, String> stringToStringMapEntry = (Map.Entry<String, String>) theEObject;
+			T result = caseStringToStringMapEntry(stringToStringMapEntry);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -170,6 +187,21 @@ public class GeoffSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseIdentifiable(Identifiable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Descriptive</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Descriptive</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDescriptive(Descriptive object) {
 		return null;
 	}
 
@@ -275,6 +307,21 @@ public class GeoffSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseStyleEntry(Map.Entry<String, Style> object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>String To String Map Entry</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>String To String Map Entry</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStringToStringMapEntry(Map.Entry<String, String> object) {
 		return null;
 	}
 

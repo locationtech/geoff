@@ -35,8 +35,7 @@ public interface SourceFactory extends EFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	SourceFactory eINSTANCE = org.locationtech.geoff.source.impl.SourceFactoryImpl
-			.init();
+	SourceFactory eINSTANCE = org.locationtech.geoff.source.impl.SourceFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>OSM</em>'.
@@ -66,40 +65,13 @@ public interface SourceFactory extends EFactory {
 	BingMaps createBingMaps();
 
 	/**
-	 * Returns a new object of class '<em>Vector</em>'.
+	 * Returns a new object of class '<em>Vector Source</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Vector</em>'.
+	 * @return a new object of class '<em>Vector Source</em>'.
 	 * @generated
 	 */
-	Vector createVector();
-
-	/**
-	 * Returns a new object of class '<em>Geo JSON</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Geo JSON</em>'.
-	 * @generated
-	 */
-	GeoJSON createGeoJSON();
-
-	/**
-	 * Returns a new object of class '<em>GPX</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>GPX</em>'.
-	 * @generated
-	 */
-	GPX createGPX();
-
-	/**
-	 * Returns a new object of class '<em>KML</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>KML</em>'.
-	 * @generated
-	 */
-	KML createKML();
+	VectorSource createVectorSource();
 
 	/**
 	 * Returns the package supported by this factory.

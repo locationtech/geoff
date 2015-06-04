@@ -35,8 +35,7 @@ public interface GeoffFactory extends EFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	GeoffFactory eINSTANCE = org.locationtech.geoff.impl.GeoffFactoryImpl
-			.init();
+	GeoffFactory eINSTANCE = org.locationtech.geoff.impl.GeoffFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Geo Map</em>'.

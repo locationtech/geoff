@@ -20,10 +20,10 @@ import org.locationtech.geoff.Location;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.geom.Point#getCoordinates <em>Coordinates</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.locationtech.geoff.geom.GeomPackage#getPoint()
  * @model

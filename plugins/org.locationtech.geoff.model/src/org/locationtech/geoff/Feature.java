@@ -11,6 +11,7 @@
  */
 package org.locationtech.geoff;
 
+import org.eclipse.emf.common.util.EMap;
 import org.locationtech.geoff.geom.Geometry;
 import org.locationtech.geoff.style.Style;
 
@@ -21,11 +22,12 @@ import org.locationtech.geoff.style.Style;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.Feature#getGeometry <em>Geometry</em>}</li>
  *   <li>{@link org.locationtech.geoff.Feature#getStyle <em>Style</em>}</li>
+ *   <li>{@link org.locationtech.geoff.Feature#getProperties <em>Properties</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.locationtech.geoff.GeoffPackage#getFeature()
  * @model
@@ -91,5 +93,22 @@ public interface Feature extends Identifiable {
 	 * @generated
 	 */
 	void setStyle(Style value);
+
+	/**
+	 * Returns the value of the '<em><b>Properties</b></em>' map.
+	 * The key is of type {@link java.lang.String},
+	 * and the value is of type {@link java.lang.String},
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Properties</em>' map isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Properties</em>' map.
+	 * @see org.locationtech.geoff.GeoffPackage#getFeature_Properties()
+	 * @model mapType="org.locationtech.geoff.StringToStringMapEntry<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString>"
+	 * @generated
+	 */
+	EMap<String, String> getProperties();
 
 } // Feature

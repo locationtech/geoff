@@ -89,49 +89,49 @@ public class LayerItemProviderAdapterFactory extends LayerAdapterFactory
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.layer.Tile} instances.
+	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.layer.TileLayer} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TileItemProvider tileItemProvider;
+	protected TileLayerItemProvider tileLayerItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.locationtech.geoff.layer.Tile}.
+	 * This creates an adapter for a {@link org.locationtech.geoff.layer.TileLayer}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createTileAdapter() {
-		if (tileItemProvider == null) {
-			tileItemProvider = new TileItemProvider(this);
+	public Adapter createTileLayerAdapter() {
+		if (tileLayerItemProvider == null) {
+			tileLayerItemProvider = new TileLayerItemProvider(this);
 		}
 
-		return tileItemProvider;
+		return tileLayerItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.layer.Vector} instances.
+	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.layer.VectorLayer} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected VectorItemProvider vectorItemProvider;
+	protected VectorLayerItemProvider vectorLayerItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.locationtech.geoff.layer.Vector}.
+	 * This creates an adapter for a {@link org.locationtech.geoff.layer.VectorLayer}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createVectorAdapter() {
-		if (vectorItemProvider == null) {
-			vectorItemProvider = new VectorItemProvider(this);
+	public Adapter createVectorLayerAdapter() {
+		if (vectorLayerItemProvider == null) {
+			vectorLayerItemProvider = new VectorLayerItemProvider(this);
 		}
 
-		return vectorItemProvider;
+		return vectorLayerItemProvider;
 	}
 
 	/**
@@ -141,8 +141,7 @@ public class LayerItemProviderAdapterFactory extends LayerAdapterFactory
 	 * @generated
 	 */
 	public ComposeableAdapterFactory getRootAdapterFactory() {
-		return parentAdapterFactory == null ? this : parentAdapterFactory
-				.getRootAdapterFactory();
+		return parentAdapterFactory == null ? this : parentAdapterFactory.getRootAdapterFactory();
 	}
 
 	/**
@@ -151,8 +150,7 @@ public class LayerItemProviderAdapterFactory extends LayerAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setParentAdapterFactory(
-			ComposedAdapterFactory parentAdapterFactory) {
+	public void setParentAdapterFactory(ComposedAdapterFactory parentAdapterFactory) {
 		this.parentAdapterFactory = parentAdapterFactory;
 	}
 
@@ -186,8 +184,7 @@ public class LayerItemProviderAdapterFactory extends LayerAdapterFactory
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
-			if (!(type instanceof Class<?>)
-					|| (((Class<?>) type).isInstance(adapter))) {
+			if (!(type instanceof Class<?>) || (((Class<?>) type).isInstance(adapter))) {
 				return adapter;
 			}
 		}
@@ -236,10 +233,10 @@ public class LayerItemProviderAdapterFactory extends LayerAdapterFactory
 	 * @generated
 	 */
 	public void dispose() {
-		if (tileItemProvider != null)
-			tileItemProvider.dispose();
-		if (vectorItemProvider != null)
-			vectorItemProvider.dispose();
+		if (tileLayerItemProvider != null)
+			tileLayerItemProvider.dispose();
+		if (vectorLayerItemProvider != null)
+			vectorLayerItemProvider.dispose();
 	}
 
 }

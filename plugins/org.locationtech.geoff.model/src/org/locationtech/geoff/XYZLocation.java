@@ -18,12 +18,12 @@ package org.locationtech.geoff;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.XYZLocation#getX <em>X</em>}</li>
  *   <li>{@link org.locationtech.geoff.XYZLocation#getY <em>Y</em>}</li>
  *   <li>{@link org.locationtech.geoff.XYZLocation#getZ <em>Z</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.locationtech.geoff.GeoffPackage#getXYZLocation()
  * @model

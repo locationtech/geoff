@@ -27,7 +27,7 @@ import org.locationtech.geoff.source.TileImage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class TileImageItemProvider extends TileItemProvider {
+public class TileImageItemProvider extends TileSourceItemProvider {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,8 +68,7 @@ public class TileImageItemProvider extends TileItemProvider {
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/TileImage")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/TileImage")); //$NON-NLS-1$
 	}
 
 	/**
@@ -81,7 +80,8 @@ public class TileImageItemProvider extends TileItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((TileImage) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_TileImage_type") : //$NON-NLS-1$
+		return label == null || label.length() == 0 ? getString("_UI_TileImage_type") //$NON-NLS-1$
+				:
 				getString("_UI_TileImage_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
@@ -106,8 +106,7 @@ public class TileImageItemProvider extends TileItemProvider {
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

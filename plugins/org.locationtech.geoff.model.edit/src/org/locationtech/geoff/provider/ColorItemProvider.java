@@ -39,9 +39,8 @@ import org.locationtech.geoff.GeoffPackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ColorItemProvider extends ItemProviderAdapter implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider,
-		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ColorItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -87,16 +86,12 @@ public class ColorItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addIdPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Identifiable_id_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Identifiable_id_feature", "_UI_Identifiable_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						GeoffPackage.Literals.IDENTIFIABLE__ID, true, false,
-						false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-						null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Identifiable_id_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Identifiable_id_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Identifiable_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.IDENTIFIABLE__ID, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -107,13 +102,9 @@ public class ColorItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addRedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Color_red_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Color_red_feature", "_UI_Color_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Color_red_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Color_red_feature", "_UI_Color_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						GeoffPackage.Literals.COLOR__RED, true, false, false,
 						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
@@ -126,13 +117,9 @@ public class ColorItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addGreenPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Color_green_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Color_green_feature", "_UI_Color_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Color_green_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Color_green_feature", "_UI_Color_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						GeoffPackage.Literals.COLOR__GREEN, true, false, false,
 						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
@@ -145,13 +132,9 @@ public class ColorItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addBluePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Color_blue_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Color_blue_feature", "_UI_Color_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Color_blue_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Color_blue_feature", "_UI_Color_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						GeoffPackage.Literals.COLOR__BLUE, true, false, false,
 						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
@@ -164,15 +147,11 @@ public class ColorItemProvider extends ItemProviderAdapter implements
 	 */
 	protected void addAlphaPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory)
-								.getRootAdapterFactory(),
-						getResourceLocator(),
-						getString("_UI_Color_alpha_feature"), //$NON-NLS-1$
-						getString(
-								"_UI_PropertyDescriptor_description", "_UI_Color_alpha_feature", "_UI_Color_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						GeoffPackage.Literals.COLOR__ALPHA, true, false, false,
-						ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Color_alpha_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Color_alpha_feature", "_UI_Color_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						GeoffPackage.Literals.COLOR__ALPHA, true, false, false, ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+						null, null));
 	}
 
 	/**
@@ -183,8 +162,7 @@ public class ColorItemProvider extends ItemProviderAdapter implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object,
-				getResourceLocator().getImage("full/obj16/Color")); //$NON-NLS-1$
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Color")); //$NON-NLS-1$
 	}
 
 	/**
@@ -196,7 +174,8 @@ public class ColorItemProvider extends ItemProviderAdapter implements
 	@Override
 	public String getText(Object object) {
 		String label = ((Color) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_Color_type") : //$NON-NLS-1$
+		return label == null || label.length() == 0 ? getString("_UI_Color_type") //$NON-NLS-1$
+				:
 				getString("_UI_Color_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
@@ -217,8 +196,7 @@ public class ColorItemProvider extends ItemProviderAdapter implements
 		case GeoffPackage.COLOR__GREEN:
 		case GeoffPackage.COLOR__BLUE:
 		case GeoffPackage.COLOR__ALPHA:
-			fireNotifyChanged(new ViewerNotification(notification,
-					notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -232,8 +210,7 @@ public class ColorItemProvider extends ItemProviderAdapter implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(
-			Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

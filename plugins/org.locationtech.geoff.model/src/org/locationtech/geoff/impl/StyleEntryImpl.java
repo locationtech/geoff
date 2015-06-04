@@ -29,16 +29,15 @@ import org.locationtech.geoff.style.Style;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.impl.StyleEntryImpl#getTypedKey <em>Key</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.StyleEntryImpl#getTypedValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
-public class StyleEntryImpl extends MinimalEObjectImpl.Container implements
-		BasicEMap.Entry<String, Style> {
+public class StyleEntryImpl extends MinimalEObjectImpl.Container implements BasicEMap.Entry<String, Style> {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -113,8 +112,7 @@ public class StyleEntryImpl extends MinimalEObjectImpl.Container implements
 		String oldKey = key;
 		key = newKey;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.STYLE_ENTRY__KEY, oldKey, key));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.STYLE_ENTRY__KEY, oldKey, key));
 	}
 
 	/**
@@ -131,14 +129,12 @@ public class StyleEntryImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetTypedValue(Style newValue,
-			NotificationChain msgs) {
+	public NotificationChain basicSetTypedValue(Style newValue, NotificationChain msgs) {
 		Style oldValue = value;
 		value = newValue;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, GeoffPackage.STYLE_ENTRY__VALUE,
-					oldValue, newValue);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					GeoffPackage.STYLE_ENTRY__VALUE, oldValue, newValue);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -157,18 +153,15 @@ public class StyleEntryImpl extends MinimalEObjectImpl.Container implements
 			NotificationChain msgs = null;
 			if (value != null)
 				msgs = ((InternalEObject) value).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE
-								- GeoffPackage.STYLE_ENTRY__VALUE, null, msgs);
+						EOPPOSITE_FEATURE_BASE - GeoffPackage.STYLE_ENTRY__VALUE, null, msgs);
 			if (newValue != null)
 				msgs = ((InternalEObject) newValue).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE
-								- GeoffPackage.STYLE_ENTRY__VALUE, null, msgs);
+						EOPPOSITE_FEATURE_BASE - GeoffPackage.STYLE_ENTRY__VALUE, null, msgs);
 			msgs = basicSetTypedValue(newValue, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					GeoffPackage.STYLE_ENTRY__VALUE, newValue, newValue));
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.STYLE_ENTRY__VALUE, newValue, newValue));
 	}
 
 	/**
@@ -217,8 +210,7 @@ public class StyleEntryImpl extends MinimalEObjectImpl.Container implements
 	@SuppressWarnings("unchecked")
 	public EMap<String, Style> getEMap() {
 		EObject container = eContainer();
-		return container == null ? null : (EMap<String, Style>) container
-				.eGet(eContainmentFeature());
+		return container == null ? null : (EMap<String, Style>) container.eGet(eContainmentFeature());
 	}
 
 	/**
@@ -227,8 +219,7 @@ public class StyleEntryImpl extends MinimalEObjectImpl.Container implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case GeoffPackage.STYLE_ENTRY__VALUE:
 			return basicSetTypedValue(null, msgs);
@@ -298,8 +289,7 @@ public class StyleEntryImpl extends MinimalEObjectImpl.Container implements
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case GeoffPackage.STYLE_ENTRY__KEY:
-			return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT
-					.equals(key);
+			return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT.equals(key);
 		case GeoffPackage.STYLE_ENTRY__VALUE:
 			return value != null;
 		}

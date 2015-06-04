@@ -22,8 +22,8 @@ import org.locationtech.geoff.impl.GeoffPackageImpl;
 import org.locationtech.geoff.layer.Layer;
 import org.locationtech.geoff.layer.LayerFactory;
 import org.locationtech.geoff.layer.LayerPackage;
-import org.locationtech.geoff.layer.Tile;
-import org.locationtech.geoff.layer.Vector;
+import org.locationtech.geoff.layer.TileLayer;
+import org.locationtech.geoff.layer.VectorLayer;
 import org.locationtech.geoff.source.SourcePackage;
 import org.locationtech.geoff.source.impl.SourcePackageImpl;
 import org.locationtech.geoff.style.StylePackage;
@@ -55,14 +55,14 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass tileEClass = null;
+	private EClass tileLayerEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass vectorEClass = null;
+	private EClass vectorLayerEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -104,29 +104,28 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 	 */
 	public static LayerPackage init() {
 		if (isInited)
-			return (LayerPackage) EPackage.Registry.INSTANCE
-					.getEPackage(LayerPackage.eNS_URI);
+			return (LayerPackage) EPackage.Registry.INSTANCE.getEPackage(LayerPackage.eNS_URI);
 
 		// Obtain or create and register package
 		LayerPackageImpl theLayerPackage = (LayerPackageImpl) (EPackage.Registry.INSTANCE
-				.get(eNS_URI) instanceof LayerPackageImpl ? EPackage.Registry.INSTANCE
-				.get(eNS_URI) : new LayerPackageImpl());
+				.get(eNS_URI) instanceof LayerPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
+						: new LayerPackageImpl());
 
 		isInited = true;
 
 		// Obtain or create and register interdependencies
 		GeoffPackageImpl theGeoffPackage = (GeoffPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(GeoffPackage.eNS_URI) instanceof GeoffPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(GeoffPackage.eNS_URI) : GeoffPackage.eINSTANCE);
+				.getEPackage(GeoffPackage.eNS_URI) instanceof GeoffPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(GeoffPackage.eNS_URI) : GeoffPackage.eINSTANCE);
 		SourcePackageImpl theSourcePackage = (SourcePackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(SourcePackage.eNS_URI) instanceof SourcePackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(SourcePackage.eNS_URI) : SourcePackage.eINSTANCE);
+				.getEPackage(SourcePackage.eNS_URI) instanceof SourcePackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(SourcePackage.eNS_URI) : SourcePackage.eINSTANCE);
 		GeomPackageImpl theGeomPackage = (GeomPackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(GeomPackage.eNS_URI) instanceof GeomPackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(GeomPackage.eNS_URI) : GeomPackage.eINSTANCE);
+				.getEPackage(GeomPackage.eNS_URI) instanceof GeomPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(GeomPackage.eNS_URI) : GeomPackage.eINSTANCE);
 		StylePackageImpl theStylePackage = (StylePackageImpl) (EPackage.Registry.INSTANCE
-				.getEPackage(StylePackage.eNS_URI) instanceof StylePackageImpl ? EPackage.Registry.INSTANCE
-				.getEPackage(StylePackage.eNS_URI) : StylePackage.eINSTANCE);
+				.getEPackage(StylePackage.eNS_URI) instanceof StylePackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(StylePackage.eNS_URI) : StylePackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theLayerPackage.createPackageContents();
@@ -173,8 +172,8 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTile() {
-		return tileEClass;
+	public EClass getTileLayer() {
+		return tileLayerEClass;
 	}
 
 	/**
@@ -182,8 +181,8 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getVector() {
-		return vectorEClass;
+	public EClass getVectorLayer() {
+		return vectorLayerEClass;
 	}
 
 	/**
@@ -191,8 +190,8 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getVector_Styles() {
-		return (EReference) vectorEClass.getEStructuralFeatures().get(0);
+	public EReference getVectorLayer_Styles() {
+		return (EReference) vectorLayerEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -227,10 +226,10 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 		layerEClass = createEClass(LAYER);
 		createEReference(layerEClass, LAYER__SOURCE);
 
-		tileEClass = createEClass(TILE);
+		tileLayerEClass = createEClass(TILE_LAYER);
 
-		vectorEClass = createEClass(VECTOR);
-		createEReference(vectorEClass, VECTOR__STYLES);
+		vectorLayerEClass = createEClass(VECTOR_LAYER);
+		createEReference(vectorLayerEClass, VECTOR_LAYER__STYLES);
 	}
 
 	/**
@@ -258,10 +257,8 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		GeoffPackage theGeoffPackage = (GeoffPackage) EPackage.Registry.INSTANCE
-				.getEPackage(GeoffPackage.eNS_URI);
-		SourcePackage theSourcePackage = (SourcePackage) EPackage.Registry.INSTANCE
-				.getEPackage(SourcePackage.eNS_URI);
+		GeoffPackage theGeoffPackage = (GeoffPackage) EPackage.Registry.INSTANCE.getEPackage(GeoffPackage.eNS_URI);
+		SourcePackage theSourcePackage = (SourcePackage) EPackage.Registry.INSTANCE.getEPackage(SourcePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -269,34 +266,24 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 
 		// Add supertypes to classes
 		layerEClass.getESuperTypes().add(theGeoffPackage.getIdentifiable());
-		tileEClass.getESuperTypes().add(this.getLayer());
-		vectorEClass.getESuperTypes().add(this.getLayer());
+		layerEClass.getESuperTypes().add(theGeoffPackage.getDescriptive());
+		tileLayerEClass.getESuperTypes().add(this.getLayer());
+		vectorLayerEClass.getESuperTypes().add(this.getLayer());
 
 		// Initialize classes, features, and operations; add parameters
-		initEClass(
-				layerEClass,
-				Layer.class,
-				"Layer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(
-				getLayer_Source(),
-				theSourcePackage.getSource(),
-				null,
-				"source", null, 1, 1, Layer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEClass(layerEClass, Layer.class, "Layer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getLayer_Source(), theSourcePackage.getSource(), null, "source", null, 1, 1, Layer.class, //$NON-NLS-1$
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(
-				tileEClass,
-				Tile.class,
-				"Tile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEClass(tileLayerEClass, TileLayer.class, "TileLayer", !IS_ABSTRACT, !IS_INTERFACE, //$NON-NLS-1$
+				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(
-				vectorEClass,
-				Vector.class,
-				"Vector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(
-				getVector_Styles(),
-				theGeoffPackage.getStyleEntry(),
-				null,
-				"styles", null, 0, -1, Vector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEClass(vectorLayerEClass, VectorLayer.class, "VectorLayer", !IS_ABSTRACT, !IS_INTERFACE, //$NON-NLS-1$
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getVectorLayer_Styles(), theGeoffPackage.getStyleEntry(), null, "styles", null, 0, -1, //$NON-NLS-1$
+				VectorLayer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create annotations
 		// http:///org/eclipse/emf/ecore/util/ExtendedMetaData
@@ -311,8 +298,7 @@ public class LayerPackageImpl extends EPackageImpl implements LayerPackage {
 	 */
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData"; //$NON-NLS-1$	
-		addAnnotation(getVector_Styles(), source, new String[] {
-				"name", "style", //$NON-NLS-1$ //$NON-NLS-2$
+		addAnnotation(getVectorLayer_Styles(), source, new String[] { "name", "style", //$NON-NLS-1$ //$NON-NLS-2$
 				"kind", "element" //$NON-NLS-1$ //$NON-NLS-2$
 		});
 	}

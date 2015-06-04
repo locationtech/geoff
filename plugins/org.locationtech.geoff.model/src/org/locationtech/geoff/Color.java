@@ -18,13 +18,13 @@ package org.locationtech.geoff;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.Color#getRed <em>Red</em>}</li>
  *   <li>{@link org.locationtech.geoff.Color#getGreen <em>Green</em>}</li>
  *   <li>{@link org.locationtech.geoff.Color#getBlue <em>Blue</em>}</li>
  *   <li>{@link org.locationtech.geoff.Color#getAlpha <em>Alpha</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.locationtech.geoff.GeoffPackage#getColor()
  * @model

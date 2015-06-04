@@ -26,10 +26,10 @@ import org.locationtech.geoff.style.StylePackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.locationtech.geoff.style.impl.IconImpl#getSrc <em>Src</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -98,8 +98,7 @@ public class IconImpl extends ImageImpl implements Icon {
 		String oldSrc = src;
 		src = newSrc;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					StylePackage.ICON__SRC, oldSrc, src));
+			eNotify(new ENotificationImpl(this, Notification.SET, StylePackage.ICON__SRC, oldSrc, src));
 	}
 
 	/**
@@ -155,8 +154,7 @@ public class IconImpl extends ImageImpl implements Icon {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case StylePackage.ICON__SRC:
-			return SRC_EDEFAULT == null ? src != null : !SRC_EDEFAULT
-					.equals(src);
+			return SRC_EDEFAULT == null ? src != null : !SRC_EDEFAULT.equals(src);
 		}
 		return super.eIsSet(featureID);
 	}

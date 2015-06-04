@@ -19,8 +19,6 @@ import org.locationtech.geoff.source.SourcePackage;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>OSM</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

@@ -1,18 +1,13 @@
 package org.locationtech.geoff.designer.editors;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
 import java.util.EventObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.ISafeRunnable;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.command.BasicCommandStack;
@@ -21,7 +16,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
@@ -44,23 +38,12 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.services.IServiceScopes;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.core.Geoff;
+import org.locationtech.geoff.designer.DesignerUtil;
 import org.locationtech.geoff.designer.IEditingService;
 import org.locationtech.geoff.designer.internal.EditingServiceImpl;
-import org.locationtech.geoff.designer.webserver.JettyLocalServerManager;
-import org.locationtech.geoff.ui.IRenderSettings;
-import org.locationtech.geoff.ui.RenderSettingsBuilder;
 import org.locationtech.geoff.ui.swt.GeoMapComposite;
 
 public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
-	private static String localhostBaseUrl;
-
-	static {
-		IPath location = Platform.getLocation();
-		String baseResourcesPath = location.toFile().toString();
-		JettyLocalServerManager.INSTANCE.startServer(baseResourcesPath, 3333);
-		localhostBaseUrl = "http://localhost:3333/";
-	}
-
 	private AdapterFactory adapterFactory;
 	private AdapterFactoryEditingDomain editingDomain;
 	private GeoMapComposite geoMapComposite;
@@ -68,7 +51,6 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 	private ResourceSet resourceSet;
 
 	private GeoMap geoMap;
-	private URL baseUrl;
 	private IHandlerActivation undoHandlerActivation;
 	private IHandlerActivation redoHandlerActivation;
 	private boolean canSave = false;
@@ -82,6 +64,7 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 			public void run() throws Exception {
 				geoMap.eResource().save(null);
 				canSave = false;
+				firePropertyChange(PROP_DIRTY);
 			}
 		});
 	}
@@ -91,32 +74,21 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 	}
 
 	@Override
-	public void init(IEditorSite site, IEditorInput input)
-			throws PartInitException {
+	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		if (input instanceof FileEditorInput) {
 			FileEditorInput fInput = (FileEditorInput) input;
 			URI uri = fInput.getURI();
-
-			try {
-				baseUrl = new File(uri).getParentFile().toURI().toURL();
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
-
 			geoMap = Geoff.fromURI(uri);
 		} else {
-			throw new UnsupportedOperationException(
-					"Provided editor input not supported: " + input);
+			throw new UnsupportedOperationException("Provided editor input not supported: " + input);
 		}
 
 		setSite(site);
 		setInput(input);
 
-		adapterFactory = new ComposedAdapterFactory(
-				ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+		adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 		commandStack = new BasicCommandStack();
-		editingDomain = new AdapterFactoryEditingDomain(adapterFactory,
-				commandStack);
+		editingDomain = new AdapterFactoryEditingDomain(adapterFactory, commandStack);
 		resourceSet = new ResourceSetImpl();
 		resourceSet.eAdapters().add(new EditingDomainAdapter());
 		resourceSet.getResources().add(geoMap.eResource());
@@ -127,20 +99,18 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 
 			@Override
 			public void commandStackChanged(EventObject event) {
-				ICommandService cs = (ICommandService) getSite().getService(
-						ICommandService.class);
+				ICommandService cs = (ICommandService) getSite().getService(ICommandService.class);
 				Map<String, Object> filter = new HashMap<>();
-				filter.put(IServiceScopes.WINDOW_SCOPE, getSite().getPage()
-						.getWorkbenchWindow());
+				filter.put(IServiceScopes.WINDOW_SCOPE, getSite().getPage().getWorkbenchWindow());
 				cs.refreshElements(IWorkbenchCommandConstants.EDIT_UNDO, filter);
 				cs.refreshElements(IWorkbenchCommandConstants.EDIT_REDO, filter);
 
 				canSave = commandStack.canUndo();
+				firePropertyChange(PROP_DIRTY);
 			}
 		});
 
-		IHandlerService hs = (IHandlerService) getSite().getWorkbenchWindow()
-				.getService(IHandlerService.class);
+		IHandlerService hs = (IHandlerService) getSite().getWorkbenchWindow().getService(IHandlerService.class);
 		{
 			ActionHandler handler = new ActionHandler(new Action() {
 				@Override
@@ -153,8 +123,7 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 					return commandStack.canUndo();
 				}
 			});
-			undoHandlerActivation = hs.activateHandler(
-					IWorkbenchCommandConstants.EDIT_UNDO, handler);
+			undoHandlerActivation = hs.activateHandler(IWorkbenchCommandConstants.EDIT_UNDO, handler);
 		}
 		{
 			ActionHandler handler = new ActionHandler(new Action() {
@@ -168,18 +137,15 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 					return commandStack.canRedo();
 				}
 			});
-			redoHandlerActivation = hs.activateHandler(
-					IWorkbenchCommandConstants.EDIT_REDO, handler);
+			redoHandlerActivation = hs.activateHandler(IWorkbenchCommandConstants.EDIT_REDO, handler);
 		}
 
-		IEclipseContext context = (IEclipseContext) getSite().getService(
-				IEclipseContext.class);
+		IEclipseContext context = (IEclipseContext) getSite().getService(IEclipseContext.class);
 		context.set(AdapterFactory.class, adapterFactory);
 		context.set(EditingDomain.class, editingDomain);
 		context.set(GeoMap.class, geoMap);
 
-		editingService = ContextInjectionFactory.make(EditingServiceImpl.class,
-				context);
+		editingService = ContextInjectionFactory.make(EditingServiceImpl.class, context);
 		context.set(IEditingService.class, editingService);
 	}
 
@@ -212,24 +178,20 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 		parent.setLayout(new FillLayout());
 		geoMapComposite = new GeoMapComposite(parent, SWT.None);
 		FileEditorInput fin = (FileEditorInput) getEditorInput();
-		String url = localhostBaseUrl + fin.getFile().getParent().getFullPath()
-				+ "/index-geomap.html";
+		IFile file = fin.getFile();
+		IProject project = file.getProject();
+		String url = DesignerUtil.toWSTServerUrl(project);
 		geoMapComposite.loadHtmlByUrl(url);
-		// IRenderSettings settings = RenderSettingsBuilder.create()
-		// .baseURL(baseUrl).get();
-		// geoMapComposite.render(geoMap, settings);
 	}
 
 	@Override
 	public void setFocus() {
 		geoMapComposite.setFocus();
-		IEclipseContext context = (IEclipseContext) getSite().getService(
-				IEclipseContext.class);
+		IEclipseContext context = (IEclipseContext) getSite().getService(IEclipseContext.class);
 		context.getParent().set(GeoMap.class, geoMap);
 	}
 
-	private class EditingDomainAdapter extends AdapterImpl implements
-			IEditingDomainProvider {
+	private class EditingDomainAdapter extends AdapterImpl implements IEditingDomainProvider {
 		@Override
 		public boolean isAdapterForType(Object type) {
 			return IEditingDomainProvider.class.equals(type);
@@ -243,15 +205,12 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 
 	@Override
 	public void dispose() {
-		undoHandlerActivation.getHandlerService().deactivateHandler(
-				undoHandlerActivation);
+		undoHandlerActivation.getHandlerService().deactivateHandler(undoHandlerActivation);
 		undoHandlerActivation = null;
-		redoHandlerActivation.getHandlerService().deactivateHandler(
-				redoHandlerActivation);
+		redoHandlerActivation.getHandlerService().deactivateHandler(redoHandlerActivation);
 		redoHandlerActivation = null;
 
 		adapterFactory = null;
-		baseUrl = null;
 		commandStack = null;
 		editingDomain = null;
 		geoMap = null;

@@ -12,6 +12,7 @@
 package org.locationtech.geoff.source.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
@@ -75,17 +76,40 @@ public class SourceFactoryImpl extends EFactoryImpl implements SourceFactory {
 			return createMapQuest();
 		case SourcePackage.BING_MAPS:
 			return createBingMaps();
-		case SourcePackage.VECTOR:
-			return createVector();
-		case SourcePackage.GEO_JSON:
-			return createGeoJSON();
-		case SourcePackage.GPX:
-			return createGPX();
-		case SourcePackage.KML:
-			return createKML();
+		case SourcePackage.VECTOR_SOURCE:
+			return createVectorSource();
 		default:
-			throw new IllegalArgumentException(
-					"The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object createFromString(EDataType eDataType, String initialValue) {
+		switch (eDataType.getClassifierID()) {
+		case SourcePackage.SOURCE_FORMAT:
+			return createSourceFormatFromString(eDataType, initialValue);
+		default:
+			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String convertToString(EDataType eDataType, Object instanceValue) {
+		switch (eDataType.getClassifierID()) {
+		case SourcePackage.SOURCE_FORMAT:
+			return convertSourceFormatToString(eDataType, instanceValue);
+		default:
+			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -124,9 +148,9 @@ public class SourceFactoryImpl extends EFactoryImpl implements SourceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Vector createVector() {
-		VectorImpl vector = new VectorImpl();
-		return vector;
+	public VectorSource createVectorSource() {
+		VectorSourceImpl vectorSource = new VectorSourceImpl();
+		return vectorSource;
 	}
 
 	/**
@@ -134,9 +158,12 @@ public class SourceFactoryImpl extends EFactoryImpl implements SourceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GeoJSON createGeoJSON() {
-		GeoJSONImpl geoJSON = new GeoJSONImpl();
-		return geoJSON;
+	public SourceFormat createSourceFormatFromString(EDataType eDataType, String initialValue) {
+		SourceFormat result = SourceFormat.get(initialValue);
+		if (result == null)
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return result;
 	}
 
 	/**
@@ -144,19 +171,8 @@ public class SourceFactoryImpl extends EFactoryImpl implements SourceFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GPX createGPX() {
-		GPXImpl gpx = new GPXImpl();
-		return gpx;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public KML createKML() {
-		KMLImpl kml = new KMLImpl();
-		return kml;
+	public String convertSourceFormatToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**
