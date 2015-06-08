@@ -20,11 +20,17 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.locationtech.geoff.Feature;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.GeoffPackage;
+import org.locationtech.geoff.Script;
+import org.locationtech.geoff.ScriptContext;
 import org.locationtech.geoff.XYZLocation;
 import org.locationtech.geoff.core.Geoff;
 import org.locationtech.geoff.designer.DesignerUtil;
 import org.locationtech.geoff.designer.IEditingService;
-import org.locationtech.geoff.impl.StringToStringMapEntryImpl;
+import org.locationtech.geoff.interaction.EventCondition;
+import org.locationtech.geoff.interaction.Interaction;
+import org.locationtech.geoff.interaction.InteractionFactory;
+import org.locationtech.geoff.interaction.InteractionPackage;
+import org.locationtech.geoff.interaction.Select;
 import org.locationtech.geoff.layer.VectorLayer;
 import org.locationtech.geoff.source.VectorSource;
 import org.osgi.framework.FrameworkUtil;
@@ -36,6 +42,8 @@ import com.drew.metadata.Metadata;
 import com.drew.metadata.exif.GpsDirectory;
 
 public class AddGeotaggedImagesLayer {
+
+	private static final String ONCLICK_FUNCTION = "geoff_designer_geoimages_onFeatureClick";
 
 	@Execute
 	public void execute(IEditingService editingService, GeoMap geoMap, ISelection selection)
@@ -60,36 +68,79 @@ public class AddGeotaggedImagesLayer {
 		}
 
 		// the marker.png icon is used to represent an image on the map
-		String folderName = "resources";
-		String targetResourceName = "marker-blue.png";
-		String markerSrc = folderName + "/" + targetResourceName;
+		String markerFolderName = "resources";
+		String markerTargetFolderName = "data";
+		String markerResourceName = "marker-blue.png";
+		String markerTarget = markerTargetFolderName + "/" + markerResourceName;
 		{
+			String markerSrc = markerFolderName + "/" + markerResourceName;
 			URL url = FrameworkUtil.getBundle(getClass()).getEntry(markerSrc);
-			IFolder targetFolder = DesignerUtil.toSourceFolder(folder.getProject(), folderName);
-			Command addResource = editingService.createAddResourceCommand(targetFolder, targetResourceName, url, true);
+			IFolder targetFolder = DesignerUtil.toSourceFolder(folder.getProject(), markerTargetFolderName);
+			Command addResource = editingService.createAddResourceCommand(targetFolder, markerResourceName, url, true);
 			cc.append(addResource);
+		}
+
+		String jsTargetFolderName = "js";
+		String onclickResourceName = "onclick.js";
+		String onclickResourceNameTarget = jsTargetFolderName + "/" + onclickResourceName;
+		String onclickResourceNameLocal = markerFolderName + "/" + onclickResourceName;
+
+		// install onclick.js file
+		{
+			URL url = FrameworkUtil.getBundle(getClass()).getEntry(onclickResourceNameLocal);
+			IFolder targetFolder = DesignerUtil.toSourceFolder(folder.getProject(), jsTargetFolderName);
+			Command addResource = editingService.createAddResourceCommand(targetFolder, onclickResourceName, url, true);
+			cc.append(addResource);
+		}
+
+		if (!containsScriptSrc(geoMap, onclickResourceNameTarget)) {
+			Script script = Geoff.instance(GeoffPackage.Literals.SCRIPT);
+			script.setSrc(onclickResourceNameTarget);
+			script.setContext(ScriptContext.GLOBAL);
+			Command addScriptCommand = editingService.createAddCommand(geoMap, GeoffPackage.Literals.GEO_MAP__SCRIPTS,
+					script);
+			cc.append(addScriptCommand);
+
+			Select interaction = Geoff.instance(InteractionPackage.Literals.SELECT);
+			interaction.setCondition(EventCondition.SINGLE_CLICK);
+			Command addInteractionCommand = editingService.createAddCommand(geoMap,
+					GeoffPackage.Literals.GEO_MAP__INTERACTIONS, interaction);
+			cc.append(addInteractionCommand);
 		}
 
 		VectorSource vectorSource = Geoff.vectorSource();
 		VectorLayer layer = Geoff.vectorLayer(vectorSource);
-		layer.setShortDescription("Geotagged Images");
+		layer.setShortDescription("Geotagged Images (Source: " + folder.getName() + ")");
 
 		for (Entry<String, Entry<Double, Double>> e : geoTaggedImages.entrySet()) {
-			String url = e.getKey();
+			String src = folder.getName() + "/" + e.getKey();
 			Entry<Double, Double> v = e.getValue();
 			double x = v.getKey();
 			double y = v.getValue();
+
 			// assume WGS/84 (GPS) coordinate system used
 			XYZLocation xyLocation = Geoff.xyLocation(x, y, Geoff.EPSG4326_WGS84);
-			Feature feature = Geoff.feature(Geoff.pointGeom(xyLocation), Geoff.style(Geoff.icon(markerSrc)));
-			BasicEMap.Entry<String, String> urlProp = Geoff.featureProperty("url", url);
+
+			Feature feature = Geoff.feature(Geoff.pointGeom(xyLocation), Geoff.style(Geoff.icon(markerTarget)));
+			BasicEMap.Entry<String, String> urlProp = Geoff.featureProperty("src", src);
 			feature.getProperties().add(urlProp);
+			feature.setOnclick(ONCLICK_FUNCTION);
 			vectorSource.getFeatures().add(feature);
 		}
 
 		Command command = editingService.createAddCommand(geoMap, GeoffPackage.Literals.GEO_MAP__LAYERS, layer);
 		cc.append(command);
 		editingService.execute(cc);
+	}
+
+	private boolean containsScriptSrc(GeoMap geoMap, String src) {
+		for (Script script : geoMap.getScripts()) {
+			if (script.getSrc().equals(src)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**

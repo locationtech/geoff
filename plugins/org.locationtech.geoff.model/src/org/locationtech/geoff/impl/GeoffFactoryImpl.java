@@ -85,6 +85,8 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 			return (EObject) createStyleEntry();
 		case GeoffPackage.STRING_TO_STRING_MAP_ENTRY:
 			return (EObject) createStringToStringMapEntry();
+		case GeoffPackage.SCRIPT:
+			return createScript();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
@@ -100,6 +102,8 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 		switch (eDataType.getClassifierID()) {
 		case GeoffPackage.RENDERER_HINT:
 			return createRendererHintFromString(eDataType, initialValue);
+		case GeoffPackage.SCRIPT_CONTEXT:
+			return createScriptContextFromString(eDataType, initialValue);
 		default:
 			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
@@ -115,6 +119,8 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 		switch (eDataType.getClassifierID()) {
 		case GeoffPackage.RENDERER_HINT:
 			return convertRendererHintToString(eDataType, instanceValue);
+		case GeoffPackage.SCRIPT_CONTEXT:
+			return convertScriptContextToString(eDataType, instanceValue);
 		default:
 			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
@@ -195,6 +201,16 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Script createScript() {
+		ScriptImpl script = new ScriptImpl();
+		return script;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public RendererHint createRendererHintFromString(EDataType eDataType, String initialValue) {
 		RendererHint result = RendererHint.get(initialValue);
 		if (result == null)
@@ -209,6 +225,28 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 	 * @generated
 	 */
 	public String convertRendererHintToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ScriptContext createScriptContextFromString(EDataType eDataType, String initialValue) {
+		ScriptContext result = ScriptContext.get(initialValue);
+		if (result == null)
+			throw new IllegalArgumentException(
+					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertScriptContextToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

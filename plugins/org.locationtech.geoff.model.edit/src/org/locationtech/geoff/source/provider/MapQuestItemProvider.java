@@ -96,14 +96,11 @@ public class MapQuestItemProvider extends XYZItemProvider {
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((MapQuest) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_MapQuest_type") //$NON-NLS-1$
-				:
-				getString("_UI_MapQuest_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		return "MapQuest";
 	}
 
 	/**

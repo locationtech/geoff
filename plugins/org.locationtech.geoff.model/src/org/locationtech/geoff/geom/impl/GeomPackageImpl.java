@@ -27,6 +27,8 @@ import org.locationtech.geoff.geom.SimpleGeometry;
 
 import org.locationtech.geoff.impl.GeoffPackageImpl;
 
+import org.locationtech.geoff.interaction.InteractionPackage;
+import org.locationtech.geoff.interaction.impl.InteractionPackageImpl;
 import org.locationtech.geoff.layer.LayerPackage;
 
 import org.locationtech.geoff.layer.impl.LayerPackageImpl;
@@ -136,6 +138,10 @@ public class GeomPackageImpl extends EPackageImpl implements GeomPackage {
 		StylePackageImpl theStylePackage = (StylePackageImpl) (EPackage.Registry.INSTANCE
 				.getEPackage(StylePackage.eNS_URI) instanceof StylePackageImpl
 						? EPackage.Registry.INSTANCE.getEPackage(StylePackage.eNS_URI) : StylePackage.eINSTANCE);
+		InteractionPackageImpl theInteractionPackage = (InteractionPackageImpl) (EPackage.Registry.INSTANCE
+				.getEPackage(InteractionPackage.eNS_URI) instanceof InteractionPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(InteractionPackage.eNS_URI)
+						: InteractionPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theGeomPackage.createPackageContents();
@@ -143,6 +149,7 @@ public class GeomPackageImpl extends EPackageImpl implements GeomPackage {
 		theLayerPackage.createPackageContents();
 		theSourcePackage.createPackageContents();
 		theStylePackage.createPackageContents();
+		theInteractionPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theGeomPackage.initializePackageContents();
@@ -150,6 +157,7 @@ public class GeomPackageImpl extends EPackageImpl implements GeomPackage {
 		theLayerPackage.initializePackageContents();
 		theSourcePackage.initializePackageContents();
 		theStylePackage.initializePackageContents();
+		theInteractionPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theGeomPackage.freeze();

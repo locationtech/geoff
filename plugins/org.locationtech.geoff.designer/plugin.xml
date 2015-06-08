@@ -28,16 +28,11 @@
                name="Geo Map">
          </category>
          <view
+               category="org.locationtech.geoff.designer"
                class="org.locationtech.geoff.designer.e3x.E3PageBookViewPart:org.locationtech.geoff.designer.views.LayersUI"
                icon="icons/layers-16.png"
                id="org.locationtech.geoff.designer.views.layers"
                name="Layers"
-               restorable="true">
-         </view>
-         <view
-               class="org.locationtech.geoff.designer.e3x.E3PageBookViewPart:org.locationtech.geoff.designer.views.GeocodingUI"
-               id="org.locationtech.geoff.designer.views.geocoding"
-               name="Geocoding"
                restorable="true">
          </view>
       </extension>
@@ -80,7 +75,7 @@
                class="org.locationtech.geoff.designer.wizards.NewGeoMapWizard"
                icon="icons/geoff-16.png"
                id="org.locationtech.geoff.designer.wizard1"
-               name="New Geo Map">         </wizard>
+               name="Geo Map">         </wizard>
       </extension>
       <extension
             point="org.eclipse.ui.commands">
@@ -231,15 +226,6 @@
                <parameter
                      name="tileProvider"
                      value="OSM">
-               </parameter>
-            </command>
-            <command
-                  commandId="org.locationtech.geoff.designer.commands.addTileLayer"
-                  label="Bing Maps"
-                  style="push">
-               <parameter
-                     name="tileProvider"
-                     value="BingMaps">
                </parameter>
             </command>
             <command

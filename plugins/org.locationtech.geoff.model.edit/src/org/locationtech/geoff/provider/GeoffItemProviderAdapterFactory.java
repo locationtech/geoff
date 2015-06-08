@@ -250,6 +250,29 @@ public class GeoffItemProviderAdapterFactory extends GeoffAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.Script} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ScriptItemProvider scriptItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.locationtech.geoff.Script}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createScriptAdapter() {
+		if (scriptItemProvider == null) {
+			scriptItemProvider = new ScriptItemProvider(this);
+		}
+
+		return scriptItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -362,6 +385,8 @@ public class GeoffItemProviderAdapterFactory extends GeoffAdapterFactory
 			styleEntryItemProvider.dispose();
 		if (stringToStringMapEntryItemProvider != null)
 			stringToStringMapEntryItemProvider.dispose();
+		if (scriptItemProvider != null)
+			scriptItemProvider.dispose();
 	}
 
 }

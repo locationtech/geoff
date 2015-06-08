@@ -17,7 +17,8 @@
 		"geoff.geom" : "http://www.locationtech.org/geoff-geom-v1",
 		"geoff.layer" : "http://www.locationtech.org/geoff-layer-v1",
 		"geoff.source" : "http://www.locationtech.org/geoff-source-v1",
-		"geoff.style" : "http://www.locationtech.org/geoff-style-v1"
+		"geoff.style" : "http://www.locationtech.org/geoff-style-v1",
+		"geoff.interaction" : "http://www.locationtech.org/geoff-interaction-v1"
 	};
 
 	// this is the array of rules that are supported to transform DOM nodes to
@@ -40,7 +41,6 @@
 	// this is the entry rule that is responsible for parsing the root DOM node
 	// geoff:GeoMap
 	rules["geoff:GeoMap"] = function(domNode, env) {
-		var layers = elements(domNode, "layer");
 		var domView = elements(domNode, "view")[0];
 		var rendererHint = attrValue(domNode, "rendererHint");
 
@@ -54,14 +54,60 @@
 		env.view = olView;
 
 		var map = new ol.Map({
-			layers : convertCollection(layers, env),
 			view : olView
 		});
+		env.map = map;
+
+		var layers = convertCollection(elements(domNode, "layer"), env);
+		for (var i = 0; i < layers.length; i++) {
+			map.addLayer(layers[i]);
+		}
+
+		var interactions = convertCollection(elements(domNode, "interactions"),
+				env);
+		for (var i = 0; i < interactions.length; i++) {
+			map.addInteraction(interactions[i]);
+		}
 
 		zoomslider = new ol.control.ZoomSlider();
 		map.addControl(zoomslider);
 
+		var domScripts = elements(domNode, "scripts");
+		convertCollection(domScripts, env, "geoff:Script");
+
 		return map;
+	};
+
+	rules["geoff.interaction:Select"] = function(domNode, env) {
+		var conditionStr = attrValue(domNode, "condition");
+		var opts = {};
+
+		if (conditionStr == "CLICK") {
+			opts.condition = ol.events.condition.click;
+		} else if (conditionStr == "HOVER") {
+			opts.condition = ol.events.condition.pointerMove;
+		}
+
+		var select = new ol.interaction.Select(opts);
+		select.on('select', function(e) {
+			var features = e.target.getFeatures();
+			
+			for (var i = 0; i < features.getLength(); i++) {
+				var feature = features.item(i);
+				
+				if (feature.geoff_interaction_select_on_click) {
+					feature.geoff_interaction_select_on_click(feature);
+				}
+			}
+		});
+
+		return select;
+	};
+
+	rules["geoff:Script"] = function(domNode, env) {
+		var src = attrValue(domNode, "src");
+		loadScript(src, function() {
+		});
 	};
 
 	rules["geoff:View"] = function(domNode, env) {
@@ -122,37 +168,55 @@
 
 	rules["geoff.source:VectorSource"] = function(domNode, env) {
 		var features = elements(domNode, "feature");
-		var url = attrValue(domNode, "url");
-		var formatStr = attrValue(domNode, "format");
-		var formatObj = null;
+		var opts = {};
 
-		if (formatStr === "GeoJSON") {
-			formatObj = new ol.format.GeoJSON();
-		} else if (formatStr === "KML") {
-			formatObj = new ol.format.KML();
-		} else if (formatStr === "GML" ) {
-			formatObj = new ol.format.GML();
-		} else if (formatStr === "GPX" ) {
-			formatObj = new ol.format.GPX();
+		if (features.length > 0) {
+			opts.features = convertCollection(features, env, "geoff:Feature");
+		} else {
+			var url = attrValue(domNode, "url");
+			var formatStr = attrValue(domNode, "format");
+			var formatObj = null;
+
+			if (formatStr === "GeoJSON") {
+				formatObj = new ol.format.GeoJSON();
+			} else if (formatStr === "KML") {
+				formatObj = new ol.format.KML();
+			} else if (formatStr === "GML") {
+				formatObj = new ol.format.GML();
+			} else if (formatStr === "GPX") {
+				formatObj = new ol.format.GPX();
+			}
+
+			opts.url = url;
+			opts.format = formatObj;
 		}
-		
-		return new ol.source.Vector({
-			features : convertCollection(features, env, "geoff:Feature"),
-			url : url,
-			format : formatObj
-		});
+
+		return new ol.source.Vector(opts);
 	};
 
 	rules["geoff:Feature"] = function(domNode, env) {
 		var geometry = elements(domNode, "geometry")[0];
 		var styles = elements(domNode, "style")[0];
-
-		var olFeature = new ol.Feature({
-			geometry : convertObject(geometry, env)
-		});
+		var propsElems = elements(domNode, "properties");
+		
+		var props = convertKeyValueProperties(propsElems, env);
+		props.geometry = convertObject(geometry, env);
+		var olFeature = new ol.Feature(props);
 
 		var olStyle = convertObject(styles, env, "geoff.style:Style");
 		olFeature.setStyle(olStyle);
+		
+		var onclickStr = attrValue(domNode, "onclick");
+		
+		if (onclickStr) {
+			olFeature.geoff_interaction_select_on_click = function(feature) {
+				var onclickFunc = window[onclickStr];
+				
+				if (onclickFunc) {
+					onclickFunc(olFeature);
+				}
+			}
+		}
 
 		return olFeature;
 	};
@@ -332,6 +396,19 @@
 	function execRule(nsPrefix, tagName, contextNode, env) {
 		var ruleName = nsPrefix + ":" + tagName;
 		return rules[ruleName](contextNode, env);
+	}
+	
+	function convertKeyValueProperties(domCollection, env) {
+		var props = {};
+
+		for (var i = 0; i < domCollection.length; i++) {
+			var prop = domCollection[i];
+			var key = attrValue(prop, "key");
+			var value = attrValue(prop, "value");
+			props[key] = value;
+		}
+
+		return props;
 	}
 
 	function convertCollection(domCollection, env, type) {

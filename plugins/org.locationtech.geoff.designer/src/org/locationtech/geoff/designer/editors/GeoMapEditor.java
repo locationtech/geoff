@@ -7,7 +7,10 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.command.BasicCommandStack;
@@ -36,6 +39,10 @@ import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.services.IServiceScopes;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.IPublishListener;
+import org.eclipse.wst.server.core.IServer;
+import org.eclipse.wst.server.core.ServerUtil;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.core.Geoff;
 import org.locationtech.geoff.designer.DesignerUtil;
@@ -55,6 +62,7 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 	private IHandlerActivation redoHandlerActivation;
 	private boolean canSave = false;
 	private IEditingService editingService;
+	private String url;
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
@@ -64,6 +72,9 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 			public void run() throws Exception {
 				geoMap.eResource().save(null);
 				canSave = false;
+				FileEditorInput ei = (FileEditorInput) getEditorInput();
+				IProject project = ei.getFile().getProject();
+				project.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
 				firePropertyChange(PROP_DIRTY);
 			}
 		});
@@ -79,6 +90,26 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 			FileEditorInput fInput = (FileEditorInput) input;
 			URI uri = fInput.getURI();
 			geoMap = Geoff.fromURI(uri);
+			IFile file = fInput.getFile();
+			IProject project = file.getProject();
+			url = DesignerUtil.toWSTServerUrl(project);
+
+			IModule module = ServerUtil.getModule(project);
+			IServer[] serversByModule = ServerUtil.getServersByModule(module, new NullProgressMonitor());
+
+			if (serversByModule != null && serversByModule.length > 0) {
+				serversByModule[0].addPublishListener(new IPublishListener() {
+
+					@Override
+					public void publishStarted(IServer arg0) {
+					}
+
+					@Override
+					public void publishFinished(IServer arg0, IStatus arg1) {
+						geoMapComposite.loadHtmlByUrl(url);
+					}
+				});
+			}
 		} else {
 			throw new UnsupportedOperationException("Provided editor input not supported: " + input);
 		}
@@ -177,10 +208,6 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new FillLayout());
 		geoMapComposite = new GeoMapComposite(parent, SWT.None);
-		FileEditorInput fin = (FileEditorInput) getEditorInput();
-		IFile file = fin.getFile();
-		IProject project = file.getProject();
-		String url = DesignerUtil.toWSTServerUrl(project);
 		geoMapComposite.loadHtmlByUrl(url);
 	}
 

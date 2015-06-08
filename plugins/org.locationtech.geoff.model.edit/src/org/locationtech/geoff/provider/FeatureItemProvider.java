@@ -77,6 +77,7 @@ public class FeatureItemProvider extends ItemProviderAdapter implements IEditing
 			super.getPropertyDescriptors(object);
 
 			addIdPropertyDescriptor(object);
+			addOnclickPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -94,6 +95,22 @@ public class FeatureItemProvider extends ItemProviderAdapter implements IEditing
 						getString("_UI_PropertyDescriptor_description", "_UI_Identifiable_id_feature", //$NON-NLS-1$//$NON-NLS-2$
 								"_UI_Identifiable_type"), //$NON-NLS-1$
 						GeoffPackage.Literals.IDENTIFIABLE__ID, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Onclick feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addOnclickPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Feature_onclick_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_Feature_onclick_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_Feature_type"), //$NON-NLS-1$
+						GeoffPackage.Literals.FEATURE__ONCLICK, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -167,6 +184,7 @@ public class FeatureItemProvider extends ItemProviderAdapter implements IEditing
 
 		switch (notification.getFeatureID(Feature.class)) {
 		case GeoffPackage.FEATURE__ID:
+		case GeoffPackage.FEATURE__ONCLICK:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case GeoffPackage.FEATURE__GEOMETRY:

@@ -27,6 +27,7 @@ import org.locationtech.geoff.style.Style;
  *   <li>{@link org.locationtech.geoff.Feature#getGeometry <em>Geometry</em>}</li>
  *   <li>{@link org.locationtech.geoff.Feature#getStyle <em>Style</em>}</li>
  *   <li>{@link org.locationtech.geoff.Feature#getProperties <em>Properties</em>}</li>
+ *   <li>{@link org.locationtech.geoff.Feature#getOnclick <em>Onclick</em>}</li>
  * </ul>
  *
  * @see org.locationtech.geoff.GeoffPackage#getFeature()
@@ -110,5 +111,31 @@ public interface Feature extends Identifiable {
 	 * @generated
 	 */
 	EMap<String, String> getProperties();
+
+	/**
+	 * Returns the value of the '<em><b>Onclick</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Onclick</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Onclick</em>' attribute.
+	 * @see #setOnclick(String)
+	 * @see org.locationtech.geoff.GeoffPackage#getFeature_Onclick()
+	 * @model
+	 * @generated
+	 */
+	String getOnclick();
+
+	/**
+	 * Sets the value of the '{@link org.locationtech.geoff.Feature#getOnclick <em>Onclick</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Onclick</em>' attribute.
+	 * @see #getOnclick()
+	 * @generated
+	 */
+	void setOnclick(String value);
 
 } // Feature

@@ -26,8 +26,8 @@ public class AddTileLayerHandler {
 
 	{
 		tileProvidersMap.put("OSM", SourcePackage.Literals.OSM);
-		tileProvidersMap.put("BingMaps", SourcePackage.Literals.OSM);
-		tileProvidersMap.put("MapQuest", SourcePackage.Literals.OSM);
+		tileProvidersMap.put("BingMaps", SourcePackage.Literals.BING_MAPS);
+		tileProvidersMap.put("MapQuest", SourcePackage.Literals.MAP_QUEST);
 	}
 
 	@Execute

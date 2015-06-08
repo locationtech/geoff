@@ -12,6 +12,7 @@
 package org.locationtech.geoff;
 
 import org.eclipse.emf.common.util.EList;
+import org.locationtech.geoff.interaction.Interaction;
 import org.locationtech.geoff.layer.Layer;
 
 /**
@@ -26,6 +27,8 @@ import org.locationtech.geoff.layer.Layer;
  *   <li>{@link org.locationtech.geoff.GeoMap#getLayers <em>Layers</em>}</li>
  *   <li>{@link org.locationtech.geoff.GeoMap#getView <em>View</em>}</li>
  *   <li>{@link org.locationtech.geoff.GeoMap#getRendererHint <em>Renderer Hint</em>}</li>
+ *   <li>{@link org.locationtech.geoff.GeoMap#getScripts <em>Scripts</em>}</li>
+ *   <li>{@link org.locationtech.geoff.GeoMap#getInteractions <em>Interactions</em>}</li>
  * </ul>
  *
  * @see org.locationtech.geoff.GeoffPackage#getGeoMap()
@@ -111,5 +114,37 @@ public interface GeoMap extends Identifiable, Descriptive {
 	 * @generated
 	 */
 	void setRendererHint(RendererHint value);
+
+	/**
+	 * Returns the value of the '<em><b>Scripts</b></em>' containment reference list.
+	 * The list contents are of type {@link org.locationtech.geoff.Script}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Scripts</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Scripts</em>' containment reference list.
+	 * @see org.locationtech.geoff.GeoffPackage#getGeoMap_Scripts()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Script> getScripts();
+
+	/**
+	 * Returns the value of the '<em><b>Interactions</b></em>' containment reference list.
+	 * The list contents are of type {@link org.locationtech.geoff.interaction.Interaction}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Interactions</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Interactions</em>' containment reference list.
+	 * @see org.locationtech.geoff.GeoffPackage#getGeoMap_Interactions()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Interaction> getInteractions();
 
 } // GeoMap

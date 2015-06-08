@@ -91,4 +91,12 @@
             class="org.locationtech.geoff.style.util.StyleResourceFactoryImpl"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated geoff -->
+      <package
+            uri="http://www.locationtech.org/geoff-interaction-v1"
+            class="org.locationtech.geoff.interaction.InteractionPackage"
+            genModel="model/geoff.genmodel"/>
+   </extension>
+
 </plugin>

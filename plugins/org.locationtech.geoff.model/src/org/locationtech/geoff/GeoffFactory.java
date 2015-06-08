@@ -83,6 +83,15 @@ public interface GeoffFactory extends EFactory {
 	Color createColor();
 
 	/**
+	 * Returns a new object of class '<em>Script</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Script</em>'.
+	 * @generated
+	 */
+	Script createScript();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

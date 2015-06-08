@@ -26,7 +26,9 @@ import org.locationtech.geoff.Descriptive;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.GeoffPackage;
 import org.locationtech.geoff.RendererHint;
+import org.locationtech.geoff.Script;
 import org.locationtech.geoff.View;
+import org.locationtech.geoff.interaction.Interaction;
 import org.locationtech.geoff.layer.Layer;
 
 /**
@@ -43,6 +45,8 @@ import org.locationtech.geoff.layer.Layer;
  *   <li>{@link org.locationtech.geoff.impl.GeoMapImpl#getLayers <em>Layers</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.GeoMapImpl#getView <em>View</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.GeoMapImpl#getRendererHint <em>Renderer Hint</em>}</li>
+ *   <li>{@link org.locationtech.geoff.impl.GeoMapImpl#getScripts <em>Scripts</em>}</li>
+ *   <li>{@link org.locationtech.geoff.impl.GeoMapImpl#getInteractions <em>Interactions</em>}</li>
  * </ul>
  *
  * @generated
@@ -154,6 +158,26 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 	 * @ordered
 	 */
 	protected RendererHint rendererHint = RENDERER_HINT_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getScripts() <em>Scripts</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getScripts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Script> scripts;
+
+	/**
+	 * The cached value of the '{@link #getInteractions() <em>Interactions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInteractions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Interaction> interactions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -327,6 +351,31 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Script> getScripts() {
+		if (scripts == null) {
+			scripts = new EObjectContainmentEList<Script>(Script.class, this, GeoffPackage.GEO_MAP__SCRIPTS);
+		}
+		return scripts;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Interaction> getInteractions() {
+		if (interactions == null) {
+			interactions = new EObjectContainmentEList<Interaction>(Interaction.class, this,
+					GeoffPackage.GEO_MAP__INTERACTIONS);
+		}
+		return interactions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -334,6 +383,10 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 			return ((InternalEList<?>) getLayers()).basicRemove(otherEnd, msgs);
 		case GeoffPackage.GEO_MAP__VIEW:
 			return basicSetView(null, msgs);
+		case GeoffPackage.GEO_MAP__SCRIPTS:
+			return ((InternalEList<?>) getScripts()).basicRemove(otherEnd, msgs);
+		case GeoffPackage.GEO_MAP__INTERACTIONS:
+			return ((InternalEList<?>) getInteractions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -358,6 +411,10 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 			return getView();
 		case GeoffPackage.GEO_MAP__RENDERER_HINT:
 			return getRendererHint();
+		case GeoffPackage.GEO_MAP__SCRIPTS:
+			return getScripts();
+		case GeoffPackage.GEO_MAP__INTERACTIONS:
+			return getInteractions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -390,6 +447,14 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 		case GeoffPackage.GEO_MAP__RENDERER_HINT:
 			setRendererHint((RendererHint) newValue);
 			return;
+		case GeoffPackage.GEO_MAP__SCRIPTS:
+			getScripts().clear();
+			getScripts().addAll((Collection<? extends Script>) newValue);
+			return;
+		case GeoffPackage.GEO_MAP__INTERACTIONS:
+			getInteractions().clear();
+			getInteractions().addAll((Collection<? extends Interaction>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -420,6 +485,12 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 		case GeoffPackage.GEO_MAP__RENDERER_HINT:
 			setRendererHint(RENDERER_HINT_EDEFAULT);
 			return;
+		case GeoffPackage.GEO_MAP__SCRIPTS:
+			getScripts().clear();
+			return;
+		case GeoffPackage.GEO_MAP__INTERACTIONS:
+			getInteractions().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -446,6 +517,10 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 			return view != null;
 		case GeoffPackage.GEO_MAP__RENDERER_HINT:
 			return rendererHint != RENDERER_HINT_EDEFAULT;
+		case GeoffPackage.GEO_MAP__SCRIPTS:
+			return scripts != null && !scripts.isEmpty();
+		case GeoffPackage.GEO_MAP__INTERACTIONS:
+			return interactions != null && !interactions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

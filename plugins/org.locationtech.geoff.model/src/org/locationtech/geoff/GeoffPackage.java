@@ -221,13 +221,31 @@ public interface GeoffPackage extends EPackage {
 	int GEO_MAP__RENDERER_HINT = IDENTIFIABLE_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Scripts</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEO_MAP__SCRIPTS = IDENTIFIABLE_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Interactions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEO_MAP__INTERACTIONS = IDENTIFIABLE_FEATURE_COUNT + 6;
+
+	/**
 	 * The number of structural features of the '<em>Geo Map</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEO_MAP_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 5;
+	int GEO_MAP_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of operations of the '<em>Geo Map</em>' class.
@@ -459,13 +477,22 @@ public interface GeoffPackage extends EPackage {
 	int FEATURE__PROPERTIES = IDENTIFIABLE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Onclick</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__ONCLICK = IDENTIFIABLE_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Feature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 3;
+	int FEATURE_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Feature</em>' class.
@@ -642,6 +669,70 @@ public interface GeoffPackage extends EPackage {
 	int STRING_TO_STRING_MAP_ENTRY_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link org.locationtech.geoff.impl.ScriptImpl <em>Script</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.locationtech.geoff.impl.ScriptImpl
+	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getScript()
+	 * @generated
+	 */
+	int SCRIPT = 10;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCRIPT__ID = IDENTIFIABLE__ID;
+
+	/**
+	 * The feature id for the '<em><b>Src</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCRIPT__SRC = IDENTIFIABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCRIPT__TYPE = IDENTIFIABLE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCRIPT__CONTEXT = IDENTIFIABLE_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Script</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCRIPT_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of operations of the '<em>Script</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCRIPT_OPERATION_COUNT = IDENTIFIABLE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.locationtech.geoff.RendererHint <em>Renderer Hint</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -649,7 +740,17 @@ public interface GeoffPackage extends EPackage {
 	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getRendererHint()
 	 * @generated
 	 */
-	int RENDERER_HINT = 10;
+	int RENDERER_HINT = 11;
+
+	/**
+	 * The meta object id for the '{@link org.locationtech.geoff.ScriptContext <em>Script Context</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.locationtech.geoff.ScriptContext
+	 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getScriptContext()
+	 * @generated
+	 */
+	int SCRIPT_CONTEXT = 12;
 
 	/**
 	 * Returns the meta object for class '{@link org.locationtech.geoff.Identifiable <em>Identifiable</em>}'.
@@ -746,6 +847,28 @@ public interface GeoffPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGeoMap_RendererHint();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.locationtech.geoff.GeoMap#getScripts <em>Scripts</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Scripts</em>'.
+	 * @see org.locationtech.geoff.GeoMap#getScripts()
+	 * @see #getGeoMap()
+	 * @generated
+	 */
+	EReference getGeoMap_Scripts();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.locationtech.geoff.GeoMap#getInteractions <em>Interactions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Interactions</em>'.
+	 * @see org.locationtech.geoff.GeoMap#getInteractions()
+	 * @see #getGeoMap()
+	 * @generated
+	 */
+	EReference getGeoMap_Interactions();
 
 	/**
 	 * Returns the meta object for class '{@link org.locationtech.geoff.View <em>View</em>}'.
@@ -887,6 +1010,17 @@ public interface GeoffPackage extends EPackage {
 	EReference getFeature_Properties();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.Feature#getOnclick <em>Onclick</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Onclick</em>'.
+	 * @see org.locationtech.geoff.Feature#getOnclick()
+	 * @see #getFeature()
+	 * @generated
+	 */
+	EAttribute getFeature_Onclick();
+
+	/**
 	 * Returns the meta object for class '{@link org.locationtech.geoff.Color <em>Color</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1009,6 +1143,49 @@ public interface GeoffPackage extends EPackage {
 	EAttribute getStringToStringMapEntry_Value();
 
 	/**
+	 * Returns the meta object for class '{@link org.locationtech.geoff.Script <em>Script</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Script</em>'.
+	 * @see org.locationtech.geoff.Script
+	 * @generated
+	 */
+	EClass getScript();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.Script#getSrc <em>Src</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Src</em>'.
+	 * @see org.locationtech.geoff.Script#getSrc()
+	 * @see #getScript()
+	 * @generated
+	 */
+	EAttribute getScript_Src();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.Script#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see org.locationtech.geoff.Script#getType()
+	 * @see #getScript()
+	 * @generated
+	 */
+	EAttribute getScript_Type();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.locationtech.geoff.Script#getContext <em>Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Context</em>'.
+	 * @see org.locationtech.geoff.Script#getContext()
+	 * @see #getScript()
+	 * @generated
+	 */
+	EAttribute getScript_Context();
+
+	/**
 	 * Returns the meta object for enum '{@link org.locationtech.geoff.RendererHint <em>Renderer Hint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1017,6 +1194,16 @@ public interface GeoffPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getRendererHint();
+
+	/**
+	 * Returns the meta object for enum '{@link org.locationtech.geoff.ScriptContext <em>Script Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Script Context</em>'.
+	 * @see org.locationtech.geoff.ScriptContext
+	 * @generated
+	 */
+	EEnum getScriptContext();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1118,6 +1305,22 @@ public interface GeoffPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute GEO_MAP__RENDERER_HINT = eINSTANCE.getGeoMap_RendererHint();
+
+		/**
+		 * The meta object literal for the '<em><b>Scripts</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GEO_MAP__SCRIPTS = eINSTANCE.getGeoMap_Scripts();
+
+		/**
+		 * The meta object literal for the '<em><b>Interactions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference GEO_MAP__INTERACTIONS = eINSTANCE.getGeoMap_Interactions();
 
 		/**
 		 * The meta object literal for the '{@link org.locationtech.geoff.impl.ViewImpl <em>View</em>}' class.
@@ -1232,6 +1435,14 @@ public interface GeoffPackage extends EPackage {
 		EReference FEATURE__PROPERTIES = eINSTANCE.getFeature_Properties();
 
 		/**
+		 * The meta object literal for the '<em><b>Onclick</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FEATURE__ONCLICK = eINSTANCE.getFeature_Onclick();
+
+		/**
 		 * The meta object literal for the '{@link org.locationtech.geoff.impl.ColorImpl <em>Color</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1326,6 +1537,40 @@ public interface GeoffPackage extends EPackage {
 		EAttribute STRING_TO_STRING_MAP_ENTRY__VALUE = eINSTANCE.getStringToStringMapEntry_Value();
 
 		/**
+		 * The meta object literal for the '{@link org.locationtech.geoff.impl.ScriptImpl <em>Script</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.locationtech.geoff.impl.ScriptImpl
+		 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getScript()
+		 * @generated
+		 */
+		EClass SCRIPT = eINSTANCE.getScript();
+
+		/**
+		 * The meta object literal for the '<em><b>Src</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SCRIPT__SRC = eINSTANCE.getScript_Src();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SCRIPT__TYPE = eINSTANCE.getScript_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Context</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SCRIPT__CONTEXT = eINSTANCE.getScript_Context();
+
+		/**
 		 * The meta object literal for the '{@link org.locationtech.geoff.RendererHint <em>Renderer Hint</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1334,6 +1579,16 @@ public interface GeoffPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum RENDERER_HINT = eINSTANCE.getRendererHint();
+
+		/**
+		 * The meta object literal for the '{@link org.locationtech.geoff.ScriptContext <em>Script Context</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.locationtech.geoff.ScriptContext
+		 * @see org.locationtech.geoff.impl.GeoffPackageImpl#getScriptContext()
+		 * @generated
+		 */
+		EEnum SCRIPT_CONTEXT = eINSTANCE.getScriptContext();
 
 	}
 

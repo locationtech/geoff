@@ -11,9 +11,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchSite;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.IPage;
 import org.eclipse.ui.part.IPageBookViewPage;
 import org.eclipse.ui.part.MessagePage;
@@ -24,7 +26,7 @@ import org.osgi.framework.FrameworkUtil;
 
 public class E3PageBookViewPart extends PageBookView implements IExecutableExtension {
 	private String className;
-
+	
 	@Override
 	protected IPage createDefaultPage(PageBook book) {
 		MessagePage page = new MessagePage();
@@ -122,5 +124,6 @@ public class E3PageBookViewPart extends PageBookView implements IExecutableExten
 		}
 
 		className = (String) data;
+		super.setInitializationData(cfig, propertyName, data);
 	}
 }

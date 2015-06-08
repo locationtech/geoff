@@ -5,10 +5,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -35,9 +39,7 @@ import org.locationtech.geoff.ol.ResourcesUtil;
 public class NewGeoMapWizard extends Wizard implements INewWizard {
 
 	private static final String INDEX_GEOMAP_HTML = "index-geomap.html";
-	private static final String RESOURCES = "resources";
-	private static final String JS = "js";
-	private static final String CSS = "css";
+	private static final String RESOURCES = ResourcesUtil.RESOURCES_FOLDER;
 	private IStructuredSelection selection;
 
 	@Override
@@ -86,29 +88,22 @@ public class NewGeoMapWizard extends Wizard implements INewWizard {
 			StatusManager.getManager().handle(status, StatusManager.SHOW);
 		}
 
-		File resourcesFolder = new File(targetFolder, RESOURCES);
-		resourcesFolder.mkdirs();
-		File jsFolder = new File(targetFolder, JS);
-		jsFolder.mkdirs();
-		File cssFolder = new File(targetFolder, CSS);
-		cssFolder.mkdirs();
-
-		copyGeoffOlResource(ResourcesUtil.GEOFF_OL_JS, jsFolder);
-		copyGeoffOlResource(ResourcesUtil.JQUERY_MIN_JS, jsFolder);
-		copyGeoffOlResource(ResourcesUtil.OL_JS, jsFolder);
-		copyGeoffOlResource(ResourcesUtil.OL_CSS, cssFolder);
-
-		copyResource("countries.geojson", resourcesFolder);
-
 		try {
+			List<String> resources = new ArrayList<>();
+			List<String> copyResources = ResourcesUtil.copyResources(NewGeoMapWizard.class, RESOURCES, targetFolder);
+			List<String> copyResources2 = ResourcesUtil.copyResources(ResourcesUtil.RESOURCES_FOLDER, targetFolder);
+			resources.addAll(copyResources);
+			resources.addAll(copyResources2);
+
 			String indexGeomapHtml = ResourcesUtil.readStream(NewGeoMapWizard.class.getClassLoader()
 					.getResourceAsStream("resource-templates/" + INDEX_GEOMAP_HTML));
 			Map<String, String> replaceVars = new HashMap<String, String>();
+			String styles = collectStyles(resources);
+			String scripts = collectScripts(resources);
+
 			replaceVars.put("\\{\\{GEOMAP_FILE_NAME\\}\\}", fileName);
-			replaceVars.put("\\{\\{OL_CSS\\}\\}", CSS + "/" + ResourcesUtil.OL_CSS);
-			replaceVars.put("\\{\\{OL_JS\\}\\}", JS + "/" + ResourcesUtil.OL_JS);
-			replaceVars.put("\\{\\{JQUERY_MIN_JS\\}\\}", JS + "/" + ResourcesUtil.JQUERY_MIN_JS);
-			replaceVars.put("\\{\\{GEOFF_OL_JS\\}\\}", JS + "/" + ResourcesUtil.GEOFF_OL_JS);
+			replaceVars.put("\\{\\{STYLES\\}\\}", styles);
+			replaceVars.put("\\{\\{SCRIPTS\\}\\}", scripts);
 
 			indexGeomapHtml = replaceVars(indexGeomapHtml, replaceVars);
 
@@ -128,6 +123,75 @@ public class NewGeoMapWizard extends Wizard implements INewWizard {
 		return true;
 	}
 
+	private String collectStyles(List<String> resources) {
+		List<String> styles = filter(resources, ".*\\.css");
+		StringBuilder sb = new StringBuilder();
+
+		for (String style : styles) {
+			sb.append("<link rel='stylesheet' href='");
+			sb.append(style).append("' type='text/css'>");
+			sb.append("\n");
+		}
+
+		return sb.toString();
+	}
+
+	private String collectScripts(List<String> resources) {
+		List<String> styles = filter(resources, ".*\\.js");
+		final List<String> order = Arrays.asList("js/jquery-1.10.2.min.js", "js/jquery-ui-1.10.4.min.js", "js/ol.js",
+				"js/scriptloader", "js/geoff-ol3.js");
+
+		Collections.sort(styles, new Comparator<String>() {
+
+			@Override
+			public int compare(String o1, String o2) {
+				int io1 = order.indexOf(o1);
+
+				if (io1 < 0) {
+					return -1;
+				}
+
+				int io2 = order.indexOf(o2);
+
+				if (io2 < 0) {
+					return 1;
+				}
+
+				if (io1 == io2) {
+					return 0;
+				}
+
+				return io1 > io2 ? 1 : -1;
+			}
+		});
+
+		StringBuilder sb = new StringBuilder();
+
+		for (String style : styles) {
+			sb.append("<script src='");
+			sb.append(style).append("'></script>");
+			sb.append("\n");
+		}
+
+		return sb.toString();
+	}
+
+	private List<String> filter(List<String> resources, String pattern) {
+		if (resources.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		List<String> filtered = new ArrayList<>();
+
+		for (String file : resources) {
+			if (file.matches(pattern)) {
+				filtered.add(file);
+			}
+		}
+
+		return filtered;
+	}
+
 	private String replaceVars(String contents, Map<String, String> replaceVars) {
 		String ret = contents;
 
@@ -144,18 +208,6 @@ public class NewGeoMapWizard extends Wizard implements INewWizard {
 		try {
 			InputStream stream = NewGeoMapWizard.class.getClassLoader()
 					.getResourceAsStream("resource-templates/" + fileName);
-			Files.copy(stream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			IStatus status = ValidationStatus.error(e.getMessage(), e);
-			StatusManager.getManager().handle(status, StatusManager.SHOW);
-		}
-	}
-
-	private void copyGeoffOlResource(String geoffResourceFileName, File targetFolder) {
-		File targetFile = new File(targetFolder, geoffResourceFileName);
-
-		try {
-			InputStream stream = ResourcesUtil.readResourceAsStream(geoffResourceFileName);
 			Files.copy(stream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			IStatus status = ValidationStatus.error(e.getMessage(), e);

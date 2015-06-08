@@ -27,6 +27,7 @@ import org.locationtech.geoff.GeoffPackage;
 
 import org.locationtech.geoff.layer.LayerPackage;
 import org.locationtech.geoff.layer.VectorLayer;
+import org.locationtech.geoff.source.Source;
 
 /**
  * This is the item provider adapter for a {@link org.locationtech.geoff.layer.VectorLayer} object.
@@ -113,15 +114,14 @@ public class VectorLayerItemProvider extends LayerItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		VectorLayer vectorLayer = (VectorLayer) object;
-
-		if (vectorLayer.getShortDescription() != null) {
-			return vectorLayer.getShortDescription();
+		VectorLayer layer = (VectorLayer) object;
+		
+		if (layer.getShortDescription() != null) {
+			return layer.getShortDescription();
 		}
-
-		String label = vectorLayer.getId();
-		return label == null || label.length() == 0 ? getString("_UI_VectorLayer_type") //$NON-NLS-1$
-				: getString("_UI_VectorLayer_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		
+		// abstract super class handles proper text creation
+		return super.getText(object);
 	}
 
 	/**

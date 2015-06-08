@@ -7,6 +7,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.Identifiable;
 import org.locationtech.geoff.layer.Layer;
@@ -18,7 +19,7 @@ public interface IEditingService {
 
 	Collection<? extends Identifiable> samplesOf(EClass eclass);
 
-	Command createAddCommand(GeoMap geoMap, EReference ref, Identifiable id);
+	Command createAddCommand(Identifiable owner, EStructuralFeature feature, Object object);
 
 	<T extends Identifiable> T createInstance(EClass ec);
 

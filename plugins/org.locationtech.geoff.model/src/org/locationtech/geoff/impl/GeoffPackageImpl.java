@@ -27,10 +27,14 @@ import org.locationtech.geoff.GeoffPackage;
 import org.locationtech.geoff.Identifiable;
 import org.locationtech.geoff.Location;
 import org.locationtech.geoff.RendererHint;
+import org.locationtech.geoff.Script;
+import org.locationtech.geoff.ScriptContext;
 import org.locationtech.geoff.View;
 import org.locationtech.geoff.XYZLocation;
 import org.locationtech.geoff.geom.GeomPackage;
 import org.locationtech.geoff.geom.impl.GeomPackageImpl;
+import org.locationtech.geoff.interaction.InteractionPackage;
+import org.locationtech.geoff.interaction.impl.InteractionPackageImpl;
 import org.locationtech.geoff.layer.LayerPackage;
 import org.locationtech.geoff.layer.impl.LayerPackageImpl;
 import org.locationtech.geoff.source.SourcePackage;
@@ -127,7 +131,21 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass scriptEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum rendererHintEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum scriptContextEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -191,6 +209,10 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 		StylePackageImpl theStylePackage = (StylePackageImpl) (EPackage.Registry.INSTANCE
 				.getEPackage(StylePackage.eNS_URI) instanceof StylePackageImpl
 						? EPackage.Registry.INSTANCE.getEPackage(StylePackage.eNS_URI) : StylePackage.eINSTANCE);
+		InteractionPackageImpl theInteractionPackage = (InteractionPackageImpl) (EPackage.Registry.INSTANCE
+				.getEPackage(InteractionPackage.eNS_URI) instanceof InteractionPackageImpl
+						? EPackage.Registry.INSTANCE.getEPackage(InteractionPackage.eNS_URI)
+						: InteractionPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theGeoffPackage.createPackageContents();
@@ -198,6 +220,7 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 		theSourcePackage.createPackageContents();
 		theGeomPackage.createPackageContents();
 		theStylePackage.createPackageContents();
+		theInteractionPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theGeoffPackage.initializePackageContents();
@@ -205,6 +228,7 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 		theSourcePackage.initializePackageContents();
 		theGeomPackage.initializePackageContents();
 		theStylePackage.initializePackageContents();
+		theInteractionPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theGeoffPackage.freeze();
@@ -293,6 +317,24 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 	 */
 	public EAttribute getGeoMap_RendererHint() {
 		return (EAttribute) geoMapEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGeoMap_Scripts() {
+		return (EReference) geoMapEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGeoMap_Interactions() {
+		return (EReference) geoMapEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -417,6 +459,15 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getFeature_Onclick() {
+		return (EAttribute) featureEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getColor() {
 		return colorEClass;
 	}
@@ -516,8 +567,53 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getScript() {
+		return scriptEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getScript_Src() {
+		return (EAttribute) scriptEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getScript_Type() {
+		return (EAttribute) scriptEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getScript_Context() {
+		return (EAttribute) scriptEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getRendererHint() {
 		return rendererHintEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getScriptContext() {
+		return scriptContextEEnum;
 	}
 
 	/**
@@ -560,6 +656,8 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 		createEReference(geoMapEClass, GEO_MAP__LAYERS);
 		createEReference(geoMapEClass, GEO_MAP__VIEW);
 		createEAttribute(geoMapEClass, GEO_MAP__RENDERER_HINT);
+		createEReference(geoMapEClass, GEO_MAP__SCRIPTS);
+		createEReference(geoMapEClass, GEO_MAP__INTERACTIONS);
 
 		viewEClass = createEClass(VIEW);
 		createEReference(viewEClass, VIEW__CENTER);
@@ -577,6 +675,7 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 		createEReference(featureEClass, FEATURE__GEOMETRY);
 		createEReference(featureEClass, FEATURE__STYLE);
 		createEReference(featureEClass, FEATURE__PROPERTIES);
+		createEAttribute(featureEClass, FEATURE__ONCLICK);
 
 		colorEClass = createEClass(COLOR);
 		createEAttribute(colorEClass, COLOR__RED);
@@ -592,8 +691,14 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 		createEAttribute(stringToStringMapEntryEClass, STRING_TO_STRING_MAP_ENTRY__KEY);
 		createEAttribute(stringToStringMapEntryEClass, STRING_TO_STRING_MAP_ENTRY__VALUE);
 
+		scriptEClass = createEClass(SCRIPT);
+		createEAttribute(scriptEClass, SCRIPT__SRC);
+		createEAttribute(scriptEClass, SCRIPT__TYPE);
+		createEAttribute(scriptEClass, SCRIPT__CONTEXT);
+
 		// Create enums
 		rendererHintEEnum = createEEnum(RENDERER_HINT);
+		scriptContextEEnum = createEEnum(SCRIPT_CONTEXT);
 	}
 
 	/**
@@ -625,12 +730,15 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 		SourcePackage theSourcePackage = (SourcePackage) EPackage.Registry.INSTANCE.getEPackage(SourcePackage.eNS_URI);
 		GeomPackage theGeomPackage = (GeomPackage) EPackage.Registry.INSTANCE.getEPackage(GeomPackage.eNS_URI);
 		StylePackage theStylePackage = (StylePackage) EPackage.Registry.INSTANCE.getEPackage(StylePackage.eNS_URI);
+		InteractionPackage theInteractionPackage = (InteractionPackage) EPackage.Registry.INSTANCE
+				.getEPackage(InteractionPackage.eNS_URI);
 
 		// Add subpackages
 		getESubpackages().add(theLayerPackage);
 		getESubpackages().add(theSourcePackage);
 		getESubpackages().add(theGeomPackage);
 		getESubpackages().add(theStylePackage);
+		getESubpackages().add(theInteractionPackage);
 
 		// Create type parameters
 
@@ -644,6 +752,7 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 		xyzLocationEClass.getESuperTypes().add(this.getLocation());
 		featureEClass.getESuperTypes().add(this.getIdentifiable());
 		colorEClass.getESuperTypes().add(this.getIdentifiable());
+		scriptEClass.getESuperTypes().add(this.getIdentifiable());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(identifiableEClass, Identifiable.class, "Identifiable", IS_ABSTRACT, IS_INTERFACE, //$NON-NLS-1$
@@ -669,6 +778,12 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 				IS_ORDERED);
 		initEAttribute(getGeoMap_RendererHint(), this.getRendererHint(), "rendererHint", null, 0, 1, GeoMap.class, //$NON-NLS-1$
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGeoMap_Scripts(), this.getScript(), null, "scripts", null, 0, -1, GeoMap.class, !IS_TRANSIENT, //$NON-NLS-1$
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
+		initEReference(getGeoMap_Interactions(), theInteractionPackage.getInteraction(), null, "interactions", null, 0, //$NON-NLS-1$
+				-1, GeoMap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(viewEClass, View.class, "View", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getView_Center(), this.getLocation(), null, "center", null, 1, 1, View.class, !IS_TRANSIENT, //$NON-NLS-1$
@@ -701,6 +816,8 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 		initEReference(getFeature_Properties(), this.getStringToStringMapEntry(), null, "properties", null, 0, -1, //$NON-NLS-1$
 				Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeature_Onclick(), ecorePackage.getEString(), "onclick", null, 0, 1, Feature.class, //$NON-NLS-1$
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(colorEClass, Color.class, "Color", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getColor_Red(), ecorePackage.getEInt(), "red", null, 0, 1, Color.class, !IS_TRANSIENT, //$NON-NLS-1$
@@ -728,11 +845,24 @@ public class GeoffPackageImpl extends EPackageImpl implements GeoffPackage {
 				Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
 				!IS_DERIVED, IS_ORDERED);
 
+		initEClass(scriptEClass, Script.class, "Script", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getScript_Src(), ecorePackage.getEString(), "src", null, 0, 1, Script.class, !IS_TRANSIENT, //$NON-NLS-1$
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getScript_Type(), ecorePackage.getEString(), "type", "", 0, 1, Script.class, !IS_TRANSIENT, //$NON-NLS-1$//$NON-NLS-2$
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getScript_Context(), this.getScriptContext(), "context", null, 0, 1, Script.class, !IS_TRANSIENT, //$NON-NLS-1$
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(rendererHintEEnum, RendererHint.class, "RendererHint"); //$NON-NLS-1$
 		addEEnumLiteral(rendererHintEEnum, RendererHint.CANVAS);
 		addEEnumLiteral(rendererHintEEnum, RendererHint.DOM);
 		addEEnumLiteral(rendererHintEEnum, RendererHint.WEBGL);
+
+		initEEnum(scriptContextEEnum, ScriptContext.class, "ScriptContext"); //$NON-NLS-1$
+		addEEnumLiteral(scriptContextEEnum, ScriptContext.GLOBAL);
+		addEEnumLiteral(scriptContextEEnum, ScriptContext.MAP);
+		addEEnumLiteral(scriptContextEEnum, ScriptContext.LAYER);
 
 		// Create resource
 		createResource(eNS_URI);

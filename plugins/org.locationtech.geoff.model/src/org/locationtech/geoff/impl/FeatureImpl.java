@@ -38,6 +38,7 @@ import org.locationtech.geoff.style.Style;
  *   <li>{@link org.locationtech.geoff.impl.FeatureImpl#getGeometry <em>Geometry</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.FeatureImpl#getStyle <em>Style</em>}</li>
  *   <li>{@link org.locationtech.geoff.impl.FeatureImpl#getProperties <em>Properties</em>}</li>
+ *   <li>{@link org.locationtech.geoff.impl.FeatureImpl#getOnclick <em>Onclick</em>}</li>
  * </ul>
  *
  * @generated
@@ -99,6 +100,26 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * @ordered
 	 */
 	protected EMap<String, String> properties;
+
+	/**
+	 * The default value of the '{@link #getOnclick() <em>Onclick</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOnclick()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ONCLICK_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getOnclick() <em>Onclick</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOnclick()
+	 * @generated
+	 * @ordered
+	 */
+	protected String onclick = ONCLICK_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -257,6 +278,27 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getOnclick() {
+		return onclick;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setOnclick(String newOnclick) {
+		String oldOnclick = onclick;
+		onclick = newOnclick;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GeoffPackage.FEATURE__ONCLICK, oldOnclick, onclick));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -289,6 +331,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 				return getProperties();
 			else
 				return getProperties().map();
+		case GeoffPackage.FEATURE__ONCLICK:
+			return getOnclick();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -314,6 +358,9 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 		case GeoffPackage.FEATURE__PROPERTIES:
 			((EStructuralFeature.Setting) getProperties()).set(newValue);
 			return;
+		case GeoffPackage.FEATURE__ONCLICK:
+			setOnclick((String) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -338,6 +385,9 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 		case GeoffPackage.FEATURE__PROPERTIES:
 			getProperties().clear();
 			return;
+		case GeoffPackage.FEATURE__ONCLICK:
+			setOnclick(ONCLICK_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -358,6 +408,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 			return style != null;
 		case GeoffPackage.FEATURE__PROPERTIES:
 			return properties != null && !properties.isEmpty();
+		case GeoffPackage.FEATURE__ONCLICK:
+			return ONCLICK_EDEFAULT == null ? onclick != null : !ONCLICK_EDEFAULT.equals(onclick);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -375,6 +427,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (id: "); //$NON-NLS-1$
 		result.append(id);
+		result.append(", onclick: "); //$NON-NLS-1$
+		result.append(onclick);
 		result.append(')');
 		return result.toString();
 	}

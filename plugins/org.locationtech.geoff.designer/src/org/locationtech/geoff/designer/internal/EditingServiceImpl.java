@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.DeleteCommand;
@@ -101,8 +102,8 @@ public class EditingServiceImpl implements IEditingService {
 	}
 
 	@Override
-	public Command createAddCommand(GeoMap geoMap, EReference ref, Identifiable id) {
-		AddCommand command = (AddCommand) AddCommand.create(editingDomain, geoMap, ref, id);
+	public Command createAddCommand(Identifiable owner, EStructuralFeature feature, Object object) {
+		AddCommand command = (AddCommand) AddCommand.create(editingDomain, owner, feature, object);
 		return command;
 	}
 

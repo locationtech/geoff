@@ -61,6 +61,18 @@
         xsi:type="ecore:EAttribute"
         name="rendererHint"
         eType="#//RendererHint"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EReference"
+        name="scripts"
+        upperBound="-1"
+        eType="#//Script"
+        containment="true"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EReference"
+        name="interactions"
+        upperBound="-1"
+        eType="#//interaction/Interaction"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers
       xsi:type="ecore:EClass"
@@ -148,6 +160,10 @@
         upperBound="-1"
         eType="#//StringToStringMapEntry"
         containment="true"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="onclick"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers
       xsi:type="ecore:EClass"
@@ -198,6 +214,35 @@
         xsi:type="ecore:EAttribute"
         name="value"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers
+      xsi:type="ecore:EClass"
+      name="Script"
+      eSuperTypes="#//Identifiable">
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="src"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="type"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="context"
+        eType="#//ScriptContext"/>
+  </eClassifiers>
+  <eClassifiers
+      xsi:type="ecore:EEnum"
+      name="ScriptContext">
+    <eLiterals
+        name="GLOBAL"/>
+    <eLiterals
+        name="MAP"
+        value="2"/>
+    <eLiterals
+        name="LAYER"/>
   </eClassifiers>
   <eSubpackages
       name="layer"
@@ -519,6 +564,43 @@
           xsi:type="ecore:EAttribute"
           name="textBaseLine"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages
+      name="interaction"
+      nsURI="http://www.locationtech.org/geoff-interaction-v1"
+      nsPrefix="geoff.interaction">
+    <eClassifiers
+        xsi:type="ecore:EClass"
+        name="Interaction"
+        abstract="true"
+        eSuperTypes="#//Identifiable"/>
+    <eClassifiers
+        xsi:type="ecore:EClass"
+        name="Select"
+        eSuperTypes="#//interaction/Interaction">
+      <eStructuralFeatures
+          xsi:type="ecore:EAttribute"
+          name="condition"
+          lowerBound="1"
+          eType="#//interaction/EventCondition"/>
+      <eStructuralFeatures
+          xsi:type="ecore:EAttribute"
+          name="multi"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eClassifiers>
+    <eClassifiers
+        xsi:type="ecore:EEnum"
+        name="EventCondition">
+      <eLiterals
+          name="SINGLE_CLICK"/>
+      <eLiterals
+          name="CLICK"
+          value="1"
+          literal=""/>
+      <eLiterals
+          name="HOVER"
+          value="2"/>
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>

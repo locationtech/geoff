@@ -9,6 +9,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.locationtech.geoff.geom.provider,
+ org.locationtech.geoff.interaction.provider,
  org.locationtech.geoff.layer.provider,
  org.locationtech.geoff.provider,
  org.locationtech.geoff.source.provider,
