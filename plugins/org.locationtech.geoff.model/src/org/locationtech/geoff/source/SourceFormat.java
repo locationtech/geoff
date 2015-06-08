@@ -28,14 +28,22 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum SourceFormat implements Enumerator {
 	/**
-	 * The '<em><b>Geo JSON</b></em>' literal object.
+	 * The '<em><b>INTERNAL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #GEO_JSON_VALUE
+	 * @see #INTERNAL_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	GEO_JSON(0, "GeoJSON", "GeoJSON"), //$NON-NLS-1$ //$NON-NLS-2$
+	INTERNAL(0, "INTERNAL", "INTERNAL"), /**
+											* The '<em><b>Geo JSON</b></em>' literal object.
+											* <!-- begin-user-doc -->
+											* <!-- end-user-doc -->
+											* @see #GEO_JSON_VALUE
+											* @generated
+											* @ordered
+											*/
+	GEO_JSON(1, "GeoJSON", "GeoJSON"), //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>GPX</b></em>' literal object.
@@ -45,7 +53,7 @@ public enum SourceFormat implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	GPX(1, "GPX", "GPX"), //$NON-NLS-1$ //$NON-NLS-2$
+	GPX(2, "GPX", "GPX"), //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>KML</b></em>' literal object.
@@ -55,7 +63,7 @@ public enum SourceFormat implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	KML(2, "KML", "KML"); //$NON-NLS-1$ //$NON-NLS-2$
+	KML(3, "KML", "KML"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -63,6 +71,21 @@ public enum SourceFormat implements Enumerator {
 	 * @generated
 	 */
 	public static final String copyright = " Copyright (c) 2014 Erdal Karaca.\r\n All rights reserved. This program and the accompanying materials\r\n are made available under the terms of the Eclipse Public License v1.0\r\n which accompanies this distribution, and is available at\r\n http://www.eclipse.org/legal/epl-v10.html\r\n \r\n Contributors:\r\n     Erdal Karaca - initial API and implementation\r\n"; //$NON-NLS-1$
+
+	/**
+	 * The '<em><b>INTERNAL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>INTERNAL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #INTERNAL
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int INTERNAL_VALUE = 0;
 
 	/**
 	 * The '<em><b>Geo JSON</b></em>' literal value.
@@ -77,7 +100,7 @@ public enum SourceFormat implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int GEO_JSON_VALUE = 0;
+	public static final int GEO_JSON_VALUE = 1;
 
 	/**
 	 * The '<em><b>GPX</b></em>' literal value.
@@ -92,7 +115,7 @@ public enum SourceFormat implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int GPX_VALUE = 1;
+	public static final int GPX_VALUE = 2;
 
 	/**
 	 * The '<em><b>KML</b></em>' literal value.
@@ -107,7 +130,7 @@ public enum SourceFormat implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int KML_VALUE = 2;
+	public static final int KML_VALUE = 3;
 
 	/**
 	 * An array of all the '<em><b>Format</b></em>' enumerators.
@@ -115,7 +138,7 @@ public enum SourceFormat implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final SourceFormat[] VALUES_ARRAY = new SourceFormat[] { GEO_JSON, GPX, KML, };
+	private static final SourceFormat[] VALUES_ARRAY = new SourceFormat[] { INTERNAL, GEO_JSON, GPX, KML, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Format</b></em>' enumerators.
@@ -171,6 +194,8 @@ public enum SourceFormat implements Enumerator {
 	 */
 	public static SourceFormat get(int value) {
 		switch (value) {
+		case INTERNAL_VALUE:
+			return INTERNAL;
 		case GEO_JSON_VALUE:
 			return GEO_JSON;
 		case GPX_VALUE:

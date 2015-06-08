@@ -27,8 +27,6 @@ import org.locationtech.geoff.core.Geoff;
 import org.locationtech.geoff.designer.DesignerUtil;
 import org.locationtech.geoff.designer.IEditingService;
 import org.locationtech.geoff.interaction.EventCondition;
-import org.locationtech.geoff.interaction.Interaction;
-import org.locationtech.geoff.interaction.InteractionFactory;
 import org.locationtech.geoff.interaction.InteractionPackage;
 import org.locationtech.geoff.interaction.Select;
 import org.locationtech.geoff.layer.VectorLayer;
@@ -110,10 +108,11 @@ public class AddGeotaggedImagesLayer {
 
 		VectorSource vectorSource = Geoff.vectorSource();
 		VectorLayer layer = Geoff.vectorLayer(vectorSource);
-		layer.setShortDescription("Geotagged Images (Source: " + folder.getName() + ")");
+		String targetFolderName = DesignerUtil.toSourceFolder(folder);
+		layer.setShortDescription("Geotagged Images (Source: " + targetFolderName + ")");
 
 		for (Entry<String, Entry<Double, Double>> e : geoTaggedImages.entrySet()) {
-			String src = folder.getName() + "/" + e.getKey();
+			String src = targetFolderName + "/" + e.getKey();
 			Entry<Double, Double> v = e.getValue();
 			double x = v.getKey();
 			double y = v.getValue();

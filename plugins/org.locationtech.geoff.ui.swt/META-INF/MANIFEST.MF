@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Geoff SWT Specifics
+Bundle-Name: Geoff SWT Bindings
 Bundle-SymbolicName: org.locationtech.geoff.ui.swt
 Bundle-Version: 0.8.0.qualifier
-Bundle-Vendor: Erdal Karaca
+Bundle-Vendor: Geoff Project (Eclipse LocationTech IWG)
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.emf.ecore,
  org.locationtech.geoff.core,
@@ -18,7 +18,6 @@ Import-Package: org.eclipse.jface.viewers,
  org.eclipse.swt.layout,
  org.eclipse.swt.widgets,
  org.locationtech.geoff,
- org.locationtech.geoff.geocoding,
  org.locationtech.geoff.geom,
  org.locationtech.geoff.source
 Export-Package: org.locationtech.geoff.ui,

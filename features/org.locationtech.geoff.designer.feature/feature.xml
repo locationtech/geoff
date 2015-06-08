@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.locationtech.geoff.designer.feature"
-      label="Feature"
+      label="Geoff Geo Map Designer Feature"
       version="0.8.0.qualifier"
-      provider-name="Geoff Project">
+      provider-name="Geoff Project (Eclipse LocationTech IWG)">
 
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+   <description>
+      Geoff geo map designer components
    </description>
 
    <copyright url="http://www.example.com/copyright">

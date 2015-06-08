@@ -25,7 +25,7 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.locationtech.geoff.GeoffFactory;
-
+import org.locationtech.geoff.source.SourceFormat;
 import org.locationtech.geoff.source.SourcePackage;
 import org.locationtech.geoff.source.VectorSource;
 
@@ -157,10 +157,17 @@ public class VectorSourceItemProvider extends SourceItemProvider {
 	 * This returns VectorSource.gif. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
 	 * 
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
+		VectorSource source = (VectorSource) object;
+
+		if (source.getFormat() != null && source.getFormat() != SourceFormat.INTERNAL) {
+			String name = source.getFormat().getName();
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/" + name)); //$NON-NLS-1$
+		}
+
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/VectorSource")); //$NON-NLS-1$
 	}
 
@@ -173,11 +180,11 @@ public class VectorSourceItemProvider extends SourceItemProvider {
 	@Override
 	public String getText(Object object) {
 		VectorSource vectorSource = (VectorSource) object;
-		
+
 		if (vectorSource.getShortDescription() != null) {
 			return vectorSource.getShortDescription();
 		}
-		
+
 		String url = vectorSource.getUrl();
 		String format = vectorSource.getFormat() == null ? "<no format>" : vectorSource.getFormat().getName();
 		return String.format("%s: %s", format, url);

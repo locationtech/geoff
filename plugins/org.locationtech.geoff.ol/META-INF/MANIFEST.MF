@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Openlayers Bridge
+Bundle-Name: OpenLayers3 Integration
 Bundle-SymbolicName: org.locationtech.geoff.ol
 Bundle-Version: 0.8.0.qualifier
 Bundle-Vendor: Geoff Project (Eclipse LocationTech IWG)

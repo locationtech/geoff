@@ -25,10 +25,15 @@ import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.commands.ActionHandler;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.layout.RowLayoutFactory;
 import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IWorkbenchCommandConstants;
@@ -207,7 +212,23 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 	@Override
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new FillLayout());
-		geoMapComposite = new GeoMapComposite(parent, SWT.None);
+		Composite container = new Composite(parent, SWT.None);
+		GridLayoutFactory.swtDefaults().numColumns(1).applyTo(container);
+
+		Composite headRow = new Composite(container, SWT.None);
+		{
+			GridLayoutFactory.swtDefaults().numColumns(2).applyTo(headRow);
+			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(headRow);
+			Label label = new Label(headRow, SWT.None);
+			label.setText("Browser URL");
+			Text text = new Text(headRow, SWT.READ_ONLY | SWT.BORDER);
+			text.setText(url);
+			GridDataFactory.swtDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(text);
+		}
+
+		geoMapComposite = new GeoMapComposite(container, SWT.None);
+		GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(geoMapComposite);
+
 		geoMapComposite.loadHtmlByUrl(url);
 	}
 

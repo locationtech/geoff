@@ -489,6 +489,7 @@ public class SourcePackageImpl extends EPackageImpl implements SourcePackage {
 
 		// Initialize enums and add enum literals
 		initEEnum(sourceFormatEEnum, SourceFormat.class, "SourceFormat"); //$NON-NLS-1$
+		addEEnumLiteral(sourceFormatEEnum, SourceFormat.INTERNAL);
 		addEEnumLiteral(sourceFormatEEnum, SourceFormat.GEO_JSON);
 		addEEnumLiteral(sourceFormatEEnum, SourceFormat.GPX);
 		addEEnumLiteral(sourceFormatEEnum, SourceFormat.KML);

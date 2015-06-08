@@ -162,10 +162,19 @@ public class LayerItemProvider extends ItemProviderAdapter implements IEditingDo
 	/**
 	 * This returns Layer.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
+		Layer tile = (Layer) object;
+		Source source = tile.getSource();
+
+		if (source != null) {
+			IItemLabelProvider itemLabelProvider = (IItemLabelProvider) getRootAdapterFactory().adapt((Object) source,
+					IItemLabelProvider.class);
+			return itemLabelProvider.getImage(source);
+		}
+
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/Layer")); //$NON-NLS-1$
 	}
 

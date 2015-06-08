@@ -54,11 +54,13 @@ public class E3PageBookViewPart extends PageBookView implements IExecutableExten
 	protected E3PageBookPage doCreateEditorPage(final IEclipseContext context) {
 		return new E3PageBookPage() {
 
+			private IEclipseContext child;
+
 			@Override	
 			protected Control doCreateControl(Composite parent) {
 				Composite container = new Composite(parent, SWT.None);
 				container.setLayout(new FillLayout());
-				final IEclipseContext child = context.createChild();
+				child = context.createChild();
 				child.set(DataBindingContext.class, getDataBindingContext());
 				child.set(Composite.class, container);
 				child.set(IWorkbenchSite.class, getSite());
@@ -72,6 +74,12 @@ public class E3PageBookViewPart extends PageBookView implements IExecutableExten
 					}
 				});
 				return container;
+			}
+			
+			@Override
+			public void dispose() {
+				child.dispose();
+				super.dispose();
 			}
 		};
 	}

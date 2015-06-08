@@ -5,7 +5,7 @@ Bundle-SymbolicName: com.drewnoakes.metadataextractor
 Bundle-Version: 2.8.1
 Bundle-ClassPath: metadata-extractor-2.8.1.jar,
  xmpcore-5.1.2.jar
-Bundle-Vendor: Drewnoakes
+Bundle-Vendor: Drewnoakes (provided by Geoff Project (Eclipse LocationTech IWG))
 Export-Package: com.drew.imaging,
  com.drew.imaging.bmp,
  com.drew.imaging.gif,

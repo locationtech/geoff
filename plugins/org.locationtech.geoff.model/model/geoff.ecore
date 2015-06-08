@@ -377,13 +377,16 @@
         xsi:type="ecore:EEnum"
         name="SourceFormat">
       <eLiterals
-          name="GeoJSON"/>
+          name="INTERNAL"/>
       <eLiterals
-          name="GPX"
+          name="GeoJSON"
           value="1"/>
       <eLiterals
-          name="KML"
+          name="GPX"
           value="2"/>
+      <eLiterals
+          name="KML"
+          value="3"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages

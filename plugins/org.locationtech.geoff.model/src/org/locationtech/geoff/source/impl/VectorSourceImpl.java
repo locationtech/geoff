@@ -114,7 +114,7 @@ public class VectorSourceImpl extends SourceImpl implements VectorSource {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final SourceFormat FORMAT_EDEFAULT = SourceFormat.GEO_JSON;
+	protected static final SourceFormat FORMAT_EDEFAULT = SourceFormat.INTERNAL;
 
 	/**
 	 * The cached value of the '{@link #getFormat() <em>Format</em>}' attribute.

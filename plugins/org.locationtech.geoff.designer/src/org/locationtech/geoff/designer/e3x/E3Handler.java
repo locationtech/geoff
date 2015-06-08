@@ -54,7 +54,8 @@ public class E3Handler extends AbstractHandler implements IHandler, IExecutableE
 				ContextInjectionFactory.invoke(make, Execute.class, child);
 			}
 		});
-
+		
+		child.dispose();
 		return null;
 	}
 

@@ -152,6 +152,10 @@ public class EditingServiceImpl implements IEditingService {
 			@Override
 			public void execute() {
 				try {
+					if (!targetFolder.exists()) {
+						targetFolder.create(true, false, new NullProgressMonitor());
+					}
+
 					IFile file = targetFolder.getFile(targetResourceName);
 
 					if (file.exists() && !overwrite) {

@@ -27,7 +27,6 @@ import org.locationtech.geoff.GeoffPackage;
 
 import org.locationtech.geoff.layer.LayerPackage;
 import org.locationtech.geoff.layer.VectorLayer;
-import org.locationtech.geoff.source.Source;
 
 /**
  * This is the item provider adapter for a {@link org.locationtech.geoff.layer.VectorLayer} object.
@@ -99,11 +98,11 @@ public class VectorLayerItemProvider extends LayerItemProvider {
 	 * This returns VectorLayer.gif. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
 	 * 
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/VectorLayer")); //$NON-NLS-1$
+		return super.getImage(object);
 	}
 
 	/**
@@ -115,11 +114,11 @@ public class VectorLayerItemProvider extends LayerItemProvider {
 	@Override
 	public String getText(Object object) {
 		VectorLayer layer = (VectorLayer) object;
-		
+
 		if (layer.getShortDescription() != null) {
 			return layer.getShortDescription();
 		}
-		
+
 		// abstract super class handles proper text creation
 		return super.getText(object);
 	}

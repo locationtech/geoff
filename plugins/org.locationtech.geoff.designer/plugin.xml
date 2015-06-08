@@ -162,7 +162,7 @@
             </command>
             <command
                   commandId="org.locationtech.geoff.designer.commands.addResourceAsLayer"
-                  icon="platform:/plugin/org.locationtech.geoff.model.edit/icons/actions16/add.gif"
+                  icon="icons/KML.png"
                   label="Add KML Layer"
                   style="push">
                <visibleWhen
@@ -230,6 +230,7 @@
             </command>
             <command
                   commandId="org.locationtech.geoff.designer.commands.addTileLayer"
+                  icon="icons/MapQuest.png"
                   label="MapQuest"
                   style="push">
                <parameter

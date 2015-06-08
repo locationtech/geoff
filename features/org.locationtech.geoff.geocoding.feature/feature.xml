@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.locationtech.geoff.runtime.feature"
-      label="Geoff Runtime Feature"
+      id="org.locationtech.geoff.geocoding.feature"
+      label="Geoff Geocoding Feature"
       version="0.8.0.qualifier"
       provider-name="Geoff Project (Eclipse LocationTech IWG)">
 
    <description>
-      Geoff Runtime Components
+      Geoff geocoding components
    </description>
 
    <copyright url="http://www.example.com/copyright">
@@ -18,35 +18,21 @@
    </license>
 
    <plugin
-         id="org.locationtech.geoff.core"
+         id="org.locationtech.geoff.geocoding"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.locationtech.geoff.model"
+         id="org.locationtech.geoff.geocoding.google"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.locationtech.geoff.ol"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.locationtech.geoff.ui.swt"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.locationtech.geoff.model.edit"
+         id="org.locationtech.geoff.geocoding.nominatim"
          download-size="0"
          install-size="0"
          version="0.0.0"

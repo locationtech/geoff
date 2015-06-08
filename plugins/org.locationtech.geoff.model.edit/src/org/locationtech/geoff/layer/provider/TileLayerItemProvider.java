@@ -19,19 +19,15 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 
-import org.locationtech.geoff.layer.TileLayer;
-
 /**
- * This is the item provider adapter for a
- * {@link org.locationtech.geoff.layer.TileLayer} object. <!-- begin-user-doc
+ * This is the item provider adapter for a {@link org.locationtech.geoff.layer.TileLayer} object.
+ * <!-- begin-user-doc
  * --> <!-- end-user-doc -->
- * 
  * @generated
  */
 public class TileLayerItemProvider extends LayerItemProvider {
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public static final String copyright = " Copyright (c) 2014 Erdal Karaca.\r\n All rights reserved. This program and the accompanying materials\r\n are made available under the terms of the Eclipse Public License v1.0\r\n which accompanies this distribution, and is available at\r\n http://www.eclipse.org/legal/epl-v10.html\r\n \r\n Contributors:\r\n     Erdal Karaca - initial API and implementation\r\n"; //$NON-NLS-1$
@@ -62,13 +58,13 @@ public class TileLayerItemProvider extends LayerItemProvider {
 	}
 
 	/**
-	 * This returns TileLayer.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
-	 * @generated
+	 * This returns TileLayer.gif.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/TileLayer")); //$NON-NLS-1$
+		return super.getImage(object);
 	}
 
 	/**
@@ -84,11 +80,10 @@ public class TileLayerItemProvider extends LayerItemProvider {
 	}
 
 	/**
-	 * This handles model notifications by calling {@link #updateChildren} to
-	 * update any cached children and by creating a viewer notification, which
-	 * it passes to {@link #fireNotifyChanged}. <!-- begin-user-doc --> <!--
+	 * This handles model notifications by calling {@link #updateChildren} to update any cached
+	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	@Override

@@ -11,6 +11,8 @@
  */
 package org.locationtech.geoff.provider;
 
+import java.util.MissingResourceException;
+
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
@@ -82,7 +84,7 @@ public final class GeoffEditPlugin extends EMFPlugin {
 	 * The actual implementation of the Eclipse <b>Plugin</b>. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated
+	 * @generated NOT
 	 */
 	public static class Implementation extends EclipsePlugin {
 		/**
@@ -109,5 +111,14 @@ public final class GeoffEditPlugin extends EMFPlugin {
 		Object img = super.getImage(key);
 		img = ExtendedImageRegistry.INSTANCE.getImageDescriptor(img);
 		return (ImageDescriptor) img;
+	}
+
+	@Override
+	public Object getImage(String key) {
+		try {
+			return super.getImage(key + ".png");
+		} catch (MissingResourceException e) {
+			return super.getImage(key);
+		}
 	}
 }

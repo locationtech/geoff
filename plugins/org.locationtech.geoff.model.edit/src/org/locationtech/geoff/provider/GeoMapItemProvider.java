@@ -79,7 +79,6 @@ public class GeoMapItemProvider extends ItemProviderAdapter implements IEditingD
 			addShortDescriptionPropertyDescriptor(object);
 			addLongDescriptionPropertyDescriptor(object);
 			addRendererHintPropertyDescriptor(object);
-			addScriptsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -149,21 +148,6 @@ public class GeoMapItemProvider extends ItemProviderAdapter implements IEditingD
 	}
 
 	/**
-	 * This adds a property descriptor for the Scripts feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addScriptsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_GeoMap_scripts_feature"), //$NON-NLS-1$
-						getString("_UI_PropertyDescriptor_description", "_UI_GeoMap_scripts_feature", //$NON-NLS-1$//$NON-NLS-2$
-								"_UI_GeoMap_type"), //$NON-NLS-1$
-						GeoffPackage.Literals.GEO_MAP__SCRIPTS, true, false, false, null, null, null));
-	}
-
-	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -177,6 +161,7 @@ public class GeoMapItemProvider extends ItemProviderAdapter implements IEditingD
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GeoffPackage.Literals.GEO_MAP__LAYERS);
 			childrenFeatures.add(GeoffPackage.Literals.GEO_MAP__VIEW);
+			childrenFeatures.add(GeoffPackage.Literals.GEO_MAP__SCRIPTS);
 			childrenFeatures.add(GeoffPackage.Literals.GEO_MAP__INTERACTIONS);
 		}
 		return childrenFeatures;
@@ -236,11 +221,11 @@ public class GeoMapItemProvider extends ItemProviderAdapter implements IEditingD
 		case GeoffPackage.GEO_MAP__SHORT_DESCRIPTION:
 		case GeoffPackage.GEO_MAP__LONG_DESCRIPTION:
 		case GeoffPackage.GEO_MAP__RENDERER_HINT:
-		case GeoffPackage.GEO_MAP__SCRIPTS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case GeoffPackage.GEO_MAP__LAYERS:
 		case GeoffPackage.GEO_MAP__VIEW:
+		case GeoffPackage.GEO_MAP__SCRIPTS:
 		case GeoffPackage.GEO_MAP__INTERACTIONS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
@@ -267,6 +252,9 @@ public class GeoMapItemProvider extends ItemProviderAdapter implements IEditingD
 
 		newChildDescriptors
 				.add(createChildParameter(GeoffPackage.Literals.GEO_MAP__VIEW, GeoffFactory.eINSTANCE.createView()));
+
+		newChildDescriptors.add(
+				createChildParameter(GeoffPackage.Literals.GEO_MAP__SCRIPTS, GeoffFactory.eINSTANCE.createScript()));
 
 		newChildDescriptors.add(createChildParameter(GeoffPackage.Literals.GEO_MAP__INTERACTIONS,
 				InteractionFactory.eINSTANCE.createSelect()));

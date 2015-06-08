@@ -2,6 +2,9 @@ package org.locationtech.geoff.designer;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,12 +13,12 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IServer;
 import org.eclipse.wst.server.core.ServerPort;
 import org.eclipse.wst.server.core.ServerUtil;
-import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.ol.ResourcesUtil;
 
 public class DesignerUtil {
@@ -91,5 +94,22 @@ public class DesignerUtil {
 		IFolder folder = (IFolder) sourcePath;
 		IFolder targetFolder = folder.getFolder(folderName);
 		return targetFolder;
+	}
+
+	public static String toSourceFolder(IFolder folder) {
+		IResource sourcePath = getSourcePath(folder.getProject());
+
+		if (!(sourcePath instanceof IFolder)) {
+			return null;
+		}
+
+		IPath projectRelativePath = sourcePath.getProjectRelativePath();
+
+		if (projectRelativePath == null) {
+			return null;
+		}
+
+		IPath projectRelativePathFolder = folder.getProjectRelativePath();
+		return projectRelativePathFolder.toString().substring(projectRelativePath.toString().length() + 1);
 	}
 }
