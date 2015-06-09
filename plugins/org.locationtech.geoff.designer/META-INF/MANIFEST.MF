@@ -41,3 +41,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.e4.ui.di
 Eclipse-BuddyPolicy: dependent
+Bundle-Activator: org.locationtech.geoff.designer.internal.DesignerActivator

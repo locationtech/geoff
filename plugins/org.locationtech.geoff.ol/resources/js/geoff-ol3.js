@@ -91,10 +91,10 @@
 		var select = new ol.interaction.Select(opts);
 		select.on('select', function(e) {
 			var features = e.target.getFeatures();
-			
+
 			for (var i = 0; i < features.getLength(); i++) {
 				var feature = features.item(i);
-				
+
 				if (feature.geoff_interaction_select_on_click) {
 					feature.geoff_interaction_select_on_click(feature);
 				}
@@ -198,20 +198,20 @@
 		var geometry = elements(domNode, "geometry")[0];
 		var styles = elements(domNode, "style")[0];
 		var propsElems = elements(domNode, "properties");
-		
+
 		var props = convertKeyValueProperties(propsElems, env);
 		props.geometry = convertObject(geometry, env);
 		var olFeature = new ol.Feature(props);
 
 		var olStyle = convertObject(styles, env, "geoff.style:Style");
 		olFeature.setStyle(olStyle);
-		
+
 		var onclickStr = attrValue(domNode, "onclick");
-		
+
 		if (onclickStr) {
 			olFeature.geoff_interaction_select_on_click = function(feature) {
 				var onclickFunc = window[onclickStr];
-				
+
 				if (onclickFunc) {
 					onclickFunc(olFeature);
 				}
@@ -397,7 +397,7 @@
 		var ruleName = nsPrefix + ":" + tagName;
 		return rules[ruleName](contextNode, env);
 	}
-	
+
 	function convertKeyValueProperties(domCollection, env) {
 		var props = {};
 

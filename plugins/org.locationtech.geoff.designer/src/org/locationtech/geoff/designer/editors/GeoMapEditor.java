@@ -122,7 +122,7 @@ public class GeoMapEditor extends EditorPart implements IEditingDomainProvider {
 		setSite(site);
 		setInput(input);
 
-		adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+		adapterFactory = DesignerUtil.createComposedAdapterFactor();
 		commandStack = new BasicCommandStack();
 		editingDomain = new AdapterFactoryEditingDomain(adapterFactory, commandStack);
 		resourceSet = new ResourceSetImpl();

@@ -66,7 +66,7 @@ public class AddResourceAsLayerHandler {
 			source.setUrl(path);
 
 			VectorLayer layer = Geoff.vectorLayer(source);
-			populateDefaultStyles(editingService, layer);
+			DesignerUtil.populateDefaultStyles(layer);
 			Command command = editingService.createAddCommand(geoMap, GeoffPackage.Literals.GEO_MAP__LAYERS, layer);
 			cc.append(command);
 		}
@@ -74,101 +74,5 @@ public class AddResourceAsLayerHandler {
 		if (!cc.isEmpty()) {
 			editingService.execute(cc);
 		}
-	}
-
-	private void populateDefaultStyles(IEditingService es, VectorLayer layer) {
-		{
-			Style style = createPointStyle(es);
-			layer.getStyles().put("Point", style);
-		}
-		{
-			Style style = createPointStyle(es);
-			layer.getStyles().put("MultiPoint", style);
-		}
-
-		{
-			Style style = createPolygonStyle(es);
-			layer.getStyles().put("Polygon", style);
-		}
-		{
-			Style style = createPolygonStyle(es);
-			layer.getStyles().put("MultiPolygon", style);
-		}
-
-		{
-			Style style = createLineStringStyle(es);
-			layer.getStyles().put("LineString", style);
-		}
-		{
-			Style style = createLineStringStyle(es);
-			layer.getStyles().put("MultiLineString", style);
-		}
-	}
-
-	private Style createLineStringStyle(IEditingService es) {
-		Stroke stroke = createStroke(es, 1.0f, 0, 0, 255, 1.0f);
-		Fill fill = createFill(es, 0, 0, 255, 0.1f);
-		Style style = es.createInstance(StylePackage.Literals.STYLE);
-		style.setFill(fill);
-		style.setStroke(stroke);
-		return style;
-	}
-
-	private Style createPolygonStyle(IEditingService es) {
-		Stroke stroke = createStroke(es, 1.0f, 0, 0, 255, 1.0f);
-		Fill fill = createFill(es, 0, 0, 255, 0.05f);
-		Style style = es.createInstance(StylePackage.Literals.STYLE);
-		style.setFill(fill);
-		style.setStroke(stroke);
-		return style;
-	}
-
-	private Style createPointStyle(IEditingService es) {
-		Fill fill = createFill(es, 0, 0, 255, 0.5f);
-		Stroke stroke = createStroke(es, 5.0f, 0, 0, 255, 1.0f);
-		Circle circle = es.createInstance(StylePackage.Literals.CIRCLE);
-		circle.setRadius(3);
-		circle.setStroke(stroke);
-		circle.setFill(fill);
-
-		Style style = es.createInstance(StylePackage.Literals.STYLE);
-		style.setImage(circle);
-		return style;
-	}
-
-	private Fill createFill(IEditingService es, int r, int g, int b, float alpha) {
-		Fill fill = es.createInstance(StylePackage.Literals.FILL);
-		{
-			Color color = es.createInstance(GeoffPackage.Literals.COLOR);
-			{
-				color.setRed(r);
-				color.setGreen(g);
-				color.setBlue(b);
-				color.setAlpha(alpha);
-			}
-
-			fill.setColor(color);
-		}
-
-		return fill;
-	}
-
-	private Stroke createStroke(IEditingService es, float width, int r, int g, int b, float alpha) {
-		Stroke stroke = es.createInstance(StylePackage.Literals.STROKE);
-		{
-			stroke.setWidth((double) width);
-
-			Color color = es.createInstance(GeoffPackage.Literals.COLOR);
-			{
-				color.setRed(r);
-				color.setGreen(g);
-				color.setBlue(b);
-				color.setAlpha(alpha);
-			}
-
-			stroke.setColor(color);
-		}
-
-		return stroke;
 	}
 }

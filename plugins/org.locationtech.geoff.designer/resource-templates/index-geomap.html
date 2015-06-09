@@ -15,6 +15,13 @@ html, body, #map {
 }
 </style>
 
+<script>
+// DISABLE Pointer features as they does not seem to work with IE11 on windows
+// 8.1 in embedded SWT
+delete window.PointerEvent;
+window.navigator.msPointerEnabled = false;
+</script>
+
 {{SCRIPTS}}
 
 <title>LocationTech Geoff - Geo Fast Forward - {{GEOMAP_FILE_NAME}}</title>
