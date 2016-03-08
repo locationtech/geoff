@@ -12,8 +12,6 @@ public interface IGeoMapRenderer {
 	 * 
 	 * @param geoMap
 	 *            the map to render
-	 * @param baseUrl
-	 * 
 	 */
 	void render(GeoMap geoMap, IRenderSettings settings);
 

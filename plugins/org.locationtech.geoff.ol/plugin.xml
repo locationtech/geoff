@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.equinox.http.registry.resources">
       <resource
-            alias="/org.locationtech.geoff.showcase/resources"
+            alias="/org.locationtech.geoff.ol/resources"
             base-name="/resources">
       </resource>
    </extension>

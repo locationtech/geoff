@@ -6,10 +6,10 @@ Bundle-Version: 0.8.0.qualifier
 Bundle-Vendor: Erdal Karaca
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.emf.ecore,
- org.eclipse.equinox.http.registry,
  org.locationtech.geoff.core;bundle-version="0.8.0",
  org.locationtech.geoff.ol;bundle-version="0.8.0",
- org.locationtech.geoff.geocoding
+ org.locationtech.geoff.geocoding,
+ org.eclipse.equinox.http.registry
 Bundle-ActivationPolicy: lazy
 Export-Package: org.locationtech.geoff.showcase,
  org.locationtech.geoff.showcase.examples

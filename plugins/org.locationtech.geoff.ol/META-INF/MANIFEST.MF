@@ -1,16 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OpenLayers3 Integration
-Bundle-SymbolicName: org.locationtech.geoff.ol
+Bundle-SymbolicName: org.locationtech.geoff.ol;singleton:=true
 Bundle-Version: 0.8.0.qualifier
 Bundle-Vendor: Geoff Project (Eclipse LocationTech IWG)
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.locationtech.geoff.core
-Import-Package: org.eclipse.core.databinding.validation,
- org.eclipse.core.runtime;version="3.5.0",
- org.eclipse.ui.statushandlers,
- org.locationtech.geoff,
+Import-Package: org.locationtech.geoff,
  org.osgi.framework
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: org.locationtech.geoff.ol
 Bundle-ClassPath: .
+Require-Bundle: org.eclipse.equinox.http.registry

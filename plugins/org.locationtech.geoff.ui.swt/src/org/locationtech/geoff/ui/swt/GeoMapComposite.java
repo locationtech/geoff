@@ -10,8 +10,6 @@
  ******************************************************************************/
 package org.locationtech.geoff.ui.swt;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -22,27 +20,23 @@ import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
+import org.eclipse.swt.browser.LocationEvent;
+import org.eclipse.swt.browser.LocationListener;
 import org.eclipse.swt.browser.ProgressEvent;
 import org.eclipse.swt.browser.ProgressListener;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MenuDetectEvent;
 import org.eclipse.swt.events.MenuDetectListener;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.core.Geoff;
-import org.locationtech.geoff.ol.ResourcesUtil;
-import org.locationtech.geoff.ui.IBrowserBridge;
 import org.locationtech.geoff.ui.IGeoMapRenderer;
 import org.locationtech.geoff.ui.IRenderSettings;
 
 @SuppressWarnings("serial")
-public class GeoMapComposite extends Composite implements IGeoMapRenderer,
-		IBrowserBridge {
+public class GeoMapComposite extends Composite implements IGeoMapRenderer {
 	private static final boolean ENABLE_BROWSER_POPUP_MENU = false;
 	private Browser browser;
 	private boolean complete = false;
@@ -85,36 +79,44 @@ public class GeoMapComposite extends Composite implements IGeoMapRenderer,
 			}
 		});
 
-		browser.addProgressListener(new ProgressListener() {
-			public void completed(ProgressEvent event) {
-				complete = true;
-
-				while (pendingTasks.peek() != null) {
-					pendingTasks.poll().run();
-				}
-			}
-
-			public void changed(ProgressEvent event) {
-				complete = false;
-			}
-		});
-
-		registerFunctions();
 		browser.addDisposeListener(new DisposeListener() {
 
 			public void widgetDisposed(DisposeEvent e) {
 				unregisterFunctions();
 			}
 		});
+
+		browser.addLocationListener(new LocationListener() {
+
+			@Override
+			public void changing(LocationEvent event) {
+				complete = false;
+			}
+
+			@Override
+			public void changed(LocationEvent event) {
+				unregisterFunctions();
+				registerFunctions();
+				complete = true;
+
+				while (pendingTasks.peek() != null) {
+					pendingTasks.poll().run();
+				}
+			}
+		});
+
+		setupOpenLayers();
 	}
 
 	protected void unregisterFunctions() {
 		if (bridgeFunc != null) {
 			bridgeFunc.dispose();
+			bridgeFunc = null;
 		}
 
 		if (alertFunc != null) {
 			alertFunc.dispose();
+			alertFunc = null;
 		}
 	}
 
@@ -134,8 +136,7 @@ public class GeoMapComposite extends Composite implements IGeoMapRenderer,
 					}
 				}
 
-				throw new UnsupportedOperationException(
-						"Invalid bridge parameters: " + arguments);
+				throw new UnsupportedOperationException("Invalid bridge parameters: " + arguments);
 			}
 		};
 
@@ -151,56 +152,12 @@ public class GeoMapComposite extends Composite implements IGeoMapRenderer,
 		};
 	}
 
-	public void loadHtmlByUrl(String url) {
-		String oldUrl = browser.getUrl();
-		boolean setUrl = browser.setUrl(url);
-		
-		if (!setUrl) {
-			browser.refresh();
-		}
-	}
-
-	public void loadHtmlContents() {
-//		try {
-//			// load template file and inline the OL3 CSS file contents
-//			{
-//				String indexHtml = ResourcesUtil
-//						.readResource(ResourcesUtil.INDEX_TEMPLATE_HTML);
-//				String ol3Css = ResourcesUtil
-//						.readResource(ResourcesUtil.OL_CSS);
-//				indexHtml = indexHtml.replace("{{OL3-CSS}}", ol3Css);
-//				loadHTML(indexHtml);
-//			}
-//
-//			// load jQuery and queue pre req check
-//			{
-//				String lib = ResourcesUtil
-//						.readResource(ResourcesUtil.JQUERY_MIN_JS);
-//				executeJavaSript(lib);
-//				String checkPreReq = "if (!window.jQuery) {$('body').append("
-//						+ "'<h1>the JQuery library is not loaded</h1>'" + ");}";
-//				executeJavaSript(checkPreReq);
-//			}
-//
-//			// load OL3 and queue pre req check
-//			{
-//				String lib = ResourcesUtil.readResource(ResourcesUtil.OL_JS);
-//				executeJavaSript(lib);
-//				String checkPreReq = "if (!window.ol) {$('body').append("
-//						+ "'<h1>the OpenLayers library is not loaded</h1>'"
-//						+ ");}";
-//				executeJavaSript(checkPreReq);
-//			}
-//
-//			// queue geoff OL3 implementation
-//			{
-//				String geoffOl3Impl = ResourcesUtil
-//						.readResource(ResourcesUtil.GEOFF_OL_JS);
-//				executeJavaSript(geoffOl3Impl);
-//			}
-//		} catch (IOException e1) {
-//			e1.printStackTrace();
-//		}
+	private void setupOpenLayers() {
+		String httpPort = System.getProperty("org.osgi.service.http.port", "8080");
+		String httpHost = System.getProperty("org.osgi.service.http.host", "localhost");
+		String url = String.format("http://%s:%s/%s/%s", httpHost, httpPort, "org.locationtech.geoff.ol",
+				"resources/index-fullmap.html");
+		browser.setUrl(url);
 	}
 
 	public Browser getBrowser() {
@@ -236,8 +193,7 @@ public class GeoMapComposite extends Composite implements IGeoMapRenderer,
 		// we are using BrowserFunction as call back to get the serialized map
 		// i.e., the JavaScript side will call a function "geoffSWTBridge"
 		// which is defined as part of the Browser instance initialization
-		String loadXML = String.format("geoff.loadFromXMLString(%s,%s)",
-				"geoffSWTBridge('loadMap')", "'map'");
+		String loadXML = String.format("geoff.loadFromXMLString(%s,%s)", "geoffSWTBridge('loadMap')", "'map'");
 		executeJavaSript(loadXML);
 	}
 
@@ -252,22 +208,16 @@ public class GeoMapComposite extends Composite implements IGeoMapRenderer,
 		sb.append("if(b.length>0) base=b[0];");
 		sb.append("if(base == null){base=document.createElement('base');");
 		sb.append("document.getElementsByTagName('head')[0].appendChild(base);}");
-		sb.append("base.setAttribute('href', '").append(baseUrl.toString())
-				.append("');");
+		sb.append("base.setAttribute('href', '").append(baseUrl.toString()).append("');");
 		executeJavaSript(sb.toString());
 	}
 
 	@Override
 	public void render(GeoMap geoMap, IRenderSettings settings) {
 		if (settings.baseURL() != null) {
-			setBaseUrl(settings.baseURL());
+			// setBaseUrl(settings.baseURL());
 		}
 
 		loadMap(geoMap);
-	}
-
-	@Override
-	public void loadHTML(String html) {
-		browser.setText(html);
 	}
 }

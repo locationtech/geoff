@@ -14,7 +14,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.locationtech.geoff.geocoding.AbstractJsonGeocodingServiceImpl;
+import org.locationtech.geoff.geocoding.IGeocodingService;
+import org.osgi.service.component.annotations.Component;
 
+@Component(service = IGeocodingService.class)
 public class GoogleGeocodingAPIService extends AbstractJsonGeocodingServiceImpl {
 	@Override
 	protected double getPOILat(JSONObject object) throws JSONException {

@@ -9,6 +9,6 @@ Require-Bundle: org.locationtech.geoff.geocoding,
  org.json;bundle-version="1.0.0"
 Import-Package: org.osgi.framework;version="1.6.0"
 Bundle-ActivationPolicy: lazy
-Bundle-Activator: org.locationtech.geoff.geocoding.google.GoogleGeocodingActivator
 Export-Package: org.locationtech.geoff.geocoding.google
 Bundle-ClassPath: .
+Service-Component: OSGI-INF/org.locationtech.geoff.geocoding.google.GoogleGeocodingAPIService.xml

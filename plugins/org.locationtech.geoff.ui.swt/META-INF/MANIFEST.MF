@@ -7,7 +7,7 @@ Bundle-Vendor: Geoff Project (Eclipse LocationTech IWG)
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.emf.ecore,
  org.locationtech.geoff.core,
- org.locationtech.geoff.ol;bundle-version="0.8.0"
+ org.locationtech.geoff.ol
 Bundle-ClassPath: .
 Import-Package: org.eclipse.jface.viewers,
  org.eclipse.swt,

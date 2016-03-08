@@ -15,9 +15,6 @@ import java.util.MissingResourceException;
 
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 
 /**
  * This is the central singleton for the Geoff edit plugin.
@@ -101,17 +98,17 @@ public final class GeoffEditPlugin extends EMFPlugin {
 		}
 	}
 
-	public Image getSharedImage(String key) {
-		Object img = super.getImage(key);
-		img = ExtendedImageRegistry.INSTANCE.getImage(img);
-		return (Image) img;
-	}
-
-	public ImageDescriptor getImageDescriptor(String key) {
-		Object img = super.getImage(key);
-		img = ExtendedImageRegistry.INSTANCE.getImageDescriptor(img);
-		return (ImageDescriptor) img;
-	}
+//	public Image getSharedImage(String key) {
+//		Object img = super.getImage(key);
+//		img = ExtendedImageRegistry.INSTANCE.getImage(img);
+//		return (Image) img;
+//	}
+//
+//	public ImageDescriptor getImageDescriptor(String key) {
+//		Object img = super.getImage(key);
+//		img = ExtendedImageRegistry.INSTANCE.getImageDescriptor(img);
+//		return (ImageDescriptor) img;
+//	}
 
 	@Override
 	public Object getImage(String key) {

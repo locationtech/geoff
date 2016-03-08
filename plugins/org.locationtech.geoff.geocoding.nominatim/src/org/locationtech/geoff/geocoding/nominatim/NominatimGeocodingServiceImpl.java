@@ -16,7 +16,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.locationtech.geoff.geocoding.AbstractJsonGeocodingServiceImpl;
+import org.locationtech.geoff.geocoding.IGeocodingService;
+import org.osgi.service.component.annotations.Component;
 
+@Component(service = IGeocodingService.class)
 public class NominatimGeocodingServiceImpl extends
 		AbstractJsonGeocodingServiceImpl {
 	protected void doPopulateProperties(JSONObject object,

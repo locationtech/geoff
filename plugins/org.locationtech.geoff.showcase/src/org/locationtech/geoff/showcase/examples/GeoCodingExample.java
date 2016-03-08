@@ -60,7 +60,7 @@ public class GeoCodingExample extends AbstractExampleGeoMap {
 							(float) latLon.getLon(), (float) latLon.getLat(),
 							Geoff.EPSG4326_WGS84));
 					Feature feature = feature(geometry,
-							style(icon("marker.gif")));
+							style(icon("/org.locationtech.geoff.showcase/resources/marker.gif")));
 					vectorSource.getFeatures().add(feature);
 				}
 			}

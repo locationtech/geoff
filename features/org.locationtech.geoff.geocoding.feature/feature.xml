@@ -17,6 +17,10 @@
       [Enter License Description here.]
    </license>
 
+   <requires>
+      <import plugin="org.json"/>
+   </requires>
+
    <plugin
          id="org.locationtech.geoff.geocoding"
          download-size="0"
@@ -33,6 +37,13 @@
 
    <plugin
          id="org.locationtech.geoff.geocoding.nominatim"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.json"
          download-size="0"
          install-size="0"
          version="0.0.0"
