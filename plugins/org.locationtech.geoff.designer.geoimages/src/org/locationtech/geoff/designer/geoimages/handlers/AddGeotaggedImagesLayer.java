@@ -1,9 +1,12 @@
 package org.locationtech.geoff.designer.geoimages.handlers;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -11,10 +14,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.common.command.CompoundCommand;
-import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.locationtech.geoff.Feature;
@@ -24,8 +25,9 @@ import org.locationtech.geoff.Script;
 import org.locationtech.geoff.ScriptContext;
 import org.locationtech.geoff.XYZLocation;
 import org.locationtech.geoff.core.Geoff;
-import org.locationtech.geoff.designer.DesignerUtil;
-import org.locationtech.geoff.designer.IEditingService;
+import org.locationtech.geoff.core.core.logging.LogUtil;
+import org.locationtech.geoff.designer.IGeoMapService;
+import org.locationtech.geoff.designer.ResourcesUtil;
 import org.locationtech.geoff.interaction.EventCondition;
 import org.locationtech.geoff.interaction.InteractionPackage;
 import org.locationtech.geoff.interaction.Select;
@@ -44,7 +46,7 @@ public class AddGeotaggedImagesLayer {
 	private static final String ONCLICK_FUNCTION = "geoff_designer_geoimages_onFeatureClick";
 
 	@Execute
-	public void execute(IEditingService editingService, GeoMap geoMap, ISelection selection)
+	public void execute(IGeoMapService geoMapService, ISelection selection)
 			throws CoreException, ImageProcessingException, IOException {
 		if (selection.isEmpty()) {
 			return;
@@ -56,7 +58,6 @@ public class AddGeotaggedImagesLayer {
 			return;
 		}
 
-		CompoundCommand cc = new CompoundCommand();
 		IFolder folder = (IFolder) first;
 
 		Map<String, Entry<Double, Double>> geoTaggedImages = collectGeoTaggedImages(folder);
@@ -64,6 +65,9 @@ public class AddGeotaggedImagesLayer {
 		if (geoTaggedImages.isEmpty()) {
 			return;
 		}
+
+		GeoMap geoMap = geoMapService.getGeoMap();
+		List<Runnable> commands = new ArrayList<>();
 
 		// the marker.png icon is used to represent an image on the map
 		String markerFolderName = "resources";
@@ -73,9 +77,12 @@ public class AddGeotaggedImagesLayer {
 		{
 			String markerSrc = markerFolderName + "/" + markerResourceName;
 			URL url = FrameworkUtil.getBundle(getClass()).getEntry(markerSrc);
-			IFolder targetFolder = DesignerUtil.toSourceFolder(folder.getProject(), markerTargetFolderName);
-			Command addResource = editingService.createAddResourceCommand(targetFolder, markerResourceName, url, true);
-			cc.append(addResource);
+			IFolder targetFolder = folder.getProject().getFolder(markerTargetFolderName);
+			commands.add(() -> {
+				LogUtil.logErrorOnException(() -> {
+					createAddResourceCommand(targetFolder, markerResourceName, url, true);
+				});
+			});
 		}
 
 		String jsTargetFolderName = "js";
@@ -86,29 +93,32 @@ public class AddGeotaggedImagesLayer {
 		// install onclick.js file
 		{
 			URL url = FrameworkUtil.getBundle(getClass()).getEntry(onclickResourceNameLocal);
-			IFolder targetFolder = DesignerUtil.toSourceFolder(folder.getProject(), jsTargetFolderName);
-			Command addResource = editingService.createAddResourceCommand(targetFolder, onclickResourceName, url, true);
-			cc.append(addResource);
+			IFolder targetFolder = folder.getProject().getFolder(jsTargetFolderName);
+			commands.add(() -> {
+				LogUtil.logErrorOnException(() -> {
+					createAddResourceCommand(targetFolder, onclickResourceName, url, true);
+				});
+			});
 		}
 
 		if (!containsScriptSrc(geoMap, onclickResourceNameTarget)) {
 			Script script = Geoff.instance(GeoffPackage.Literals.SCRIPT);
 			script.setSrc(onclickResourceNameTarget);
 			script.setContext(ScriptContext.GLOBAL);
-			Command addScriptCommand = editingService.createAddCommand(geoMap, GeoffPackage.Literals.GEO_MAP__SCRIPTS,
-					script);
-			cc.append(addScriptCommand);
+			commands.add(() -> {
+				geoMap.getScripts().add(script);
+			});
 
 			Select interaction = Geoff.instance(InteractionPackage.Literals.SELECT);
 			interaction.setCondition(EventCondition.SINGLE_CLICK);
-			Command addInteractionCommand = editingService.createAddCommand(geoMap,
-					GeoffPackage.Literals.GEO_MAP__INTERACTIONS, interaction);
-			cc.append(addInteractionCommand);
+			commands.add(() -> {
+				geoMap.getInteractions().add(interaction);
+			});
 		}
 
 		VectorSource vectorSource = Geoff.vectorSource();
 		VectorLayer layer = Geoff.vectorLayer(vectorSource);
-		String targetFolderName = DesignerUtil.toSourceFolder(folder);
+		String targetFolderName = folder.getName();
 		layer.setShortDescription("Geotagged Images (Source: " + targetFolderName + ")");
 
 		for (Entry<String, Entry<Double, Double>> e : geoTaggedImages.entrySet()) {
@@ -121,15 +131,16 @@ public class AddGeotaggedImagesLayer {
 			XYZLocation xyLocation = Geoff.xyLocation(x, y, Geoff.EPSG4326_WGS84);
 
 			Feature feature = Geoff.feature(Geoff.pointGeom(xyLocation), Geoff.style(Geoff.icon(markerTarget)));
-			BasicEMap.Entry<String, String> urlProp = Geoff.featureProperty("src", src);
-			feature.getProperties().add(urlProp);
+			feature.getProperties().put("src", src);
 			feature.setOnclick(ONCLICK_FUNCTION);
 			vectorSource.getFeatures().add(feature);
 		}
 
-		Command command = editingService.createAddCommand(geoMap, GeoffPackage.Literals.GEO_MAP__LAYERS, layer);
-		cc.append(command);
-		editingService.execute(cc);
+		commands.add(() -> {
+			geoMapService.addLayer(layer);
+		});
+
+		geoMapService.batchChanges(commands.toArray(new Runnable[0]));
 	}
 
 	private boolean containsScriptSrc(GeoMap geoMap, String src) {
@@ -173,5 +184,40 @@ public class AddGeotaggedImagesLayer {
 		}
 
 		return geoTaggedImages;
+	}
+
+	private void createAddResourceCommand(final IFolder targetFolder, final String targetResourceName, final URL srcUrl,
+			final boolean overwrite) throws IOException, CoreException {
+		if (!targetFolder.exists()) {
+			targetFolder.create(true, false, new NullProgressMonitor());
+		}
+
+		IFile file = targetFolder.getFile(targetResourceName);
+
+		if (file.exists() && !overwrite) {
+			return;
+		}
+
+		InputStream source = srcUrl.openStream();
+
+		if (file.exists()) {
+			file.setContents(source, true, true, new NullProgressMonitor());
+		} else {
+			file.create(source, true, new NullProgressMonitor());
+		}
+
+		targetFolder.refreshLocal(IFolder.DEPTH_INFINITE, new NullProgressMonitor());
+
+		// @OVERRIDE
+		// PUBLIC VOID UNDO() {
+		// TRY {
+		// IFILE FILE = TARGETFOLDER.GETFILE(TARGETRESOURCENAME);
+		// FILE.DELETE(TRUE, NEW NULLPROGRESSMONITOR());
+		// TARGETFOLDER.REFRESHLOCAL(IFOLDER.DEPTH_INFINITE, NEW
+		// NULLPROGRESSMONITOR());
+		// } CATCH (COREEXCEPTION E) {
+		// LOGGER.ERROR(E);
+		// }
+		// }
 	}
 }

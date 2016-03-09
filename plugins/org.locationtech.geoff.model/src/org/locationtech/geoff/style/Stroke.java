@@ -11,8 +11,7 @@
  */
 package org.locationtech.geoff.style;
 
-import org.eclipse.emf.common.util.EList;
-
+import java.util.List;
 import org.locationtech.geoff.Color;
 import org.locationtech.geoff.Identifiable;
 
@@ -189,6 +188,6 @@ public interface Stroke extends Identifiable {
 	 * @model
 	 * @generated
 	 */
-	EList<Double> getLineDash();
+	List<Double> getLineDash();
 
 } // Stroke

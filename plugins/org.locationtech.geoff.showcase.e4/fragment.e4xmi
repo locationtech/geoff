@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmi:id="_4YFe8OVOEeWPf8lYHGByAw">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_IlI8YOVPEeWPf8lYHGByAw" featurename="children" parentElementId="org.locationtech.geoff.app.e4.perspectivesstack">
+    <elements xsi:type="advanced:Perspective" xmi:id="_zQA8cOVPEeWPf8lYHGByAw">
+      <children xsi:type="basic:PartSashContainer" xmi:id="_zQA8ceVPEeWPf8lYHGByAw" horizontal="true">
+        <children xsi:type="basic:PartStack" xmi:id="_zQA8cuVPEeWPf8lYHGByAw" elementId="org.locationtech.geoff.example.e4.partstack.0">
+          <children xsi:type="basic:Part" xmi:id="_zQA8c-VPEeWPf8lYHGByAw" elementId="" contributionURI="bundleclass://org.locationtech.geoff.showcase.e4/org.locationtech.geoff.showcase.e4.ExamplesPart" label="Examples"/>
+        </children>
+        <children xsi:type="basic:PartStack" xmi:id="_zQA8dOVPEeWPf8lYHGByAw" elementId="org.locationtech.geoff.example.e4.partstack.1">
+          <children xsi:type="basic:Part" xmi:id="_zQA8deVPEeWPf8lYHGByAw" contributionURI="bundleclass://org.locationtech.geoff.showcase.e4/org.locationtech.geoff.showcase.e4.PreviewPart" label="OpenLayers 2D Map"/>
+        </children>
+      </children>
+    </elements>
+  </fragments>
+</fragment:ModelFragments>

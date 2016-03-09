@@ -11,8 +11,7 @@
  */
 package org.locationtech.geoff.source;
 
-import org.eclipse.emf.common.util.EList;
-
+import java.util.List;
 import org.locationtech.geoff.Feature;
 
 /**
@@ -57,7 +56,7 @@ public interface VectorSource extends Source {
 	 *        extendedMetaData="name='feature' kind='element'"
 	 * @generated
 	 */
-	EList<Feature> getFeatures();
+	List<Feature> getFeatures();
 
 	/**
 	 * Returns the value of the '<em><b>Url</b></em>' attribute.

@@ -11,7 +11,7 @@
  */
 package org.locationtech.geoff;
 
-import org.eclipse.emf.common.util.EMap;
+import java.util.Map;
 import org.locationtech.geoff.geom.Geometry;
 import org.locationtech.geoff.style.Style;
 
@@ -110,7 +110,7 @@ public interface Feature extends Identifiable {
 	 * @model mapType="org.locationtech.geoff.StringToStringMapEntry<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString>"
 	 * @generated
 	 */
-	EMap<String, String> getProperties();
+	Map<String, String> getProperties();
 
 	/**
 	 * Returns the value of the '<em><b>Onclick</b></em>' attribute.

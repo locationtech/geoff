@@ -103,8 +103,7 @@ public class InteractionItemProvider extends ItemProviderAdapter implements IEdi
 	@Override
 	public String getText(Object object) {
 		String label = ((Interaction) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_Interaction_type") //$NON-NLS-1$
-				:
+		return label == null || label.length() == 0 ? getString("_UI_Interaction_type") : //$NON-NLS-1$
 				getString("_UI_Interaction_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 

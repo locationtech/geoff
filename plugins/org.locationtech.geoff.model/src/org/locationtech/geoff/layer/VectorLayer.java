@@ -11,8 +11,7 @@
  */
 package org.locationtech.geoff.layer;
 
-import org.eclipse.emf.common.util.EMap;
-
+import java.util.Map;
 import org.locationtech.geoff.style.Style;
 
 /**
@@ -55,6 +54,6 @@ public interface VectorLayer extends Layer {
 	 *        extendedMetaData="name='style' kind='element'"
 	 * @generated
 	 */
-	EMap<String, Style> getStyles();
+	Map<String, Style> getStyles();
 
 } // VectorLayer

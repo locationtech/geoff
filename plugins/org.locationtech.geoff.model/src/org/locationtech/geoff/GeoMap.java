@@ -11,7 +11,7 @@
  */
 package org.locationtech.geoff;
 
-import org.eclipse.emf.common.util.EList;
+import java.util.List;
 import org.locationtech.geoff.interaction.Interaction;
 import org.locationtech.geoff.layer.Layer;
 
@@ -58,7 +58,7 @@ public interface GeoMap extends Identifiable, Descriptive {
 	 *        extendedMetaData="name='layer' kind='element'"
 	 * @generated
 	 */
-	EList<Layer> getLayers();
+	List<Layer> getLayers();
 
 	/**
 	 * Returns the value of the '<em><b>View</b></em>' containment reference.
@@ -129,7 +129,7 @@ public interface GeoMap extends Identifiable, Descriptive {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Script> getScripts();
+	List<Script> getScripts();
 
 	/**
 	 * Returns the value of the '<em><b>Interactions</b></em>' containment reference list.
@@ -145,6 +145,6 @@ public interface GeoMap extends Identifiable, Descriptive {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Interaction> getInteractions();
+	List<Interaction> getInteractions();
 
 } // GeoMap

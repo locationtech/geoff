@@ -20,6 +20,5 @@ Import-Package: org.eclipse.jface.viewers,
  org.locationtech.geoff,
  org.locationtech.geoff.geom,
  org.locationtech.geoff.source
-Export-Package: org.locationtech.geoff.ui,
- org.locationtech.geoff.ui.swt
+Export-Package: org.locationtech.geoff.ui.swt
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -13,6 +13,7 @@ package org.locationtech.geoff.style.impl;
 
 import java.util.Collection;
 
+import java.util.List;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -358,7 +359,7 @@ public class StrokeImpl extends MinimalEObjectImpl.Container implements Stroke {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Double> getLineDash() {
+	public List<Double> getLineDash() {
 		if (lineDash == null) {
 			lineDash = new EDataTypeUniqueEList<Double>(Double.class, this, StylePackage.STROKE__LINE_DASH);
 		}

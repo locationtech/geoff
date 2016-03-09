@@ -13,6 +13,7 @@ package org.locationtech.geoff.impl;
 
 import java.util.Collection;
 
+import java.util.List;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -268,7 +269,7 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Layer> getLayers() {
+	public List<Layer> getLayers() {
 		if (layers == null) {
 			layers = new EObjectContainmentEList<Layer>(Layer.class, this, GeoffPackage.GEO_MAP__LAYERS);
 		}
@@ -351,7 +352,7 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Script> getScripts() {
+	public List<Script> getScripts() {
 		if (scripts == null) {
 			scripts = new EObjectContainmentEList<Script>(Script.class, this, GeoffPackage.GEO_MAP__SCRIPTS);
 		}
@@ -363,7 +364,7 @@ public class GeoMapImpl extends MinimalEObjectImpl.Container implements GeoMap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Interaction> getInteractions() {
+	public List<Interaction> getInteractions() {
 		if (interactions == null) {
 			interactions = new EObjectContainmentEList<Interaction>(Interaction.class, this,
 					GeoffPackage.GEO_MAP__INTERACTIONS);

@@ -174,8 +174,7 @@ public class ColorItemProvider extends ItemProviderAdapter implements IEditingDo
 	@Override
 	public String getText(Object object) {
 		String label = ((Color) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_Color_type") //$NON-NLS-1$
-				:
+		return label == null || label.length() == 0 ? getString("_UI_Color_type") : //$NON-NLS-1$
 				getString("_UI_Color_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 

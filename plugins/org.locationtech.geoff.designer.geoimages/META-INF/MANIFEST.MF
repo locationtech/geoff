@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Geoff Geotagged Images Support
 Bundle-SymbolicName: org.locationtech.geoff.designer.geoimages;singleton:=true
 Bundle-Version: 0.8.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,

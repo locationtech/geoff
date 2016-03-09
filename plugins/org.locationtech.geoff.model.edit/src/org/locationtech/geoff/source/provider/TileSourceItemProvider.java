@@ -69,8 +69,7 @@ public class TileSourceItemProvider extends SourceItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((TileSource) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_TileSource_type") //$NON-NLS-1$
-				:
+		return label == null || label.length() == 0 ? getString("_UI_TileSource_type") : //$NON-NLS-1$
 				getString("_UI_TileSource_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 

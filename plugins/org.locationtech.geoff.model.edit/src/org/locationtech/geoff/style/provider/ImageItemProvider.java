@@ -114,8 +114,7 @@ public class ImageItemProvider extends ItemProviderAdapter implements IEditingDo
 	@Override
 	public String getText(Object object) {
 		String label = ((Image) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_Image_type") //$NON-NLS-1$
-				:
+		return label == null || label.length() == 0 ? getString("_UI_Image_type") : //$NON-NLS-1$
 				getString("_UI_Image_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 

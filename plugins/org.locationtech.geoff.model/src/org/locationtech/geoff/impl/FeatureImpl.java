@@ -11,6 +11,7 @@
  */
 package org.locationtech.geoff.impl;
 
+import java.util.Map;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EMap;
@@ -265,12 +266,12 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EMap<String, String> getProperties() {
+	public Map<String, String> getProperties() {
 		if (properties == null) {
 			properties = new EcoreEMap<String, String>(GeoffPackage.Literals.STRING_TO_STRING_MAP_ENTRY,
 					StringToStringMapEntryImpl.class, this, GeoffPackage.FEATURE__PROPERTIES);
 		}
-		return properties;
+		return properties.map();
 	}
 
 	/**
@@ -307,7 +308,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 		case GeoffPackage.FEATURE__STYLE:
 			return basicSetStyle(null, msgs);
 		case GeoffPackage.FEATURE__PROPERTIES:
-			return ((InternalEList<?>) getProperties()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) ((EMap.InternalMapView<String, String>) getProperties()).eMap())
+					.basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -328,9 +330,9 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 			return getStyle();
 		case GeoffPackage.FEATURE__PROPERTIES:
 			if (coreType)
-				return getProperties();
+				return ((EMap.InternalMapView<String, String>) getProperties()).eMap();
 			else
-				return getProperties().map();
+				return getProperties();
 		case GeoffPackage.FEATURE__ONCLICK:
 			return getOnclick();
 		}
@@ -356,7 +358,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 			setStyle((Style) newValue);
 			return;
 		case GeoffPackage.FEATURE__PROPERTIES:
-			((EStructuralFeature.Setting) getProperties()).set(newValue);
+			((EStructuralFeature.Setting) ((EMap.InternalMapView<String, String>) getProperties()).eMap())
+					.set(newValue);
 			return;
 		case GeoffPackage.FEATURE__ONCLICK:
 			setOnclick((String) newValue);

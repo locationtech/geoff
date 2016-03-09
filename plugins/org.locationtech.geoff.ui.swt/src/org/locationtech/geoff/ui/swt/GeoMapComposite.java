@@ -10,7 +10,6 @@
  ******************************************************************************/
 package org.locationtech.geoff.ui.swt;
 
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -32,11 +31,8 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.core.Geoff;
-import org.locationtech.geoff.ui.IGeoMapRenderer;
-import org.locationtech.geoff.ui.IRenderSettings;
 
-@SuppressWarnings("serial")
-public class GeoMapComposite extends Composite implements IGeoMapRenderer {
+public class GeoMapComposite extends Composite {
 	private static final boolean ENABLE_BROWSER_POPUP_MENU = false;
 	private Browser browser;
 	private boolean complete = false;
@@ -86,15 +82,10 @@ public class GeoMapComposite extends Composite implements IGeoMapRenderer {
 			}
 		});
 
-		browser.addLocationListener(new LocationListener() {
+		browser.addProgressListener(new ProgressListener() {
 
 			@Override
-			public void changing(LocationEvent event) {
-				complete = false;
-			}
-
-			@Override
-			public void changed(LocationEvent event) {
+			public void completed(ProgressEvent event) {
 				unregisterFunctions();
 				registerFunctions();
 				complete = true;
@@ -103,9 +94,25 @@ public class GeoMapComposite extends Composite implements IGeoMapRenderer {
 					pendingTasks.poll().run();
 				}
 			}
+
+			@Override
+			public void changed(ProgressEvent event) {
+				complete = false;
+			}
 		});
 
-		setupOpenLayers();
+		browser.addLocationListener(new LocationListener() {
+
+			@Override
+			public void changing(LocationEvent event) {
+			}
+
+			@Override
+			public void changed(LocationEvent event) {
+			}
+		});
+
+		doSetupOpenLayers();
 	}
 
 	protected void unregisterFunctions() {
@@ -152,12 +159,22 @@ public class GeoMapComposite extends Composite implements IGeoMapRenderer {
 		};
 	}
 
-	private void setupOpenLayers() {
+	protected void doSetupOpenLayers() {
+		String resourcesPath = doGetResourcesPath();
+		String base = doGetServerBase();
+		String url = String.format("%s/%s", base, resourcesPath);
+		browser.setUrl(url);
+	}
+
+	protected String doGetResourcesPath() {
+		return String.format("%s/%s", "org.locationtech.geoff.ol", "resources/index-fullmap.html");
+	}
+
+	protected String doGetServerBase() {
 		String httpPort = System.getProperty("org.osgi.service.http.port", "8080");
 		String httpHost = System.getProperty("org.osgi.service.http.host", "localhost");
-		String url = String.format("http://%s:%s/%s/%s", httpHost, httpPort, "org.locationtech.geoff.ol",
-				"resources/index-fullmap.html");
-		browser.setUrl(url);
+		String url = String.format("http://%s:%s", httpHost, httpPort);
+		return url;
 	}
 
 	public Browser getBrowser() {
@@ -195,29 +212,5 @@ public class GeoMapComposite extends Composite implements IGeoMapRenderer {
 		// which is defined as part of the Browser instance initialization
 		String loadXML = String.format("geoff.loadFromXMLString(%s,%s)", "geoffSWTBridge('loadMap')", "'map'");
 		executeJavaSript(loadXML);
-	}
-
-	public void setBaseUrl(URL baseUrl) {
-		if (baseUrl == null) {
-			throw new IllegalArgumentException("The base URL must not be null.");
-		}
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("var b=document.getElementsByTagName('base');");
-		sb.append("var base=null;");
-		sb.append("if(b.length>0) base=b[0];");
-		sb.append("if(base == null){base=document.createElement('base');");
-		sb.append("document.getElementsByTagName('head')[0].appendChild(base);}");
-		sb.append("base.setAttribute('href', '").append(baseUrl.toString()).append("');");
-		executeJavaSript(sb.toString());
-	}
-
-	@Override
-	public void render(GeoMap geoMap, IRenderSettings settings) {
-		if (settings.baseURL() != null) {
-			// setBaseUrl(settings.baseURL());
-		}
-
-		loadMap(geoMap);
 	}
 }

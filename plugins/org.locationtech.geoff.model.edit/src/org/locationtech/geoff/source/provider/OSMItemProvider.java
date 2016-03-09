@@ -80,8 +80,7 @@ public class OSMItemProvider extends XYZItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((OSM) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_OSM_type") //$NON-NLS-1$
-				:
+		return label == null || label.length() == 0 ? getString("_UI_OSM_type") : //$NON-NLS-1$
 				getString("_UI_OSM_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 

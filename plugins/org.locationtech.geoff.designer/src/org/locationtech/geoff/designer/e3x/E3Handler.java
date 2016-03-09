@@ -18,6 +18,7 @@ import org.osgi.framework.FrameworkUtil;
 
 public class E3Handler extends AbstractHandler implements IHandler, IExecutableExtension {
 
+	@Deprecated
 	public static final String PARAM_PARAMETERS = "parameters";
 	private String className;
 

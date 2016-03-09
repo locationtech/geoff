@@ -80,8 +80,7 @@ public class TileImageItemProvider extends TileSourceItemProvider {
 	@Override
 	public String getText(Object object) {
 		String label = ((TileImage) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_TileImage_type") //$NON-NLS-1$
-				:
+		return label == null || label.length() == 0 ? getString("_UI_TileImage_type") : //$NON-NLS-1$
 				getString("_UI_TileImage_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 

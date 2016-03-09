@@ -277,8 +277,7 @@ public class TextItemProvider extends ItemProviderAdapter implements IEditingDom
 	@Override
 	public String getText(Object object) {
 		String label = ((Text) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_Text_type") //$NON-NLS-1$
-				:
+		return label == null || label.length() == 0 ? getString("_UI_Text_type") : //$NON-NLS-1$
 				getString("_UI_Text_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 

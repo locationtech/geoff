@@ -14,14 +14,21 @@ package org.locationtech.geoff.core;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.locationtech.geoff.Feature;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.GeoffFactory;
+import org.locationtech.geoff.GeoffPackage;
+import org.locationtech.geoff.Identifiable;
 import org.locationtech.geoff.Location;
 import org.locationtech.geoff.RendererHint;
 import org.locationtech.geoff.View;
@@ -97,9 +104,9 @@ public class Geoff {
 	 *         serialized
 	 */
 	public String toXML() {
-		GeoMap mapCopy = EcoreUtil.copy(map);
+		GeoMap mapCopy = (GeoMap) EcoreUtil.copy(toEObject(map));
 		Resource resource = new GeoffResourceFactoryImpl().createResource(null);
-		resource.getContents().add(mapCopy);
+		resource.getContents().add((EObject) mapCopy);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 
 		try {
@@ -267,5 +274,60 @@ public class Geoff {
 	@SuppressWarnings("unchecked")
 	public static <T> T instance(EClass eClass) {
 		return (T) EcoreUtil.create(eClass);
+	}
+
+	public static EObject toEObject(Identifiable id) {
+		return (EObject) id;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T extends Identifiable> T toId(EObject eo) {
+		return (T) eo;
+	}
+
+	public static Collection<? extends Identifiable> samplesOf(EClass eclass) {
+		EPackage root = eclass.getEPackage();
+		EPackage current = root;
+
+		while ((current = root.getESuperPackage()) != null) {
+			root = current;
+		}
+
+		Collection<Identifiable> ret = new ArrayList<Identifiable>();
+		Collection<EClass> eclasses = new ArrayList<EClass>();
+		collectSubtypes(eclasses, eclass, root);
+
+		for (EClass ec : eclasses) {
+			if (!GeoffPackage.Literals.IDENTIFIABLE.isSuperTypeOf(ec)) {
+				continue;
+			}
+
+			Identifiable eo = (Identifiable) EcoreUtil.create(ec);
+			ret.add(eo);
+		}
+
+		return ret;
+	}
+
+	private static void collectSubtypes(Collection<EClass> eclasses, EClass eclass, EPackage root) {
+		for (EClassifier eClassifier : root.getEClassifiers()) {
+			if (!(eClassifier instanceof EClass)) {
+				continue;
+			}
+
+			EClass subType = (EClass) eClassifier;
+
+			if (subType.isAbstract()) {
+				continue;
+			}
+
+			if (eclass.isSuperTypeOf(subType)) {
+				eclasses.add(subType);
+			}
+		}
+
+		for (EPackage subPackage : root.getESubpackages()) {
+			collectSubtypes(eclasses, eclass, subPackage);
+		}
 	}
 }

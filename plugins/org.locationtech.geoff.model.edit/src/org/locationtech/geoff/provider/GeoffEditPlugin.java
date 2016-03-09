@@ -81,7 +81,7 @@ public final class GeoffEditPlugin extends EMFPlugin {
 	 * The actual implementation of the Eclipse <b>Plugin</b>. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
-	 * @generated NOT
+	 * @generated
 	 */
 	public static class Implementation extends EclipsePlugin {
 		/**
@@ -97,18 +97,6 @@ public final class GeoffEditPlugin extends EMFPlugin {
 			plugin = this;
 		}
 	}
-
-//	public Image getSharedImage(String key) {
-//		Object img = super.getImage(key);
-//		img = ExtendedImageRegistry.INSTANCE.getImage(img);
-//		return (Image) img;
-//	}
-//
-//	public ImageDescriptor getImageDescriptor(String key) {
-//		Object img = super.getImage(key);
-//		img = ExtendedImageRegistry.INSTANCE.getImageDescriptor(img);
-//		return (ImageDescriptor) img;
-//	}
 
 	@Override
 	public Object getImage(String key) {

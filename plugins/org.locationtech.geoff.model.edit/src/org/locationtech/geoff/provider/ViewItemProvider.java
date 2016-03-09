@@ -159,8 +159,7 @@ public class ViewItemProvider extends ItemProviderAdapter implements IEditingDom
 	@Override
 	public String getText(Object object) {
 		String label = ((View) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_View_type") //$NON-NLS-1$
-				:
+		return label == null || label.length() == 0 ? getString("_UI_View_type") : //$NON-NLS-1$
 				getString("_UI_View_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 

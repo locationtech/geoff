@@ -13,6 +13,7 @@ package org.locationtech.geoff.source.impl;
 
 import java.util.Collection;
 
+import java.util.List;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -150,7 +151,7 @@ public class VectorSourceImpl extends SourceImpl implements VectorSource {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Feature> getFeatures() {
+	public List<Feature> getFeatures() {
 		if (features == null) {
 			features = new EObjectContainmentEList<Feature>(Feature.class, this, SourcePackage.VECTOR_SOURCE__FEATURES);
 		}

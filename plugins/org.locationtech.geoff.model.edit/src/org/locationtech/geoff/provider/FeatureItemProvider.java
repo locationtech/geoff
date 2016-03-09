@@ -166,8 +166,7 @@ public class FeatureItemProvider extends ItemProviderAdapter implements IEditing
 	@Override
 	public String getText(Object object) {
 		String label = ((Feature) object).getId();
-		return label == null || label.length() == 0 ? getString("_UI_Feature_type") //$NON-NLS-1$
-				:
+		return label == null || label.length() == 0 ? getString("_UI_Feature_type") : //$NON-NLS-1$
 				getString("_UI_Feature_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 

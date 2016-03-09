@@ -1,609 +1,212 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage
-    xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    name="geoff"
-    nsURI="http://www.locationtech.org/geoff-v1"
-    nsPrefix="geoff">
-  <eClassifiers
-      xsi:type="ecore:EClass"
-      name="Identifiable"
-      abstract="true"
-      interface="true">
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="id"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="geoff" nsURI="http://www.locationtech.org/geoff-v1" nsPrefix="geoff">
+  <eClassifiers xsi:type="ecore:EClass" name="Identifiable" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         iD="true"/>
   </eClassifiers>
-  <eClassifiers
-      xsi:type="ecore:EClass"
-      name="Descriptive"
-      abstract="true"
-      interface="true">
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="shortDescription"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="longDescription"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Descriptive" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shortDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="longDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers
-      xsi:type="ecore:EClass"
-      name="GeoMap"
-      eSuperTypes="#//Identifiable #//Descriptive">
-    <eStructuralFeatures
-        xsi:type="ecore:EReference"
-        name="layers"
-        upperBound="-1"
-        eType="#//layer/Layer"
-        containment="true">
-      <eAnnotations
-          source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details
-            key="name"
-            value="layer"/>
-        <details
-            key="kind"
-            value="element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GeoMap" eSuperTypes="#//Identifiable #//Descriptive">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="layers" upperBound="-1"
+        eType="#//layer/Layer" containment="true">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="layer"/>
+        <details key="kind" value="element"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures
-        xsi:type="ecore:EReference"
-        name="view"
-        eType="#//View"
-        containment="true"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="rendererHint"
-        eType="#//RendererHint"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EReference"
-        name="scripts"
-        upperBound="-1"
-        eType="#//Script"
-        containment="true"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EReference"
-        name="interactions"
-        upperBound="-1"
-        eType="#//interaction/Interaction"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="view" eType="#//View" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rendererHint" eType="#//RendererHint"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="scripts" upperBound="-1"
+        eType="#//Script" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interactions" upperBound="-1"
+        eType="#//interaction/Interaction" containment="true"/>
   </eClassifiers>
-  <eClassifiers
-      xsi:type="ecore:EClass"
-      name="View"
-      eSuperTypes="#//Identifiable">
-    <eStructuralFeatures
-        xsi:type="ecore:EReference"
-        name="center"
-        lowerBound="1"
-        eType="#//Location"
-        containment="true"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="zoom"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  <eClassifiers xsi:type="ecore:EClass" name="View" eSuperTypes="#//Identifiable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="center" lowerBound="1"
+        eType="#//Location" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="zoom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers
-      xsi:type="ecore:EClass"
-      name="Location"
-      abstract="true"
-      eSuperTypes="#//Identifiable">
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="projectionCode"
-        lowerBound="1"
+  <eClassifiers xsi:type="ecore:EClass" name="Location" abstract="true" eSuperTypes="#//Identifiable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="projectionCode" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers
-      xsi:type="ecore:EClass"
-      name="XYZLocation"
-      eSuperTypes="#//Location">
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="x"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="y"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="z"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  <eClassifiers xsi:type="ecore:EClass" name="XYZLocation" eSuperTypes="#//Location">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="z" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
-  <eClassifiers
-      xsi:type="ecore:EEnum"
-      name="RendererHint">
-    <eLiterals
-        name="CANVAS"/>
-    <eLiterals
-        name="DOM"
-        value="1"/>
-    <eLiterals
-        name="WEBGL"
-        value="2"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="RendererHint">
+    <eLiterals name="CANVAS"/>
+    <eLiterals name="DOM" value="1"/>
+    <eLiterals name="WEBGL" value="2"/>
   </eClassifiers>
-  <eClassifiers
-      xsi:type="ecore:EClass"
-      name="Feature"
-      eSuperTypes="#//Identifiable">
-    <eStructuralFeatures
-        xsi:type="ecore:EReference"
-        name="geometry"
-        lowerBound="1"
-        eType="#//geom/Geometry"
-        containment="true"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EReference"
-        name="style"
-        eType="#//style/Style"
+  <eClassifiers xsi:type="ecore:EClass" name="Feature" eSuperTypes="#//Identifiable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="geometry" lowerBound="1"
+        eType="#//geom/Geometry" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="style" eType="#//style/Style"
         containment="true">
-      <eAnnotations
-          source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-        <details
-            key="name"
-            value="style"/>
-        <details
-            key="kind"
-            value="element"/>
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="name" value="style"/>
+        <details key="kind" value="element"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures
-        xsi:type="ecore:EReference"
-        name="properties"
-        upperBound="-1"
-        eType="#//StringToStringMapEntry"
-        containment="true"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="onclick"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="#//StringToStringMapEntry" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="onclick" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers
-      xsi:type="ecore:EClass"
-      name="Color"
-      eSuperTypes="#//Identifiable">
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="red"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="green"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="blue"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="alpha"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
+  <eClassifiers xsi:type="ecore:EClass" name="Color" eSuperTypes="#//Identifiable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="red" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="green" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="blue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alpha" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
         defaultValueLiteral="-1"/>
   </eClassifiers>
-  <eClassifiers
-      xsi:type="ecore:EClass"
-      name="StyleEntry"
-      instanceClassName="java.util.Map$Entry">
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="key"
-        lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EReference"
-        name="value"
-        eType="#//style/Style"
+  <eClassifiers xsi:type="ecore:EClass" name="StyleEntry" instanceClassName="java.util.Map$Entry">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//style/Style"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers
-      xsi:type="ecore:EClass"
-      name="StringToStringMapEntry"
-      instanceClassName="java.util.Map$Entry">
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="key"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="value"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StringToStringMapEntry" instanceClassName="java.util.Map$Entry">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers
-      xsi:type="ecore:EClass"
-      name="Script"
-      eSuperTypes="#//Identifiable">
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="src"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="type"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+  <eClassifiers xsi:type="ecore:EClass" name="Script" eSuperTypes="#//Identifiable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="src" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral=""/>
-    <eStructuralFeatures
-        xsi:type="ecore:EAttribute"
-        name="context"
-        eType="#//ScriptContext"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="context" eType="#//ScriptContext"/>
   </eClassifiers>
-  <eClassifiers
-      xsi:type="ecore:EEnum"
-      name="ScriptContext">
-    <eLiterals
-        name="GLOBAL"/>
-    <eLiterals
-        name="MAP"
-        value="2"/>
-    <eLiterals
-        name="LAYER"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="ScriptContext">
+    <eLiterals name="GLOBAL"/>
+    <eLiterals name="MAP" value="2"/>
+    <eLiterals name="LAYER"/>
   </eClassifiers>
-  <eSubpackages
-      name="layer"
-      nsURI="http://www.locationtech.org/geoff-layer-v1"
-      nsPrefix="geoff.layer">
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="Layer"
-        abstract="true"
-        eSuperTypes="#//Identifiable #//Descriptive">
-      <eStructuralFeatures
-          xsi:type="ecore:EReference"
-          name="source"
-          lowerBound="1"
-          eType="#//source/Source"
-          containment="true"/>
+  <eSubpackages name="layer" nsURI="http://www.locationtech.org/geoff-layer-v1" nsPrefix="geoff.layer">
+    <eClassifiers xsi:type="ecore:EClass" name="Layer" abstract="true" eSuperTypes="#//Identifiable #//Descriptive">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+          eType="#//source/Source" containment="true"/>
     </eClassifiers>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="TileLayer"
-        eSuperTypes="#//layer/Layer"/>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="VectorLayer"
-        eSuperTypes="#//layer/Layer">
-      <eStructuralFeatures
-          xsi:type="ecore:EReference"
-          name="styles"
-          upperBound="-1"
-          eType="#//StyleEntry"
-          containment="true">
-        <eAnnotations
-            source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details
-              key="name"
-              value="style"/>
-          <details
-              key="kind"
-              value="element"/>
+    <eClassifiers xsi:type="ecore:EClass" name="TileLayer" eSuperTypes="#//layer/Layer"/>
+    <eClassifiers xsi:type="ecore:EClass" name="VectorLayer" eSuperTypes="#//layer/Layer">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="styles" upperBound="-1"
+          eType="#//StyleEntry" containment="true">
+        <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+          <details key="name" value="style"/>
+          <details key="kind" value="element"/>
         </eAnnotations>
       </eStructuralFeatures>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages
-      name="source"
-      nsURI="http://www.locationtech.org/geoff-source-v1"
+  <eSubpackages name="source" nsURI="http://www.locationtech.org/geoff-source-v1"
       nsPrefix="geoff.source">
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="Source"
-        abstract="true"
-        eSuperTypes="#//Identifiable #//Descriptive"/>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="TileSource"
-        abstract="true"
-        eSuperTypes="#//source/Source"/>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="TileImage"
-        abstract="true"
-        eSuperTypes="#//source/TileSource"/>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="XYZ"
-        abstract="true"
-        eSuperTypes="#//source/TileImage"/>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="OSM"
-        eSuperTypes="#//source/XYZ"/>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="MapQuest"
-        eSuperTypes="#//source/XYZ">
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="layer"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+    <eClassifiers xsi:type="ecore:EClass" name="Source" abstract="true" eSuperTypes="#//Identifiable #//Descriptive"/>
+    <eClassifiers xsi:type="ecore:EClass" name="TileSource" abstract="true" eSuperTypes="#//source/Source"/>
+    <eClassifiers xsi:type="ecore:EClass" name="TileImage" abstract="true" eSuperTypes="#//source/TileSource"/>
+    <eClassifiers xsi:type="ecore:EClass" name="XYZ" abstract="true" eSuperTypes="#//source/TileImage"/>
+    <eClassifiers xsi:type="ecore:EClass" name="OSM" eSuperTypes="#//source/XYZ"/>
+    <eClassifiers xsi:type="ecore:EClass" name="MapQuest" eSuperTypes="#//source/XYZ">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="layer" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
           defaultValueLiteral="osm"/>
     </eClassifiers>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="BingMaps"
-        eSuperTypes="#//source/XYZ">
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="key"
-          lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="imagerySet"
-          lowerBound="1"
+    <eClassifiers xsi:type="ecore:EClass" name="BingMaps" eSuperTypes="#//source/XYZ">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="imagerySet" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="VectorSource"
-        eSuperTypes="#//source/Source">
-      <eStructuralFeatures
-          xsi:type="ecore:EReference"
-          name="features"
-          upperBound="-1"
-          eType="#//Feature"
-          containment="true">
-        <eAnnotations
-            source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details
-              key="name"
-              value="feature"/>
-          <details
-              key="kind"
-              value="element"/>
+    <eClassifiers xsi:type="ecore:EClass" name="VectorSource" eSuperTypes="#//source/Source">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
+          eType="#//Feature" containment="true">
+        <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+          <details key="name" value="feature"/>
+          <details key="kind" value="element"/>
         </eAnnotations>
       </eStructuralFeatures>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="url"
-          lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="projection"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="format"
-          eType="#//source/SourceFormat"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="url" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="projection" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="format" eType="#//source/SourceFormat"/>
     </eClassifiers>
-    <eClassifiers
-        xsi:type="ecore:EEnum"
-        name="SourceFormat">
-      <eLiterals
-          name="INTERNAL"/>
-      <eLiterals
-          name="GeoJSON"
-          value="1"/>
-      <eLiterals
-          name="GPX"
-          value="2"/>
-      <eLiterals
-          name="KML"
-          value="3"/>
+    <eClassifiers xsi:type="ecore:EEnum" name="SourceFormat">
+      <eLiterals name="INTERNAL"/>
+      <eLiterals name="GeoJSON" value="1"/>
+      <eLiterals name="GPX" value="2"/>
+      <eLiterals name="KML" value="3"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages
-      name="geom"
-      nsURI="http://www.locationtech.org/geoff-geom-v1"
-      nsPrefix="geoff.geom">
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="Geometry"
-        abstract="true"
-        eSuperTypes="#//Identifiable"/>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="SimpleGeometry"
-        eSuperTypes="#//geom/Geometry"/>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="Point"
-        eSuperTypes="#//geom/SimpleGeometry">
-      <eStructuralFeatures
-          xsi:type="ecore:EReference"
-          name="coordinates"
-          lowerBound="1"
-          eType="#//Location"
-          containment="true"/>
+  <eSubpackages name="geom" nsURI="http://www.locationtech.org/geoff-geom-v1" nsPrefix="geoff.geom">
+    <eClassifiers xsi:type="ecore:EClass" name="Geometry" abstract="true" eSuperTypes="#//Identifiable"/>
+    <eClassifiers xsi:type="ecore:EClass" name="SimpleGeometry" eSuperTypes="#//geom/Geometry"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Point" eSuperTypes="#//geom/SimpleGeometry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="coordinates" lowerBound="1"
+          eType="#//Location" containment="true"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages
-      name="style"
-      nsURI="http://www.locationtech.org/geoff-style-v1"
-      nsPrefix="geoff.style">
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="Style"
-        eSuperTypes="#//Identifiable">
-      <eStructuralFeatures
-          xsi:type="ecore:EReference"
-          name="image"
-          eType="#//style/Image"
+  <eSubpackages name="style" nsURI="http://www.locationtech.org/geoff-style-v1" nsPrefix="geoff.style">
+    <eClassifiers xsi:type="ecore:EClass" name="Style" eSuperTypes="#//Identifiable">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="image" eType="#//style/Image"
           containment="true"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EReference"
-          name="fill"
-          eType="#//style/Fill"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="fill" eType="#//style/Fill"
           containment="true"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EReference"
-          name="stroke"
-          eType="#//style/Stroke"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="stroke" eType="#//style/Stroke"
           containment="true"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EReference"
-          name="text"
-          eType="#//style/Text"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="text" eType="#//style/Text"
           containment="true"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="zindex"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="zindex" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
     </eClassifiers>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="Image"
-        eSuperTypes="#//Identifiable"/>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="Icon"
-        eSuperTypes="#//style/Image">
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="src"
-          lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Image" eSuperTypes="#//Identifiable"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Icon" eSuperTypes="#//style/Image">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="src" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="Fill"
-        eSuperTypes="#//Identifiable">
-      <eStructuralFeatures
-          xsi:type="ecore:EReference"
-          name="color"
-          eType="#//Color"
+    <eClassifiers xsi:type="ecore:EClass" name="Fill" eSuperTypes="#//Identifiable">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="color" eType="#//Color"
           containment="true"/>
     </eClassifiers>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="Stroke"
-        eSuperTypes="#//Identifiable">
-      <eStructuralFeatures
-          xsi:type="ecore:EReference"
-          name="color"
-          eType="#//Color"
+    <eClassifiers xsi:type="ecore:EClass" name="Stroke" eSuperTypes="#//Identifiable">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="color" eType="#//Color"
           containment="true"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="lineCap"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="lineJoin"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="miterLimit"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="width"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="lineDash"
-          upperBound="-1"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineCap" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineJoin" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="miterLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineDash" upperBound="-1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eClassifiers>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="Circle"
-        eSuperTypes="#//style/Image">
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="radius"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EReference"
-          name="fill"
-          eType="#//style/Fill"
+    <eClassifiers xsi:type="ecore:EClass" name="Circle" eSuperTypes="#//style/Image">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="radius" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="fill" eType="#//style/Fill"
           containment="true"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EReference"
-          name="stroke"
-          eType="#//style/Stroke"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="stroke" eType="#//style/Stroke"
           containment="true"/>
     </eClassifiers>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="Text"
-        eSuperTypes="#//Identifiable">
-      <eStructuralFeatures
-          xsi:type="ecore:EReference"
-          name="fill"
-          eType="#//style/Fill"
+    <eClassifiers xsi:type="ecore:EClass" name="Text" eSuperTypes="#//Identifiable">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="fill" eType="#//style/Fill"
           containment="true"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="font"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="offsetX"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="offsetY"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="rotation"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="scale"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EReference"
-          name="stroke"
-          eType="#//style/Stroke"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="font" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="offsetX" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="offsetY" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="rotation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="scale" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDoubleObject"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="stroke" eType="#//style/Stroke"
           containment="true"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="text"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="textAlign"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="textBaseLine"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="textAlign" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="textBaseLine" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages
-      name="interaction"
-      nsURI="http://www.locationtech.org/geoff-interaction-v1"
+  <eSubpackages name="interaction" nsURI="http://www.locationtech.org/geoff-interaction-v1"
       nsPrefix="geoff.interaction">
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="Interaction"
-        abstract="true"
-        eSuperTypes="#//Identifiable"/>
-    <eClassifiers
-        xsi:type="ecore:EClass"
-        name="Select"
-        eSuperTypes="#//interaction/Interaction">
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="condition"
-          lowerBound="1"
+    <eClassifiers xsi:type="ecore:EClass" name="Interaction" abstract="true" eSuperTypes="#//Identifiable"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Select" eSuperTypes="#//interaction/Interaction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" lowerBound="1"
           eType="#//interaction/EventCondition"/>
-      <eStructuralFeatures
-          xsi:type="ecore:EAttribute"
-          name="multi"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="multi" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </eClassifiers>
-    <eClassifiers
-        xsi:type="ecore:EEnum"
-        name="EventCondition">
-      <eLiterals
-          name="SINGLE_CLICK"/>
-      <eLiterals
-          name="CLICK"
-          value="1"
-          literal=""/>
-      <eLiterals
-          name="HOVER"
-          value="2"/>
+    <eClassifiers xsi:type="ecore:EEnum" name="EventCondition">
+      <eLiterals name="SINGLE_CLICK"/>
+      <eLiterals name="CLICK" value="1" literal=""/>
+      <eLiterals name="HOVER" value="2"/>
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>

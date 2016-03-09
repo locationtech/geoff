@@ -11,6 +11,7 @@
  */
 package org.locationtech.geoff.layer.impl;
 
+import java.util.Map;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EMap;
@@ -86,12 +87,12 @@ public class VectorLayerImpl extends LayerImpl implements VectorLayer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EMap<String, Style> getStyles() {
+	public Map<String, Style> getStyles() {
 		if (styles == null) {
 			styles = new EcoreEMap<String, Style>(GeoffPackage.Literals.STYLE_ENTRY, StyleEntryImpl.class, this,
 					LayerPackage.VECTOR_LAYER__STYLES);
 		}
-		return styles;
+		return styles.map();
 	}
 
 	/**
@@ -103,7 +104,8 @@ public class VectorLayerImpl extends LayerImpl implements VectorLayer {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case LayerPackage.VECTOR_LAYER__STYLES:
-			return ((InternalEList<?>) getStyles()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) ((EMap.InternalMapView<String, Style>) getStyles()).eMap()).basicRemove(otherEnd,
+					msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -118,9 +120,9 @@ public class VectorLayerImpl extends LayerImpl implements VectorLayer {
 		switch (featureID) {
 		case LayerPackage.VECTOR_LAYER__STYLES:
 			if (coreType)
-				return getStyles();
+				return ((EMap.InternalMapView<String, Style>) getStyles()).eMap();
 			else
-				return getStyles().map();
+				return getStyles();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -134,7 +136,7 @@ public class VectorLayerImpl extends LayerImpl implements VectorLayer {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case LayerPackage.VECTOR_LAYER__STYLES:
-			((EStructuralFeature.Setting) getStyles()).set(newValue);
+			((EStructuralFeature.Setting) ((EMap.InternalMapView<String, Style>) getStyles()).eMap()).set(newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

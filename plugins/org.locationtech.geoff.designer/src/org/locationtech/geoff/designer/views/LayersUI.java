@@ -1,5 +1,6 @@
 package org.locationtech.geoff.designer.views;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -9,8 +10,6 @@ import javax.inject.Inject;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.observable.value.WritableValue;
-import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
@@ -26,15 +25,14 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.locationtech.geoff.GeoMap;
-import org.locationtech.geoff.GeoffPackage;
-import org.locationtech.geoff.Identifiable;
-import org.locationtech.geoff.designer.IEditingService;
+import org.locationtech.geoff.core.Geoff;
+import org.locationtech.geoff.designer.IGeoMapService;
 import org.locationtech.geoff.designer.databinding.ActionsObservables;
+import org.locationtech.geoff.designer.internal.DesignerActivator;
 import org.locationtech.geoff.layer.Layer;
 import org.locationtech.geoff.layer.LayerPackage;
 import org.locationtech.geoff.layer.TileLayer;
 import org.locationtech.geoff.layer.VectorLayer;
-import org.locationtech.geoff.provider.GeoffEditPlugin;
 import org.locationtech.geoff.source.Source;
 import org.locationtech.geoff.source.SourcePackage;
 
@@ -45,11 +43,7 @@ public class LayersUI {
 	@Inject
 	private IWorkbenchSite site;
 
-	@Inject
-	private AdapterFactory af;
-
-	@Inject
-	private IEditingService editingService;
+	private IGeoMapService geoMapService;
 
 	private TreeViewer layersViewer;
 	private IViewerObservableValue singleSelectionObservable;
@@ -57,6 +51,8 @@ public class LayersUI {
 
 	@PostConstruct
 	public void createUI(Composite parent, IToolBarManager toolBarManager) {
+		AdapterFactory af = geoMapService.adaptTo(AdapterFactory.class);
+
 		AdapterFactoryLabelProvider aflp = new AdapterFactoryLabelProvider(af);
 		AdapterFactoryContentProvider afcp = new AdapterFactoryContentProvider(af) {
 			@Override
@@ -88,29 +84,22 @@ public class LayersUI {
 	}
 
 	@Inject
-	public void setGeoMap(GeoMap geoMap) {
-		masterObservable.setValue(geoMap);
+	public void setGeoMap(IGeoMapService geoMapService) {
+		this.geoMapService = geoMapService;
+		masterObservable.setValue(geoMapService.adaptTo(GeoMap.class));
 	}
 
 	private void makeContributions(IToolBarManager toolBarManager, final Shell shell) {
 		{
 			Action deleteAction = new Action("Delete Layer/s",
-					GeoffEditPlugin.INSTANCE.getImageDescriptor("actions16/delete")) {
+					DesignerActivator.imageDescriptor("/icons/actions16/delete.gif")) {
 				@Override
 				public void run() {
-					List list = ((IStructuredSelection) layersViewer.getSelection()).toList();
+					List<Layer> list = ((IStructuredSelection) layersViewer.getSelection()).toList();
 
-					CompoundCommand cc = new CompoundCommand();
-					cc.setLabel(getText());
-
-					for (Object obj : list) {
-						if (obj instanceof Identifiable) {
-							Command delete = editingService.createDeleteCommand((Identifiable) obj);
-							cc.append(delete);
-						}
-					}
-
-					editingService.execute(cc);
+					geoMapService.batchChanges(() -> {
+						list.forEach((l) -> geoMapService.removeLayer(l));
+					});
 				}
 			};
 
@@ -123,16 +112,12 @@ public class LayersUI {
 
 		if (addGenericLayerSelection) {
 			Action newAction = new Action("New Layer...",
-					GeoffEditPlugin.INSTANCE.getImageDescriptor("actions16/add")) {
+					DesignerActivator.imageDescriptor("/icons/actions16/add.gif")) {
 				@SuppressWarnings("unchecked")
 				@Override
 				public void run() {
-					GeoMap geoMap = (GeoMap) masterObservable.getValue();
-					// Collection<Layer> layers = (Collection<Layer>)
-					// getEditingService()
-					// .samplesOf(LayerPackage.Literals.LAYER);
-					Collection<Source> sources = (Collection<Source>) editingService
-							.samplesOf(SourcePackage.Literals.SOURCE);
+					Collection<Source> sources = (Collection<Source>) Geoff.samplesOf(SourcePackage.Literals.SOURCE);
+					AdapterFactory af = geoMapService.adaptTo(AdapterFactory.class);
 					AdapterFactoryLabelProvider lp = new AdapterFactoryLabelProvider(af);
 					ElementListSelectionDialog diag = new ElementListSelectionDialog(shell, lp);
 					diag.setMessage("Choose a source to create a new layer");
@@ -144,7 +129,7 @@ public class LayersUI {
 					lp.dispose();
 
 					if (result != null) {
-						CompoundCommand cc = new CompoundCommand();
+						List<Layer> layers = new ArrayList<Layer>();
 
 						for (Object object : result) {
 							EClass type = null;
@@ -160,15 +145,14 @@ public class LayersUI {
 							}
 
 							Source sample = (Source) object;
-							Layer layer = editingService.createInstance(type);
-							Source source = editingService.createInstance(sample.eClass());
+							Layer layer = Geoff.instance(type);
+							Source source = Geoff.instance(sample.eClass());
 							layer.setSource(source);
-							Command command = editingService.createAddCommand(geoMap,
-									GeoffPackage.Literals.GEO_MAP__LAYERS, layer);
-							cc.append(command);
 						}
 
-						editingService.execute(cc);
+						geoMapService.batchChanges(() -> {
+							layers.forEach((l) -> geoMapService.addLayer(l));
+						});
 					}
 				}
 			};

@@ -7,14 +7,8 @@ import javax.inject.Named;
 
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.edit.command.AddCommand;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
-import org.locationtech.geoff.GeoMap;
-import org.locationtech.geoff.GeoffPackage;
 import org.locationtech.geoff.core.Geoff;
-import org.locationtech.geoff.designer.IEditingService;
+import org.locationtech.geoff.designer.IGeoMapService;
 import org.locationtech.geoff.designer.e3x.E3Handler;
 import org.locationtech.geoff.layer.TileLayer;
 import org.locationtech.geoff.source.SourcePackage;
@@ -31,7 +25,7 @@ public class AddTileLayerHandler {
 	}
 
 	@Execute
-	public void execute(IEditingService editingService, GeoMap geoMap, @Named(E3Handler.PARAM_PARAMETERS) Map params) {
+	public void execute(IGeoMapService geoMapService, @Named(E3Handler.PARAM_PARAMETERS) Map params) {
 		String tileProviderKey = (String) params.get("tileProvider");
 
 		if (tileProviderKey == null) {
@@ -46,9 +40,6 @@ public class AddTileLayerHandler {
 
 		TileSource tileSource = Geoff.instance(eClass);
 		TileLayer tileLayer = Geoff.tileLayer(tileSource);
-		AddCommand addLayer = (AddCommand) editingService.createAddCommand(geoMap,
-				GeoffPackage.Literals.GEO_MAP__LAYERS, tileLayer);
-		addLayer.setLabel("Add layer: " + tileProviderKey);
-		editingService.execute(addLayer);
+		geoMapService.addLayer(tileLayer);
 	}
 }

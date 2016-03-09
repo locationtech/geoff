@@ -35,14 +35,15 @@ public enum SourceFormat implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	INTERNAL(0, "INTERNAL", "INTERNAL"), /**
-											* The '<em><b>Geo JSON</b></em>' literal object.
-											* <!-- begin-user-doc -->
-											* <!-- end-user-doc -->
-											* @see #GEO_JSON_VALUE
-											* @generated
-											* @ordered
-											*/
+	INTERNAL(0, "INTERNAL", "INTERNAL"),
+	/**
+	 * The '<em><b>Geo JSON</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	* <!-- end-user-doc -->
+	 * @see #GEO_JSON_VALUE
+	 * @generated
+	 * @ordered
+	 */
 	GEO_JSON(1, "GeoJSON", "GeoJSON"), //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**

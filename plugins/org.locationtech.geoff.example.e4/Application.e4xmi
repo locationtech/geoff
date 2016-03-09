@@ -1,29 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_zyGTEHrLEeK5k_MIpMCAeA" elementId="org.eclipse.e4.ide.application" bindingContexts="_zyG6IHrLEeK5k_MIpMCAeA">
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmi:id="_zyGTEHrLEeK5k_MIpMCAeA" elementId="org.eclipse.e4.ide.application" bindingContexts="_zyG6IHrLEeK5k_MIpMCAeA">
   <children xsi:type="basic:TrimmedWindow" xmi:id="_zyGTEXrLEeK5k_MIpMCAeA" label="org.locationtech.geoff.example.e4" width="500" height="400">
-    <children xsi:type="advanced:PerspectiveStack" xmi:id="_zyIvUHrLEeK5k_MIpMCAeA">
+    <children xsi:type="advanced:PerspectiveStack" xmi:id="_zyIvUHrLEeK5k_MIpMCAeA" elementId="org.locationtech.geoff.app.e4.perspectivesstack">
       <children xsi:type="advanced:Perspective" xmi:id="_zyIvUXrLEeK5k_MIpMCAeA">
         <children xsi:type="basic:PartSashContainer" xmi:id="_zyIvUnrLEeK5k_MIpMCAeA" horizontal="true">
           <children xsi:type="basic:PartStack" xmi:id="_E2t-gIBaEeK44LEOYhxATA" elementId="org.locationtech.geoff.example.e4.partstack.0">
-            <children xsi:type="basic:Part" xmi:id="_Rh_CIIBYEeK44LEOYhxATA" elementId="" contributionURI="bundleclass://org.locationtech.geoff.example.e4/org.locationtech.geoff.example.e4.parts.ExamplesPart" label="Examples"/>
+            <children xsi:type="basic:Part" xmi:id="_Rh_CIIBYEeK44LEOYhxATA" elementId="" contributionURI="bundleclass://org.locationtech.geoff.showcase.e4/org.locationtech.geoff.showcase.e4.ExamplesPart" label="Examples"/>
           </children>
           <children xsi:type="basic:PartStack" xmi:id="_GQ75wIBaEeK44LEOYhxATA" elementId="org.locationtech.geoff.example.e4.partstack.1">
-            <children xsi:type="basic:Part" xmi:id="_zyIvVHrLEeK5k_MIpMCAeA" contributionURI="bundleclass://org.locationtech.geoff.example.e4/org.locationtech.geoff.example.e4.parts.PreviewPart" label="OpenLayers 2D Map"/>
+            <children xsi:type="basic:Part" xmi:id="_zyIvVHrLEeK5k_MIpMCAeA" contributionURI="bundleclass://org.locationtech.geoff.showcase.e4/org.locationtech.geoff.showcase.e4.PreviewPart" label="OpenLayers 2D Map"/>
           </children>
         </children>
       </children>
     </children>
-    <mainMenu xmi:id="_zyIIQXrLEeK5k_MIpMCAeA" elementId="menu:org.eclipse.ui.main.menu">
-      <children xsi:type="menu:Menu" xmi:id="_zyIIQnrLEeK5k_MIpMCAeA" label="File">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_zyIIQ3rLEeK5k_MIpMCAeA" label="Open" iconURI="platform:/plugin/org.locationtech.geoff.example.e4/icons/sample.gif"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_zyIIRHrLEeK5k_MIpMCAeA" label="Save" iconURI="platform:/plugin/org.locationtech.geoff.example.e4/icons/save_edit.gif"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_zyIIRXrLEeK5k_MIpMCAeA" label="Quit" command="_zyG6I3rLEeK5k_MIpMCAeA"/>
-      </children>
-      <children xsi:type="menu:Menu" xmi:id="_zyIIRnrLEeK5k_MIpMCAeA" label="Help">
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_zyIIR3rLEeK5k_MIpMCAeA" label="About"/>
-      </children>
-    </mainMenu>
-    <trimBars xmi:id="_zyJWYHrLEeK5k_MIpMCAeA"/>
   </children>
   <handlers xmi:id="_zyHhMHrLEeK5k_MIpMCAeA" contributionURI="bundleclass://org.locationtech.geoff.example.e4/org.locationtech.geoff.example.e4.handlers.QuitHandler" command="_zyG6I3rLEeK5k_MIpMCAeA"/>
   <bindingTables xmi:id="_zyHhMXrLEeK5k_MIpMCAeA" bindingContext="_zyG6IHrLEeK5k_MIpMCAeA">
