@@ -6,8 +6,8 @@ import java.util.List;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.INewWizard;
-import org.locationtech.geoff.designer.DesignerUtil;
 import org.locationtech.geoff.designer.e3x.E3Wizard;
+import org.locationtech.geoff.designer.internal.DesignerUtil;
 
 public class NewGeoMapWizard extends E3Wizard implements INewWizard {
 

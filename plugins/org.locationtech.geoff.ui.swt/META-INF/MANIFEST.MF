@@ -5,20 +5,11 @@ Bundle-SymbolicName: org.locationtech.geoff.ui.swt
 Bundle-Version: 0.8.0.qualifier
 Bundle-Vendor: Geoff Project (Eclipse LocationTech IWG)
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.emf.ecore,
+Require-Bundle: org.eclipse.swt,
  org.locationtech.geoff.core,
- org.locationtech.geoff.ol
+ org.locationtech.geoff.ol,
+ org.locationtech.geoff.model
 Bundle-ClassPath: .
-Import-Package: org.eclipse.jface.viewers,
- org.eclipse.swt,
- org.eclipse.swt.browser,
- org.eclipse.swt.custom,
- org.eclipse.swt.events,
- org.eclipse.swt.graphics,
- org.eclipse.swt.layout,
- org.eclipse.swt.widgets,
- org.locationtech.geoff,
- org.locationtech.geoff.geom,
- org.locationtech.geoff.source
-Export-Package: org.locationtech.geoff.ui.swt
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.locationtech.geoff.ui.swt,
+ org.locationtech.geoff.ui.swt.events
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

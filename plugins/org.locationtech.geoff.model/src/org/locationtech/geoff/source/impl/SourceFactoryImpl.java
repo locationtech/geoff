@@ -71,13 +71,13 @@ public class SourceFactoryImpl extends EFactoryImpl implements SourceFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case SourcePackage.OSM:
-			return createOSM();
+			return (EObject) createOSM();
 		case SourcePackage.MAP_QUEST:
-			return createMapQuest();
+			return (EObject) createMapQuest();
 		case SourcePackage.BING_MAPS:
-			return createBingMaps();
+			return (EObject) createBingMaps();
 		case SourcePackage.VECTOR_SOURCE:
-			return createVectorSource();
+			return (EObject) createVectorSource();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}

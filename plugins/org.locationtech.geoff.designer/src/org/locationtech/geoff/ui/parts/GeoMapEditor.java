@@ -1,4 +1,4 @@
-package org.locationtech.geoff.designer.editors;
+package org.locationtech.geoff.ui.parts;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -33,14 +33,16 @@ import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.services.IServiceScopes;
-import org.locationtech.geoff.core.core.logging.LogUtil;
-import org.locationtech.geoff.designer.IGeoMapService;
-import org.locationtech.geoff.designer.internal.GeoMapService;
+import org.locationtech.geoff.GeoMap;
+import org.locationtech.geoff.core.GeoMapServiceFactory;
+import org.locationtech.geoff.core.IGeoMapService;
+import org.locationtech.geoff.core.logging.LogUtil;
 import org.locationtech.geoff.ui.swt.GeoMapComposite;
 import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 
 public class GeoMapEditor extends EditorPart {
+	public static final String ORG_LOCATIONTECH_GEOFF_EDITOR_SWITCHED = "org/locationtech/geoff/EditorSwitched";
 	private GeoMapComposite geoMapComposite;
 	private IHandlerActivation undoHandlerActivation;
 	private IHandlerActivation redoHandlerActivation;
@@ -80,7 +82,7 @@ public class GeoMapEditor extends EditorPart {
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-		IEclipseContext context = (IEclipseContext) site.getService(IEclipseContext.class);
+		IEclipseContext context = getContext(site);
 		setSite(site);
 		setInput(input);
 
@@ -88,7 +90,7 @@ public class GeoMapEditor extends EditorPart {
 			FileEditorInput fInput = (FileEditorInput) getEditorInput();
 			IFile file = fInput.getFile();
 			IProject project = file.getProject();
-			geoMapService = new GeoMapService(file.getRawLocation().toFile());
+			geoMapService = GeoMapServiceFactory.create(file.getRawLocation().toFile());
 			alias = String.format("/workspace/%s", project.getName());
 
 			ExtendedHttpService httpService = (ExtendedHttpService) context.get(HttpService.class);
@@ -160,6 +162,10 @@ public class GeoMapEditor extends EditorPart {
 		context.set(IGeoMapService.class, geoMapService);
 	}
 
+	private IEclipseContext getContext(IEditorSite site) {
+		return (IEclipseContext) site.getService(IEclipseContext.class);
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getAdapter(Class<T> adapter) {
@@ -191,7 +197,15 @@ public class GeoMapEditor extends EditorPart {
 			}
 		};
 		GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(geoMapComposite);
-		geoMapComposite.loadMap(geoMapService.getGeoMap());
+		final GeoMap geoMap = geoMapService.getGeoMap();
+		geoMapComposite.loadMap(geoMap);
+
+		// let all changes be handled by the change support to cope with
+		// undo/redo
+		Consumer<Runnable> changeDecorater = (runnable) -> {
+			geoMapService.batchChanges(runnable);
+		};
+		geoMapComposite.getDispatcher().setChangeConsumer(changeDecorater);
 	}
 
 	@Override

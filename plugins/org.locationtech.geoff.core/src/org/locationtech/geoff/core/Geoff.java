@@ -17,6 +17,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -263,7 +264,7 @@ public class Geoff {
 		return createMap("", "");
 	}
 
-	public static org.eclipse.emf.common.util.BasicEMap.Entry<String, String> featureProperty(String key,
+	public static Map.Entry<String, String> featureProperty(String key,
 			String value) {
 		StringToStringMapEntryImpl entry = (StringToStringMapEntryImpl) GEOFF_IMPL.createStringToStringMapEntry();
 		entry.setKey(key);

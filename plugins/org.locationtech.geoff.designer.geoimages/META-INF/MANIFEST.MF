@@ -11,6 +11,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.locationtech.geoff.model,
  org.eclipse.core.resources;bundle-version="3.10.0",
  org.locationtech.geoff.core;bundle-version="0.8.0",
- org.locationtech.geoff.designer;bundle-version="0.8.0"
+ org.locationtech.geoff.designer;bundle-version="0.8.0",
+ org.locationtech.geoff.ui
 Import-Package: org.eclipse.e4.core.di.annotations
 Bundle-Vendor: Geoff Project (Eclipse LocationTech IWG)

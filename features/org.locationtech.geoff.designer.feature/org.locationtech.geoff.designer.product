@@ -7,7 +7,9 @@
    </configIni>
 
    <launcherArgs>
-      <programArgs>-clearPersistedState -console
+      <programArgs>-clearPersistedState
+-console
+-perspective org.locationtech.geoff.designer.perspective
       </programArgs>
       <vmArgs>-Dorg.osgi.service.http.host=localhost
 -Dorg.osgi.service.http.port=8888

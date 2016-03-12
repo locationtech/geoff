@@ -72,19 +72,19 @@ public class StyleFactoryImpl extends EFactoryImpl implements StyleFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case StylePackage.STYLE:
-			return createStyle();
+			return (EObject) createStyle();
 		case StylePackage.IMAGE:
-			return createImage();
+			return (EObject) createImage();
 		case StylePackage.ICON:
-			return createIcon();
+			return (EObject) createIcon();
 		case StylePackage.FILL:
-			return createFill();
+			return (EObject) createFill();
 		case StylePackage.STROKE:
-			return createStroke();
+			return (EObject) createStroke();
 		case StylePackage.CIRCLE:
-			return createCircle();
+			return (EObject) createCircle();
 		case StylePackage.TEXT:
-			return createText();
+			return (EObject) createText();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}

@@ -1,8 +1,7 @@
-package org.locationtech.geoff.designer;
+package org.locationtech.geoff.core;
 
 import java.util.List;
 
-import org.eclipse.emf.common.notify.AdapterFactory;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.layer.Layer;
 

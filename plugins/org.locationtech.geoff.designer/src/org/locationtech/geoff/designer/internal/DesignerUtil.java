@@ -1,11 +1,10 @@
-package org.locationtech.geoff.designer;
+package org.locationtech.geoff.designer.internal;
 
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.locationtech.geoff.Color;
 import org.locationtech.geoff.GeoffPackage;
 import org.locationtech.geoff.core.Geoff;
-import org.locationtech.geoff.designer.internal.DesignerActivator;
 import org.locationtech.geoff.layer.VectorLayer;
 import org.locationtech.geoff.style.Circle;
 import org.locationtech.geoff.style.Fill;

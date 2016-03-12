@@ -1,4 +1,4 @@
-package org.locationtech.geoff.designer.handlers;
+package org.locationtech.geoff.ui.handlers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,13 +8,11 @@ import javax.inject.Named;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.emf.ecore.EClass;
 import org.locationtech.geoff.core.Geoff;
-import org.locationtech.geoff.designer.IGeoMapService;
-import org.locationtech.geoff.designer.e3x.E3Handler;
+import org.locationtech.geoff.core.IGeoMapService;
 import org.locationtech.geoff.layer.TileLayer;
 import org.locationtech.geoff.source.SourcePackage;
 import org.locationtech.geoff.source.TileSource;
 
-@SuppressWarnings("rawtypes")
 public class AddTileLayerHandler {
 	private Map<String, EClass> tileProvidersMap = new HashMap<String, EClass>();
 
@@ -25,13 +23,7 @@ public class AddTileLayerHandler {
 	}
 
 	@Execute
-	public void execute(IGeoMapService geoMapService, @Named(E3Handler.PARAM_PARAMETERS) Map params) {
-		String tileProviderKey = (String) params.get("tileProvider");
-
-		if (tileProviderKey == null) {
-			return;
-		}
-
+	public void execute(IGeoMapService geoMapService, @Named("tileProvider") String tileProviderKey) {
 		EClass eClass = tileProvidersMap.get(tileProviderKey);
 
 		if (eClass == null) {

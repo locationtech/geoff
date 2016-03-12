@@ -74,7 +74,7 @@ public class InteractionFactoryImpl extends EFactoryImpl implements InteractionF
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case InteractionPackage.SELECT:
-			return createSelect();
+			return (EObject) createSelect();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}

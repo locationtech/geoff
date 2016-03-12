@@ -1,4 +1,4 @@
-package org.locationtech.geoff.designer.internal;
+package org.locationtech.geoff.core.internal;
 
 import java.io.File;
 import java.util.Arrays;
@@ -21,8 +21,8 @@ import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.core.Geoff;
-import org.locationtech.geoff.core.core.logging.LogUtil;
-import org.locationtech.geoff.designer.IGeoMapService;
+import org.locationtech.geoff.core.IGeoMapService;
+import org.locationtech.geoff.core.logging.LogUtil;
 import org.locationtech.geoff.layer.Layer;
 
 public class GeoMapService implements IGeoMapService {
@@ -125,7 +125,7 @@ public class GeoMapService implements IGeoMapService {
 		}
 
 		// the code to execute may affect the whole map instance
-		ChangeCommand cc = new ChangeCommand(geoMap) {
+		ChangeCommand cc = new ChangeCommand(Geoff.toEObject(geoMap)) {
 
 			@Override
 			protected void doExecute() {

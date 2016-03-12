@@ -1,4 +1,4 @@
-package org.locationtech.geoff.core.core.logging;
+package org.locationtech.geoff.core.logging;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,10 +16,18 @@ public class LogUtil {
 		try {
 			runnable.run();
 		} catch (Exception e) {
-			Logger.getLogger(context.getName()).log(Level.SEVERE, e.getMessage(), e);
+			getLogger(context).log(Level.SEVERE, e.getMessage(), e);
 			return false;
 		}
-		
+
 		return true;
+	}
+
+	private static Logger getLogger(Class<?> context) {
+		return Logger.getLogger(context.getName());
+	}
+
+	public static void warn(Class<?> context, String msg) {
+		getLogger(context).warning(msg);
 	}
 }

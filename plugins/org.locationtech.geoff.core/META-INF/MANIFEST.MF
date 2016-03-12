@@ -4,11 +4,12 @@ Bundle-Name: Geoff - Geo Fast Forward - Core
 Bundle-SymbolicName: org.locationtech.geoff.core
 Bundle-Version: 0.8.0.qualifier
 Bundle-Vendor: Geoff Project (Eclipse LocationTech IWG)
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.locationtech.geoff.model;bundle-version="0.8.0",
  org.eclipse.emf.common,
- org.eclipse.emf.ecore.xmi;bundle-version="2.8.0"
+ org.eclipse.emf.ecore.xmi;bundle-version="2.8.0",
+ org.eclipse.emf.edit
 Bundle-ActivationPolicy: lazy
 Export-Package: org.locationtech.geoff.core,
- org.locationtech.geoff.core.core.logging
+ org.locationtech.geoff.core.logging
 Bundle-ClassPath: .

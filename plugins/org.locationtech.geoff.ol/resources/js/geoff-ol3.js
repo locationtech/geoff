@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 Erdal Karaca.
+ * Copyright (c) 2016 Erdal Karaca.
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -131,6 +131,17 @@
 		}
 
 		view.setCenter(centerCoords);
+
+		var id = idOf(domNode);
+
+		view.on("change:resolution", function(e) {
+			geoff.eventTriggered("viewZoom", [ view.getZoom() ]);
+		});
+		view.on("change:center", function(e) {
+			var center = view.getCenter();
+			var code = view.getProjection().getCode();
+			geoff.eventTriggered("viewCenter", [ center, code ]);
+		});
 
 		return view;
 	};
@@ -389,6 +400,29 @@
 		return ret;
 	}
 
+	function idOf(domNode) {
+		var id = domNode.getAttribute("id");
+
+		if (id == null) {
+			var ctx = domNode;
+
+			id = "";
+			var doc = domNode.ownerDocument;
+
+			while (ctx != null && ctx != doc) {
+				var parent = ctx.parentNode;
+				var index = parent == null ? 0 : Array.prototype.indexOf.call(
+						parent.childNodes, ctx);
+				id = ctx.nodeName + "[" + index + "]/" + id;
+				ctx = parent;
+			}
+
+			id = "xpath:/" + id;
+		}
+
+		return id;
+	}
+
 	function attrValue(domNode, attrName) {
 		return domNode.getAttribute(attrName);
 	}
@@ -529,11 +563,20 @@
 		});
 	}
 
+	function eventTriggered(evtName, evtParams) {
+		// not implemented in standalone mode
+		// this is supposed to be overridden in the SWT environment for
+		// communication purposes
+
+		// may also be used to enable client/server communication
+	}
+
 	// this is the API object which can be accessed via the global
 	// 'window.geoff' variable
 	target.geoff = {
 		loadFromUrl : loadFromUrl,
-		loadFromXMLString : loadFromXMLString
+		loadFromXMLString : loadFromXMLString,
+		eventTriggered : eventTriggered
 	};
 
 	// the standalone mode is used to indicate that the document has embedded

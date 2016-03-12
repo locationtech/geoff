@@ -1,4 +1,4 @@
-package org.locationtech.geoff.designer;
+package org.locationtech.geoff.core;
 
 import java.util.EventObject;
 import java.util.function.Consumer;

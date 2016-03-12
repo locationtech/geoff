@@ -1,4 +1,4 @@
-package org.locationtech.geoff.designer;
+package org.locationtech.geoff.designer.internal;
 
 import java.io.File;
 import java.io.IOException;

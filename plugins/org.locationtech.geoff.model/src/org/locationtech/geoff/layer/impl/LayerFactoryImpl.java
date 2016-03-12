@@ -69,9 +69,9 @@ public class LayerFactoryImpl extends EFactoryImpl implements LayerFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case LayerPackage.TILE_LAYER:
-			return createTileLayer();
+			return (EObject) createTileLayer();
 		case LayerPackage.VECTOR_LAYER:
-			return createVectorLayer();
+			return (EObject) createVectorLayer();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}

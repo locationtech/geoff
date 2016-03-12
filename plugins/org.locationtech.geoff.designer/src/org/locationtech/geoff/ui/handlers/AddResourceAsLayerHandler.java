@@ -1,4 +1,4 @@
-package org.locationtech.geoff.designer.handlers;
+package org.locationtech.geoff.ui.handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,9 +10,9 @@ import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.locationtech.geoff.core.Geoff;
-import org.locationtech.geoff.designer.DesignerUtil;
-import org.locationtech.geoff.designer.IGeoMapService;
-import org.locationtech.geoff.designer.ResourcesUtil;
+import org.locationtech.geoff.core.IGeoMapService;
+import org.locationtech.geoff.designer.internal.DesignerUtil;
+import org.locationtech.geoff.designer.internal.ResourcesUtil;
 import org.locationtech.geoff.layer.Layer;
 import org.locationtech.geoff.layer.VectorLayer;
 import org.locationtech.geoff.source.SourceFormat;

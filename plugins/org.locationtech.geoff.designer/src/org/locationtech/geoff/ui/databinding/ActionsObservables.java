@@ -1,4 +1,4 @@
-package org.locationtech.geoff.designer.databinding;
+package org.locationtech.geoff.ui.databinding;
 
 import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;

@@ -72,21 +72,21 @@ public class GeoffFactoryImpl extends EFactoryImpl implements GeoffFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case GeoffPackage.GEO_MAP:
-			return createGeoMap();
+			return (EObject) createGeoMap();
 		case GeoffPackage.VIEW:
-			return createView();
+			return (EObject) createView();
 		case GeoffPackage.XYZ_LOCATION:
-			return createXYZLocation();
+			return (EObject) createXYZLocation();
 		case GeoffPackage.FEATURE:
-			return createFeature();
+			return (EObject) createFeature();
 		case GeoffPackage.COLOR:
-			return createColor();
+			return (EObject) createColor();
 		case GeoffPackage.STYLE_ENTRY:
 			return (EObject) createStyleEntry();
 		case GeoffPackage.STRING_TO_STRING_MAP_ENTRY:
 			return (EObject) createStringToStringMapEntry();
 		case GeoffPackage.SCRIPT:
-			return createScript();
+			return (EObject) createScript();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}

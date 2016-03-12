@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 Erdal Karaca.
+ * Copyright (c) 2016 Erdal Karaca.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,9 @@
  ******************************************************************************/
 package org.locationtech.geoff.ui.swt;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import org.eclipse.emf.common.notify.Adapter;
@@ -19,29 +21,39 @@ import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
+import org.eclipse.swt.browser.LocationAdapter;
 import org.eclipse.swt.browser.LocationEvent;
-import org.eclipse.swt.browser.LocationListener;
 import org.eclipse.swt.browser.ProgressEvent;
 import org.eclipse.swt.browser.ProgressListener;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.events.MenuDetectEvent;
-import org.eclipse.swt.events.MenuDetectListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Menu;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.core.Geoff;
+import org.locationtech.geoff.ui.swt.events.EventsDispatcher;
 
 public class GeoMapComposite extends Composite {
+	private static final String HTML_MAP_DIV_CONTAINER = "map";
 	private static final boolean ENABLE_BROWSER_POPUP_MENU = false;
 	private Browser browser;
 	private boolean complete = false;
+	private boolean enableLocationChange = true;
 
 	private Queue<Runnable> pendingTasks = new LinkedList<Runnable>();
+	private EventsDispatcher dispatcher = new EventsDispatcher();
+
 	private GeoMap currentMap;
 	private Adapter changeListener = new EContentAdapter() {
 		public void notifyChanged(Notification notification) {
 			super.notifyChanged(notification);
+
+			if (dispatcher.isDispatching()) {
+				return;
+			}
+
+			if (notification.isTouch()) {
+				return;
+			}
 
 			if (isDisposed()) {
 				getTarget().eAdapters().remove(this);
@@ -61,26 +73,15 @@ public class GeoMapComposite extends Composite {
 			}
 		}
 	};
-	private BrowserFunction bridgeFunc;
-	private BrowserFunction alertFunc;
+
+	private List<BrowserFunction> browserFuncs = new ArrayList<>();
 
 	public GeoMapComposite(Composite parent, int style) {
 		super(parent, style);
 		setLayout(new FillLayout());
 		browser = new Browser(this, SWT.None);
 
-		browser.addMenuDetectListener(new MenuDetectListener() {
-			public void menuDetected(MenuDetectEvent e) {
-				e.doit = ENABLE_BROWSER_POPUP_MENU;
-			}
-		});
-
-		browser.addDisposeListener(new DisposeListener() {
-
-			public void widgetDisposed(DisposeEvent e) {
-				unregisterFunctions();
-			}
-		});
+		setupMenus();
 
 		browser.addProgressListener(new ProgressListener() {
 
@@ -89,6 +90,10 @@ public class GeoMapComposite extends Composite {
 				unregisterFunctions();
 				registerFunctions();
 				complete = true;
+				// after the content is setup, no change in location is allowed
+				// else, the browser widget might open external pages within
+				// itself
+				// enableLocationChange = false;
 
 				while (pendingTasks.peek() != null) {
 					pendingTasks.poll().run();
@@ -101,53 +106,78 @@ public class GeoMapComposite extends Composite {
 			}
 		});
 
-		browser.addLocationListener(new LocationListener() {
+		browser.addLocationListener(new LocationAdapter() {
 
 			@Override
 			public void changing(LocationEvent event) {
-			}
-
-			@Override
-			public void changed(LocationEvent event) {
+				event.doit = enableLocationChange;
 			}
 		});
 
 		doSetupOpenLayers();
 	}
 
-	protected void unregisterFunctions() {
-		if (bridgeFunc != null) {
-			bridgeFunc.dispose();
-			bridgeFunc = null;
-		}
+	private void setupMenus() {
+		Menu menu = new Menu(browser);
+		browser.setMenu(menu);
+	}
 
-		if (alertFunc != null) {
-			alertFunc.dispose();
-			alertFunc = null;
-		}
+	public EventsDispatcher getDispatcher() {
+		return dispatcher;
+	}
+
+	@Override
+	public void dispose() {
+		unregisterFunctions();
+		currentMap = null;
+		pendingTasks.clear();
+		super.dispose();
+	}
+
+	protected void unregisterFunctions() {
+		browserFuncs.forEach((bf) -> bf.dispose());
+		browserFuncs.clear();
 	}
 
 	protected void registerFunctions() {
 		unregisterFunctions();
 
-		bridgeFunc = new BrowserFunction(browser, "geoffSWTBridge") {
+		BrowserFunction bridgeFunc = new BrowserFunction(browser, "geoffSWTBridge") {
+			private final String EMPTY_MAP = Geoff.createMap().toXML();
+
 			@Override
 			public Object function(Object[] arguments) {
-				if (arguments != null && arguments.length > 0) {
-					if ("loadMap".equals(arguments[0])) {
-						if (currentMap != null) {
-							String xml = Geoff.wrap(currentMap).toXML();
-							System.out.println(xml);
-							return xml;
-						}
+				if (arguments == null || arguments.length == 0) {
+					return null;
+				}
+
+				if ("loadMap".equals(arguments[0])) {
+					String xml;
+
+					if (currentMap == null) {
+						xml = EMPTY_MAP;
+					} else {
+						xml = Geoff.wrap(currentMap).toXML();
 					}
+
+					System.out.println(xml);
+
+					return xml;
+				}
+
+				if ("event".equals(arguments[0])) {
+					String evtName = (String) arguments[1];
+					Object[] params = (Object[]) arguments[2];
+					dispatcher.dispatchEvent(evtName, currentMap, params);
+					return null;
 				}
 
 				throw new UnsupportedOperationException("Invalid bridge parameters: " + arguments);
 			}
 		};
+		browserFuncs.add(bridgeFunc);
 
-		alertFunc = new BrowserFunction(browser, "alert") {
+		BrowserFunction alertFunc = new BrowserFunction(browser, "alert") {
 			@Override
 			public Object function(Object[] arguments) {
 				for (Object object : arguments) {
@@ -157,6 +187,7 @@ public class GeoMapComposite extends Composite {
 				return null;
 			}
 		};
+		browserFuncs.add(alertFunc);
 	}
 
 	protected void doSetupOpenLayers() {
@@ -164,6 +195,10 @@ public class GeoMapComposite extends Composite {
 		String base = doGetServerBase();
 		String url = String.format("%s/%s", base, resourcesPath);
 		browser.setUrl(url);
+
+		// register client to server callback mechanism
+		// this is used to listen to events
+		executeJavaSript("geoff.eventTriggered=function(evtName,evtParams){geoffSWTBridge('event',evtName,evtParams)}");
 	}
 
 	protected String doGetResourcesPath() {
@@ -195,14 +230,20 @@ public class GeoMapComposite extends Composite {
 		}
 	}
 
+	/**
+	 * Loads the provided map and install a change listener that will
+	 * automatically handle model changes to update the UI state of the map.
+	 * 
+	 * @param map
+	 *            the map to manage
+	 */
 	public void loadMap(final GeoMap map) {
 		if (currentMap != null) {
-			currentMap.eAdapters().remove(changeListener);
+			Geoff.toEObject(currentMap).eAdapters().remove(changeListener);
 		}
 
 		currentMap = map;
-		currentMap.eAdapters().add(changeListener);
-
+		Geoff.toEObject(currentMap).eAdapters().add(changeListener);
 		triggerLoadingOfMap();
 	}
 
@@ -210,7 +251,8 @@ public class GeoMapComposite extends Composite {
 		// we are using BrowserFunction as call back to get the serialized map
 		// i.e., the JavaScript side will call a function "geoffSWTBridge"
 		// which is defined as part of the Browser instance initialization
-		String loadXML = String.format("geoff.loadFromXMLString(%s,%s)", "geoffSWTBridge('loadMap')", "'map'");
+		String loadXML = String.format("geoff.loadFromXMLString(%s,'%s')", "geoffSWTBridge('loadMap')",
+				HTML_MAP_DIV_CONTAINER);
 		executeJavaSript(loadXML);
 	}
 }

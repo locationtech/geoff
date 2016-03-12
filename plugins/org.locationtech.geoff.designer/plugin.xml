@@ -8,7 +8,7 @@
             name="Geo Map Editor"
             extensions="geoff"
             icon="icons/geoff-16.png"
-            class="org.locationtech.geoff.designer.editors.GeoMapEditor"
+            class="org.locationtech.geoff.ui.parts.GeoMapEditor"
             id="org.locationtech.geoff.designer.editor">
       </editor>
    </extension>
@@ -20,21 +20,6 @@
             class="org.locationtech.geoff.designer.perspectives.GeoffDesignerPerspectiveFactory"
             id="org.locationtech.geoff.designer.perspective">
       </perspective>
-   </extension>
-   <extension
-         point="org.eclipse.ui.views">
-      <category
-            name="Geo Map"
-            id="org.locationtech.geoff.designer">
-      </category>
-      <view
-            name="Layers"
-            icon="icons/layers-16.png"
-            category="org.locationtech.geoff.designer"
-            class="org.locationtech.geoff.designer.e3x.E3PageBookViewPart:org.locationtech.geoff.designer.views.LayersUI"
-            restorable="true"
-            id="org.locationtech.geoff.designer.views.layers">
-      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -52,14 +37,14 @@
                minimized="false"
                ratio="0.66"
                relative="org.eclipse.ui.views.ResourceNavigator"
-               id="org.locationtech.geoff.designer.views.layers"
+               id="org.locationtech.geoff.ui.parts.LayersUI"
                relationship="bottom">
          </view>
          <view
                minimized="false"
                ratio="0.66"
                relative="org.eclipse.ui.editorss"
-               id="XXXorg.locationtech.geoff.designer.views.geocoding"
+               id="org.locationtech.geoff.geocoding.ui.GeocodingPart"
                relationship="right">
          </view>
       </perspectiveExtension>
@@ -77,26 +62,6 @@
             class="org.locationtech.geoff.designer.wizards.NewGeoMapWizard"
             id="org.locationtech.geoff.designer.wizard1">
       </wizard>
-   </extension>
-   <extension
-         point="org.eclipse.ui.commands">
-      <command
-            defaultHandler="org.locationtech.geoff.designer.e3x.E3Handler:org.locationtech.geoff.designer.handlers.AddResourceAsLayerHandler"
-            name="Add Layer"
-            description="Add as a new layer"
-            id="org.locationtech.geoff.designer.commands.addResourceAsLayer">
-      </command>
-      <command
-            defaultHandler="org.locationtech.geoff.designer.e3x.E3Handler:org.locationtech.geoff.designer.handlers.AddTileLayerHandler"
-            name="Add Tile Layer"
-            description="Add new tile layer"
-            id="org.locationtech.geoff.designer.commands.addTileLayer">
-         <commandParameter
-               name="Tile Provider"
-               optional="true"
-               id="tileProvider">
-         </commandParameter>
-      </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -240,6 +205,14 @@
             </parameter>
          </command>
       </menuContribution>
+   </extension>
+   <extension
+         id="id1"
+         point="org.eclipse.e4.workbench.model">
+      <processor
+            beforefragment="true"
+            class="org.locationtech.geoff.designer.fragments.PluginFragments">
+      </processor>
    </extension>
 
 </plugin>
