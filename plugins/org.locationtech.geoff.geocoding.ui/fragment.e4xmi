@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_jJiekOe0EeW1SLSjQLIICw">
+  <imports xsi:type="commands:Command" xmi:id="_5VXOQOe5EeW1SLSjQLIICw" elementId="org.eclipse.e4.tools.emf.ui.command.mark_duplicate_ids"/>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_v6H1IOe0EeW1SLSjQLIICw" featurename="handlers" parentElementId="org.eclipse.e4.ide.application">
+    <elements xsi:type="menu:MenuContribution" xmi:id="_b0OH4OimEeW1SLSjQLIICw" elementId="org.locationtech.geoff.geocoding.ui.menucontribution.0"/>
+  </fragments>
+</fragment:ModelFragments>

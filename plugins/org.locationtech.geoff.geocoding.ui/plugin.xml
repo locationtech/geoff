@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+   <extension
+         id="org.locationtech.geoff.geocoding.ui.fragment"
+         point="org.eclipse.e4.workbench.model">
+      <processor
+            apply="always"
+            class="org.locationtech.geoff.geocoding.ui.fragments.PluginFragments"
+            beforefragment="true">
+      </processor>
+   </extension>
+</plugin>

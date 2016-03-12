@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Geoff UI
+Bundle-SymbolicName: org.locationtech.geoff.ui
+Bundle-Version: 0.8.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.locationtech.geoff.model,
+ org.eclipse.emf.edit,
+ org.locationtech.geoff.core,
+ org.eclipse.e4.core.di,
+ javax.inject,
+ org.eclipse.swt,
+ org.eclipse.e4.core.contexts,
+ org.eclipse.e4.ui.model.workbench,
+ org.eclipse.e4.ui.di,
+ org.eclipse.osgi.services,
+ org.eclipse.e4.ui.workbench
+Export-Package: org.locationtech.geoff.ui
+Service-Component: OSGI-INF/org.locationtech.geoff.ui.internal.PageBookFunction.xml

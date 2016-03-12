@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.locationtech.geoff.ui.internal.PageBookFunction">
+   <property name="service.context.key" type="String" value="org.locationtech.geoff.ui.PageBook"/>
+   <service>
+      <provide interface="org.eclipse.e4.core.contexts.IContextFunction"/>
+   </service>
+   <implementation class="org.locationtech.geoff.ui.internal.PageBookFunction"/>
+</scr:component>
