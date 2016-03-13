@@ -175,6 +175,10 @@ public final class E4PageBookSWTImpl extends Composite implements PageBook {
 				container.setData(IEclipseContext.class.getName(), child);
 				container.setData(MPart.class.getName(), part);
 				((EclipseContext) partContext).notifyOnDisposal((c) -> {
+					if (container.isDisposed()) {
+						return;
+					}
+					
 					destroyPage(container, true);
 
 					if (currentPage == container) {
