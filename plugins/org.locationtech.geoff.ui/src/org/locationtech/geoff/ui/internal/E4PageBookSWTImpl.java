@@ -178,7 +178,7 @@ public final class E4PageBookSWTImpl extends Composite implements PageBook {
 					if (container.isDisposed()) {
 						return;
 					}
-					
+
 					destroyPage(container, true);
 
 					if (currentPage == container) {
