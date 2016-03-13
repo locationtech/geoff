@@ -15,22 +15,64 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * A pagebook is a general pattern that accepts input and generates an
+ * appropriate UI. A pagebook is assigned to a hosting part that acts as switch
+ * to any relevant parts within the environment.
+ * 
+ * @author Erdal Karaca
+ *
+ */
 public interface PageBook {
+	/**
+	 * A method annotation that denotes that a page is to be created given the
+	 * injected paramters.<br>
+	 * <br>
+	 * NOTE: the execution of the method will be done in the context of the
+	 * input/target part. This means the state of the target part is available
+	 * and not the hosting part of the pagebook.
+	 */
 	@Target({ ElementType.METHOD })
 	@Retention(RetentionPolicy.RUNTIME)
 	public @interface Create {
 	}
 
+	/**
+	 * A method annotation that denotes that no relevant part is available,
+	 * hence the implementor of the method has to provide a default UI that
+	 * reflects this state.<br>
+	 * <br>
+	 * NOTE: the execution of the method will be done in the context of the
+	 * input/target part. This means the state of the target part is available
+	 * and not the hosting part of the pagebook.
+	 */
 	@Target({ ElementType.METHOD })
 	@Retention(RetentionPolicy.RUNTIME)
 	public @interface Default {
 	}
 
+	/**
+	 * A method annotation that a page is about to be destroyed. Implementors
+	 * can cleanup any resources or the like.<br>
+	 * <br>
+	 * NOTE: the execution of the method will be done in the context of the
+	 * input/target part. This means the state of the target part is available
+	 * and not the hosting part of the pagebook.
+	 */
 	@Target({ ElementType.METHOD })
 	@Retention(RetentionPolicy.RUNTIME)
 	public @interface Destroy {
 	}
 
+	/**
+	 * A method annotation that a part has been focused/activated or made
+	 * visible. Implementors must decide whether the input/target part has any
+	 * relevance to the host that may want to create a page for.<br>
+	 * <br>
+	 * NOTE: the execution of the method will be done in the context of the
+	 * input/target part. This means the state of the target part is available
+	 * and not the hosting part of the pagebook.
+	 */
 	@Target({ ElementType.METHOD })
 	@Retention(RetentionPolicy.RUNTIME)
 	public @interface IsRelevantPart {
