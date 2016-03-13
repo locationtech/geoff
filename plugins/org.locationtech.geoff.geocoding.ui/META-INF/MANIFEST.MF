@@ -7,7 +7,15 @@ Require-Bundle: org.eclipse.swt,
  org.eclipse.e4.ui.model.workbench,
  org.eclipse.emf.ecore,
  org.locationtech.geoff.e4.utils,
- org.eclipse.jface
+ org.eclipse.jface,
+ org.locationtech.geoff.geocoding,
+ org.eclipse.jface.databinding,
+ org.eclipse.core.databinding,
+ org.eclipse.core.databinding.property,
+ org.locationtech.geoff.ui.swt,
+ org.locationtech.geoff.core,
+ org.locationtech.geoff.model,
+ org.eclipse.equinox.http.registry
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: javax.annotation;version="1.2.0",

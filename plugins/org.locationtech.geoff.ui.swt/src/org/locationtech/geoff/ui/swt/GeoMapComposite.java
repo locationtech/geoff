@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -23,8 +24,8 @@ import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
 import org.eclipse.swt.browser.LocationAdapter;
 import org.eclipse.swt.browser.LocationEvent;
+import org.eclipse.swt.browser.ProgressAdapter;
 import org.eclipse.swt.browser.ProgressEvent;
-import org.eclipse.swt.browser.ProgressListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
@@ -36,14 +37,19 @@ public class GeoMapComposite extends Composite {
 	private static final String HTML_MAP_DIV_CONTAINER = "map";
 	private static final boolean ENABLE_BROWSER_POPUP_MENU = false;
 	private Browser browser;
-	private boolean complete = false;
+	private Boolean complete = null;
 	private boolean enableLocationChange = true;
+
+	private List<BrowserFunction> browserFuncs = new ArrayList<>();
+	private boolean processNotifications;
+	private AtomicInteger notificationsCount = new AtomicInteger(0);
 
 	private Queue<Runnable> pendingTasks = new LinkedList<Runnable>();
 	private EventsDispatcher dispatcher = new EventsDispatcher();
 
 	private GeoMap currentMap;
 	private Adapter changeListener = new EContentAdapter() {
+
 		public void notifyChanged(Notification notification) {
 			super.notifyChanged(notification);
 
@@ -52,7 +58,7 @@ public class GeoMapComposite extends Composite {
 			}
 
 			if (notification.isTouch()) {
-				return;
+				// return;
 			}
 
 			if (isDisposed()) {
@@ -60,9 +66,15 @@ public class GeoMapComposite extends Composite {
 				return;
 			}
 
+			if (!processNotifications) {
+				notificationsCount.incrementAndGet();
+				return;
+			}
+
 			switch (notification.getEventType()) {
 			case Notification.ADD:
 			case Notification.REMOVE:
+			case Notification.SET:
 				getDisplay().asyncExec(new Runnable() {
 
 					@Override
@@ -74,8 +86,6 @@ public class GeoMapComposite extends Composite {
 		}
 	};
 
-	private List<BrowserFunction> browserFuncs = new ArrayList<>();
-
 	public GeoMapComposite(Composite parent, int style) {
 		super(parent, style);
 		setLayout(new FillLayout());
@@ -83,13 +93,13 @@ public class GeoMapComposite extends Composite {
 
 		setupMenus();
 
-		browser.addProgressListener(new ProgressListener() {
+		browser.addProgressListener(new ProgressAdapter() {
 
 			@Override
 			public void completed(ProgressEvent event) {
 				unregisterFunctions();
 				registerFunctions();
-				complete = true;
+				complete = Boolean.TRUE;
 				// after the content is setup, no change in location is allowed
 				// else, the browser widget might open external pages within
 				// itself
@@ -98,11 +108,6 @@ public class GeoMapComposite extends Composite {
 				while (pendingTasks.peek() != null) {
 					pendingTasks.poll().run();
 				}
-			}
-
-			@Override
-			public void changed(ProgressEvent event) {
-				complete = false;
 			}
 		});
 
@@ -160,7 +165,7 @@ public class GeoMapComposite extends Composite {
 						xml = Geoff.wrap(currentMap).toXML();
 					}
 
-					System.out.println(xml);
+//					System.out.println(xml);
 
 					return xml;
 				}
@@ -223,7 +228,7 @@ public class GeoMapComposite extends Composite {
 			}
 		};
 
-		if (complete) {
+		if (complete != null) {
 			run.run();
 		} else {
 			pendingTasks.add(run);
@@ -255,4 +260,26 @@ public class GeoMapComposite extends Composite {
 				HTML_MAP_DIV_CONTAINER);
 		executeJavaSript(loadXML);
 	}
+
+	public void setNotifications(boolean processNotifications) {
+		this.processNotifications = processNotifications;
+
+		if (processNotifications) {
+			int count = notificationsCount.getAndSet(0);
+
+			if (count > 0) {
+				triggerLoadingOfMap();
+			}
+		}
+	}
+
+	public void groupModelChanges(Runnable runnable) {
+		setNotifications(false);
+		try {
+			runnable.run();
+		} finally {
+			setNotifications(true);
+		}
+	}
+
 }

@@ -10,4 +10,12 @@
             beforefragment="true">
       </processor>
    </extension>
+   
+      <extension
+         point="org.eclipse.equinox.http.registry.resources">
+      <resource
+            alias="/org.locationtech.geoff.geocoding.ui/resources"
+            base-name="/resources">
+      </resource>
+   </extension>
 </plugin>

@@ -19,7 +19,7 @@ function geoff_designer_geoimages_onFeatureClick(feature) {
 
 	if (!imageDialog[0]) {
 		imageDialog = $("<div id='geoff_designer_geoimages_onFeatureClick_dialog' title='An Image!' style='display: none;'></div>");
-		var img = $("<img id='geoff_designer_geoimages_onFeatureClick_image' src=''></img>");
+		var img = $("<img id='geoff_designer_geoimages_onFeatureClick_image' width='100%' height='100%' src=''></img>");
 		imageDialog.append(img);
 		$(document.body).append(imageDialog);
 	}
@@ -38,8 +38,9 @@ function geoff_designer_geoimages_onFeatureClick(feature) {
 			modal : true,
 			resizable : false,
 			draggable : false,
-			width : 'auto',
+			width : '70%',
 			title : uriParts[uriParts.length - 1]
 		});
 	});
 }
+

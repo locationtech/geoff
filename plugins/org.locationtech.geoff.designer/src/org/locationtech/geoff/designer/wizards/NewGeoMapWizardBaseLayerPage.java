@@ -97,7 +97,7 @@ public class NewGeoMapWizardBaseLayerPage {
 		countriesSource.setFormat(SourceFormat.GEO_JSON);
 		VectorLayer countriesLayer = Geoff.vectorLayer(countriesSource);
 		countriesLayer.setShortDescription("Country Borders/Contours");
-		DesignerUtil.populateDefaultStyles(countriesLayer);
+		Geoff.populateDefaultStyles(countriesLayer);
 
 		viewer.setInput(Arrays.asList(countriesLayer));
 		viewer.setSelection(new StructuredSelection(countriesLayer));

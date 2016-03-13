@@ -66,7 +66,7 @@ public class AddResourceAsLayerHandler {
 			source.setUrl(path);
 
 			VectorLayer layer = Geoff.vectorLayer(source);
-			DesignerUtil.populateDefaultStyles(layer);
+			Geoff.populateDefaultStyles(layer);
 			layers.add(layer);
 		}
 
