@@ -11,13 +11,16 @@
  *******************************************************************************/
 package org.locationtech.geoff.ui.internal;
 
+import javax.inject.Inject;
+
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.InjectionException;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.internal.contexts.EclipseContext;
+import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.workbench.modeling.EPartService;
-import org.eclipse.e4.ui.workbench.modeling.IPartListener;
+import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -27,6 +30,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Layout;
 import org.locationtech.geoff.ui.PageBook;
+import org.osgi.service.event.Event;
 
 /**
  * A pagebook is a composite control where only a single control is visible at a
@@ -46,54 +50,31 @@ public final class E4PageBookSWTImpl extends Composite implements PageBook {
 
 	private MPart hostingPart;
 	private IEclipseContext ctx;
-	private EPartService partService;
 
-	private IPartListener listener = new IPartListener() {
-
-		@Override
-		public void partVisible(MPart part) {
-			processPart(part);
+	@Inject
+	@Optional
+	private void subscribePartActivated(@UIEventTopic(UIEvents.UILifeCycle.ACTIVATE) Event event) {
+		Object element = event.getProperty(UIEvents.EventTags.ELEMENT);
+		if(element instanceof MPart) {
+			processPart((MPart) element);
 		}
-
-		@Override
-		public void partHidden(MPart part) {
-		}
-
-		@Override
-		public void partDeactivated(MPart part) {
-
-		}
-
-		@Override
-		public void partBroughtToTop(MPart part) {
-			processPart(part);
-		}
-
-		@Override
-		public void partActivated(MPart part) {
-			processPart(part);
-		}
-	};
+	}
 
 	/**
 	 * Creates a new empty pagebook.
 	 */
+	@Inject
 	public E4PageBookSWTImpl(Composite parent, IEclipseContext ctx, MPart hostingPart) {
 		super(parent, SWT.None);
 		this.ctx = ctx;
 		this.hostingPart = hostingPart;
 		setLayout(new PageBookLayout());
 
-		partService = ctx.get(EPartService.class);
-		partService.addPartListener(listener);
-
 		addDisposeListener(new DisposeListener() {
 
 			@Override
 			public void widgetDisposed(DisposeEvent e) {
 				destroyPages();
-				partService.removePartListener(listener);
-				partService = null;
 				E4PageBookSWTImpl.this.ctx = null;
 				E4PageBookSWTImpl.this.hostingPart = null;
 			}
