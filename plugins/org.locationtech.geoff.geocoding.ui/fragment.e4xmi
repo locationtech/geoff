@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="ASCII"?>
-<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_jJiekOe0EeW1SLSjQLIICw">
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_jJiekOe0EeW1SLSjQLIICw">
   <imports xsi:type="commands:Command" xmi:id="_5VXOQOe5EeW1SLSjQLIICw" elementId="org.eclipse.e4.tools.emf.ui.command.mark_duplicate_ids"/>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_v6H1IOe0EeW1SLSjQLIICw" featurename="handlers" parentElementId="org.eclipse.e4.ide.application">
-    <elements xsi:type="menu:MenuContribution" xmi:id="_b0OH4OimEeW1SLSjQLIICw" elementId="org.locationtech.geoff.geocoding.ui.menucontribution.0"/>
+    <elements xsi:type="basic:Part" xmi:id="_OUaOYOlXEeWbF68TYRAw7Q" elementId="org.locationtech.geoff.geocoding.ui.part.0" contributionURI="bundleclass://org.locationtech.geoff.geocoding.ui/org.locationtech.geoff.geocoding.ui.GeocodingPart" iconURI="platform:/plugin/org.locationtech.geoff.geocoding.ui/icons/marker-blue.png">
+      <menus xmi:id="_Xz_uQOlXEeWbF68TYRAw7Q" elementId="org.locationtech.geoff.geocoding.ui.menu.0">
+        <tags>ViewMenu</tags>
+        <children xsi:type="menu:DynamicMenuContribution" xmi:id="_LEh8kOlYEeWbF68TYRAw7Q" elementId="org.locationtech.geoff.geocoding.ui.dynamicmenucontribution.0"/>
+      </menus>
+      <toolbar xmi:id="_Bo4hgOlYEeWbF68TYRAw7Q" elementId="org.locationtech.geoff.geocoding.ui.toolbar.0">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_CwqB4OlYEeWbF68TYRAw7Q" elementId="org.locationtech.geoff.geocoding.ui.handledtoolitem.0">
+          <menu xmi:id="_D7p1YOlYEeWbF68TYRAw7Q" elementId="org.locationtech.geoff.geocoding.ui.menu.2"/>
+        </children>
+      </toolbar>
+    </elements>
   </fragments>
 </fragment:ModelFragments>

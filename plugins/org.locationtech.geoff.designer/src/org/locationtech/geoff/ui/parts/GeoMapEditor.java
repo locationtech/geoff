@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.EventObject;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Consumer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,10 +22,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.di.annotations.CanExecute;
+import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.equinox.http.servlet.ExtendedHttpService;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.commands.ActionHandler;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.swt.SWT;
@@ -37,38 +38,65 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.commands.ICommandService;
-import org.eclipse.ui.handlers.IHandlerActivation;
-import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.FileEditorInput;
-import org.eclipse.ui.services.IServiceScopes;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.core.GeoMapServiceFactory;
 import org.locationtech.geoff.core.IGeoMapService;
 import org.locationtech.geoff.core.logging.LogUtil;
 import org.locationtech.geoff.ui.swt.GeoMapComposite;
+import org.locationtech.geoff.ui.swt.IGeoMapWidget;
 import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 
+@SuppressWarnings("restriction")
 public class GeoMapEditor extends EditorPart {
 	public static final String ORG_LOCATIONTECH_GEOFF_EDITOR_SWITCHED = "org/locationtech/geoff/EditorSwitched";
 	private GeoMapComposite geoMapComposite;
-	private IHandlerActivation undoHandlerActivation;
-	private IHandlerActivation redoHandlerActivation;
 	private boolean canSave = false;
 
 	private IGeoMapService geoMapService;
 
 	private Consumer<EventObject> changeConsumer = (event) -> {
-		ICommandService cs = (ICommandService) getSite().getService(ICommandService.class);
-		Map<String, Object> filter = new HashMap<>();
-		filter.put(IServiceScopes.WINDOW_SCOPE, getSite().getPage().getWorkbenchWindow());
-		cs.refreshElements(IWorkbenchCommandConstants.EDIT_UNDO, filter);
-		cs.refreshElements(IWorkbenchCommandConstants.EDIT_REDO, filter);
+		if (geoMapComposite.isDisposed()) {
+			return;
+		}
+
+		geoMapComposite.getDisplay().asyncExec(() -> {
+			// TODO incremental update instead of full reload
+			geoMapComposite.reloadMap();
+		});
+
+		IEventBroker eventBrowker = getSite().getService(IEventBroker.class);
+		eventBrowker.post(UIEvents.REQUEST_ENABLEMENT_UPDATE_TOPIC, IWorkbenchCommandConstants.EDIT_UNDO);
+		eventBrowker.post(UIEvents.REQUEST_ENABLEMENT_UPDATE_TOPIC, IWorkbenchCommandConstants.EDIT_REDO);
 
 		canSave = geoMapService.canUndo();
 		firePropertyChange(PROP_DIRTY);
+	};
+
+	private Object undoHandler = new Object() {
+		@Execute
+		public void run() {
+			geoMapService.undo();
+		}
+
+		@CanExecute
+		public boolean isHandled() {
+			return geoMapService.canUndo();
+		}
+	};
+
+	private Object redoHandler = new Object() {
+		@Execute
+		public void run() {
+			geoMapService.redo();
+		}
+
+		@CanExecute
+		public boolean isHandled() {
+			return geoMapService.canRedo();
+		}
 	};
 
 	private String alias;
@@ -98,78 +126,54 @@ public class GeoMapEditor extends EditorPart {
 
 		if (input instanceof FileEditorInput) {
 			FileEditorInput fInput = (FileEditorInput) getEditorInput();
-			IFile file = fInput.getFile();
-			IProject project = file.getProject();
-			geoMapService = GeoMapServiceFactory.create(file.getRawLocation().toFile());
-			alias = String.format("/workspace/%s", project.getName());
-
-			ExtendedHttpService httpService = (ExtendedHttpService) context.get(HttpService.class);
-			HttpContext hctx = new HttpContext() {
-
-				@Override
-				public URL getResource(String name) {
-					IFile resource = project.getFile(name);
-
-					try {
-						return resource.getLocationURI().toURL();
-					} catch (MalformedURLException e) {
-						// resource does not exist
-					}
-
-					return null;
-				}
-
-				@Override
-				public String getMimeType(String name) {
-					return null;
-				}
-
-				@Override
-				public boolean handleSecurity(HttpServletRequest request, HttpServletResponse response)
-						throws IOException {
-					return true;
-				}
-			};
-			LogUtil.logErrorOnException(() -> {
-				httpService.registerResources(alias, "/", hctx);
-			});
+			init(context, fInput);
 		} else {
 			throw new UnsupportedOperationException("Provided editor input not supported: " + input);
 		}
 
-		geoMapService.onChange(changeConsumer);
-
-		IHandlerService hs = (IHandlerService) getSite().getWorkbenchWindow().getService(IHandlerService.class);
-		{
-			ActionHandler handler = new ActionHandler(new Action() {
-				@Override
-				public void run() {
-					geoMapService.undo();
-				}
-
-				@Override
-				public boolean isHandled() {
-					return geoMapService.canUndo();
-				}
-			});
-			undoHandlerActivation = hs.activateHandler(IWorkbenchCommandConstants.EDIT_UNDO, handler);
-		}
-		{
-			ActionHandler handler = new ActionHandler(new Action() {
-				@Override
-				public void run() {
-					geoMapService.redo();
-				}
-
-				@Override
-				public boolean isHandled() {
-					return geoMapService.canRedo();
-				}
-			});
-			redoHandlerActivation = hs.activateHandler(IWorkbenchCommandConstants.EDIT_REDO, handler);
-		}
+		EHandlerService hs = (EHandlerService) getSite().getWorkbenchWindow().getService(EHandlerService.class);
+		hs.activateHandler(IWorkbenchCommandConstants.EDIT_UNDO, undoHandler);
+		hs.activateHandler(IWorkbenchCommandConstants.EDIT_REDO, redoHandler);
 
 		context.set(IGeoMapService.class, geoMapService);
+	}
+
+	private void init(IEclipseContext context, FileEditorInput fInput) {
+		IFile file = fInput.getFile();
+		IProject project = file.getProject();
+		geoMapService = GeoMapServiceFactory.create(file.getRawLocation().toFile());
+		geoMapService.onChange(changeConsumer);
+		alias = String.format("/workspace/%s", project.getName());
+
+		ExtendedHttpService httpService = (ExtendedHttpService) context.get(HttpService.class);
+		HttpContext hctx = new HttpContext() {
+
+			@Override
+			public URL getResource(String name) {
+				IFile resource = project.getFile(name);
+
+				try {
+					return resource.getLocationURI().toURL();
+				} catch (MalformedURLException e) {
+					// resource does not exist
+				}
+
+				return null;
+			}
+
+			@Override
+			public String getMimeType(String name) {
+				return null;
+			}
+
+			@Override
+			public boolean handleSecurity(HttpServletRequest request, HttpServletResponse response) throws IOException {
+				return true;
+			}
+		};
+		LogUtil.logErrorOnException(() -> {
+			httpService.registerResources(alias, "/", hctx);
+		});
 	}
 
 	private IEclipseContext getContext(IEditorSite site) {
@@ -209,13 +213,8 @@ public class GeoMapEditor extends EditorPart {
 		GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(geoMapComposite);
 		final GeoMap geoMap = geoMapService.getGeoMap();
 		geoMapComposite.loadMap(geoMap);
-
-		// let all changes be handled by the change support to cope with
-		// undo/redo
-		Consumer<Runnable> changeDecorater = (runnable) -> {
-			geoMapService.batchChanges(runnable);
-		};
-		geoMapComposite.getDispatcher().setChangeConsumer(changeDecorater);
+		IEclipseContext context = getSite().getService(IEclipseContext.class);
+		context.set(IGeoMapWidget.class, geoMapComposite);
 	}
 
 	@Override
@@ -229,10 +228,9 @@ public class GeoMapEditor extends EditorPart {
 		ExtendedHttpService httpService = (ExtendedHttpService) context.get(HttpService.class);
 		httpService.unregister(alias);
 
-		undoHandlerActivation.getHandlerService().deactivateHandler(undoHandlerActivation);
-		undoHandlerActivation = null;
-		redoHandlerActivation.getHandlerService().deactivateHandler(redoHandlerActivation);
-		redoHandlerActivation = null;
+		EHandlerService hs = (EHandlerService) getSite().getWorkbenchWindow().getService(EHandlerService.class);
+		hs.deactivateHandler(IWorkbenchCommandConstants.EDIT_UNDO, undoHandler);
+		hs.deactivateHandler(IWorkbenchCommandConstants.EDIT_REDO, redoHandler);
 
 		geoMapComposite = null;
 		geoMapService.shutdown();

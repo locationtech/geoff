@@ -15,18 +15,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Named;
+
 import org.eclipse.core.resources.IFile;
+import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.locationtech.geoff.core.Geoff;
 import org.locationtech.geoff.core.IGeoMapService;
-import org.locationtech.geoff.designer.internal.DesignerUtil;
 import org.locationtech.geoff.designer.internal.ResourcesUtil;
 import org.locationtech.geoff.layer.Layer;
 import org.locationtech.geoff.layer.VectorLayer;
 import org.locationtech.geoff.source.SourceFormat;
 import org.locationtech.geoff.source.VectorSource;
+import org.locationtech.geoff.ui.parts.LayersUI;
 
 public class AddResourceAsLayerHandler {
 	private Map<String, SourceFormat> formatsMappings = new HashMap<String, SourceFormat>();
@@ -38,8 +43,14 @@ public class AddResourceAsLayerHandler {
 	}
 
 	@Execute
-	public void execute(IGeoMapService geoMapService, ISelection selection) {
+	public void execute(@Named(IServiceConstants.ACTIVE_SELECTION) ISelection selection, EPartService partService) {
 		if (selection.isEmpty()) {
+			return;
+		}
+
+		IGeoMapService geoMapService = LayersUI.getGeoMapService(partService);
+
+		if (geoMapService == null) {
 			return;
 		}
 
@@ -75,5 +86,10 @@ public class AddResourceAsLayerHandler {
 				layers.forEach((l) -> geoMapService.addLayer(l));
 			});
 		}
+	}
+
+	@CanExecute
+	public boolean canExec() {
+		return true;
 	}
 }

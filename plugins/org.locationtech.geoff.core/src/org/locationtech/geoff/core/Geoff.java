@@ -280,6 +280,15 @@ public class Geoff {
 		return (T) EcoreUtil.create(eClass);
 	}
 
+	/**
+	 * Maps an {@link Identifiable} to an {@link EObject}. This is necessary to
+	 * prevent users from manually casting to {@link EObject} as the interfaces
+	 * do not outline EMF internals.
+	 * 
+	 * @param id
+	 *            the Geoff domain object
+	 * @return the {@link EObject} instance of the provided {@link Identifiable}
+	 */
 	public static EObject toEObject(Identifiable id) {
 		return (EObject) id;
 	}

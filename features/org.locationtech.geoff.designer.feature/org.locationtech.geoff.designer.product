@@ -45,8 +45,6 @@
       <feature id="org.locationtech.geoff.showcase.feature"/>
       <feature id="org.locationtech.geoff.geocoding.feature"/>
       <feature id="org.locationtech.geoff.designer.feature"/>
-      <feature id="org.eclipse.ecf.core.feature"/>
-      <feature id="org.eclipse.ecf.filetransfer.feature"/>
    </features>
 
    <configurations>

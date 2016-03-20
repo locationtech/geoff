@@ -55,7 +55,7 @@ public final class E4PageBookSWTImpl extends Composite implements PageBook {
 	@Optional
 	private void subscribePartActivated(@UIEventTopic(UIEvents.UILifeCycle.ACTIVATE) Event event) {
 		Object element = event.getProperty(UIEvents.EventTags.ELEMENT);
-		if(element instanceof MPart) {
+		if (element instanceof MPart) {
 			processPart((MPart) element);
 		}
 	}
@@ -171,7 +171,17 @@ public final class E4PageBookSWTImpl extends Composite implements PageBook {
 				});
 				child.set(Composite.class, container);
 				// part's context as local context
-				ContextInjectionFactory.invoke(host, Create.class, child);
+				Object result = ContextInjectionFactory.invoke(host, Create.class, child);
+
+				// return type is a class, so make an instance of it
+				if (result instanceof Class<?>) {
+					// make the pagebook instance available in the target
+					// context as it is not available when a static instance is
+					// created
+					child.set(PageBook.class, E4PageBookSWTImpl.this);
+					ContextInjectionFactory.make((Class<?>) result, child);
+				}
+
 				toBeShown = container;
 			}
 
@@ -249,5 +259,15 @@ public final class E4PageBookSWTImpl extends Composite implements PageBook {
 				currentPage.setBounds(composite.getClientArea());
 			}
 		}
+	}
+
+	@Override
+	public <T> T getFromTarget(Class<T> type) {
+		if (currentPage == null || currentPage.isDisposed()) {
+			return null;
+		}
+
+		MPart targetPart = (MPart) currentPage.getData(MPart.class.getName());
+		return targetPart.getContext().get(type);
 	}
 }

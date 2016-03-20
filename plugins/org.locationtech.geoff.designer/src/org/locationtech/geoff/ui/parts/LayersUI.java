@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
@@ -50,34 +51,58 @@ public class LayersUI {
 	}
 
 	@PageBook.Create
-	public void createPage(Composite pageContainer, IGeoMapService geoMapService) {
-		AdapterFactory af = geoMapService.adaptTo(AdapterFactory.class);
+	public Class<LayersPage> createPage() {
+		return LayersPage.class;
+	}
 
-		AdapterFactoryLabelProvider aflp = new AdapterFactoryLabelProvider(af);
-		AdapterFactoryContentProvider afcp = new AdapterFactoryContentProvider(af) {
-			@Override
-			public boolean hasChildren(Object object) {
-				super.hasChildren(object);
-				
-				// only flat list
-				return false;
-			}
+	public IGeoMapService getCurrentMap() {
+		return pageBook.getFromTarget(IGeoMapService.class);
+	}
 
-			@Override
-			public Object[] getElements(Object object) {
-				super.getElements(object);
-				
-				if (object instanceof GeoMap) {
-					return ((GeoMap) object).getLayers().toArray();
+	public static IGeoMapService getGeoMapService(EPartService partService) {
+		LayersUI layersUI = (LayersUI) partService.getParts().stream()
+				.filter(p -> p.getContributionURI().endsWith(LayersUI.class.getName())).findFirst()
+				.map(p -> p.getObject()).get();
+
+		if (layersUI == null) {
+			return null;
+		}
+
+		IGeoMapService geoMapService = layersUI.getCurrentMap();
+		return geoMapService;
+	}
+
+	public static class LayersPage {
+		@PostConstruct
+		public void createUI(Composite pageContainer, IGeoMapService geoMapService) {
+			AdapterFactory af = geoMapService.adaptTo(AdapterFactory.class);
+
+			AdapterFactoryLabelProvider aflp = new AdapterFactoryLabelProvider(af);
+			AdapterFactoryContentProvider afcp = new AdapterFactoryContentProvider(af) {
+				@Override
+				public boolean hasChildren(Object object) {
+					super.hasChildren(object);
+
+					// only flat list
+					return false;
 				}
 
-				return new Object[0];
-			}
-		};
+				@Override
+				public Object[] getElements(Object object) {
+					super.getElements(object);
 
-		TreeViewer layersViewer = new TreeViewer(pageContainer);
-		layersViewer.setContentProvider(afcp);
-		layersViewer.setLabelProvider(aflp);
-		layersViewer.setInput(geoMapService.adaptTo(GeoMap.class));
+					if (object instanceof GeoMap) {
+						return ((GeoMap) object).getLayers().toArray();
+					}
+
+					return new Object[0];
+				}
+			};
+
+			TreeViewer layersViewer = new TreeViewer(pageContainer);
+			layersViewer.setContentProvider(afcp);
+			layersViewer.setLabelProvider(aflp);
+			layersViewer.setInput(geoMapService.adaptTo(GeoMap.class));
+		}
 	}
 }

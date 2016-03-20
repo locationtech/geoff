@@ -23,6 +23,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.change.util.ChangeRecorder;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.command.ChangeCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
@@ -35,13 +36,20 @@ import org.locationtech.geoff.core.IGeoMapService;
 import org.locationtech.geoff.core.logging.LogUtil;
 import org.locationtech.geoff.layer.Layer;
 
-public class GeoMapService implements IGeoMapService {
+/**
+ * An {@link IGeoMapService} implementation that uses {@link ChangeRecorder}
+ * capabilities to track changes to the model.
+ * 
+ * @author Erdal Karaca
+ *
+ */
+public class ChangeRecorderGeoMapServiceImpl implements IGeoMapService {
 
 	private AdapterFactoryEditingDomain editingDomain;
 	private GeoMap geoMap;
 	private Resource resource;
 
-	public GeoMapService(File input) {
+	public ChangeRecorderGeoMapServiceImpl(File input) {
 		ComposedAdapterFactory composedAdapterFactory = new ComposedAdapterFactory(
 				ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 		editingDomain = new AdapterFactoryEditingDomain(composedAdapterFactory, new BasicCommandStack());
@@ -53,7 +61,7 @@ public class GeoMapService implements IGeoMapService {
 		for (EObject eObject : contents) {
 			if (eObject instanceof GeoMap) {
 				geoMap = Geoff.toId(eObject);
-				// assume there is only one Domain per file/resource
+				// assume there is only one GeoMap per file/resource
 				break;
 			}
 		}

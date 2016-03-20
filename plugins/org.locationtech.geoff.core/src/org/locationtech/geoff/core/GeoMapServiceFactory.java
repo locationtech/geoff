@@ -12,12 +12,12 @@ package org.locationtech.geoff.core;
 
 import java.io.File;
 
-import org.locationtech.geoff.core.internal.GeoMapService;
+import org.locationtech.geoff.core.internal.ChangeRecorderGeoMapServiceImpl;
 
 public class GeoMapServiceFactory {
 
 	public static IGeoMapService create(File file) {
-		return new GeoMapService(file);
+		return new ChangeRecorderGeoMapServiceImpl(file);
 	}
 
 }

@@ -15,6 +15,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.locationtech.geoff.core.IGeoMapService;
+
 /**
  * A pagebook is a general pattern that accepts input and generates an
  * appropriate UI. A pagebook is assigned to a hosting part that acts as switch
@@ -77,4 +79,12 @@ public interface PageBook {
 	@Retention(RetentionPolicy.RUNTIME)
 	public @interface IsRelevantPart {
 	}
+
+	/**
+	 * @param type
+	 *            the variable's type to query by
+	 * @return a variable that is expected to be within the target part's
+	 *         variables pool
+	 */
+	<T> T getFromTarget(Class<T> type);
 }

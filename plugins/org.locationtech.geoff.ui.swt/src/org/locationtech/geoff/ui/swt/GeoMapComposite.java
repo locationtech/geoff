@@ -11,14 +11,17 @@
 package org.locationtech.geoff.ui.swt;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Set;
+import java.util.function.Consumer;
 
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.core.databinding.observable.value.WritableValue;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.BrowserFunction;
@@ -31,9 +34,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.core.Geoff;
-import org.locationtech.geoff.ui.swt.events.EventsDispatcher;
+import org.locationtech.geoff.ui.swt.internal.PropertyHandlers;
+import org.locationtech.geoff.ui.swt.internal.PropertyHandlers.PropertyHandler;
 
-public class GeoMapComposite extends Composite {
+public class GeoMapComposite extends Composite implements IGeoMapWidget {
 	private static final String HTML_MAP_DIV_CONTAINER = "map";
 	private static final boolean ENABLE_BROWSER_POPUP_MENU = false;
 	private Browser browser;
@@ -41,50 +45,9 @@ public class GeoMapComposite extends Composite {
 	private boolean enableLocationChange = true;
 
 	private List<BrowserFunction> browserFuncs = new ArrayList<>();
-	private boolean processNotifications;
-	private AtomicInteger notificationsCount = new AtomicInteger(0);
-
 	private Queue<Runnable> pendingTasks = new LinkedList<Runnable>();
-	private EventsDispatcher dispatcher = new EventsDispatcher();
-
+	private Map<Property, Set<Consumer<PropertyEvent>>> eventConsumers = new HashMap<GeoMapComposite.Property, Set<Consumer<PropertyEvent>>>();
 	private GeoMap currentMap;
-	private Adapter changeListener = new EContentAdapter() {
-
-		public void notifyChanged(Notification notification) {
-			super.notifyChanged(notification);
-
-			if (dispatcher.isDispatching()) {
-				return;
-			}
-
-			if (notification.isTouch()) {
-				// return;
-			}
-
-			if (isDisposed()) {
-				getTarget().eAdapters().remove(this);
-				return;
-			}
-
-			if (!processNotifications) {
-				notificationsCount.incrementAndGet();
-				return;
-			}
-
-			switch (notification.getEventType()) {
-			case Notification.ADD:
-			case Notification.REMOVE:
-			case Notification.SET:
-				getDisplay().asyncExec(new Runnable() {
-
-					@Override
-					public void run() {
-						triggerLoadingOfMap();
-					}
-				});
-			}
-		}
-	};
 
 	public GeoMapComposite(Composite parent, int style) {
 		super(parent, style);
@@ -127,10 +90,6 @@ public class GeoMapComposite extends Composite {
 		browser.setMenu(menu);
 	}
 
-	public EventsDispatcher getDispatcher() {
-		return dispatcher;
-	}
-
 	@Override
 	public void dispose() {
 		unregisterFunctions();
@@ -165,7 +124,7 @@ public class GeoMapComposite extends Composite {
 						xml = Geoff.wrap(currentMap).toXML();
 					}
 
-//					System.out.println(xml);
+					// System.out.println(xml);
 
 					return xml;
 				}
@@ -173,7 +132,7 @@ public class GeoMapComposite extends Composite {
 				if ("event".equals(arguments[0])) {
 					String evtName = (String) arguments[1];
 					Object[] params = (Object[]) arguments[2];
-					dispatcher.dispatchEvent(evtName, currentMap, params);
+					processEvent(evtName, params);
 					return null;
 				}
 
@@ -193,6 +152,13 @@ public class GeoMapComposite extends Composite {
 			}
 		};
 		browserFuncs.add(alertFunc);
+	}
+
+	private void processEvent(String evtName, Object[] params) {
+		Property e = Property.byName(evtName);
+		PropertyHandler<?> propertyHandler = PropertyHandlers.getInstance().getHandler(e);
+		Object result = propertyHandler.map(params);
+		fireEvent(e, result);
 	}
 
 	protected void doSetupOpenLayers() {
@@ -221,7 +187,8 @@ public class GeoMapComposite extends Composite {
 		return browser;
 	}
 
-	public void executeJavaSript(final String jsCode) {
+	private void executeJavaSript(final String jsCode) {
+
 		Runnable run = new Runnable() {
 			public void run() {
 				browser.evaluate(jsCode);
@@ -235,24 +202,19 @@ public class GeoMapComposite extends Composite {
 		}
 	}
 
-	/**
-	 * Loads the provided map and install a change listener that will
-	 * automatically handle model changes to update the UI state of the map.
-	 * 
-	 * @param map
-	 *            the map to manage
-	 */
-	public void loadMap(final GeoMap map) {
-		if (currentMap != null) {
-			Geoff.toEObject(currentMap).eAdapters().remove(changeListener);
-		}
-
-		currentMap = map;
-		Geoff.toEObject(currentMap).eAdapters().add(changeListener);
-		triggerLoadingOfMap();
+	@SuppressWarnings("unchecked")
+	private <T> T execNow(String jsCode) {
+		Object result = browser.evaluate(jsCode);
+		return (T) result;
 	}
 
-	private void triggerLoadingOfMap() {
+	@Override
+	public void loadMap(final GeoMap map) {
+		currentMap = map;
+		reloadMap();
+	}
+
+	public void reloadMap() {
 		// we are using BrowserFunction as call back to get the serialized map
 		// i.e., the JavaScript side will call a function "geoffSWTBridge"
 		// which is defined as part of the Browser instance initialization
@@ -261,25 +223,55 @@ public class GeoMapComposite extends Composite {
 		executeJavaSript(loadXML);
 	}
 
-	public void setNotifications(boolean processNotifications) {
-		this.processNotifications = processNotifications;
-
-		if (processNotifications) {
-			int count = notificationsCount.getAndSet(0);
-
-			if (count > 0) {
-				triggerLoadingOfMap();
+	@Override
+	public IObservableValue observeValue(Property type) {
+		PropertyHandler<?> handler = PropertyHandlers.getInstance().getHandler(type);
+		IObservableValue value = new WritableValue(handler.getValue(this), handler.getValueType());
+		Listener listener = (e) -> {
+			if (!value.isDisposed()) {
+				value.setValue(e.value);
 			}
-		}
+		};
+		addListener(type, listener);
+		value.addDisposeListener((e) -> {
+			removeListener(type, listener);
+		});
+		return value;
 	}
 
-	public void groupModelChanges(Runnable runnable) {
-		setNotifications(false);
-		try {
-			runnable.run();
-		} finally {
-			setNotifications(true);
+	private void fireEvent(Property type, Object result) {
+		Set<Consumer<PropertyEvent>> set = eventConsumers.get(type);
+
+		if (set == null) {
+			return;
 		}
+
+		PropertyEvent edata = new PropertyEvent(type, result);
+
+		set.forEach(c -> {
+			c.accept(edata);
+		});
 	}
 
+	@Override
+	public synchronized void addListener(Property type, Listener listener) {
+		Set<Consumer<PropertyEvent>> consumers = eventConsumers.get(type);
+
+		if (consumers == null) {
+			consumers = new HashSet<>();
+			eventConsumers.put(type, consumers);
+		}
+
+		consumers.add(listener);
+	}
+
+	@Override
+	public void removeListener(Property type, Listener listener) {
+		Set<Consumer<PropertyEvent>> consumers = eventConsumers.get(type);
+
+		if (consumers != null) {
+			// should be synchronized
+			consumers.remove(consumers);
+		}
+	}
 }

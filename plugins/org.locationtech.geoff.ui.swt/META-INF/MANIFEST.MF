@@ -8,8 +8,8 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.swt,
  org.locationtech.geoff.core,
  org.locationtech.geoff.ol,
- org.locationtech.geoff.model
+ org.locationtech.geoff.model,
+ org.eclipse.core.databinding.observable
 Bundle-ClassPath: .
-Export-Package: org.locationtech.geoff.ui.swt,
- org.locationtech.geoff.ui.swt.events
+Export-Package: org.locationtech.geoff.ui.swt
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

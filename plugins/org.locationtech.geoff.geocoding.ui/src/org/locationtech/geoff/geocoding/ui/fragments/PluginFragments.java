@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.locationtech.geoff.geocoding.ui.fragments;
 
+import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
+import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.locationtech.geoff.e4.utils.expr.IExpressionProvider;
 import org.locationtech.geoff.e4.utils.fragments.FragmentBuilder;
 import org.locationtech.geoff.e4.utils.fragments.ModelFragmentsProvider;
@@ -25,9 +27,17 @@ public class PluginFragments extends ModelFragmentsProvider implements IExpressi
 			pdesc.setElementId(GeocodingPart.class.getName());
 			pdesc.setDirtyable(false);
 			pdesc.setCloseable(true);
+			pdesc.setAllowMultiple(false);
 			pdesc.setContributionURI(toBundleclassURI(GeocodingPart.class));
 			pdesc.setLabel("Geocoding");
 			pdesc.setIconURI(toPlatformURI("icons/marker-blue.png"));
+
+//			MToolBar toolbar = FMENU.createToolBar();
+//			pdesc.setToolbar(toolbar);
+//
+//			MMenu viewMenu = FMENU.createMenu();
+//			viewMenu.getTags().add("ViewMenu");
+//			pdesc.getMenus().add(viewMenu);
 		});
 	}
 }

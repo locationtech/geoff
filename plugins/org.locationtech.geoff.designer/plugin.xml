@@ -41,11 +41,19 @@
                relationship="bottom">
          </view>
          <view
+               closeable="false"
+               id="org.locationtech.geoff.geocoding.ui.GeocodingPart"
                minimized="false"
                ratio="0.66"
-               relative="org.eclipse.ui.editorss"
-               id="org.locationtech.geoff.geocoding.ui.GeocodingPart"
-               relationship="right">
+               relationship="right"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               closeable="false"
+               id="org.locationtech.geoff.ui.parts.MapPropsUI"
+               minimized="false"
+               relationship="stack"
+               relative="org.locationtech.geoff.ui.parts.LayersUI">
          </view>
       </perspectiveExtension>
    </extension>
@@ -213,6 +221,29 @@
             beforefragment="true"
             class="org.locationtech.geoff.designer.fragments.PluginFragments">
       </processor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="org.locationtech.geoff.designer.category"
+            name="Geoff Designer">
+      </category>
+      <e4view
+            category="org.locationtech.geoff.designer.category"
+            class="org.locationtech.geoff.ui.parts.LayersUI"
+            icon="icons/layers-16.png"
+            id="org.locationtech.geoff.ui.parts.LayersUI"
+            name="Layers"
+            restorable="true">
+      </e4view>
+      <e4view
+            category="org.locationtech.geoff.designer.category"
+            class="org.locationtech.geoff.ui.parts.MapPropsUI"
+            icon="icons/layers-16.png"
+            id="org.locationtech.geoff.ui.parts.MapPropsUI"
+            name="Map Properties"
+            restorable="true">
+      </e4view>
    </extension>
 
 </plugin>

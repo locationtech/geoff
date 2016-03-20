@@ -15,7 +15,9 @@ Require-Bundle: org.eclipse.swt,
  org.locationtech.geoff.ui.swt,
  org.locationtech.geoff.core,
  org.locationtech.geoff.model,
- org.eclipse.equinox.http.registry
+ org.eclipse.equinox.http.registry,
+ org.eclipse.e4.ui.di,
+ org.eclipse.e4.ui.workbench
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: javax.annotation;version="1.2.0",

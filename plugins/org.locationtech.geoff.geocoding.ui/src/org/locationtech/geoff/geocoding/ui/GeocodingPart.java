@@ -19,10 +19,13 @@ import static org.locationtech.geoff.core.Geoff.vectorSource;
 import static org.locationtech.geoff.core.Geoff.xyLocation;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.model.application.ui.menu.MDirectMenuItem;
+import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.jface.databinding.swt.ISWTObservableValue;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -45,7 +48,6 @@ import org.locationtech.geoff.geocoding.IGeocodingService;
 import org.locationtech.geoff.geocoding.POI;
 import org.locationtech.geoff.geocoding.POI.LatLon;
 import org.locationtech.geoff.geom.Geometry;
-import org.locationtech.geoff.layer.TileLayer;
 import org.locationtech.geoff.layer.VectorLayer;
 import org.locationtech.geoff.source.SourceFormat;
 import org.locationtech.geoff.source.VectorSource;
@@ -53,30 +55,35 @@ import org.locationtech.geoff.ui.swt.GeoMapComposite;
 
 public class GeocodingPart {
 
-	@Inject
-	private IGeocodingService geoService;
+	private java.util.Optional<IGeocodingService> geoService = Optional.of(IGeocodingService.Util.getFirstFound());
 	private XYZLocation markerLocation;
 	private GeoMap mapModel = createBaseMap();
 	private GeoMapComposite mapUI;
 
 	@PostConstruct
-	public void createContents(Composite parent) {
+	public void createUI(Composite parent, MPart part, EModelService modelService) {
+		fillViewMenu(part, modelService);
+
 		SashForm sash = new SashForm(parent, SWT.VERTICAL);
 		{
 			Composite container = new Composite(sash, SWT.None);
 			container.setLayout(GridLayoutFactory.swtDefaults().numColumns(1).create());
-			Text text = new Text(container, SWT.V_SCROLL | SWT.WRAP | SWT.SEARCH);
+
+			Text text = new Text(container, SWT.V_SCROLL | SWT.WRAP | SWT.SEARCH | SWT.ICON_SEARCH);
 			text.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			text.setMessage("Enter location name...");
 
 			TableViewer viewer = new TableViewer(container);
-			viewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
+			GridData tableData = new GridData(GridData.FILL_BOTH);
+			tableData.horizontalSpan = 2;
+			viewer.getControl().setLayoutData(tableData);
 			viewer.setLabelProvider(new LabelProvider() {
 				@Override
 				public String getText(Object element) {
 					POI poi = (POI) element;
 					LatLon latLon = poi.getLatLon();
-					return String.format("%s (lon: %f, lat: %f)", poi.getDescription(), latLon.getLon(), latLon.getLat());
+					return String.format("%s (lon: %f, lat: %f)", poi.getDescription(), latLon.getLon(),
+							latLon.getLat());
 				}
 
 				@Override
@@ -88,8 +95,10 @@ public class GeocodingPart {
 
 			ISWTObservableValue textObservable = WidgetProperties.text(SWT.Modify).observeDelayed(1000, text);
 			textObservable.addValueChangeListener((e) -> {
-				List<POI> result = geoService.executeQuery(text.getText());
-				viewer.setInput(result);
+				geoService.ifPresent((service) -> {
+					List<POI> result = service.executeQuery(text.getText());
+					viewer.setInput(result);
+				});
 			});
 
 			viewer.addSelectionChangedListener((e) -> {
@@ -103,16 +112,34 @@ public class GeocodingPart {
 				LatLon ll = selectedPOI.getLatLon();
 				Location newLocation = Geoff.xyLocation(ll.getLon(), ll.getLat(), Geoff.EPSG4326_WGS84);
 
-				mapUI.groupModelChanges(() -> {
-					markerLocation.setX(ll.getLon());
-					markerLocation.setY(ll.getLat());
-					mapModel.getView().setCenter(newLocation);
-				});
+				markerLocation.setX(ll.getLon());
+				markerLocation.setY(ll.getLat());
+				mapModel.getView().setCenter(newLocation);
+				mapUI.reloadMap();
 			});
 		}
 
 		mapUI = new GeoMapComposite(sash, SWT.None);
 		mapUI.loadMap(mapModel);
+	}
+
+	private void fillViewMenu(MPart part, EModelService modelService) {
+		part.getMenus().stream().filter((m) -> m.getTags().contains("ViewMenu")).findFirst().ifPresent((m) -> {
+			List<IGeocodingService> services = IGeocodingService.Util.getService(IGeocodingService.class);
+			services.forEach((service) -> {
+				MDirectMenuItem mi = modelService.createModelElement(MDirectMenuItem.class);
+				mi.setLabel(service.getClass().getSimpleName());
+				mi.setObject(GeocodingPart.this);
+				mi.setType(org.eclipse.e4.ui.model.application.ui.menu.ItemType.RADIO);
+				mi.getTransientData().put(IGeocodingService.class.getName(), service);
+				m.getChildren().add(mi);
+
+				if (geoService == null) {
+					geoService = Optional.of(service);
+					mi.setSelected(true);
+				}
+			});
+		});
 	}
 
 	private GeoMap createBaseMap() {

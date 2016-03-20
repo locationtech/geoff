@@ -16,12 +16,14 @@ import java.util.Map;
 import javax.inject.Named;
 
 import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.emf.ecore.EClass;
 import org.locationtech.geoff.core.Geoff;
 import org.locationtech.geoff.core.IGeoMapService;
 import org.locationtech.geoff.layer.TileLayer;
 import org.locationtech.geoff.source.SourcePackage;
 import org.locationtech.geoff.source.TileSource;
+import org.locationtech.geoff.ui.parts.LayersUI;
 
 public class AddTileLayerHandler {
 	private Map<String, EClass> tileProvidersMap = new HashMap<String, EClass>();
@@ -33,7 +35,13 @@ public class AddTileLayerHandler {
 	}
 
 	@Execute
-	public void execute(IGeoMapService geoMapService, @Named("tileProvider") String tileProviderKey) {
+	public void execute(@Named("tileProvider") String tileProviderKey, EPartService partService) {
+		IGeoMapService geoMapService = LayersUI.getGeoMapService(partService);
+		
+		if (geoMapService == null) {
+			return;
+		}
+		
 		EClass eClass = tileProvidersMap.get(tileProviderKey);
 
 		if (eClass == null) {
