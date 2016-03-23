@@ -39,7 +39,7 @@
 	eventHandlers["viewZoom"] = function(e, sendEvent) {
 		var view = ol3Map().getView();
 		var params = [ view.getZoom() ];
-		
+
 		if (sendEvent == null || sendEvent)
 			geoff.eventTriggered("viewZoom", params);
 		else
@@ -593,6 +593,16 @@
 		return $('#' + DEFAULT_MAP_DIV_ID).data('ol3Map');
 	}
 
+	function printMap(token) {
+		var map = ol3Map();
+		map.once('postcompose', function(event) {
+			var canvas = event.context.canvas;
+			var data = canvas.toDataURL('image/png');
+			geoff.eventTriggered("mapPrinted", [token, data]);
+		});
+		map.renderSync();
+	}
+
 	// this is the API object which can be accessed via the global
 	// 'window.geoff' variable
 	target.geoff = {
@@ -600,7 +610,8 @@
 		loadFromXMLString : loadFromXMLString,
 		eventTriggered : eventTriggered,
 		ol3Map : ol3Map,
-		eventHandlers : eventHandlers
+		eventHandlers : eventHandlers,
+		printMap : printMap
 	};
 
 	// the standalone mode is used to indicate that the document has embedded

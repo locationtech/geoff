@@ -40,4 +40,8 @@ public class LogUtil {
 	public static void warn(Class<?> context, String msg) {
 		getLogger(context).warning(msg);
 	}
+
+	public static void error(Class<?> context, String msg) {
+		getLogger(context).severe(msg);
+	}
 }

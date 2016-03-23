@@ -10,7 +10,10 @@
  *******************************************************************************/
 package org.locationtech.geoff.ui.swt;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -38,7 +41,9 @@ import org.locationtech.geoff.core.Geoff;
 import org.locationtech.geoff.ui.swt.internal.PropertyHandlers;
 import org.locationtech.geoff.ui.swt.internal.PropertyHandlers.PropertyHandler;
 
-public class GeoMapComposite extends Composite implements IGeoMapWidget, IScriptable {
+import javafx.util.converter.ByteStringConverter;
+
+public class GeoMapComposite extends Composite implements IGeoMapWidget, IScriptable, IPrintable {
 	private static final String HTML_MAP_DIV_CONTAINER = "map";
 	private static final boolean ENABLE_BROWSER_POPUP_MENU = false;
 	private Browser browser;
@@ -49,6 +54,7 @@ public class GeoMapComposite extends Composite implements IGeoMapWidget, IScript
 	private Queue<Runnable> pendingTasks = new LinkedList<Runnable>();
 	private Map<Property, Set<Consumer<PropertyEvent>>> eventConsumers = new HashMap<GeoMapComposite.Property, Set<Consumer<PropertyEvent>>>();
 	private GeoMap currentMap;
+	private Map<String, Consumer<?>> pendingResults = new HashMap<>();
 
 	public GeoMapComposite(Composite parent, int style) {
 		super(parent, style);
@@ -157,6 +163,17 @@ public class GeoMapComposite extends Composite implements IGeoMapWidget, IScript
 	}
 
 	private void processEvent(String evtName, Object[] params) {
+		if ("mapPrinted".equals(evtName)) {
+			String token = (String) params[0];
+			String data = (String) params[1];
+			byte[] base64Part = data.substring(data.indexOf(',') + 1).getBytes();
+			byte[] decode = Base64.getDecoder().decode(base64Part);
+			@SuppressWarnings("unchecked")
+			Consumer<InputStream> consumer = (Consumer<InputStream>) pendingResults.remove(token);
+			consumer.accept(new ByteArrayInputStream(decode));
+			return;
+		}
+		
 		Property e = Property.byName(evtName);
 		PropertyHandler<?> propertyHandler = PropertyHandlers.getInstance().getHandler(e);
 		Object result = propertyHandler.map(params);
@@ -309,5 +326,13 @@ public class GeoMapComposite extends Composite implements IGeoMapWidget, IScript
 			// should be synchronized
 			consumers.remove(consumers);
 		}
+	}
+
+	@Override
+	public void print(Format format, Consumer<InputStream> consumer) {
+		String token = String.valueOf(System.currentTimeMillis() + 1);
+		String jsCode = String.format("geoff.printMap('%s')", token);
+		pendingResults.put(token, consumer);
+		executeJavaSript(jsCode);
 	}
 }

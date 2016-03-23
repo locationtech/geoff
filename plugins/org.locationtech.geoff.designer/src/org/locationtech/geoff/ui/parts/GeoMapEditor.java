@@ -10,9 +10,15 @@
  *******************************************************************************/
 package org.locationtech.geoff.ui.parts;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.EventObject;
 import java.util.function.Consumer;
 
@@ -21,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -34,10 +41,12 @@ import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.FileEditorInput;
 import org.locationtech.geoff.GeoMap;
@@ -46,6 +55,7 @@ import org.locationtech.geoff.core.IGeoMapService;
 import org.locationtech.geoff.core.logging.LogUtil;
 import org.locationtech.geoff.ui.swt.GeoMapComposite;
 import org.locationtech.geoff.ui.swt.IGeoMapWidget;
+import org.locationtech.geoff.ui.swt.IPrintable;
 import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 
@@ -116,6 +126,33 @@ public class GeoMapEditor extends EditorPart {
 
 	@Override
 	public void doSaveAs() {
+		FileDialog saveAs = new FileDialog(geoMapComposite.getShell(), SWT.SAVE);
+		saveAs.setFilterExtensions(new String[] { "*.png" });
+		String open = saveAs.open();
+
+		if (open == null) {
+			return;
+		}
+
+		File file = new File(open);
+
+		geoMapComposite.print(IPrintable.Format.IMAGE_PNG, io -> {
+			SafeRunnable.run(new SafeRunnable() {
+
+				@Override
+				public void run() throws Exception {
+					try (InputStream in = io) {
+						file.createNewFile();
+						Files.copy(in, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+					}
+				}
+			});
+		});
+	}
+
+	@Override
+	public boolean isSaveAsAllowed() {
+		return true;
 	}
 
 	@Override
@@ -193,11 +230,6 @@ public class GeoMapEditor extends EditorPart {
 	@Override
 	public boolean isDirty() {
 		return canSave;
-	}
-
-	@Override
-	public boolean isSaveAsAllowed() {
-		return false;
 	}
 
 	@Override
