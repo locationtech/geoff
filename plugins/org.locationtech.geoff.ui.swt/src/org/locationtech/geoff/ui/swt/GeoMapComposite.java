@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 import org.eclipse.core.databinding.observable.value.IObservableValue;
@@ -37,11 +38,11 @@ import org.locationtech.geoff.core.Geoff;
 import org.locationtech.geoff.ui.swt.internal.PropertyHandlers;
 import org.locationtech.geoff.ui.swt.internal.PropertyHandlers.PropertyHandler;
 
-public class GeoMapComposite extends Composite implements IGeoMapWidget {
+public class GeoMapComposite extends Composite implements IGeoMapWidget, IScriptable {
 	private static final String HTML_MAP_DIV_CONTAINER = "map";
 	private static final boolean ENABLE_BROWSER_POPUP_MENU = false;
 	private Browser browser;
-	private Boolean complete = null;
+	private boolean complete = false;
 	private boolean enableLocationChange = true;
 
 	private List<BrowserFunction> browserFuncs = new ArrayList<>();
@@ -62,15 +63,16 @@ public class GeoMapComposite extends Composite implements IGeoMapWidget {
 			public void completed(ProgressEvent event) {
 				unregisterFunctions();
 				registerFunctions();
-				complete = Boolean.TRUE;
 				// after the content is setup, no change in location is allowed
 				// else, the browser widget might open external pages within
 				// itself
 				// enableLocationChange = false;
 
-				while (pendingTasks.peek() != null) {
-					pendingTasks.poll().run();
-				}
+				while (getDisplay().readAndDispatch())
+					continue;
+				complete = true;
+				dispatchScripts();
+				fireAllEvents();
 			}
 		});
 
@@ -195,15 +197,23 @@ public class GeoMapComposite extends Composite implements IGeoMapWidget {
 			}
 		};
 
-		if (complete != null) {
+		if (complete) {
+			dispatchScripts();
 			run.run();
 		} else {
 			pendingTasks.add(run);
 		}
 	}
 
+	private void dispatchScripts() {
+		while (pendingTasks.peek() != null) {
+			pendingTasks.poll().run();
+		}
+	}
+
 	@SuppressWarnings("unchecked")
-	private <T> T execNow(String jsCode) {
+	@Override
+	public <T> T execute(String jsCode) {
 		Object result = browser.evaluate(jsCode);
 		return (T) result;
 	}
@@ -225,18 +235,44 @@ public class GeoMapComposite extends Composite implements IGeoMapWidget {
 
 	@Override
 	public IObservableValue observeValue(Property type) {
-		PropertyHandler<?> handler = PropertyHandlers.getInstance().getHandler(type);
-		IObservableValue value = new WritableValue(handler.getValue(this), handler.getValueType());
+		@SuppressWarnings("unchecked")
+		PropertyHandler<Object> handler = (PropertyHandler<Object>) PropertyHandlers.getInstance().getHandler(type);
+		IObservableValue value = new WritableValue(complete ? handler.getValue(this, type) : null,
+				handler.getValueType());
+		AtomicBoolean settingValue = new AtomicBoolean(false);
 		Listener listener = (e) -> {
 			if (!value.isDisposed()) {
-				value.setValue(e.value);
+				try {
+					settingValue.set(true);
+					value.setValue(e.value);
+				} finally {
+					settingValue.set(false);
+				}
 			}
 		};
 		addListener(type, listener);
 		value.addDisposeListener((e) -> {
 			removeListener(type, listener);
 		});
+		value.addValueChangeListener((e) -> {
+			if (!isDisposed() && !settingValue.get()) {
+				handler.setValue(GeoMapComposite.this, e.diff.getNewValue());
+			}
+		});
 		return value;
+	}
+
+	/**
+	 * This is used to notify all observables to update their value as there is
+	 * no guarantee that the internal Browser may have been functional at the
+	 * moment the observables have been created.
+	 */
+	private void fireAllEvents() {
+		for (Property prop : Property.values()) {
+			PropertyHandler<?> handler = PropertyHandlers.getInstance().getHandler(prop);
+			Object result = handler.getValue(GeoMapComposite.this, prop);
+			fireEvent(prop, result);
+		}
 	}
 
 	private void fireEvent(Property type, Object result) {

@@ -7,6 +7,7 @@ import org.locationtech.geoff.Location;
 import org.locationtech.geoff.core.Geoff;
 import org.locationtech.geoff.ui.swt.IGeoMapWidget;
 import org.locationtech.geoff.ui.swt.IGeoMapWidget.Property;
+import org.locationtech.geoff.ui.swt.IScriptable;
 
 public class PropertyHandlers {
 	private static final PropertyHandlers INSTANCE = new PropertyHandlers();
@@ -16,26 +17,28 @@ public class PropertyHandlers {
 		propertyHandlers.put(Property.VIEW_ZOOM, new PropertyHandler<Integer>() {
 
 			@Override
-			public Object map(Object[] args) {
+			public Integer map(Object[] args) {
 				int zoom = ((Number) args[0]).intValue();
 				return zoom;
 			}
 
 			@Override
-			public Object getValue(IGeoMapWidget geoMapComposite) {
-				return 100;
+			public void setValue(IGeoMapWidget geoMapComposite, Integer value) {
+				IScriptable scriptable = (IScriptable) geoMapComposite;
+				scriptable.execute("return geoff.ol3Map().getView().setZoom(" + value + ");");
 			}
 
 			@Override
 			public Class<Integer> getValueType() {
 				return Integer.class;
 			}
+
 		});
 
 		propertyHandlers.put(Property.VIEW_CENTER, new PropertyHandler<Location>() {
 
 			@Override
-			public Object map(Object[] args) {
+			public Location map(Object[] args) {
 				Object[] locs = (Object[]) args[0];
 				double x = ((Number) locs[0]).doubleValue();
 				double y = ((Number) locs[1]).doubleValue();
@@ -45,13 +48,13 @@ public class PropertyHandlers {
 			}
 
 			@Override
-			public Object getValue(IGeoMapWidget geoMapComposite) {
-				return null;
+			public Class<Location> getValueType() {
+				return Location.class;
 			}
 
 			@Override
-			public Class<Location> getValueType() {
-				return Location.class;
+			public void setValue(IGeoMapWidget geoMapComposite, Location value) {
+
 			}
 		});
 	}
@@ -63,11 +66,24 @@ public class PropertyHandlers {
 		return INSTANCE;
 	}
 
+	private static Object[] execute(IGeoMapWidget geoMapComposite, Property prop) {
+		IScriptable scriptable = (IScriptable) geoMapComposite;
+		try {
+			// call the appropriate event handler and signal that no events
+			// should be re-triggered as we are only interested in the value
+			String script = String.format("return geoff.eventHandlers['%s'](null,false)", prop.getEventName());
+			return scriptable.execute(script);
+		} catch (Exception e) {
+			// may happen if the scriptable is not yet ready to execute
+			return null;
+		}
+	}
+
 	public PropertyHandler<?> getHandler(Property e) {
 		PropertyHandler<?> propertyHandler = propertyHandlers.get(e);
 
 		if (propertyHandler == null) {
-			throw new IllegalArgumentException("No property handler found by event: " + e);
+			throw new IllegalArgumentException("No property handler found for event: " + e);
 		}
 
 		return propertyHandler;
@@ -75,9 +91,24 @@ public class PropertyHandlers {
 
 	public static interface PropertyHandler<T> {
 
-		Object map(Object[] args);
+		/**
+		 * Maps the event value to the model value.
+		 * 
+		 * @param args
+		 *            the event value that has been passed from the JS side
+		 * @return the mapped event value
+		 */
+		T map(Object[] args);
 
-		Object getValue(IGeoMapWidget geoMapComposite);
+		default T getValue(IGeoMapWidget geoMapComposite, Property prop) {
+			// get the value of the property
+			Object[] params = execute(geoMapComposite, prop);
+			// map the result to the target value
+			T mapped = map(params);
+			return mapped;
+		}
+
+		void setValue(IGeoMapWidget geoMapComposite, T value);
 
 		Class<T> getValueType();
 	}

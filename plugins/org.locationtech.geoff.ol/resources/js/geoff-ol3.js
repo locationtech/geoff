@@ -11,6 +11,7 @@
 
 // /***/
 (function(target, $) {
+	var DEFAULT_MAP_DIV_ID = "map";
 	// the various Geoff XML namespaces
 	var GEOFF_NS = {
 		"geoff" : "http://www.locationtech.org/geoff-v1",
@@ -19,6 +20,30 @@
 		"geoff.source" : "http://www.locationtech.org/geoff-source-v1",
 		"geoff.style" : "http://www.locationtech.org/geoff-style-v1",
 		"geoff.interaction" : "http://www.locationtech.org/geoff-interaction-v1"
+	};
+
+	var eventHandlers = {};
+
+	eventHandlers["viewCenter"] = function(e, sendEvent) {
+		var view = ol3Map().getView();
+		var center = view.getCenter();
+		var code = view.getProjection().getCode();
+		var params = [ center, code ];
+
+		if (sendEvent == null || sendEvent)
+			geoff.eventTriggered("viewCenter", params);
+		else
+			return params;
+	};
+
+	eventHandlers["viewZoom"] = function(e, sendEvent) {
+		var view = ol3Map().getView();
+		var params = [ view.getZoom() ];
+		
+		if (sendEvent == null || sendEvent)
+			geoff.eventTriggered("viewZoom", params);
+		else
+			return params;
 	};
 
 	// this is the array of rules that are supported to transform DOM nodes to
@@ -132,16 +157,8 @@
 
 		view.setCenter(centerCoords);
 
-		var id = idOf(domNode);
-
-		view.on("change:resolution", function(e) {
-			geoff.eventTriggered("viewZoom", [ view.getZoom() ]);
-		});
-		view.on("change:center", function(e) {
-			var center = view.getCenter();
-			var code = view.getProjection().getCode();
-			geoff.eventTriggered("viewCenter", [ center, code ]);
-		});
+		view.on("change:resolution", target.geoff.eventHandlers["viewZoom"]);
+		view.on("change:center", target.geoff.eventHandlers["viewCenter"]);
 
 		return view;
 	};
@@ -520,7 +537,8 @@
 			for (var i = 0; i < maps.length; i++) {
 				var domMap = maps[i];
 				var divId = "geoffMap" + i;
-				var $div = $("<div id='" + divId + "' class='map'></div>");
+				var $div = $("<div id='" + divId + "' class='"
+						+ DEFAULT_MAP_DIV_ID + "'></div>");
 				$div.appendTo($(domMap));
 				loadMap(domMap, divId, env);
 			}
@@ -571,12 +589,18 @@
 		// may also be used to enable client/server communication
 	}
 
+	function ol3Map() {
+		return $('#' + DEFAULT_MAP_DIV_ID).data('ol3Map');
+	}
+
 	// this is the API object which can be accessed via the global
 	// 'window.geoff' variable
 	target.geoff = {
 		loadFromUrl : loadFromUrl,
 		loadFromXMLString : loadFromXMLString,
-		eventTriggered : eventTriggered
+		eventTriggered : eventTriggered,
+		ol3Map : ol3Map,
+		eventHandlers : eventHandlers
 	};
 
 	// the standalone mode is used to indicate that the document has embedded

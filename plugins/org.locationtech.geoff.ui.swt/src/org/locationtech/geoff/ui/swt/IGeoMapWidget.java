@@ -60,6 +60,11 @@ public interface IGeoMapWidget {
 	void removeListener(Property type, Listener listener);
 
 	/**
+	 * Creates a new {@link IObservableValue} to listen to UI events. Note that
+	 * the value of this {@link IObservableValue} may not have been set
+	 * initially, i.e. callers must be aware of its initial value to be
+	 * <code>null</code>.
+	 * 
 	 * @param type
 	 *            the property to observe
 	 * @return a new {@link IObservableValue} that observes changes from its
