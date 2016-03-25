@@ -11,12 +11,10 @@
 package org.locationtech.geoff.ui.parts;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.EventObject;
@@ -27,9 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.e4.core.commands.EHandlerService;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
@@ -37,16 +35,17 @@ import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.equinox.http.servlet.ExtendedHttpService;
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.dialogs.SaveAsDialog;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.FileEditorInput;
 import org.locationtech.geoff.GeoMap;
@@ -168,7 +167,7 @@ public class GeoMapEditor extends EditorPart {
 			throw new UnsupportedOperationException("Provided editor input not supported: " + input);
 		}
 
-		EHandlerService hs = (EHandlerService) getSite().getWorkbenchWindow().getService(EHandlerService.class);
+		EHandlerService hs = (EHandlerService) getSite().getService(EHandlerService.class);
 		hs.activateHandler(IWorkbenchCommandConstants.EDIT_UNDO, undoHandler);
 		hs.activateHandler(IWorkbenchCommandConstants.EDIT_REDO, redoHandler);
 
@@ -234,19 +233,29 @@ public class GeoMapEditor extends EditorPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		parent.setLayout(new FillLayout());
-		geoMapComposite = new GeoMapComposite(parent, SWT.None) {
+		GridLayoutFactory.fillDefaults().numColumns(1).applyTo(parent);
+		Composite top = new Composite(parent, SWT.None);
+		top.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		top.setLayout(new FillLayout());
+		Composite center = new Composite(parent, SWT.None);
+		center.setLayoutData(new GridData(GridData.FILL_BOTH));
+		center.setLayout(new FillLayout());
+		geoMapComposite = new GeoMapComposite(center, SWT.None) {
 			@Override
 			protected String doGetResourcesPath() {
 				String resourcesPath = String.format("%s/%s", alias.substring(1), "index-fullmap.html");
 				return resourcesPath;
 			}
 		};
-		GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(geoMapComposite);
 		final GeoMap geoMap = geoMapService.getGeoMap();
 		geoMapComposite.loadMap(geoMap);
 		IEclipseContext context = getSite().getService(IEclipseContext.class);
 		context.set(IGeoMapWidget.class, geoMapComposite);
+		
+		EditingUI editingUI = new EditingUI();
+		IEclipseContext local = context.createChild();
+		local.set(Composite.class, top);
+		ContextInjectionFactory.inject(editingUI, local);
 	}
 
 	@Override

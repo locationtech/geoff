@@ -18,8 +18,11 @@ import org.eclipse.e4.ui.model.application.commands.MCategory;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
 import org.eclipse.e4.ui.model.application.commands.MCommandsFactory;
 import org.eclipse.e4.ui.model.application.descriptor.basic.MBasicFactory;
+import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptor;
 import org.eclipse.e4.ui.model.application.ui.advanced.MAdvancedFactory;
+import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
+import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.locationtech.geoff.e4.utils.fragments.internal.FragmentHelper;
 import org.osgi.framework.FrameworkUtil;
 
@@ -57,5 +60,15 @@ public abstract class ModelFragmentsProvider {
 		MCategory cat = FCOMM.createCategory();
 		cat.setElementId(categoryId);
 		return null;
+	}
+	
+	protected void setupForContributions(MPartDescriptor pdesc) {
+		MToolBar tb = FMENU.createToolBar();
+		tb.setElementId(pdesc.getElementId());
+		pdesc.setToolbar(tb);
+
+		MMenu viewMenu = FMENU.createMenu();
+		viewMenu.getTags().add("ViewMenu");
+		pdesc.getMenus().add(viewMenu);
 	}
 }

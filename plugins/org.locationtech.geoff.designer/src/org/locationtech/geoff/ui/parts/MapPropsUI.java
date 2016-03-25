@@ -22,11 +22,9 @@ import org.locationtech.geoff.ui.PageBook;
 import org.locationtech.geoff.ui.swt.IGeoMapWidget;
 
 public class MapPropsUI {
-	private PageBook pageBook;
 
 	@PostConstruct
 	public void createUI(PageBook pageBook) {
-		this.pageBook = pageBook;
 	}
 
 	@PageBook.Default

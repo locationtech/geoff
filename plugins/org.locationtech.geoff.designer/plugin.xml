@@ -13,6 +13,20 @@
       </editor>
    </extension>
    <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="org.locationtech.geoff.designer.editor">
+         <and>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="org.locationtech.geoff.designer.editor">
+               </equals>
+            </with>
+         </and>
+      </definition>
+   </extension>
+   <extension
          point="org.eclipse.ui.perspectives">
       <perspective
             name="Geo Map"
@@ -43,7 +57,7 @@
          <view
                closeable="false"
                id="org.locationtech.geoff.geocoding.ui.GeocodingPart"
-               minimized="false"
+               minimized="true"
                ratio="0.66"
                relationship="right"
                relative="org.eclipse.ui.editorss">
@@ -75,7 +89,7 @@
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
-            locationURI="toolbar:org.locationtech.geoff.designer.views.layers">
+            locationURI="toolbar:org.locationtech.geoff.ui.parts.LayersUI">
          <command
                commandId="org.locationtech.geoff.designer.commands.addResourceAsLayer"
                label="Layers"
@@ -84,14 +98,9 @@
                id="org.locationtech.geoff.designer.layers">
             <visibleWhen
                   checkEnabled="false">
-               <and>
-                  <with
-                        variable="activeEditorId">
-                     <equals
-                           value="org.locationtech.geoff.designer.editor">
-                     </equals>
-                  </with>
-               </and>
+               <reference
+                     definitionId="org.locationtech.geoff.designer.editor">
+               </reference>
             </visibleWhen>
          </command>
       </menuContribution>
@@ -223,27 +232,54 @@
       </processor>
    </extension>
    <extension
-         point="org.eclipse.ui.views">
-      <category
-            id="org.locationtech.geoff.designer.category"
-            name="Geoff Designer">
-      </category>
-      <e4view
-            category="org.locationtech.geoff.designer.category"
-            class="org.locationtech.geoff.ui.parts.LayersUI"
-            icon="icons/layers-16.png"
-            id="org.locationtech.geoff.ui.parts.LayersUI"
-            name="Layers"
-            restorable="true">
-      </e4view>
-      <e4view
-            category="org.locationtech.geoff.designer.category"
-            class="org.locationtech.geoff.ui.parts.MapPropsUI"
-            icon="icons/layers-16.png"
-            id="org.locationtech.geoff.ui.parts.MapPropsUI"
-            name="Map Properties"
-            restorable="true">
-      </e4view>
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="org.locationtech.geoff.designer.toolbars.drawing">
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.locationtech.geoff.designer.toolbars.drawing">
+         <command
+               commandId="org.locationtech.geoff.designer.commands.drawing.point"
+               icon="icons/new_point_mode.gif"
+               label="Point"
+               style="radio">
+            <visibleWhen
+                  checkEnabled="false">
+               <reference
+                     definitionId="org.locationtech.geoff.designer.editor">
+               </reference>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.locationtech.geoff.designer.commands.drawing.line"
+               icon="icons/new_line_mode.gif"
+               label="Line"
+               style="radio">
+            <visibleWhen
+                  checkEnabled="false">
+               <reference
+                     definitionId="org.locationtech.geoff.designer.editor">
+               </reference>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.locationtech.geoff.designer.commands.drawing.polygon"
+               icon="icons/new_polygon_mode.gif"
+               label="Polygon"
+               style="radio">
+            <visibleWhen
+                  checkEnabled="false">
+               <reference
+                     definitionId="org.locationtech.geoff.designer.editor">
+               </reference>
+            </visibleWhen>
+         </command>
+      </menuContribution>
    </extension>
 
 </plugin>

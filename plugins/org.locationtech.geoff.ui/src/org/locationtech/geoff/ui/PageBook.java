@@ -15,7 +15,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.locationtech.geoff.core.IGeoMapService;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
 
 /**
  * A pagebook is a general pattern that accepts input and generates an
@@ -87,4 +87,15 @@ public interface PageBook {
 	 *         variables pool
 	 */
 	<T> T getFromTarget(Class<T> type);
+
+	/**
+	 * Binds the provided observable's value to the variable identified by its
+	 * type within the target part's variables pool.
+	 * 
+	 * @param type
+	 *            the variable's type to bind to
+	 * @param observableValue
+	 *            the observable value to listen to
+	 */
+	void bindValueTo(Class<?> type, IObservableValue observableValue);
 }

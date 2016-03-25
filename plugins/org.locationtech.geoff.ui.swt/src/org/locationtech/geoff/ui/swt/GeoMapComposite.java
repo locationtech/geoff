@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.core.Geoff;
+import org.locationtech.geoff.ui.swt.internal.IScriptable;
 import org.locationtech.geoff.ui.swt.internal.PropertyHandlers;
 import org.locationtech.geoff.ui.swt.internal.PropertyHandlers.PropertyHandler;
 

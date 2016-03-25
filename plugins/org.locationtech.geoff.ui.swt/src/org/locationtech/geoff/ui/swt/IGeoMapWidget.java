@@ -7,6 +7,14 @@ import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.ui.swt.IGeoMapWidget.Property;
 
 public interface IGeoMapWidget {
+	enum EditingMode {
+		NONE, POINT, LINE, POLYGON, CIRCLE, RECTANGLE
+	}
+	
+	enum SelectionMode {
+		POINT, RECTANGLE
+	}
+
 	class PropertyEvent {
 		public final Property type;
 		public final Object value;
@@ -22,6 +30,8 @@ public interface IGeoMapWidget {
 	}
 
 	enum Property {
+		EDITING_MODE("editingMode"), //
+		SELECTION_MODE("selectionMode"), //
 		VIEW_ZOOM("viewZoom"), //
 		VIEW_CENTER("viewCenter");
 

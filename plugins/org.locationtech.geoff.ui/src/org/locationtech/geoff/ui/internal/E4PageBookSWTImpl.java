@@ -13,6 +13,7 @@ package org.locationtech.geoff.ui.internal;
 
 import javax.inject.Inject;
 
+import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.InjectionException;
@@ -29,6 +30,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Layout;
+import org.locationtech.geoff.ui.ContextObservables;
 import org.locationtech.geoff.ui.PageBook;
 import org.osgi.service.event.Event;
 
@@ -170,15 +172,21 @@ public final class E4PageBookSWTImpl extends Composite implements PageBook {
 					showDefaultPage(host);
 				});
 				child.set(Composite.class, container);
+				// make the pagebook instance available in the target
+				// context as it is not available when a static instance is
+				// created
+				child.set(PageBook.class, E4PageBookSWTImpl.this);
+
+				// pre-set the current page as this might be needed within the
+				// injection, for example, when bindToValue() is called while
+				// the page is being created
+				currentPage = container;
+
 				// part's context as local context
 				Object result = ContextInjectionFactory.invoke(host, Create.class, child);
 
 				// return type is a class, so make an instance of it
 				if (result instanceof Class<?>) {
-					// make the pagebook instance available in the target
-					// context as it is not available when a static instance is
-					// created
-					child.set(PageBook.class, E4PageBookSWTImpl.this);
 					ContextInjectionFactory.make((Class<?>) result, child);
 				}
 
@@ -223,11 +231,6 @@ public final class E4PageBookSWTImpl extends Composite implements PageBook {
 		return null;
 	}
 
-	/**
-	 * <p>
-	 * [Issue: This class should be declared private.]
-	 * </p>
-	 */
 	private class PageBookLayout extends Layout {
 
 		@Override
@@ -269,5 +272,13 @@ public final class E4PageBookSWTImpl extends Composite implements PageBook {
 
 		MPart targetPart = (MPart) currentPage.getData(MPart.class.getName());
 		return targetPart.getContext().get(type);
+	}
+
+	@Override
+	public void bindValueTo(Class<?> type, IObservableValue observableValue) {
+		// IObservableValue observeValue = ContextObservables.observeValue(ctx,
+		// type);
+		MPart targetPart = (MPart) currentPage.getData(MPart.class.getName());
+		ContextObservables.bindValueTo(targetPart.getContext(), type, observableValue);
 	}
 }

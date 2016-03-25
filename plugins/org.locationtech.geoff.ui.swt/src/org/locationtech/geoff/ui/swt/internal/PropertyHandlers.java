@@ -7,7 +7,6 @@ import org.locationtech.geoff.Location;
 import org.locationtech.geoff.core.Geoff;
 import org.locationtech.geoff.ui.swt.IGeoMapWidget;
 import org.locationtech.geoff.ui.swt.IGeoMapWidget.Property;
-import org.locationtech.geoff.ui.swt.IScriptable;
 
 public class PropertyHandlers {
 	private static final PropertyHandlers INSTANCE = new PropertyHandlers();
@@ -55,6 +54,40 @@ public class PropertyHandlers {
 			@Override
 			public void setValue(IGeoMapWidget geoMapComposite, Location value) {
 
+			}
+		});
+
+		propertyHandlers.put(Property.EDITING_MODE, new PropertyHandler<IGeoMapWidget.EditingMode>() {
+
+			@Override
+			public IGeoMapWidget.EditingMode map(Object[] args) {
+				return IGeoMapWidget.EditingMode.NONE;
+			}
+
+			@Override
+			public Class<IGeoMapWidget.EditingMode> getValueType() {
+				return IGeoMapWidget.EditingMode.class;
+			}
+
+			@Override
+			public void setValue(IGeoMapWidget geoMapComposite, IGeoMapWidget.EditingMode value) {
+			}
+		});
+
+		propertyHandlers.put(Property.SELECTION_MODE, new PropertyHandler<IGeoMapWidget.SelectionMode>() {
+
+			@Override
+			public IGeoMapWidget.SelectionMode map(Object[] args) {
+				return IGeoMapWidget.SelectionMode.POINT;
+			}
+
+			@Override
+			public Class<IGeoMapWidget.SelectionMode> getValueType() {
+				return IGeoMapWidget.SelectionMode.class;
+			}
+
+			@Override
+			public void setValue(IGeoMapWidget geoMapComposite, IGeoMapWidget.SelectionMode value) {
 			}
 		});
 	}

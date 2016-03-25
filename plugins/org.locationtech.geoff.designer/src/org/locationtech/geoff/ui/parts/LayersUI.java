@@ -18,12 +18,15 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.jface.databinding.viewers.IViewerObservableValue;
+import org.eclipse.jface.databinding.viewers.ViewersObservables;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.core.IGeoMapService;
+import org.locationtech.geoff.layer.Layer;
 import org.locationtech.geoff.ui.PageBook;
 
 public class LayersUI {
@@ -74,7 +77,7 @@ public class LayersUI {
 
 	public static class LayersPage {
 		@PostConstruct
-		public void createUI(Composite pageContainer, IGeoMapService geoMapService) {
+		public void createUI(Composite pageContainer, IGeoMapService geoMapService, PageBook pageBook) {
 			AdapterFactory af = geoMapService.adaptTo(AdapterFactory.class);
 
 			AdapterFactoryLabelProvider aflp = new AdapterFactoryLabelProvider(af);
@@ -103,6 +106,13 @@ public class LayersUI {
 			layersViewer.setContentProvider(afcp);
 			layersViewer.setLabelProvider(aflp);
 			layersViewer.setInput(geoMapService.adaptTo(GeoMap.class));
+
+			// make the selected layer available within the editor context,
+			// so other parts can use it
+			{
+				IViewerObservableValue singleSelection = ViewersObservables.observeSingleSelection(layersViewer);
+				pageBook.bindValueTo(Layer.class, singleSelection);
+			}
 		}
 	}
 }

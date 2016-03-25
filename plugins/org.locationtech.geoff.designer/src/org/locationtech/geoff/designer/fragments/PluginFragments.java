@@ -14,6 +14,8 @@ import org.locationtech.geoff.e4.utils.fragments.FragmentBuilder;
 import org.locationtech.geoff.e4.utils.fragments.ModelFragmentsProvider;
 import org.locationtech.geoff.ui.handlers.AddResourceAsLayerHandler;
 import org.locationtech.geoff.ui.handlers.AddTileLayerHandler;
+import org.locationtech.geoff.ui.parts.LayersUI;
+import org.locationtech.geoff.ui.parts.MapPropsUI;
 
 public class PluginFragments extends ModelFragmentsProvider {
 	private static final String ICONS_GEOFF_16_PNG = "icons/geoff-16.png";
@@ -69,22 +71,26 @@ public class PluginFragments extends ModelFragmentsProvider {
 		});
 	}
 
-//	public void fragmentPartDescriptors(FragmentBuilder b) {
-//		b.customize(f -> {
-//			f.setParentElementId(ANY_APPLICATION);
-//			f.setFeaturename("descriptors");
-//		}).element(FDESC::createPartDescriptor, (p, pBuilder) -> {
-//			p.setElementId(LayersUI.class.getName());
-//			p.setIconURI(toPlatformURI(ICONS_LAYERS_16_PNG));
-//			p.setLabel("Layers");
-//			p.setContributionURI(toBundleclassURI(LayersUI.class));
-//		}).element(FDESC::createPartDescriptor, (p, pBuilder) -> {
-//			p.setElementId(GeoMapUI.class.getName());
-//			p.setIconURI(toPlatformURI(ICONS_LAYERS_16_PNG));
-//			p.setLabel("GeoMap Editor");
-//			p.setContributionURI(toBundleclassURI(GeoMapUI.class));
-//		});
-//	}
+	public void fragmentPartDescriptors(FragmentBuilder b) {
+		b.customize(f -> {
+			f.setParentElementId(ANY_APPLICATION);
+			f.setFeaturename("descriptors");
+		}).element(FDESC::createPartDescriptor, (p, pBuilder) -> {
+			p.setElementId(LayersUI.class.getName());
+			p.setIconURI(toPlatformURI(ICONS_LAYERS_16_PNG));
+			p.setLabel("Layers");
+			p.setContributionURI(toBundleclassURI(LayersUI.class));
+			p.setAllowMultiple(false);
+			setupForContributions(p);
+		}).element(FDESC::createPartDescriptor, (p, pBuilder) -> {
+			p.setElementId(MapPropsUI.class.getName());
+			p.setIconURI(toPlatformURI(ICONS_LAYERS_16_PNG));
+			p.setLabel("Properties");
+			p.setContributionURI(toBundleclassURI(MapPropsUI.class));
+			p.setAllowMultiple(false);
+			setupForContributions(p);
+		});
+	}
 
 	// public void fragmentPerspectives(FragmentBuilder b) {
 	// b.customize(f -> {
