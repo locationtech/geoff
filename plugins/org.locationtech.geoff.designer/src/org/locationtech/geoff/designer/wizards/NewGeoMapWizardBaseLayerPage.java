@@ -27,13 +27,14 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.ITreeSelection;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -48,7 +49,7 @@ import org.locationtech.geoff.source.SourceFormat;
 import org.locationtech.geoff.source.VectorSource;
 
 public class NewGeoMapWizardBaseLayerPage {
-	private AdapterFactoryLabelProvider labelProvider;
+	private ILabelProvider labelProvider;
 	private TreeViewer viewer;
 
 	@PostConstruct
@@ -89,7 +90,7 @@ public class NewGeoMapWizardBaseLayerPage {
 			}
 		});
 		AdapterFactory adapterFactory = DesignerUtil.createComposedAdapterFactor();
-		labelProvider = new AdapterFactoryLabelProvider(adapterFactory);
+		labelProvider = new LabelProvider();
 		viewer.setLabelProvider(labelProvider);
 
 		VectorSource countriesSource = Geoff.vectorSource();

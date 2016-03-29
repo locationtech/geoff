@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Geoff Eclipse 3 Bridge
+Bundle-SymbolicName: org.locationtech.geoff.designer.e3;singleton:=true
+Bundle-Version: 0.8.0.qualifier
+Fragment-Host: org.locationtech.geoff.designer;bundle-version="0.8.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.ide,
+ org.eclipse.core.resources
+Import-Package: org.eclipse.e4.core.contexts

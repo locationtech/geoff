@@ -12,8 +12,12 @@ package org.locationtech.geoff.designer.fragments;
 
 import org.locationtech.geoff.e4.utils.fragments.FragmentBuilder;
 import org.locationtech.geoff.e4.utils.fragments.ModelFragmentsProvider;
+import org.locationtech.geoff.ui.UIConsts;
 import org.locationtech.geoff.ui.handlers.AddResourceAsLayerHandler;
 import org.locationtech.geoff.ui.handlers.AddTileLayerHandler;
+import org.locationtech.geoff.ui.handlers.DeleteLayerHandler;
+import org.locationtech.geoff.ui.handlers.RedoHandler;
+import org.locationtech.geoff.ui.handlers.UndoHandler;
 import org.locationtech.geoff.ui.parts.LayersUI;
 import org.locationtech.geoff.ui.parts.MapPropsUI;
 
@@ -68,6 +72,17 @@ public class PluginFragments extends ModelFragmentsProvider {
 		}).element(FCOMM::createHandler, (handler, handlerBuilder) -> {
 			handler.setContributionURI(toBundleclassURI(AddTileLayerHandler.class));
 			handler.setCommand(commandRef(COMMAND_ADD_NEW_LAYER));
+		});
+
+		b.element(FCOMM::createHandler, (handler, handlerBuilder) -> {
+			handler.setContributionURI(toBundleclassURI(UndoHandler.class));
+			handler.setCommand(commandRef(UIConsts.EDIT_UNDO));
+		}).element(FCOMM::createHandler, (handler, handlerBuilder) -> {
+			handler.setContributionURI(toBundleclassURI(RedoHandler.class));
+			handler.setCommand(commandRef(UIConsts.EDIT_REDO));
+		}).element(FCOMM::createHandler, (handler, handlerBuilder) -> {
+			handler.setContributionURI(toBundleclassURI(DeleteLayerHandler.class));
+			handler.setCommand(commandRef(UIConsts.EDIT_DELETE));
 		});
 	}
 

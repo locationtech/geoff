@@ -14,13 +14,16 @@ package org.locationtech.geoff.ui.internal;
 import javax.inject.Inject;
 
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.InjectionException;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.internal.contexts.EclipseContext;
 import org.eclipse.e4.ui.di.UIEventTopic;
+import org.eclipse.e4.ui.internal.workbench.swt.MenuService;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
+import org.eclipse.e4.ui.model.application.ui.menu.MPopupMenu;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -30,6 +33,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Layout;
+import org.eclipse.swt.widgets.Menu;
 import org.locationtech.geoff.ui.ContextObservables;
 import org.locationtech.geoff.ui.PageBook;
 import org.osgi.service.event.Event;
@@ -276,9 +280,42 @@ public final class E4PageBookSWTImpl extends Composite implements PageBook {
 
 	@Override
 	public void bindValueTo(Class<?> type, IObservableValue observableValue) {
-		// IObservableValue observeValue = ContextObservables.observeValue(ctx,
-		// type);
 		MPart targetPart = (MPart) currentPage.getData(MPart.class.getName());
 		ContextObservables.bindValueTo(targetPart.getContext(), type, observableValue);
+	}
+
+	@Override
+	public void registerContextMenu(Object widget) {
+		if (!(widget instanceof Control)) {
+			return;
+		}
+
+		hostingPart.getMenus().stream()
+				.filter(m -> m instanceof MPopupMenu && hostingPart.getElementId().equals(m.getElementId()))
+				.forEach(m -> {
+					IEclipseContext context = (IEclipseContext) currentPage.getData(IEclipseContext.class.getName());
+					Control control = (Control) widget;
+					Menu menu = MenuService.registerMenu(control, (MPopupMenu) m, context);
+
+					if (menu != null) {
+						control.setMenu(menu);
+					}
+				});
+	}
+
+	@Override
+	public void activateHandler(String commandId, Object handler) {
+		if (handler == null) {
+			return;
+		}
+
+		IEclipseContext hostContext = (IEclipseContext) currentPage.getData(IEclipseContext.class.getName());
+
+		if (handler instanceof Class<?>) {
+			handler = ContextInjectionFactory.make((Class<?>) handler, hostContext);
+		}
+
+		EHandlerService hs = hostContext.get(EHandlerService.class);
+		hs.activateHandler(commandId, handler);
 	}
 }

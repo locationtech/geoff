@@ -1,14 +1,4 @@
-/*******************************************************************************
- * Copyright (c) 2016 Erdal Karaca and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Erdal Karaca - initial API and implementation
- *******************************************************************************/
-package org.locationtech.geoff.designer.wizards;
+package org.locationtech.geoff.ui.wizards;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,9 +8,9 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.ui.INewWizard;
 import org.locationtech.geoff.designer.e3x.E3Wizard;
 import org.locationtech.geoff.designer.internal.DesignerUtil;
+import org.locationtech.geoff.designer.wizards.NewGeoMapWizardBaseLayerPage;
 
 public class NewGeoMapWizard extends E3Wizard implements INewWizard {
-
 	@Override
 	protected List<IWizardPage> doCreatePages() {
 		setWindowTitle("New Geo Map");

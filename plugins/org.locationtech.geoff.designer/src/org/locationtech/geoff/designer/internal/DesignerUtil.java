@@ -10,17 +10,11 @@
  *******************************************************************************/
 package org.locationtech.geoff.designer.internal;
 
+import java.net.URL;
+
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.locationtech.geoff.Color;
-import org.locationtech.geoff.GeoffPackage;
-import org.locationtech.geoff.core.Geoff;
-import org.locationtech.geoff.layer.VectorLayer;
-import org.locationtech.geoff.style.Circle;
-import org.locationtech.geoff.style.Fill;
-import org.locationtech.geoff.style.Stroke;
-import org.locationtech.geoff.style.Style;
-import org.locationtech.geoff.style.StylePackage;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -29,12 +23,19 @@ public class DesignerUtil {
 	public static final String ICONS_GEOFF_16_PNG = "icons/geoff-16.png";
 	public static final String ICONS_GEOFF_WIZBAN_PNG = "icons/geoff-wizban.png";
 
+	private static ImageRegistry IMG_REG = new ImageRegistry();
+
 	public static ImageDescriptor getImageDescriptor(String imageFilePath) {
 		Bundle bundle = FrameworkUtil.getBundle(DesignerUtil.class);
-		String symbolicName = bundle.getSymbolicName();
-		ImageDescriptor imageDescriptorFromPlugin = DesignerActivator.imageDescriptorFromPlugin(symbolicName,
-				imageFilePath);
-		return imageDescriptorFromPlugin;
+		ImageDescriptor descriptor = IMG_REG.getDescriptor(imageFilePath);
+
+		if (descriptor == null) {
+			URL entry = bundle.getEntry(imageFilePath);
+			descriptor = ImageDescriptor.createFromURL(entry);
+			IMG_REG.put(imageFilePath, descriptor);
+		}
+
+		return descriptor;
 	}
 
 	public static ComposedAdapterFactory createComposedAdapterFactor() {

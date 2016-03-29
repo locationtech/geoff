@@ -22,6 +22,7 @@ import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptor;
 import org.eclipse.e4.ui.model.application.ui.advanced.MAdvancedFactory;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuFactory;
+import org.eclipse.e4.ui.model.application.ui.menu.MPopupMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.locationtech.geoff.e4.utils.fragments.internal.FragmentHelper;
 import org.osgi.framework.FrameworkUtil;
@@ -70,5 +71,9 @@ public abstract class ModelFragmentsProvider {
 		MMenu viewMenu = FMENU.createMenu();
 		viewMenu.getTags().add("ViewMenu");
 		pdesc.getMenus().add(viewMenu);
+		
+		MPopupMenu popupMenu = FMENU.createPopupMenu();
+		popupMenu.setElementId(pdesc.getElementId());
+		pdesc.getMenus().add(popupMenu);
 	}
 }

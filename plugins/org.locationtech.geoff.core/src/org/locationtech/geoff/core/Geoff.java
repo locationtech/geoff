@@ -298,7 +298,8 @@ public class Geoff {
 		return (T) eo;
 	}
 
-	public static Collection<? extends Identifiable> samplesOf(EClass eclass) {
+	@SuppressWarnings("unchecked")
+	public static <T extends Identifiable> Collection<T> samplesOf(EClass eclass) {
 		EPackage root = eclass.getEPackage();
 		EPackage current = root;
 
@@ -319,7 +320,7 @@ public class Geoff {
 			ret.add(eo);
 		}
 
-		return ret;
+		return (Collection<T>) ret;
 	}
 
 	private static void collectSubtypes(Collection<EClass> eclasses, EClass eclass, EPackage root) {

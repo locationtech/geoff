@@ -16,6 +16,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.swt.widgets.Control;
 
 /**
  * A pagebook is a general pattern that accepts input and generates an
@@ -98,4 +99,8 @@ public interface PageBook {
 	 *            the observable value to listen to
 	 */
 	void bindValueTo(Class<?> type, IObservableValue observableValue);
+
+	void registerContextMenu(Object widget);
+
+	void activateHandler(String commandId, Object handler);
 }

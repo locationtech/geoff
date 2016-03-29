@@ -17,7 +17,12 @@ Require-Bundle: org.locationtech.geoff.model,
  org.eclipse.osgi.services,
  org.eclipse.e4.ui.workbench,
  org.eclipse.core.databinding.observable,
- javax.annotation
+ javax.annotation,
+ org.eclipse.e4.ui.workbench.swt,
+ org.eclipse.e4.ui.services,
+ org.eclipse.e4.core.commands,
+ org.eclipse.jface,
+ org.eclipse.core.runtime
 Export-Package: org.locationtech.geoff.ui
 Service-Component: OSGI-INF/org.locationtech.geoff.ui.internal.PageBookFunction.xml,
  OSGI-INF/org.locationtech.geoff.ui.internal.ObservableObjectSupplier.xml

@@ -16,10 +16,10 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.jface.databinding.viewers.IViewerObservableValue;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
+import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -28,13 +28,15 @@ import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.core.IGeoMapService;
 import org.locationtech.geoff.layer.Layer;
 import org.locationtech.geoff.ui.PageBook;
+import org.locationtech.geoff.ui.ProvidersFactory;
+import org.locationtech.geoff.ui.UIConsts;
+import org.locationtech.geoff.ui.handlers.DeleteLayerHandler;
 
 public class LayersUI {
-
 	private PageBook pageBook;
 
 	@PostConstruct
-	public void createUI(PageBook pageBook) {
+	public void createUI(PageBook pageBook, MPart part) {
 		this.pageBook = pageBook;
 	}
 
@@ -58,8 +60,12 @@ public class LayersUI {
 		return LayersPage.class;
 	}
 
-	public IGeoMapService getCurrentMap() {
+	private IGeoMapService getCurrentMap() {
 		return pageBook.getFromTarget(IGeoMapService.class);
+	}
+	
+	private Layer getSelectedLayer() {
+		return pageBook.getFromTarget(Layer.class);
 	}
 
 	public static IGeoMapService getGeoMapService(EPartService partService) {
@@ -75,32 +81,25 @@ public class LayersUI {
 		return geoMapService;
 	}
 
+	public static Layer getLayerSelection(EPartService partService) {
+		LayersUI layersUI = (LayersUI) partService.getParts().stream()
+				.filter(p -> p.getContributionURI().endsWith(LayersUI.class.getName())).findFirst()
+				.map(p -> p.getObject()).get();
+		
+		if (layersUI == null) {
+			return null;
+		}
+		
+		return layersUI.getSelectedLayer();
+	}
+
 	public static class LayersPage {
 		@PostConstruct
 		public void createUI(Composite pageContainer, IGeoMapService geoMapService, PageBook pageBook) {
 			AdapterFactory af = geoMapService.adaptTo(AdapterFactory.class);
 
-			AdapterFactoryLabelProvider aflp = new AdapterFactoryLabelProvider(af);
-			AdapterFactoryContentProvider afcp = new AdapterFactoryContentProvider(af) {
-				@Override
-				public boolean hasChildren(Object object) {
-					super.hasChildren(object);
-
-					// only flat list
-					return false;
-				}
-
-				@Override
-				public Object[] getElements(Object object) {
-					super.getElements(object);
-
-					if (object instanceof GeoMap) {
-						return ((GeoMap) object).getLayers().toArray();
-					}
-
-					return new Object[0];
-				}
-			};
+			ILabelProvider aflp = ProvidersFactory.createLayerLabelProvider(af);
+			IContentProvider afcp = ProvidersFactory.createLayerContentProvider(af);
 
 			TreeViewer layersViewer = new TreeViewer(pageContainer);
 			layersViewer.setContentProvider(afcp);
@@ -113,6 +112,9 @@ public class LayersUI {
 				IViewerObservableValue singleSelection = ViewersObservables.observeSingleSelection(layersViewer);
 				pageBook.bindValueTo(Layer.class, singleSelection);
 			}
+
+			pageBook.registerContextMenu(layersViewer.getControl());
+			pageBook.activateHandler(UIConsts.EDIT_DELETE, DeleteLayerHandler.class);
 		}
 	}
 }

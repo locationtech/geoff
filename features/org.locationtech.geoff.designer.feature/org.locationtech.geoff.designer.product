@@ -37,14 +37,13 @@
       <feature id="org.eclipse.rcp"/>
       <feature id="org.eclipse.platform"/>
       <feature id="org.eclipse.emf.common"/>
-      <feature id="org.eclipse.emf.common.ui"/>
       <feature id="org.eclipse.emf.ecore"/>
       <feature id="org.eclipse.emf.edit"/>
-      <feature id="org.eclipse.emf.edit.ui"/>
       <feature id="org.locationtech.geoff.runtime.feature"/>
       <feature id="org.locationtech.geoff.showcase.feature"/>
       <feature id="org.locationtech.geoff.geocoding.feature"/>
       <feature id="org.locationtech.geoff.designer.feature"/>
+      <feature id="org.locationtech.geoff.designer.e3.feature"/>
    </features>
 
    <configurations>
