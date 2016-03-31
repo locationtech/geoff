@@ -124,7 +124,9 @@ public class GeoMapComposite extends Composite implements IGeoMapWidget, IScript
 					return null;
 				}
 
-				if ("loadMap".equals(arguments[0])) {
+				String command = (String) arguments[0];
+
+				if ("loadMap".equals(command)) {
 					String xml;
 
 					if (currentMap == null) {
@@ -138,7 +140,7 @@ public class GeoMapComposite extends Composite implements IGeoMapWidget, IScript
 					return xml;
 				}
 
-				if ("event".equals(arguments[0])) {
+				if ("event".equals(command)) {
 					String evtName = (String) arguments[1];
 					Object[] params = (Object[]) arguments[2];
 					processEvent(evtName, params);
@@ -174,7 +176,7 @@ public class GeoMapComposite extends Composite implements IGeoMapWidget, IScript
 			consumer.accept(new ByteArrayInputStream(decode));
 			return;
 		}
-		
+
 		Property e = Property.byName(evtName);
 		PropertyHandler<?> propertyHandler = PropertyHandlers.getInstance().getHandler(e);
 		Object result = propertyHandler.map(params);

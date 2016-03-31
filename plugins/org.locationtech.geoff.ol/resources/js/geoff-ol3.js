@@ -24,26 +24,42 @@
 
 	var eventHandlers = {};
 
+	function handleEvent(eventName, params, sendEvent) {
+		if (sendEvent == null || sendEvent) {
+			// notify server that event triggered
+			geoff.eventTriggered(eventName, params);
+		} else {
+			// return current value of event
+			return params;
+		}
+	}
+
 	eventHandlers["viewCenter"] = function(e, sendEvent) {
 		var view = ol3Map().getView();
 		var center = view.getCenter();
 		var code = view.getProjection().getCode();
 		var params = [ center, code ];
-
-		if (sendEvent == null || sendEvent)
-			geoff.eventTriggered("viewCenter", params);
-		else
-			return params;
+		return handleEvent("viewCenter", params, sendEvent);
 	};
 
 	eventHandlers["viewZoom"] = function(e, sendEvent) {
 		var view = ol3Map().getView();
 		var params = [ view.getZoom() ];
+		return handleEvent("viewZoom", params, sendEvent);
+	};
 
-		if (sendEvent == null || sendEvent)
-			geoff.eventTriggered("viewZoom", params);
-		else
-			return params;
+	eventHandlers["editingMode"] = function(e, sendEvent) {
+		var map = ol3Map();
+		var params = [ map.currentMode ];
+		return handleEvent("editingMode", params, sendEvent);
+	};
+	
+	var wktFormat = new ol.format.WKT();
+	eventHandlers["geometryAdded"] = function(e, sendEvent) {
+		// TODO if circle, then transform to polygon
+		var geomWKT = wktFormat.writeGeometry(e.element.getGeometry());
+		var params = [ geomWKT ];
+		return handleEvent("geometryAdded", params, sendEvent);
 	};
 
 	// this is the array of rules that are supported to transform DOM nodes to
@@ -99,6 +115,79 @@
 
 		var domScripts = elements(domNode, "scripts");
 		convertCollection(domScripts, env, "geoff:Script");
+
+		// setup drawing support
+		map.currentFeatures = new ol.Collection();
+		map.currentFeatures.on("add", target.geoff.eventHandlers["geometryAdded"]);
+
+		var featureOverlay = new ol.layer.Vector({
+			source : new ol.source.Vector({
+				features : map.currentFeatures
+			}),
+			style : new ol.style.Style({
+				fill : new ol.style.Fill({
+					color : 'rgba(255, 255, 255, 0.2)'
+				}),
+				stroke : new ol.style.Stroke({
+					color : '#ffcc33',
+					width : 2
+				}),
+				image : new ol.style.Circle({
+					radius : 7,
+					fill : new ol.style.Fill({
+						color : '#ffcc33'
+					})
+				})
+			})
+		});
+
+		map.switchEditingMode = function(mode) {
+			map.currentMode = mode;
+			// clear the collection as any new added feature will be delivered
+			// to the server to process it in any way
+			map.currentFeatures.clear();
+
+			if (mode == "NONE" || mode == null) {
+				if (map.currentModify != null) {
+					map.removeInteraction(map.currentModify);
+				}
+
+				if (map.currentDraw != null) {
+					map.removeInteraction(map.currentDraw);
+				}
+
+				featureOverlay.setMap(null);
+				return;
+			}
+
+			featureOverlay.setMap(map);
+
+			map.currentModify = new ol.interaction.Modify({
+				features : map.currentFeatures,
+				// the SHIFT key must be pressed to delete vertices, so
+				// that new vertices can be drawn at the same position
+				// of existing vertices
+				deleteCondition : function(event) {
+					return ol.events.condition.shiftKeyOnly(event)
+							&& ol.events.condition.singleClick(event);
+				}
+			});
+			map.addInteraction(map.currentModify);
+
+			map.currentDraw = new ol.interaction.Draw({
+				features : map.currentFeatures,
+				type : mode
+			});
+			map.currentDraw.on("drawstart", function(e) {
+				map.currentFeatures.clear();
+			});
+			// map.currentDraw.on("drawend", function(e) {
+			// var geomWKT = wktFormat.writeGeometry(e.feature.getGeometry());
+			// // geometry must be handled by server
+			// geoff.eventTriggered("geometryAdded", geomWKT);
+			// });
+			map.addInteraction(map.currentDraw);
+		}
 
 		return map;
 	};
@@ -598,9 +687,14 @@
 		map.once('postcompose', function(event) {
 			var canvas = event.context.canvas;
 			var data = canvas.toDataURL('image/png');
-			geoff.eventTriggered("mapPrinted", [token, data]);
+			geoff.eventTriggered("mapPrinted", [ token, data ]);
 		});
 		map.renderSync();
+	}
+
+	function editingMode(editingMode) {
+		var map = geoff.ol3Map();
+		map.switchEditingMode(editingMode);
 	}
 
 	// this is the API object which can be accessed via the global
@@ -611,7 +705,8 @@
 		eventTriggered : eventTriggered,
 		ol3Map : ol3Map,
 		eventHandlers : eventHandlers,
-		printMap : printMap
+		printMap : printMap,
+		editingMode : editingMode
 	};
 
 	// the standalone mode is used to indicate that the document has embedded

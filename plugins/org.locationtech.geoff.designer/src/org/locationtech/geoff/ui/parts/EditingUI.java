@@ -1,6 +1,6 @@
 package org.locationtech.geoff.ui.parts;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -30,15 +30,15 @@ import org.locationtech.geoff.ui.swt.IGeoMapWidget.EditingMode;
 import org.locationtech.geoff.ui.swt.IGeoMapWidget.Property;
 
 public class EditingUI {
-	private Map<IGeoMapWidget.EditingMode, Object[]> editingModeParams = new HashMap<IGeoMapWidget.EditingMode, Object[]>();
+	private Map<IGeoMapWidget.EditingMode, Object[]> editingModeParams = new LinkedHashMap<IGeoMapWidget.EditingMode, Object[]>();
 	{
-		editingModeParams.put(IGeoMapWidget.EditingMode.POINT, new Object[] { "Point", "icons/new_point_mode.gif" });
-		editingModeParams.put(IGeoMapWidget.EditingMode.LINE, new Object[] { "Line", "icons/new_line_mode.gif" });
-		editingModeParams.put(IGeoMapWidget.EditingMode.POLYGON,
+		editingModeParams.put(IGeoMapWidget.EditingMode.Point, new Object[] { "Point", "icons/new_point_mode.gif" });
+		editingModeParams.put(IGeoMapWidget.EditingMode.LineString, new Object[] { "Line", "icons/new_line_mode.gif" });
+		editingModeParams.put(IGeoMapWidget.EditingMode.Polygon,
 				new Object[] { "Polygon", "icons/new_polygon_mode.gif" });
-		editingModeParams.put(IGeoMapWidget.EditingMode.RECTANGLE,
-				new Object[] { "Rectangle", "icons/new_rectangle_mode.gif" });
-		editingModeParams.put(IGeoMapWidget.EditingMode.CIRCLE, new Object[] { "Circle", "icons/new_circle_mode.gif" });
+		editingModeParams.put(IGeoMapWidget.EditingMode.Circle, new Object[] { "Circle", "icons/new_circle_mode.gif" });
+		// editingModeParams.put(IGeoMapWidget.EditingMode.Rectangle,
+		// new Object[] { "Rectangle", "icons/new_rectangle_mode.gif" });
 	}
 
 	@Inject
@@ -71,7 +71,13 @@ public class EditingUI {
 			Action action = new Action(actionName, IAction.AS_RADIO_BUTTON) {
 				@Override
 				public void run() {
-					observeValue.setValue(key);
+					if (key.equals(observeValue.getValue())) {
+						// if same item was chosen, then disable editing mode
+						observeValue.setValue(IGeoMapWidget.EditingMode.NONE);
+						setChecked(false);
+					} else {
+						observeValue.setValue(key);
+					}
 				}
 			};
 			action.setImageDescriptor(DesignerUtil.getImageDescriptor(imageFilePath));

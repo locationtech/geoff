@@ -4,13 +4,12 @@ import java.util.function.Consumer;
 
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.locationtech.geoff.GeoMap;
-import org.locationtech.geoff.ui.swt.IGeoMapWidget.Property;
 
 public interface IGeoMapWidget {
 	enum EditingMode {
-		NONE, POINT, LINE, POLYGON, CIRCLE, RECTANGLE
+		NONE, Point, LineString, Polygon, Circle, Rectangle
 	}
-	
+
 	enum SelectionMode {
 		POINT, RECTANGLE
 	}
@@ -33,7 +32,9 @@ public interface IGeoMapWidget {
 		EDITING_MODE("editingMode"), //
 		SELECTION_MODE("selectionMode"), //
 		VIEW_ZOOM("viewZoom"), //
-		VIEW_CENTER("viewCenter");
+		VIEW_CENTER("viewCenter"), //
+		GEOMETRY_ADDED("geometryAdded"),//
+		;
 
 		private String eventName;
 

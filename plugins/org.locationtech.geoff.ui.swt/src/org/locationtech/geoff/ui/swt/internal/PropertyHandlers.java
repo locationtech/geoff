@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.locationtech.geoff.Location;
 import org.locationtech.geoff.core.Geoff;
+import org.locationtech.geoff.geom.SimpleGeometry;
 import org.locationtech.geoff.ui.swt.IGeoMapWidget;
+import org.locationtech.geoff.ui.swt.IGeoMapWidget.EditingMode;
 import org.locationtech.geoff.ui.swt.IGeoMapWidget.Property;
 
 public class PropertyHandlers {
@@ -24,7 +26,7 @@ public class PropertyHandlers {
 			@Override
 			public void setValue(IGeoMapWidget geoMapComposite, Integer value) {
 				IScriptable scriptable = (IScriptable) geoMapComposite;
-				scriptable.execute("return geoff.ol3Map().getView().setZoom(" + value + ");");
+				scriptable.execute("geoff.ol3Map().getView().setZoom(" + value + ");");
 			}
 
 			@Override
@@ -61,7 +63,12 @@ public class PropertyHandlers {
 
 			@Override
 			public IGeoMapWidget.EditingMode map(Object[] args) {
-				return IGeoMapWidget.EditingMode.NONE;
+				if (args.length == 0 || args[0] == null) {
+					return EditingMode.NONE;
+				}
+
+				String mode = (String) args[0];
+				return IGeoMapWidget.EditingMode.valueOf(mode);
 			}
 
 			@Override
@@ -71,6 +78,8 @@ public class PropertyHandlers {
 
 			@Override
 			public void setValue(IGeoMapWidget geoMapComposite, IGeoMapWidget.EditingMode value) {
+				IScriptable scriptable = (IScriptable) geoMapComposite;
+				scriptable.execute("geoff.editingMode('" + value + "');");
 			}
 		});
 
@@ -88,6 +97,31 @@ public class PropertyHandlers {
 
 			@Override
 			public void setValue(IGeoMapWidget geoMapComposite, IGeoMapWidget.SelectionMode value) {
+			}
+		});
+
+		propertyHandlers.put(Property.GEOMETRY_ADDED, new PropertyHandler<SimpleGeometry>() {
+
+			@Override
+			public SimpleGeometry map(Object[] args) {
+				if (args == null) {
+					return null;
+				}
+				
+				String wkt = (String) args[0];
+				// TODO parse WKT to geogg SimpleGeometry type
+				System.err.println("Geom: " + wkt);
+				return null;
+			}
+
+			@Override
+			public Class<SimpleGeometry> getValueType() {
+				return SimpleGeometry.class;
+			}
+
+			@Override
+			public void setValue(IGeoMapWidget geoMapComposite, SimpleGeometry value) {
+				throw new UnsupportedOperationException("Adding a simple geometry to the map is not supported yet.");
 			}
 		});
 	}
