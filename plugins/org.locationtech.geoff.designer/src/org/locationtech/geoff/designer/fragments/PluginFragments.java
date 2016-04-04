@@ -13,6 +13,7 @@ package org.locationtech.geoff.designer.fragments;
 import org.locationtech.geoff.e4.utils.fragments.FragmentBuilder;
 import org.locationtech.geoff.e4.utils.fragments.ModelFragmentsProvider;
 import org.locationtech.geoff.ui.UIConsts;
+import org.locationtech.geoff.ui.handlers.AddNewLayerHandler;
 import org.locationtech.geoff.ui.handlers.AddResourceAsLayerHandler;
 import org.locationtech.geoff.ui.handlers.AddTileLayerHandler;
 import org.locationtech.geoff.ui.handlers.DeleteLayerHandler;
@@ -26,9 +27,10 @@ public class PluginFragments extends ModelFragmentsProvider {
 	private static final String ICONS_LAYERS_16_PNG = "icons/layers-16.png";
 	private static final String GEOFF_DESIGNER = "Geoff Designer";
 	private static final String PERSPECTIVE_DESIGNER = "org.locationtech.geoff.designer.perspective";
-	private static final String CATEGORY_GEOFF_DESIGNER = "org.locationtech.geoff.designer.commands.addTileLayer";
+	private static final String CATEGORY_GEOFF_DESIGNER = "org.locationtech.geoff.designer.commands.category";
 	private static final String COMMAND_ADD_RESOURCE_AS_LAYER = "org.locationtech.geoff.designer.commands.addResourceAsLayer";
-	private static final String COMMAND_ADD_NEW_LAYER = "org.locationtech.geoff.designer.commands.addTileLayer";
+	private static final String COMMAND_ADD_TILE_LAYER = "org.locationtech.geoff.designer.commands.addTileLayer";
+	private static final String COMMAND_ADD_NEW_LAYER = "org.locationtech.geoff.designer.commands.addNewLayer";
 
 	public void fragmentCategories(FragmentBuilder b) {
 		b.customize(f -> {
@@ -46,19 +48,22 @@ public class PluginFragments extends ModelFragmentsProvider {
 			f.setFeaturename("commands");
 		}).element(FCOMM::createCommand, (cmd, cb) -> {
 			cmd.setElementId(COMMAND_ADD_RESOURCE_AS_LAYER);
-			cmd.setCommandName("Add Layer");
-			cmd.setDescription("Adds a new layer");
+			cmd.setCommandName("Add Resource Layer");
+			cmd.setDescription("Adds selected resource as new layer");
 			cmd.setCategory(categoryRef(CATEGORY_GEOFF_DESIGNER));
 		}).element(FCOMM::createCommand, (cmd, cb) -> {
-			cmd.setElementId(COMMAND_ADD_NEW_LAYER);
-			cmd.setCommandName("Add Layer");
-			cmd.setDescription("Add Tile Layer");
+			cmd.setElementId(COMMAND_ADD_TILE_LAYER);
+			cmd.setCommandName("Add Tile Layer");
 			cmd.setCategory(categoryRef(CATEGORY_GEOFF_DESIGNER));
 
 			cb.child(FCOMM::createCommandParameter, (cp, cpb) -> {
 				cp.setElementId("tileProvider");
 				cp.setName("Tile Provider");
 			});
+		}).element(FCOMM::createCommand, (cmd, cb) -> {
+			cmd.setElementId(COMMAND_ADD_NEW_LAYER);
+			cmd.setCommandName("Add New Layer");
+			cmd.setCategory(categoryRef(CATEGORY_GEOFF_DESIGNER));
 		});
 	}
 
@@ -71,6 +76,9 @@ public class PluginFragments extends ModelFragmentsProvider {
 			handler.setCommand(commandRef(COMMAND_ADD_RESOURCE_AS_LAYER));
 		}).element(FCOMM::createHandler, (handler, handlerBuilder) -> {
 			handler.setContributionURI(toBundleclassURI(AddTileLayerHandler.class));
+			handler.setCommand(commandRef(COMMAND_ADD_TILE_LAYER));
+		}).element(FCOMM::createHandler, (handler, handlerBuilder) -> {
+			handler.setContributionURI(toBundleclassURI(AddNewLayerHandler.class));
 			handler.setCommand(commandRef(COMMAND_ADD_NEW_LAYER));
 		});
 

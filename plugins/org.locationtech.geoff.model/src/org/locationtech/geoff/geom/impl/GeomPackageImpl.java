@@ -22,7 +22,9 @@ import org.locationtech.geoff.GeoffPackage;
 import org.locationtech.geoff.geom.GeomFactory;
 import org.locationtech.geoff.geom.GeomPackage;
 import org.locationtech.geoff.geom.Geometry;
+import org.locationtech.geoff.geom.LineString;
 import org.locationtech.geoff.geom.Point;
+import org.locationtech.geoff.geom.Polygon;
 import org.locationtech.geoff.geom.SimpleGeometry;
 
 import org.locationtech.geoff.impl.GeoffPackageImpl;
@@ -75,6 +77,20 @@ public class GeomPackageImpl extends EPackageImpl implements GeomPackage {
 	 * @generated
 	 */
 	private EClass pointEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass lineStringEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass polygonEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -208,6 +224,42 @@ public class GeomPackageImpl extends EPackageImpl implements GeomPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getLineString() {
+		return lineStringEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLineString_Coordinates() {
+		return (EReference) lineStringEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPolygon() {
+		return polygonEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPolygon_Coordinates() {
+		return (EReference) polygonEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GeomFactory getGeomFactory() {
 		return (GeomFactory) getEFactoryInstance();
 	}
@@ -238,6 +290,12 @@ public class GeomPackageImpl extends EPackageImpl implements GeomPackage {
 
 		pointEClass = createEClass(POINT);
 		createEReference(pointEClass, POINT__COORDINATES);
+
+		lineStringEClass = createEClass(LINE_STRING);
+		createEReference(lineStringEClass, LINE_STRING__COORDINATES);
+
+		polygonEClass = createEClass(POLYGON);
+		createEReference(polygonEClass, POLYGON__COORDINATES);
 	}
 
 	/**
@@ -275,6 +333,8 @@ public class GeomPackageImpl extends EPackageImpl implements GeomPackage {
 		geometryEClass.getESuperTypes().add(theGeoffPackage.getIdentifiable());
 		simpleGeometryEClass.getESuperTypes().add(this.getGeometry());
 		pointEClass.getESuperTypes().add(this.getSimpleGeometry());
+		lineStringEClass.getESuperTypes().add(this.getSimpleGeometry());
+		polygonEClass.getESuperTypes().add(this.getSimpleGeometry());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(geometryEClass, Geometry.class, "Geometry", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -285,6 +345,17 @@ public class GeomPackageImpl extends EPackageImpl implements GeomPackage {
 		initEClass(pointEClass, Point.class, "Point", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getPoint_Coordinates(), theGeoffPackage.getLocation(), null, "coordinates", null, 1, 1, //$NON-NLS-1$
 				Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(lineStringEClass, LineString.class, "LineString", !IS_ABSTRACT, !IS_INTERFACE, //$NON-NLS-1$
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLineString_Coordinates(), theGeoffPackage.getLocation(), null, "coordinates", null, 2, -1, //$NON-NLS-1$
+				LineString.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(polygonEClass, Polygon.class, "Polygon", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getPolygon_Coordinates(), theGeoffPackage.getLocation(), null, "coordinates", null, 2, -1, //$NON-NLS-1$
+				Polygon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 

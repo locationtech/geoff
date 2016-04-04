@@ -135,6 +135,52 @@ public class GeomItemProviderAdapterFactory extends GeomAdapterFactory
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.geom.LineString} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LineStringItemProvider lineStringItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.locationtech.geoff.geom.LineString}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLineStringAdapter() {
+		if (lineStringItemProvider == null) {
+			lineStringItemProvider = new LineStringItemProvider(this);
+		}
+
+		return lineStringItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.locationtech.geoff.geom.Polygon} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PolygonItemProvider polygonItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.locationtech.geoff.geom.Polygon}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPolygonAdapter() {
+		if (polygonItemProvider == null) {
+			polygonItemProvider = new PolygonItemProvider(this);
+		}
+
+		return polygonItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -237,6 +283,10 @@ public class GeomItemProviderAdapterFactory extends GeomAdapterFactory
 			simpleGeometryItemProvider.dispose();
 		if (pointItemProvider != null)
 			pointItemProvider.dispose();
+		if (lineStringItemProvider != null)
+			lineStringItemProvider.dispose();
+		if (polygonItemProvider != null)
+			polygonItemProvider.dispose();
 	}
 
 }

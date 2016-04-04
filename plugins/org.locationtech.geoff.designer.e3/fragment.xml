@@ -91,9 +91,9 @@
             allPopups="false"
             locationURI="toolbar:org.locationtech.geoff.ui.parts.LayersUI">
          <command
-               commandId="org.locationtech.geoff.designer.commands.addResourceAsLayer"
-               label="Layers"
-               icon="icons/layers-16.png"
+               commandId="org.locationtech.geoff.designer.commands.addNewLayer"
+               label="New Vector Layer"
+               icon="icons/symbols-16.png"
                style="pulldown"
                id="org.locationtech.geoff.designer.layers">
             <visibleWhen

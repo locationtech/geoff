@@ -75,6 +75,10 @@ public class GeomFactoryImpl extends EFactoryImpl implements GeomFactory {
 			return (EObject) createSimpleGeometry();
 		case GeomPackage.POINT:
 			return (EObject) createPoint();
+		case GeomPackage.LINE_STRING:
+			return (EObject) createLineString();
+		case GeomPackage.POLYGON:
+			return (EObject) createPolygon();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
@@ -98,6 +102,26 @@ public class GeomFactoryImpl extends EFactoryImpl implements GeomFactory {
 	public Point createPoint() {
 		PointImpl point = new PointImpl();
 		return point;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LineString createLineString() {
+		LineStringImpl lineString = new LineStringImpl();
+		return lineString;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Polygon createPolygon() {
+		PolygonImpl polygon = new PolygonImpl();
+		return polygon;
 	}
 
 	/**

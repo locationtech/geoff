@@ -212,6 +212,12 @@ public class FeatureItemProvider extends ItemProviderAdapter implements IEditing
 		newChildDescriptors.add(
 				createChildParameter(GeoffPackage.Literals.FEATURE__GEOMETRY, GeomFactory.eINSTANCE.createPoint()));
 
+		newChildDescriptors.add(createChildParameter(GeoffPackage.Literals.FEATURE__GEOMETRY,
+				GeomFactory.eINSTANCE.createLineString()));
+
+		newChildDescriptors.add(
+				createChildParameter(GeoffPackage.Literals.FEATURE__GEOMETRY, GeomFactory.eINSTANCE.createPolygon()));
+
 		newChildDescriptors
 				.add(createChildParameter(GeoffPackage.Literals.FEATURE__STYLE, StyleFactory.eINSTANCE.createStyle()));
 

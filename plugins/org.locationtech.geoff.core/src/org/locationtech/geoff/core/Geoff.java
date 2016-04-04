@@ -16,7 +16,10 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -36,7 +39,10 @@ import org.locationtech.geoff.View;
 import org.locationtech.geoff.XYZLocation;
 import org.locationtech.geoff.geom.GeomFactory;
 import org.locationtech.geoff.geom.Geometry;
+import org.locationtech.geoff.geom.LineString;
 import org.locationtech.geoff.geom.Point;
+import org.locationtech.geoff.geom.Polygon;
+import org.locationtech.geoff.geom.SimpleGeometry;
 import org.locationtech.geoff.impl.GeoffFactoryImpl;
 import org.locationtech.geoff.impl.StringToStringMapEntryImpl;
 import org.locationtech.geoff.layer.Layer;
@@ -211,6 +217,18 @@ public class Geoff {
 		Point point = GeomFactory.eINSTANCE.createPoint();
 		point.setCoordinates(location);
 		return point;
+	}
+
+	public static LineString lineStringGeom(Location... coords) {
+		LineString lineString = GeomFactory.eINSTANCE.createLineString();
+		lineString.getCoordinates().addAll(Arrays.asList(coords));
+		return lineString;
+	}
+
+	public static Polygon polygonGeom(Location... coords) {
+		Polygon polygon = GeomFactory.eINSTANCE.createPolygon();
+		polygon.getCoordinates().addAll(Arrays.asList(coords));
+		return polygon;
 	}
 
 	public static BingMaps bingSource(String key, String imagerySet) {
@@ -439,5 +457,50 @@ public class Geoff {
 		}
 
 		return stroke;
+	}
+
+	public static SimpleGeometry fromWKT(String wkt) {
+		if (wkt == null || "".equals(wkt.trim().toString())) {
+			return null;
+		}
+
+		// for now, assume simple syntax
+		Pattern pattern = Pattern.compile("^(\\w+)\\(+([0-9 \\.,+-]+)\\)+$");
+		Matcher matcher = pattern.matcher(wkt);
+
+		if (!matcher.matches()) {
+			return null;
+		}
+
+		String geomType = matcher.group(1);
+		String coordsStr = matcher.group(2);
+		List<Location> coords = parseLocations(coordsStr);
+
+		SimpleGeometry ret = null;
+
+		if ("POINT".equals(geomType)) {
+			ret = pointGeom(coords.get(0));
+		} else if ("LINESTRING".equals(geomType)) {
+			ret = lineStringGeom(coords.toArray(new Location[coords.size()]));
+		} else if ("POLYGON".equals(geomType)) {
+			ret = polygonGeom(coords.toArray(new Location[coords.size()]));
+		}
+
+		return ret;
+	}
+
+	private static List<Location> parseLocations(String coordsStr) {
+		List<Location> ret = new ArrayList<>();
+		String[] coordPairs = coordsStr.split(",");
+
+		for (String coordPair : coordPairs) {
+			String[] coords = coordPair.split("\\s+");
+			double x = Double.parseDouble(coords[0]);
+			double y = Double.parseDouble(coords[1]);
+			XYZLocation xyLocation = xyLocation(x, y);
+			ret.add(xyLocation);
+		}
+
+		return ret;
 	}
 }

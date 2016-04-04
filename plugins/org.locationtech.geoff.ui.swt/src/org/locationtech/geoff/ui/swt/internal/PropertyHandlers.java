@@ -12,6 +12,7 @@ import org.locationtech.geoff.ui.swt.IGeoMapWidget.Property;
 
 public class PropertyHandlers {
 	private static final PropertyHandlers INSTANCE = new PropertyHandlers();
+	private static final Object[] EMPTY_PARAMS = new Object[0];
 
 	private Map<Property, PropertyHandler<?>> propertyHandlers = new HashMap<Property, PropertyHandler<?>>();
 	{
@@ -104,14 +105,12 @@ public class PropertyHandlers {
 
 			@Override
 			public SimpleGeometry map(Object[] args) {
-				if (args == null) {
+				if (args.length == 0) {
 					return null;
 				}
-				
+
 				String wkt = (String) args[0];
-				// TODO parse WKT to geogg SimpleGeometry type
-				System.err.println("Geom: " + wkt);
-				return null;
+				return Geoff.fromWKT(wkt);
 			}
 
 			@Override
@@ -139,10 +138,11 @@ public class PropertyHandlers {
 			// call the appropriate event handler and signal that no events
 			// should be re-triggered as we are only interested in the value
 			String script = String.format("return geoff.eventHandlers['%s'](null,false)", prop.getEventName());
-			return scriptable.execute(script);
+			Object[] ret = scriptable.execute(script);
+			return ret == null ? EMPTY_PARAMS : ret;
 		} catch (Exception e) {
 			// may happen if the scriptable is not yet ready to execute
-			return null;
+			return EMPTY_PARAMS;
 		}
 	}
 

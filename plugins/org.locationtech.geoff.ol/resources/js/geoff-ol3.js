@@ -53,7 +53,7 @@
 		var params = [ map.currentMode ];
 		return handleEvent("editingMode", params, sendEvent);
 	};
-	
+
 	var wktFormat = new ol.format.WKT();
 	eventHandlers["geometryAdded"] = function(e, sendEvent) {
 		// TODO if circle, then transform to polygon
@@ -90,10 +90,6 @@
 		}
 
 		var olView = execRule("geoff", "View", domView, env);
-		// make the view available to the environment, for example,
-		// to transform positions/locations to view projection
-		env.view = olView;
-
 		var map = new ol.Map({
 			view : olView
 		});
@@ -118,7 +114,8 @@
 
 		// setup drawing support
 		map.currentFeatures = new ol.Collection();
-		map.currentFeatures.on("add", target.geoff.eventHandlers["geometryAdded"]);
+		map.currentFeatures.on("add",
+				target.geoff.eventHandlers["geometryAdded"]);
 
 		var featureOverlay = new ol.layer.Vector({
 			source : new ol.source.Vector({
@@ -231,6 +228,9 @@
 		var view = new ol.View({
 			zoom : convertInt(zoom, env)
 		});
+		// make the view available to the environment, for example,
+		// to transform positions/locations to view projection
+		env.view = view;
 
 		var centerCoords = convertObject(center, env);
 		var sourceProj = attrValue(center, "projectionCode");
@@ -290,22 +290,22 @@
 		if (features.length > 0) {
 			opts.features = convertCollection(features, env, "geoff:Feature");
 		} else {
-			var url = attrValue(domNode, "url");
 			var formatStr = attrValue(domNode, "format");
-			var formatObj = null;
+			var url = attrValue(domNode, "url");
 
-			if (formatStr === "GeoJSON") {
-				formatObj = new ol.format.GeoJSON();
-			} else if (formatStr === "KML") {
-				formatObj = new ol.format.KML();
-			} else if (formatStr === "GML") {
-				formatObj = new ol.format.GML();
-			} else if (formatStr === "GPX") {
-				formatObj = new ol.format.GPX();
+			if (url != null) {
+				opts.url = url;
 			}
 
-			opts.url = url;
-			opts.format = formatObj;
+			if (formatStr === "GeoJSON") {
+				opts.format = new ol.format.GeoJSON();
+			} else if (formatStr === "KML") {
+				opts.format = new ol.format.KML();
+			} else if (formatStr === "GML") {
+				opts.format = new ol.format.GML();
+			} else if (formatStr === "GPX") {
+				opts.format = new ol.format.GPX();
+			}
 		}
 
 		return new ol.source.Vector(opts);
@@ -341,16 +341,17 @@
 	rules["geoff.geom:Point"] = function(domNode, env) {
 		var coords = elements(domNode, "coordinates")[0];
 		var location = convertObject(coords, env);
-		var sourceProj = attrValue(coords, "projectionCode");
-
-		if (sourceProj != null) {
-			var viewProjection = env.view.getProjection();
-			var viewProjectionCode = viewProjection.getCode();
-			location = ol.proj.transform(location, sourceProj,
-					viewProjectionCode);
-		}
-
 		return new ol.geom.Point(location);
+	};
+
+	rules["geoff.geom:LineString"] = function(domNode, env) {
+		var coords = coordsArray(domNode, env);
+		return new ol.geom.LineString(coords);
+	};
+
+	rules["geoff.geom:Polygon"] = function(domNode, env) {
+		var coords = coordsArray(domNode, env);
+		return new ol.geom.Polygon(coords);
 	};
 
 	rules["geoff.style:Style"] = function(domNode, env) {
@@ -488,8 +489,30 @@
 			coords.push(z);
 		}
 
+		var sourceProj = attrValue(domNode, "projectionCode");
+
+		if (sourceProj != null) {
+			var viewProjection = env.view.getProjection();
+			var viewProjectionCode = viewProjection.getCode();
+			coords = ol.proj.transform(coords, sourceProj, viewProjectionCode);
+		}
+
 		return coords;
 	};
+
+	function coordsArray(domNode, env) {
+		var coords = elements(domNode, "coordinates");
+		var ret = new Array();
+
+		for (var i = 0; i < coords.length; i++) {
+			var coord = coords[i];
+			var location = convertObject(coord, env);
+			ret[i] = location;
+			alert(ret[i]);
+		}
+
+		return ret;
+	}
 
 	function elements(domNode, elemName) {
 		var ret = new Array();

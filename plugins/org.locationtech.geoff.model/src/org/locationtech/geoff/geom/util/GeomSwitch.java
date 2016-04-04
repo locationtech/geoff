@@ -117,6 +117,32 @@ public class GeomSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case GeomPackage.LINE_STRING: {
+			LineString lineString = (LineString) theEObject;
+			T result = caseLineString(lineString);
+			if (result == null)
+				result = caseSimpleGeometry(lineString);
+			if (result == null)
+				result = caseGeometry(lineString);
+			if (result == null)
+				result = caseIdentifiable(lineString);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case GeomPackage.POLYGON: {
+			Polygon polygon = (Polygon) theEObject;
+			T result = casePolygon(polygon);
+			if (result == null)
+				result = caseSimpleGeometry(polygon);
+			if (result == null)
+				result = caseGeometry(polygon);
+			if (result == null)
+				result = caseIdentifiable(polygon);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -164,6 +190,36 @@ public class GeomSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePoint(Point object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Line String</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Line String</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLineString(LineString object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Polygon</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Polygon</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePolygon(Polygon object) {
 		return null;
 	}
 

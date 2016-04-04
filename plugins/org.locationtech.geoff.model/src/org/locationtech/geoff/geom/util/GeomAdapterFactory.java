@@ -100,6 +100,16 @@ public class GeomAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseLineString(LineString object) {
+			return createLineStringAdapter();
+		}
+
+		@Override
+		public Adapter casePolygon(Polygon object) {
+			return createPolygonAdapter();
+		}
+
+		@Override
 		public Adapter caseIdentifiable(Identifiable object) {
 			return createIdentifiableAdapter();
 		}
@@ -162,6 +172,34 @@ public class GeomAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPointAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.geom.LineString <em>Line String</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.locationtech.geoff.geom.LineString
+	 * @generated
+	 */
+	public Adapter createLineStringAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.locationtech.geoff.geom.Polygon <em>Polygon</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.locationtech.geoff.geom.Polygon
+	 * @generated
+	 */
+	public Adapter createPolygonAdapter() {
 		return null;
 	}
 

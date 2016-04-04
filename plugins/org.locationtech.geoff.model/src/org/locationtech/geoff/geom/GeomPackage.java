@@ -194,6 +194,98 @@ public interface GeomPackage extends EPackage {
 	int POINT_OPERATION_COUNT = SIMPLE_GEOMETRY_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.locationtech.geoff.geom.impl.LineStringImpl <em>Line String</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.locationtech.geoff.geom.impl.LineStringImpl
+	 * @see org.locationtech.geoff.geom.impl.GeomPackageImpl#getLineString()
+	 * @generated
+	 */
+	int LINE_STRING = 3;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINE_STRING__ID = SIMPLE_GEOMETRY__ID;
+
+	/**
+	 * The feature id for the '<em><b>Coordinates</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINE_STRING__COORDINATES = SIMPLE_GEOMETRY_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Line String</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINE_STRING_FEATURE_COUNT = SIMPLE_GEOMETRY_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Line String</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINE_STRING_OPERATION_COUNT = SIMPLE_GEOMETRY_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.locationtech.geoff.geom.impl.PolygonImpl <em>Polygon</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.locationtech.geoff.geom.impl.PolygonImpl
+	 * @see org.locationtech.geoff.geom.impl.GeomPackageImpl#getPolygon()
+	 * @generated
+	 */
+	int POLYGON = 4;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON__ID = SIMPLE_GEOMETRY__ID;
+
+	/**
+	 * The feature id for the '<em><b>Coordinates</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON__COORDINATES = SIMPLE_GEOMETRY_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Polygon</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON_FEATURE_COUNT = SIMPLE_GEOMETRY_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Polygon</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON_OPERATION_COUNT = SIMPLE_GEOMETRY_OPERATION_COUNT + 0;
+
+	/**
 	 * Returns the meta object for class '{@link org.locationtech.geoff.geom.Geometry <em>Geometry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -233,6 +325,48 @@ public interface GeomPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPoint_Coordinates();
+
+	/**
+	 * Returns the meta object for class '{@link org.locationtech.geoff.geom.LineString <em>Line String</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Line String</em>'.
+	 * @see org.locationtech.geoff.geom.LineString
+	 * @generated
+	 */
+	EClass getLineString();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.locationtech.geoff.geom.LineString#getCoordinates <em>Coordinates</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Coordinates</em>'.
+	 * @see org.locationtech.geoff.geom.LineString#getCoordinates()
+	 * @see #getLineString()
+	 * @generated
+	 */
+	EReference getLineString_Coordinates();
+
+	/**
+	 * Returns the meta object for class '{@link org.locationtech.geoff.geom.Polygon <em>Polygon</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Polygon</em>'.
+	 * @see org.locationtech.geoff.geom.Polygon
+	 * @generated
+	 */
+	EClass getPolygon();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.locationtech.geoff.geom.Polygon#getCoordinates <em>Coordinates</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Coordinates</em>'.
+	 * @see org.locationtech.geoff.geom.Polygon#getCoordinates()
+	 * @see #getPolygon()
+	 * @generated
+	 */
+	EReference getPolygon_Coordinates();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -294,6 +428,42 @@ public interface GeomPackage extends EPackage {
 		 * @generated
 		 */
 		EReference POINT__COORDINATES = eINSTANCE.getPoint_Coordinates();
+
+		/**
+		 * The meta object literal for the '{@link org.locationtech.geoff.geom.impl.LineStringImpl <em>Line String</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.locationtech.geoff.geom.impl.LineStringImpl
+		 * @see org.locationtech.geoff.geom.impl.GeomPackageImpl#getLineString()
+		 * @generated
+		 */
+		EClass LINE_STRING = eINSTANCE.getLineString();
+
+		/**
+		 * The meta object literal for the '<em><b>Coordinates</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LINE_STRING__COORDINATES = eINSTANCE.getLineString_Coordinates();
+
+		/**
+		 * The meta object literal for the '{@link org.locationtech.geoff.geom.impl.PolygonImpl <em>Polygon</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.locationtech.geoff.geom.impl.PolygonImpl
+		 * @see org.locationtech.geoff.geom.impl.GeomPackageImpl#getPolygon()
+		 * @generated
+		 */
+		EClass POLYGON = eINSTANCE.getPolygon();
+
+		/**
+		 * The meta object literal for the '<em><b>Coordinates</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference POLYGON__COORDINATES = eINSTANCE.getPolygon_Coordinates();
 
 	}
 

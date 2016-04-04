@@ -10,64 +10,32 @@
  *******************************************************************************/
 package org.locationtech.geoff.ui.handlers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.swt.widgets.Shell;
 import org.locationtech.geoff.core.Geoff;
 import org.locationtech.geoff.core.IGeoMapService;
-import org.locationtech.geoff.layer.Layer;
-import org.locationtech.geoff.layer.LayerPackage;
-import org.locationtech.geoff.layer.TileLayer;
 import org.locationtech.geoff.layer.VectorLayer;
-import org.locationtech.geoff.source.Source;
-import org.locationtech.geoff.source.SourcePackage;
-import org.locationtech.geoff.ui.DialogsBuilder;
+import org.locationtech.geoff.source.SourceFormat;
+import org.locationtech.geoff.source.VectorSource;
+import org.locationtech.geoff.ui.parts.LayersUI;
 
 public class AddNewLayerHandler {
 
 	@Execute
-	public void execute(IGeoMapService geoMapService, Shell shell) {
-		Collection<Source> sources = Geoff.samplesOf(SourcePackage.Literals.SOURCE);
-		AdapterFactory af = geoMapService.adaptTo(AdapterFactory.class);
-		DialogsBuilder diag = DialogsBuilder.create()//
-				.input(sources.toArray())//
-				.message("Choose a source to create a new layer")//
-				.multi(false)//
-				.modal(true)//
-				.adapterFactory(af);
-
-		Object[] result = diag.getResult(shell);
-
-		if (result != null) {
-			List<Layer> layers = new ArrayList<Layer>();
-
-			for (Object object : result) {
-				EClass type = null;
-
-				if (object instanceof TileLayer) {
-					type = LayerPackage.Literals.TILE_LAYER;
-				} else if (object instanceof VectorLayer) {
-					type = LayerPackage.Literals.VECTOR_LAYER;
-				}
-
-				if (type == null) {
-					continue;
-				}
-
-				Source source = (Source) object;
-				Layer layer = Geoff.instance(type);
-				layer.setSource(source);
-			}
-
-			geoMapService.batchChanges(() -> {
-				layers.forEach((l) -> geoMapService.addLayer(l));
-			});
-		}
+	public void execute(Shell shell, EPartService partService) {
+		IGeoMapService geoMapService = LayersUI.getGeoMapService(partService);
+		VectorSource source = Geoff.vectorSource();
+		source.setFormat(SourceFormat.INTERNAL);
+		VectorLayer layer = Geoff.vectorLayer(source);
+		layer.setShortDescription("New Layer");
+		Geoff.populateDefaultStyles(layer);
+		geoMapService.addLayer(layer);
 	}
 
+	@CanExecute
+	public boolean canExecute(EPartService partService) {
+		return LayersUI.getGeoMapService(partService) != null;
+	}
 }
