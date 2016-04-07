@@ -12,4 +12,6 @@ public interface UIConsts {
 	String EDIT_COPY = "org.eclipse.ui.edit.copy"; //$NON-NLS-1$
 	String EDIT_PASTE = "org.eclipse.ui.edit.paste"; //$NON-NLS-1$
 
+    String FILE_SAVE = "org.eclipse.ui.file.save"; //$NON-NLS-1$
+    String FILE_SAVE_AS = "org.eclipse.ui.file.saveAs"; //$NON-NLS-1$
 }

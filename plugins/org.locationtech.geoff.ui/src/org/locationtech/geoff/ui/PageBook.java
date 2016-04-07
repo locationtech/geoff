@@ -102,5 +102,6 @@ public interface PageBook {
 
 	void registerContextMenu(Object widget);
 
+	@Deprecated
 	void activateHandler(String commandId, Object handler);
 }

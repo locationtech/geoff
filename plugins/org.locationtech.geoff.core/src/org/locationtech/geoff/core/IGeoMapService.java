@@ -27,5 +27,4 @@ public interface IGeoMapService extends IChangeSupport {
 	void shutdown();
 
 	<T> T adaptTo(Class<T> type);
-
 }

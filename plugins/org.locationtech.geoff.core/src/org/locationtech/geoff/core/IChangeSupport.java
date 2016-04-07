@@ -13,6 +13,8 @@ package org.locationtech.geoff.core;
 import java.util.EventObject;
 import java.util.function.Consumer;
 
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+
 public interface IChangeSupport {
 	boolean canUndo();
 
@@ -27,4 +29,6 @@ public interface IChangeSupport {
 	void onChange(Consumer<EventObject> event);
 
 	void batchChanges(Runnable... runnable);
+
+	IObservableValue transactional(IObservableValue detailObsDescr);
 }

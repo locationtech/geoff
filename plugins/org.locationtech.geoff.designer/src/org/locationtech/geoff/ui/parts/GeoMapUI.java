@@ -72,15 +72,17 @@ public class GeoMapUI {
 			return;
 		}
 
-		geoMapComposite.getDisplay().asyncExec(() -> {
-			// TODO incremental update instead of full reload
-			geoMapComposite.reloadMap();
-		});
+//		geoMapComposite.getDisplay().asyncExec(() -> {
+//			// TODO incremental update instead of full reload
+//			geoMapComposite.reloadMap();
+//		});
 
 		boolean canUndo = geoMapService.canUndo();
 		part.setDirty(canUndo);
 		eventBrowker.post(UIEvents.REQUEST_ENABLEMENT_UPDATE_TOPIC, UIConsts.EDIT_UNDO);
 		eventBrowker.post(UIEvents.REQUEST_ENABLEMENT_UPDATE_TOPIC, UIConsts.EDIT_REDO);
+		eventBrowker.post(UIEvents.REQUEST_ENABLEMENT_UPDATE_TOPIC, UIConsts.FILE_SAVE);
+		eventBrowker.post(UIEvents.REQUEST_ENABLEMENT_UPDATE_TOPIC, UIConsts.FILE_SAVE_AS);
 	};
 
 	private String alias;

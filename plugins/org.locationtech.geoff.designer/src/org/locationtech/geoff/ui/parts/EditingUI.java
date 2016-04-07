@@ -4,28 +4,37 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.conversion.Converter;
 import org.eclipse.core.databinding.conversion.IConverter;
+import org.eclipse.core.databinding.observable.masterdetail.MasterDetailObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.emf.databinding.EMFObservables;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.ControlContribution;
 import org.eclipse.jface.action.CoolBarManager;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.databinding.swt.ISWTObservableValue;
+import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Text;
 import org.locationtech.geoff.Feature;
+import org.locationtech.geoff.GeoffPackage;
 import org.locationtech.geoff.core.Geoff;
 import org.locationtech.geoff.core.IGeoMapService;
 import org.locationtech.geoff.designer.internal.DesignerUtil;
 import org.locationtech.geoff.geom.SimpleGeometry;
 import org.locationtech.geoff.layer.Layer;
+import org.locationtech.geoff.layer.LayerPackage;
 import org.locationtech.geoff.layer.VectorLayer;
 import org.locationtech.geoff.source.VectorSource;
 import org.locationtech.geoff.ui.Observable;
@@ -72,30 +81,33 @@ public class EditingUI {
 		cbMan.createControl(parent);
 
 		// setup editing toolbar
-		createEditingToolbar(gmWidget, cbMan);
+		createEditingToolbar(gms, gmWidget, cbMan);
 		cbMan.update(true);
-
-		IObservableValue geomAdded = gmWidget.observeValue(IGeoMapWidget.Property.GEOMETRY_ADDED);
-		geomAdded.addValueChangeListener(ev -> {
-			if (layerObservable.isDisposed() || !(Boolean) converter.convert(layerObservable.getValue())) {
-				return;
-			}
-
-			VectorLayer vectorLayer = (VectorLayer) layerObservable.getValue();
-			SimpleGeometry geom = (SimpleGeometry) ev.diff.getNewValue();
-			VectorSource source = (VectorSource) vectorLayer.getSource();
-			Feature feature = Geoff.feature(geom, null);
-
-			gms.batchChanges(() -> {
-				source.getFeatures().add(feature);
-			});
-		});
 	}
 
-	private void createEditingToolbar(IGeoMapWidget gmWidget, CoolBarManager cbMan) {
+	@PreDestroy
+	public void preDestroy() {
+		dbc.dispose();
+	}
+
+	private void createEditingToolbar(IGeoMapService gms, IGeoMapWidget gmWidget, CoolBarManager cbMan) {
 		IObservableValue observeValue = gmWidget.observeValue(Property.EDITING_MODE);
 		ToolBarManager tbMan = new ToolBarManager(SWT.FLAT);
 		tbMan.createControl(cbMan.getControl());
+		tbMan.add(new ControlContribution("active-layer") {
+
+			@Override
+			protected Control createControl(Composite parent) {
+				Text layerName = new Text(parent, SWT.READ_ONLY);
+				ISWTObservableValue textObservable = WidgetProperties.text().observe(layerName);
+				ISWTObservableValue tooltipObservable = WidgetProperties.tooltipText().observe(layerName);
+				IObservableValue layerNameObservable = EMFObservables.observeDetailValue(textObservable.getRealm(),
+						layerObservable, GeoffPackage.Literals.DESCRIPTIVE__SHORT_DESCRIPTION);
+				dbc.bindValue(textObservable, layerNameObservable);
+				dbc.bindValue(tooltipObservable, layerNameObservable);
+				return layerName;
+			}
+		});
 		editingModeParams.entrySet().stream().forEach(e -> {
 			EditingMode key = e.getKey();
 			Object[] params = e.getValue();
@@ -123,5 +135,21 @@ public class EditingUI {
 		UpdateValueStrategy modelToTarget = new UpdateValueStrategy();
 		modelToTarget.setConverter(converter);
 		dbc.bindValue(tbEnabledObservable, layerObservable, null, modelToTarget);
+
+		IObservableValue geomAdded = gmWidget.observeValue(IGeoMapWidget.Property.GEOMETRY_ADDED);
+		geomAdded.addValueChangeListener(ev -> {
+			if (layerObservable.isDisposed() || !(Boolean) converter.convert(layerObservable.getValue())) {
+				return;
+			}
+
+			VectorLayer vectorLayer = (VectorLayer) layerObservable.getValue();
+			SimpleGeometry geom = (SimpleGeometry) ev.diff.getNewValue();
+			VectorSource source = (VectorSource) vectorLayer.getSource();
+			Feature feature = Geoff.feature(geom, null);
+
+			gms.batchChanges(() -> {
+				source.getFeatures().add(feature);
+			});
+		});
 	}
 }

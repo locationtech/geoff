@@ -16,6 +16,8 @@ import java.util.EventObject;
 import java.util.List;
 import java.util.function.Consumer;
 
+import org.eclipse.core.databinding.observable.value.DecoratingObservableValue;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
@@ -66,12 +68,14 @@ public class ChangeRecorderGeoMapServiceImpl implements IGeoMapService {
 			}
 		}
 
+		EObject eObject = Geoff.toEObject(geoMap);
+
 		if (geoMap == null) {
 			geoMap = Geoff.createMap().get();
-			resource.getContents().add(Geoff.toEObject(geoMap));
+			resource.getContents().add(eObject);
 		}
 
-		Geoff.toEObject(geoMap).eAdapters().add(new EditingDomainAdapter());
+		eObject.eAdapters().add(new EditingDomainAdapter());
 	}
 
 	@Override
@@ -176,5 +180,17 @@ public class ChangeRecorderGeoMapServiceImpl implements IGeoMapService {
 		}
 
 		return null;
+	}
+
+	@Override
+	public IObservableValue transactional(IObservableValue observableValue) {
+		return new DecoratingObservableValue(observableValue, true) {
+			@Override
+			public void setValue(Object value) {
+				batchChanges(() -> {
+					super.setValue(value);
+				});
+			}
+		};
 	}
 }
