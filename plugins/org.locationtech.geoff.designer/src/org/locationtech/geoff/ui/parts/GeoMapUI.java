@@ -72,10 +72,10 @@ public class GeoMapUI {
 			return;
 		}
 
-//		geoMapComposite.getDisplay().asyncExec(() -> {
-//			// TODO incremental update instead of full reload
-//			geoMapComposite.reloadMap();
-//		});
+		// geoMapComposite.getDisplay().asyncExec(() -> {
+		// // TODO incremental update instead of full reload
+		// geoMapComposite.reloadMap();
+		// });
 
 		boolean canUndo = geoMapService.canUndo();
 		part.setDirty(canUndo);
@@ -186,10 +186,9 @@ public class GeoMapUI {
 		geoMapComposite.loadMap(geoMap);
 		context.set(IGeoMapWidget.class, geoMapComposite);
 
-		EditingUI editingUI = new EditingUI();
 		IEclipseContext local = context.createChild();
 		local.set(Composite.class, top);
-		ContextInjectionFactory.inject(editingUI, local);
+		ContextInjectionFactory.make(EditingUI.class, local);
 	}
 
 	@Focus

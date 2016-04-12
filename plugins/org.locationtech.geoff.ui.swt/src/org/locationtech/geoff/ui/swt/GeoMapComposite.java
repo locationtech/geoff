@@ -257,8 +257,11 @@ public class GeoMapComposite extends Composite implements IGeoMapWidget, IScript
 	public IObservableValue observeValue(Property type) {
 		@SuppressWarnings("unchecked")
 		PropertyHandler<Object> handler = (PropertyHandler<Object>) PropertyHandlers.getInstance().getHandler(type);
+		// the initial value can only be retrieved if this widget is marked
+		// "complete"
 		IObservableValue value = new WritableValue(complete ? handler.getValue(this, type) : null,
 				handler.getValueType());
+		// guard to be safe against recursive calls
 		AtomicBoolean settingValue = new AtomicBoolean(false);
 		Listener listener = (e) -> {
 			if (!value.isDisposed()) {
@@ -271,13 +274,23 @@ public class GeoMapComposite extends Composite implements IGeoMapWidget, IScript
 			}
 		};
 		addListener(type, listener);
+
+		// if observable is disposed by caller, then remove it from
+		// notifications list
 		value.addDisposeListener((e) -> {
 			removeListener(type, listener);
 		});
 		value.addValueChangeListener((e) -> {
+			// check for recursive calls
 			if (!isDisposed() && !settingValue.get()) {
 				handler.setValue(GeoMapComposite.this, e.diff.getNewValue());
 			}
+		});
+		// dispose observable once the widget is disposed itself
+		// as we do not manage a list of all created observables, each
+		// observable is registered with a new dispose listener
+		addDisposeListener(evt -> {
+			value.dispose();
 		});
 		return value;
 	}

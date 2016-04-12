@@ -11,7 +11,6 @@ import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.conversion.Converter;
 import org.eclipse.core.databinding.conversion.IConverter;
-import org.eclipse.core.databinding.observable.masterdetail.MasterDetailObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.emf.databinding.EMFObservables;
 import org.eclipse.jface.action.Action;
@@ -20,7 +19,6 @@ import org.eclipse.jface.action.CoolBarManager;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.databinding.swt.ISWTObservableValue;
-import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -29,12 +27,13 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 import org.locationtech.geoff.Feature;
 import org.locationtech.geoff.GeoffPackage;
+import org.locationtech.geoff.View;
+import org.locationtech.geoff.XYZLocation;
 import org.locationtech.geoff.core.Geoff;
 import org.locationtech.geoff.core.IGeoMapService;
 import org.locationtech.geoff.designer.internal.DesignerUtil;
 import org.locationtech.geoff.geom.SimpleGeometry;
 import org.locationtech.geoff.layer.Layer;
-import org.locationtech.geoff.layer.LayerPackage;
 import org.locationtech.geoff.layer.VectorLayer;
 import org.locationtech.geoff.source.VectorSource;
 import org.locationtech.geoff.ui.Observable;
@@ -82,6 +81,7 @@ public class EditingUI {
 
 		// setup editing toolbar
 		createEditingToolbar(gms, gmWidget, cbMan);
+		createZoomingToolbar(gms, gmWidget, cbMan);
 		cbMan.update(true);
 	}
 
@@ -90,11 +90,78 @@ public class EditingUI {
 		dbc.dispose();
 	}
 
-	private void createEditingToolbar(IGeoMapService gms, IGeoMapWidget gmWidget, CoolBarManager cbMan) {
-		IObservableValue observeValue = gmWidget.observeValue(Property.EDITING_MODE);
+	private void createZoomingToolbar(IGeoMapService gms, IGeoMapWidget gmWidget, CoolBarManager cbMan) {
 		ToolBarManager tbMan = new ToolBarManager(SWT.FLAT);
 		tbMan.createControl(cbMan.getControl());
-		tbMan.add(new ControlContribution("active-layer") {
+		cbMan.add(tbMan);
+
+		IObservableValue zoomObservable = gmWidget.observeValue(IGeoMapWidget.Property.VIEW_ZOOM);
+		{
+			IObservableValue centerObservable = gmWidget.observeValue(IGeoMapWidget.Property.VIEW_CENTER);
+
+			Action action = new Action("AV") {
+				@Override
+				public void run() {
+					gms.batchChanges(() -> {
+						View view = gms.getGeoMap().getView();
+						Integer zoom = (Integer) zoomObservable.getValue();
+
+						if (zoom != null) {
+							view.setZoom(zoom);
+						}
+
+						XYZLocation center = (XYZLocation) centerObservable.getValue();
+
+						if (center != null) {
+							view.setCenter(center);
+						}
+					});
+				}
+			};
+			action.setToolTipText("Apply current view");
+			tbMan.add(action);
+		}
+
+		{
+			Action action = new Action("+") {
+				@Override
+				public void run() {
+					Integer zoom = (Integer) zoomObservable.getValue();
+
+					if (zoom != null) {
+						zoom++;
+						zoomObservable.setValue(zoom);
+					}
+				}
+			};
+			action.setToolTipText("Zoom in");
+			tbMan.add(action);
+		}
+
+		{
+			Action action = new Action("-") {
+				@Override
+				public void run() {
+					Integer zoom = (Integer) zoomObservable.getValue();
+
+					if (zoom != null) {
+						zoom--;
+						zoomObservable.setValue(zoom);
+					}
+				}
+			};
+			action.setToolTipText("Zoom out");
+			tbMan.add(action);
+		}
+	}
+
+	private void createEditingToolbar(IGeoMapService gms, IGeoMapWidget gmWidget, CoolBarManager cbMan) {
+		IObservableValue editingModeObservable = gmWidget.observeValue(Property.EDITING_MODE);
+		ToolBarManager tbMan = new ToolBarManager(SWT.FLAT);
+		tbMan.createControl(cbMan.getControl());
+		cbMan.add(tbMan);
+
+		ControlContribution item = new ControlContribution("active-layer") {
 
 			@Override
 			protected Control createControl(Composite parent) {
@@ -107,7 +174,8 @@ public class EditingUI {
 				dbc.bindValue(tooltipObservable, layerNameObservable);
 				return layerName;
 			}
-		});
+		};
+		tbMan.add(item);
 		editingModeParams.entrySet().stream().forEach(e -> {
 			EditingMode key = e.getKey();
 			Object[] params = e.getValue();
@@ -117,19 +185,18 @@ public class EditingUI {
 			Action action = new Action(actionName, IAction.AS_RADIO_BUTTON) {
 				@Override
 				public void run() {
-					if (key.equals(observeValue.getValue())) {
+					if (key.equals(editingModeObservable.getValue())) {
 						// if same item was chosen, then disable editing mode
-						observeValue.setValue(IGeoMapWidget.EditingMode.NONE);
+						editingModeObservable.setValue(IGeoMapWidget.EditingMode.NONE);
 						setChecked(false);
 					} else {
-						observeValue.setValue(key);
+						editingModeObservable.setValue(key);
 					}
 				}
 			};
 			action.setImageDescriptor(DesignerUtil.getImageDescriptor(imageFilePath));
 			tbMan.add(action);
 		});
-		cbMan.add(tbMan);
 
 		ISWTObservableValue tbEnabledObservable = WidgetProperties.enabled().observe(tbMan.getControl());
 		UpdateValueStrategy modelToTarget = new UpdateValueStrategy();
@@ -151,5 +218,6 @@ public class EditingUI {
 				source.getFeatures().add(feature);
 			});
 		});
+		tbMan.update(true);
 	}
 }
