@@ -28,7 +28,7 @@ public interface IChangeSupport {
 
 	void onChange(Consumer<EventObject> event);
 
-	void batchChanges(Runnable... runnable);
+	void execTX(String label, Runnable... runnable);
 
-	IObservableValue transactional(IObservableValue detailObsDescr);
+	IObservableValue wrapTX(String label, IObservableValue observableValue);
 }

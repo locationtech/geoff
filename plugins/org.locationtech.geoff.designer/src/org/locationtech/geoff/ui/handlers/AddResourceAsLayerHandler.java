@@ -82,7 +82,7 @@ public class AddResourceAsLayerHandler {
 		}
 
 		if (!layers.isEmpty()) {
-			geoMapService.batchChanges(() -> {
+			geoMapService.execTX("Add resource as layer", () -> {
 				layers.forEach((l) -> geoMapService.addLayer(l));
 			});
 		}

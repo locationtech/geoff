@@ -149,7 +149,7 @@ public class AddGeotaggedImagesLayer {
 			geoMapService.addLayer(layer);
 		});
 
-		geoMapService.batchChanges(commands.toArray(new Runnable[0]));
+		geoMapService.execTX("Add geocoded images as new layer", commands.toArray(new Runnable[0]));
 	}
 
 	private boolean containsScriptSrc(GeoMap geoMap, String src) {

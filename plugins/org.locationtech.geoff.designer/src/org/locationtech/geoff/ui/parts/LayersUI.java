@@ -40,6 +40,7 @@ import org.locationtech.geoff.GeoMap;
 import org.locationtech.geoff.GeoffPackage;
 import org.locationtech.geoff.core.IGeoMapService;
 import org.locationtech.geoff.layer.Layer;
+import org.locationtech.geoff.ui.DNDUtil;
 import org.locationtech.geoff.ui.PageBook;
 import org.locationtech.geoff.ui.ProvidersFactory;
 import org.locationtech.geoff.ui.UIConsts;
@@ -124,6 +125,8 @@ public class LayersUI {
 			layersViewer.setLabelProvider(aflp);
 			layersViewer.setInput(geoMapService.adaptTo(GeoMap.class));
 
+			DNDUtil.setupDND(layersViewer, geoMapService);
+
 			// make the selected layer available within the editor context,
 			// so other parts can use it
 			layerSelection = ViewersObservables.observeSingleSelection(layersViewer);
@@ -153,8 +156,9 @@ public class LayersUI {
 				Text txtName = new Text(container, SWT.BORDER);
 				txtName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 				ISWTObservableValue obsName = WidgetProperties.text(SWT.Modify).observeDelayed(200, txtName);
-				IObservableValue detailObsName = geoMapService.transactional(EMFObservables.observeDetailValue(
-						obsName.getRealm(), layerSelection, GeoffPackage.Literals.DESCRIPTIVE__SHORT_DESCRIPTION));
+				IObservableValue detailObsName = geoMapService.wrapTX("Change short description of layer",
+						EMFObservables.observeDetailValue(obsName.getRealm(), layerSelection,
+								GeoffPackage.Literals.DESCRIPTIVE__SHORT_DESCRIPTION));
 				dbc.bindValue(obsName, detailObsName);
 			}
 
@@ -168,8 +172,9 @@ public class LayersUI {
 				layoutData.heightHint = 45;
 				txtDescr.setLayoutData(layoutData);
 				ISWTObservableValue obsDescr = WidgetProperties.text(SWT.Modify).observeDelayed(200, txtDescr);
-				IObservableValue detailObsDescr = geoMapService.transactional(EMFObservables.observeDetailValue(
-						obsDescr.getRealm(), layerSelection, GeoffPackage.Literals.DESCRIPTIVE__LONG_DESCRIPTION));
+				IObservableValue detailObsDescr = geoMapService.wrapTX("Change long description of layer",
+						EMFObservables.observeDetailValue(obsDescr.getRealm(), layerSelection,
+								GeoffPackage.Literals.DESCRIPTIVE__LONG_DESCRIPTION));
 				dbc.bindValue(obsDescr, detailObsDescr);
 			}
 		}

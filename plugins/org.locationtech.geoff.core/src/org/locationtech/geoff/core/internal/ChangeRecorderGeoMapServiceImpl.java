@@ -141,7 +141,7 @@ public class ChangeRecorderGeoMapServiceImpl implements IGeoMapService {
 	}
 
 	@Override
-	public void batchChanges(Runnable... commands) {
+	public void execTX(String label, Runnable... commands) {
 		if (commands == null || commands.length == 0) {
 			return;
 		}
@@ -154,18 +154,22 @@ public class ChangeRecorderGeoMapServiceImpl implements IGeoMapService {
 				Arrays.asList(commands).forEach((r) -> r.run());
 			}
 		};
+		
+		if (label != null) {
+			cc.setLabel(label);
+		}
 
 		commandStack().execute(cc);
 	}
 
 	@Override
 	public void addLayer(Layer l) {
-		batchChanges(() -> geoMap.getLayers().add(l));
+		execTX("Add new layer", () -> geoMap.getLayers().add(l));
 	}
 
 	@Override
 	public void removeLayer(Layer l) {
-		batchChanges(() -> geoMap.getLayers().remove(l));
+		execTX("Remove layer", () -> geoMap.getLayers().remove(l));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -183,11 +187,11 @@ public class ChangeRecorderGeoMapServiceImpl implements IGeoMapService {
 	}
 
 	@Override
-	public IObservableValue transactional(IObservableValue observableValue) {
+	public IObservableValue wrapTX(String label, IObservableValue observableValue) {
 		return new DecoratingObservableValue(observableValue, true) {
 			@Override
 			public void setValue(Object value) {
-				batchChanges(() -> {
+				execTX(label, () -> {
 					super.setValue(value);
 				});
 			}

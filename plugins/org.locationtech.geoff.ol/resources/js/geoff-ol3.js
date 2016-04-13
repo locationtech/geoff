@@ -508,7 +508,6 @@
 			var coord = coords[i];
 			var location = convertObject(coord, env);
 			ret[i] = location;
-			alert(ret[i]);
 		}
 
 		return ret;

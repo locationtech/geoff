@@ -72,10 +72,10 @@ public class GeoMapUI {
 			return;
 		}
 
-		// geoMapComposite.getDisplay().asyncExec(() -> {
-		// // TODO incremental update instead of full reload
-		// geoMapComposite.reloadMap();
-		// });
+		geoMapComposite.getDisplay().asyncExec(() -> {
+			// TODO incremental update instead of full reload
+			geoMapComposite.reloadMap();
+		});
 
 		boolean canUndo = geoMapService.canUndo();
 		part.setDirty(canUndo);

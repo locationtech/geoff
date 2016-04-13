@@ -42,8 +42,6 @@ import org.locationtech.geoff.ui.swt.internal.IScriptable;
 import org.locationtech.geoff.ui.swt.internal.PropertyHandlers;
 import org.locationtech.geoff.ui.swt.internal.PropertyHandlers.PropertyHandler;
 
-import javafx.util.converter.ByteStringConverter;
-
 public class GeoMapComposite extends Composite implements IGeoMapWidget, IScriptable, IPrintable {
 	private static final String HTML_MAP_DIV_CONTAINER = "map";
 	private static final boolean ENABLE_BROWSER_POPUP_MENU = false;
@@ -56,6 +54,9 @@ public class GeoMapComposite extends Composite implements IGeoMapWidget, IScript
 	private Map<Property, Set<Consumer<PropertyEvent>>> eventConsumers = new HashMap<GeoMapComposite.Property, Set<Consumer<PropertyEvent>>>();
 	private GeoMap currentMap;
 	private Map<String, Consumer<?>> pendingResults = new HashMap<>();
+
+	private IObservableValue centerObservable = observeValue(Property.VIEW_CENTER);
+	private IObservableValue zoomObservable = observeValue(Property.VIEW_ZOOM);
 
 	public GeoMapComposite(Composite parent, int style) {
 		super(parent, style);
@@ -104,6 +105,8 @@ public class GeoMapComposite extends Composite implements IGeoMapWidget, IScript
 		unregisterFunctions();
 		currentMap = null;
 		pendingTasks.clear();
+		centerObservable.dispose();
+		zoomObservable.dispose();
 		super.dispose();
 	}
 
@@ -250,7 +253,24 @@ public class GeoMapComposite extends Composite implements IGeoMapWidget, IScript
 		// which is defined as part of the Browser instance initialization
 		String loadXML = String.format("geoff.loadFromXMLString(%s,'%s')", "geoffSWTBridge('loadMap')",
 				HTML_MAP_DIV_CONTAINER);
+
+		// remember current values of view center and zoom to be restored after
+		// reload
+		Object centerValue = centerObservable.getValue();
+		Object zoomValue = zoomObservable.getValue();
+
 		executeJavaSript(loadXML);
+
+		// restore view center and zoom
+		{
+			if (centerValue != null) {
+				centerObservable.setValue(centerValue);
+			}
+
+			if (zoomValue != null) {
+				zoomObservable.setValue(zoomValue);
+			}
+		}
 	}
 
 	@Override

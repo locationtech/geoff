@@ -27,6 +27,7 @@ import org.locationtech.geoff.ui.PersistAs;
 
 public class GeoMapEditor extends EditorPart {
 
+	private MPart mPart;
 	private GeoMapUI mapUI;
 
 	@Override
@@ -60,6 +61,7 @@ public class GeoMapEditor extends EditorPart {
 		}
 		
 		setPartName(name);
+		mPart = getContext().get(MPart.class);
 	}
 
 	private IEclipseContext getContext() {
@@ -68,7 +70,6 @@ public class GeoMapEditor extends EditorPart {
 
 	@Override
 	public boolean isDirty() {
-		MPart mPart = getContext().get(MPart.class);
 		return mPart.isDirty();
 	}
 

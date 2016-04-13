@@ -102,7 +102,7 @@ public class EditingUI {
 			Action action = new Action("AV") {
 				@Override
 				public void run() {
-					gms.batchChanges(() -> {
+					gms.execTX(getToolTipText(), () -> {
 						View view = gms.getGeoMap().getView();
 						Integer zoom = (Integer) zoomObservable.getValue();
 
@@ -118,7 +118,8 @@ public class EditingUI {
 					});
 				}
 			};
-			action.setToolTipText("Apply current view");
+			action.setToolTipText("Apply current view to map");
+			action.setImageDescriptor(DesignerUtil.getImageDescriptor("icons/apply.gif"));
 			tbMan.add(action);
 		}
 
@@ -135,6 +136,7 @@ public class EditingUI {
 				}
 			};
 			action.setToolTipText("Zoom in");
+			action.setImageDescriptor(DesignerUtil.getImageDescriptor("icons/zoom_in.gif"));
 			tbMan.add(action);
 		}
 
@@ -151,6 +153,7 @@ public class EditingUI {
 				}
 			};
 			action.setToolTipText("Zoom out");
+			action.setImageDescriptor(DesignerUtil.getImageDescriptor("icons/zoom_out.gif"));
 			tbMan.add(action);
 		}
 	}
@@ -214,7 +217,7 @@ public class EditingUI {
 			VectorSource source = (VectorSource) vectorLayer.getSource();
 			Feature feature = Geoff.feature(geom, null);
 
-			gms.batchChanges(() -> {
+			gms.execTX("Add new feature", () -> {
 				source.getFeatures().add(feature);
 			});
 		});
