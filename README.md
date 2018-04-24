@@ -1,3 +1,6 @@
+ PLEASE NOTE: This project has been archived.
+
+
 Welcome to the LocationTech Geoff Project!
 ===================
 
